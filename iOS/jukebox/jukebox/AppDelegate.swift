@@ -16,11 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
-        let navigationController = UINavigationController()
-        navigationController.viewControllers = [ViewControllerFactory.createMainViewController()]
+//        let navigationController = UINavigationController()
+//        navigationController.viewControllers = [ViewControllerFactory.createMainViewController()]
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        window?.rootViewController = navigationController
+//        window?.rootViewController = navigationController
+        window?.rootViewController = ViewControllerFactory.createMainViewController();
         window?.makeKeyAndVisible()
         
         return true

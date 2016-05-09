@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum RepeateMode : Int {
+enum RepeateMode: Int {
     case Default
     case None
     case One
