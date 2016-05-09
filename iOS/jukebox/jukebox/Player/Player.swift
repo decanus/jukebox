@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Player {
+class Player: PlayerProtocol {
     
     func play() {
         
