@@ -11,6 +11,7 @@
 		2E124B041CE0743A002BC8E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E124B031CE0743A002BC8E4 /* Assets.xcassets */; };
 		2E124B121CE0743A002BC8E4 /* jukeboxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E124B111CE0743A002BC8E4 /* jukeboxTests.swift */; };
 		2E124B1D1CE0743A002BC8E4 /* jukeboxUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E124B1C1CE0743A002BC8E4 /* jukeboxUITests.swift */; };
+		2ECBCB4D1CE079BF0015ABB8 /* TrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECBCB4C1CE079BF0015ABB8 /* TrackViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +42,7 @@
 		2E124B181CE0743A002BC8E4 /* jukeboxUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jukeboxUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E124B1C1CE0743A002BC8E4 /* jukeboxUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = jukeboxUITests.swift; sourceTree = "<group>"; };
 		2E124B1E1CE0743A002BC8E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2ECBCB4C1CE079BF0015ABB8 /* TrackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 		2E124AFB1CE0743A002BC8E4 /* jukebox */ = {
 			isa = PBXGroup;
 			children = (
+				2ECBCB4A1CE079580015ABB8 /* Scenes */,
 				2E124AFC1CE0743A002BC8E4 /* AppDelegate.swift */,
 				2E124B031CE0743A002BC8E4 /* Assets.xcassets */,
 				2E124B081CE0743A002BC8E4 /* Info.plist */,
@@ -114,6 +117,22 @@
 				2E124B1E1CE0743A002BC8E4 /* Info.plist */,
 			);
 			path = jukeboxUITests;
+			sourceTree = "<group>";
+		};
+		2ECBCB4A1CE079580015ABB8 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				2ECBCB4B1CE079AD0015ABB8 /* Track */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		2ECBCB4B1CE079AD0015ABB8 /* Track */ = {
+			isa = PBXGroup;
+			children = (
+				2ECBCB4C1CE079BF0015ABB8 /* TrackViewController.swift */,
+			);
+			path = Track;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -248,6 +267,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2ECBCB4D1CE079BF0015ABB8 /* TrackViewController.swift in Sources */,
 				2E124AFD1CE0743A002BC8E4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -373,6 +393,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = jukebox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jukebox.jukebox;
@@ -384,6 +405,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = jukebox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jukebox.jukebox;
@@ -456,6 +478,7 @@
 				2E124B231CE0743A002BC8E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2E124B241CE0743A002BC8E4 /* Build configuration list for PBXNativeTarget "jukeboxTests" */ = {
 			isa = XCConfigurationList;
@@ -464,6 +487,7 @@
 				2E124B261CE0743A002BC8E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2E124B271CE0743A002BC8E4 /* Build configuration list for PBXNativeTarget "jukeboxUITests" */ = {
 			isa = XCConfigurationList;
@@ -472,6 +496,7 @@
 				2E124B291CE0743A002BC8E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
