@@ -16,6 +16,10 @@ class Playlist {
         return tracks
     }
     
+    func addTrack(track: Track) {
+        self.tracks.append(track)
+    }
+    
     func getTotalDuration() -> NSTimeInterval {
         var duration: NSTimeInterval = 0
         
