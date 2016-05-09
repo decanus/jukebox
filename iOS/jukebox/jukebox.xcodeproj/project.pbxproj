@@ -14,6 +14,8 @@
 		2ECBCB4D1CE079BF0015ABB8 /* TrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECBCB4C1CE079BF0015ABB8 /* TrackViewController.swift */; };
 		2ECBCB501CE07A130015ABB8 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECBCB4F1CE07A130015ABB8 /* MainViewController.swift */; };
 		2ECBCB531CE07BD20015ABB8 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECBCB521CE07BD20015ABB8 /* Player.swift */; };
+		2ECBCB561CE07D5A0015ABB8 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECBCB551CE07D5A0015ABB8 /* Track.swift */; };
+		2ECBCB5A1CE07DC10015ABB8 /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECBCB591CE07DC10015ABB8 /* Platform.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		2ECBCB4C1CE079BF0015ABB8 /* TrackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackViewController.swift; sourceTree = "<group>"; };
 		2ECBCB4F1CE07A130015ABB8 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		2ECBCB521CE07BD20015ABB8 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		2ECBCB551CE07D5A0015ABB8 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
+		2ECBCB591CE07DC10015ABB8 /* Platform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Platform.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,9 +156,19 @@
 		2ECBCB511CE07BC30015ABB8 /* Player */ = {
 			isa = PBXGroup;
 			children = (
+				2ECBCB541CE07D530015ABB8 /* Tracks */,
 				2ECBCB521CE07BD20015ABB8 /* Player.swift */,
+				2ECBCB591CE07DC10015ABB8 /* Platform.swift */,
 			);
 			path = Player;
+			sourceTree = "<group>";
+		};
+		2ECBCB541CE07D530015ABB8 /* Tracks */ = {
+			isa = PBXGroup;
+			children = (
+				2ECBCB551CE07D5A0015ABB8 /* Track.swift */,
+			);
+			path = Tracks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -289,7 +303,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2ECBCB5A1CE07DC10015ABB8 /* Platform.swift in Sources */,
 				2ECBCB531CE07BD20015ABB8 /* Player.swift in Sources */,
+				2ECBCB561CE07D5A0015ABB8 /* Track.swift in Sources */,
 				2ECBCB501CE07A130015ABB8 /* MainViewController.swift in Sources */,
 				2ECBCB4D1CE079BF0015ABB8 /* TrackViewController.swift in Sources */,
 				2E124AFD1CE0743A002BC8E4 /* AppDelegate.swift in Sources */,
