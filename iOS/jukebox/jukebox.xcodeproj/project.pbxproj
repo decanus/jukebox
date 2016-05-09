@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E0C6B381CE122960016C9FC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0C6B371CE122960016C9FC /* AVFoundation.framework */; };
 		2E124AFD1CE0743A002BC8E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E124AFC1CE0743A002BC8E4 /* AppDelegate.swift */; };
 		2E124B041CE0743A002BC8E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E124B031CE0743A002BC8E4 /* Assets.xcassets */; };
 		2E124B121CE0743A002BC8E4 /* jukeboxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E124B111CE0743A002BC8E4 /* jukeboxTests.swift */; };
@@ -43,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2E0C6B371CE122960016C9FC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2E124AF91CE0743A002BC8E4 /* jukebox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = jukebox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E124AFC1CE0743A002BC8E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2E124B031CE0743A002BC8E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E0C6B381CE122960016C9FC /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +98,7 @@
 		2E124AF01CE0743A002BC8E4 = {
 			isa = PBXGroup;
 			children = (
+				2E0C6B371CE122960016C9FC /* AVFoundation.framework */,
 				2E124AFB1CE0743A002BC8E4 /* jukebox */,
 				2E124B101CE0743A002BC8E4 /* jukeboxTests */,
 				2E124B1B1CE0743A002BC8E4 /* jukeboxUITests */,
