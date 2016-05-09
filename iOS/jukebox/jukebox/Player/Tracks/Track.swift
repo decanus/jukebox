@@ -12,6 +12,8 @@ protocol Track {
     
     func getID() -> String
     
+    func getTitle() -> String
+    
     func getDuration() -> NSTimeInterval
     
     func getPlatform() -> Platform
