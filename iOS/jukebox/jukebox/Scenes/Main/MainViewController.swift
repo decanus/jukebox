@@ -1,5 +1,5 @@
 //
-//  TrackViewController.swift
+//  MainViewController.swift
 //  jukebox
 //
 //  Created by Dean Eigenmann on 09/05/16.
@@ -8,15 +8,17 @@
 
 import UIKit
 
-class TrackViewController: UIViewController {
+class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
 }
