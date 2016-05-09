@@ -10,6 +10,13 @@ import UIKit
 
 class TrackViewController: UIViewController {
 
+    private let track: Track
+    
+    init(track: Track) {
+        self.track = track
+        super.init(nibName: nil, bundle: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
