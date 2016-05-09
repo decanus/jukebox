@@ -18,16 +18,25 @@ class Player: PlayerProtocol {
         
     }
     
-    func isPlaying() -> Bool {
-        return false
-    }
-    
     func next() {
         
     }
     
     func previous() {
         
+    }
+    
+    
+    func getNowPlaying() -> Track {
+        return YoutubeTrack()
+    }
+    
+    func getPlaybackState() -> PlaybackState {
+        return .Stopped
+    }
+    
+    func getRepeatMode() -> RepeateMode {
+        return .None
     }
     
 }

@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2E0C6B381CE122960016C9FC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0C6B371CE122960016C9FC /* AVFoundation.framework */; };
+		2E0C6B3C1CE124EA0016C9FC /* PlaybackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C6B3B1CE124EA0016C9FC /* PlaybackState.swift */; };
+		2E0C6B3E1CE125420016C9FC /* RepeatMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C6B3D1CE125420016C9FC /* RepeatMode.swift */; };
 		2E124AFD1CE0743A002BC8E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E124AFC1CE0743A002BC8E4 /* AppDelegate.swift */; };
 		2E124B041CE0743A002BC8E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E124B031CE0743A002BC8E4 /* Assets.xcassets */; };
 		2E124B121CE0743A002BC8E4 /* jukeboxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E124B111CE0743A002BC8E4 /* jukeboxTests.swift */; };
@@ -44,7 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2E0C6B371CE122960016C9FC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		2E0C6B3B1CE124EA0016C9FC /* PlaybackState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackState.swift; sourceTree = "<group>"; };
+		2E0C6B3D1CE125420016C9FC /* RepeatMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatMode.swift; sourceTree = "<group>"; };
 		2E124AF91CE0743A002BC8E4 /* jukebox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = jukebox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E124AFC1CE0743A002BC8E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2E124B031CE0743A002BC8E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -74,7 +76,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E0C6B381CE122960016C9FC /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,7 +99,6 @@
 		2E124AF01CE0743A002BC8E4 = {
 			isa = PBXGroup;
 			children = (
-				2E0C6B371CE122960016C9FC /* AVFoundation.framework */,
 				2E124AFB1CE0743A002BC8E4 /* jukebox */,
 				2E124B101CE0743A002BC8E4 /* jukeboxTests */,
 				2E124B1B1CE0743A002BC8E4 /* jukeboxUITests */,
@@ -183,6 +183,8 @@
 				2ECBCB521CE07BD20015ABB8 /* Player.swift */,
 				2ECBCB591CE07DC10015ABB8 /* Platform.swift */,
 				2ECBCB5B1CE07E480015ABB8 /* Playlist.swift */,
+				2E0C6B3B1CE124EA0016C9FC /* PlaybackState.swift */,
+				2E0C6B3D1CE125420016C9FC /* RepeatMode.swift */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -378,11 +380,13 @@
 				2ECBCB5F1CE080580015ABB8 /* PlayerViewController.swift in Sources */,
 				2ECBCB531CE07BD20015ABB8 /* Player.swift in Sources */,
 				2ECBCB561CE07D5A0015ABB8 /* Track.swift in Sources */,
+				2E0C6B3E1CE125420016C9FC /* RepeatMode.swift in Sources */,
 				2ECBCB671CE0892C0015ABB8 /* YoutubeTrack.swift in Sources */,
 				2ECBCB6A1CE09C8C0015ABB8 /* SearchViewController.swift in Sources */,
 				2ECBCB5C1CE07E480015ABB8 /* Playlist.swift in Sources */,
 				2ECBCB621CE0809D0015ABB8 /* PlaylistViewController.swift in Sources */,
 				2ECBCB6F1CE09DB90015ABB8 /* PlayerProtocol.swift in Sources */,
+				2E0C6B3C1CE124EA0016C9FC /* PlaybackState.swift in Sources */,
 				2ECBCB501CE07A130015ABB8 /* MainViewController.swift in Sources */,
 				2ECBCB4D1CE079BF0015ABB8 /* TrackViewController.swift in Sources */,
 				2E124AFD1CE0743A002BC8E4 /* AppDelegate.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  PlayerProtocol.swift
+//  PlaybackState.swift
 //  jukebox
 //
 //  Created by Dean Eigenmann on 09/05/16.
@@ -8,10 +8,8 @@
 
 import Foundation
 
-protocol PlayerProtocol {
-    
-    func pause()
-    
-    func play()
-    
+enum PlaybackState : Int {
+    case Stopped
+    case Playing
+    case Paused
 }
