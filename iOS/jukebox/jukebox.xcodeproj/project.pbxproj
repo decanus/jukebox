@@ -16,6 +16,7 @@
 		2ECBCB531CE07BD20015ABB8 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECBCB521CE07BD20015ABB8 /* Player.swift */; };
 		2ECBCB561CE07D5A0015ABB8 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECBCB551CE07D5A0015ABB8 /* Track.swift */; };
 		2ECBCB5A1CE07DC10015ABB8 /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECBCB591CE07DC10015ABB8 /* Platform.swift */; };
+		2ECBCB5C1CE07E480015ABB8 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECBCB5B1CE07E480015ABB8 /* Playlist.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		2ECBCB521CE07BD20015ABB8 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		2ECBCB551CE07D5A0015ABB8 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		2ECBCB591CE07DC10015ABB8 /* Platform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Platform.swift; sourceTree = "<group>"; };
+		2ECBCB5B1CE07E480015ABB8 /* Playlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +161,7 @@
 				2ECBCB541CE07D530015ABB8 /* Tracks */,
 				2ECBCB521CE07BD20015ABB8 /* Player.swift */,
 				2ECBCB591CE07DC10015ABB8 /* Platform.swift */,
+				2ECBCB5B1CE07E480015ABB8 /* Playlist.swift */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -240,6 +243,11 @@
 					2E124AF81CE0743A002BC8E4 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = 9W792Z62E5;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					2E124B0C1CE0743A002BC8E4 = {
 						CreatedOnToolsVersion = 7.3;
@@ -306,6 +314,7 @@
 				2ECBCB5A1CE07DC10015ABB8 /* Platform.swift in Sources */,
 				2ECBCB531CE07BD20015ABB8 /* Player.swift in Sources */,
 				2ECBCB561CE07D5A0015ABB8 /* Track.swift in Sources */,
+				2ECBCB5C1CE07E480015ABB8 /* Playlist.swift in Sources */,
 				2ECBCB501CE07A130015ABB8 /* MainViewController.swift in Sources */,
 				2ECBCB4D1CE079BF0015ABB8 /* TrackViewController.swift in Sources */,
 				2E124AFD1CE0743A002BC8E4 /* AppDelegate.swift in Sources */,
