@@ -22,4 +22,12 @@ class Player {
         return false
     }
     
+    func next() {
+        
+    }
+    
+    func previous() {
+        
+    }
+    
 }
