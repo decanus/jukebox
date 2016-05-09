@@ -20,6 +20,7 @@
 		2ECBCB5F1CE080580015ABB8 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECBCB5E1CE080580015ABB8 /* PlayerViewController.swift */; };
 		2ECBCB621CE0809D0015ABB8 /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECBCB611CE0809D0015ABB8 /* PlaylistViewController.swift */; };
 		2ECBCB651CE087780015ABB8 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECBCB641CE087780015ABB8 /* ViewControllerFactory.swift */; };
+		2ECBCB671CE0892C0015ABB8 /* YoutubeTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECBCB661CE0892C0015ABB8 /* YoutubeTrack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		2ECBCB5E1CE080580015ABB8 /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		2ECBCB611CE0809D0015ABB8 /* PlaylistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; };
 		2ECBCB641CE087780015ABB8 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
+		2ECBCB661CE0892C0015ABB8 /* YoutubeTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoutubeTrack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				2ECBCB551CE07D5A0015ABB8 /* Track.swift */,
+				2ECBCB661CE0892C0015ABB8 /* YoutubeTrack.swift */,
 			);
 			path = Tracks;
 			sourceTree = "<group>";
@@ -349,6 +352,7 @@
 				2ECBCB5F1CE080580015ABB8 /* PlayerViewController.swift in Sources */,
 				2ECBCB531CE07BD20015ABB8 /* Player.swift in Sources */,
 				2ECBCB561CE07D5A0015ABB8 /* Track.swift in Sources */,
+				2ECBCB671CE0892C0015ABB8 /* YoutubeTrack.swift in Sources */,
 				2ECBCB5C1CE07E480015ABB8 /* Playlist.swift in Sources */,
 				2ECBCB621CE0809D0015ABB8 /* PlaylistViewController.swift in Sources */,
 				2ECBCB501CE07A130015ABB8 /* MainViewController.swift in Sources */,
