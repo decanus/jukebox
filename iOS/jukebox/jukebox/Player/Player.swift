@@ -10,4 +10,16 @@ import Foundation
 
 class Player {
     
+    func play() {
+        
+    }
+    
+    func pause() {
+        
+    }
+    
+    func isPlaying() -> Bool {
+        return false
+    }
+    
 }
