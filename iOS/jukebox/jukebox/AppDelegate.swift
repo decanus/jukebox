@@ -17,7 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
         let navigationController = UINavigationController()
-        navigationController.setViewControllers([ViewControllerFactory.createMainViewController()], animated: true)
+        navigationController.viewControllers = [ViewControllerFactory.createMainViewController()]
+        
+        window = UIWindow(frame: UIScreen.mainScreen().bounds)
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
         
