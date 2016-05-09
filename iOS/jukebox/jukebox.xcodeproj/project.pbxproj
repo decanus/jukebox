@@ -25,6 +25,7 @@
 		2ECBCB671CE0892C0015ABB8 /* YoutubeTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECBCB661CE0892C0015ABB8 /* YoutubeTrack.swift */; };
 		2ECBCB6A1CE09C8C0015ABB8 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECBCB691CE09C8C0015ABB8 /* SearchViewController.swift */; };
 		2ECBCB6F1CE09DB90015ABB8 /* PlayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECBCB6E1CE09DB90015ABB8 /* PlayerProtocol.swift */; };
+		AC12BEB503A5500F4961755D /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC12BBD7F1CA543F56C1351A /* TabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		2ECBCB661CE0892C0015ABB8 /* YoutubeTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoutubeTrack.swift; sourceTree = "<group>"; };
 		2ECBCB691CE09C8C0015ABB8 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		2ECBCB6E1CE09DB90015ABB8 /* PlayerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerProtocol.swift; sourceTree = "<group>"; };
+		AC12BBD7F1CA543F56C1351A /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 				2E124AFC1CE0743A002BC8E4 /* AppDelegate.swift */,
 				2E124B031CE0743A002BC8E4 /* Assets.xcassets */,
 				2E124B081CE0743A002BC8E4 /* Info.plist */,
+				AC12BCA3BA069A330D5D58A2 /* Controllers */,
 			);
 			path = jukebox;
 			sourceTree = "<group>";
@@ -236,6 +239,14 @@
 				2ECBCB6E1CE09DB90015ABB8 /* PlayerProtocol.swift */,
 			);
 			path = Players;
+			sourceTree = "<group>";
+		};
+		AC12BCA3BA069A330D5D58A2 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				AC12BBD7F1CA543F56C1351A /* TabBarController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -390,6 +401,7 @@
 				2ECBCB501CE07A130015ABB8 /* MainViewController.swift in Sources */,
 				2ECBCB4D1CE079BF0015ABB8 /* TrackViewController.swift in Sources */,
 				2E124AFD1CE0743A002BC8E4 /* AppDelegate.swift in Sources */,
+				AC12BEB503A5500F4961755D /* TabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
