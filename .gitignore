@@ -1,0 +1,9 @@
+.idea/
+
+iOS/jukebox/jukebox.xcworkspace/
+iOS/jukebox/jukebox.xcodeproj/project.xcworkspace/xcuserdata/
+iOS/jukebox/jukebox.xcodeproj/xcuserdata/
+iOS/jukebox/Pods/*
+iOS/jukebox/Podfile.lock
+*autoload.php
+cache.properties
