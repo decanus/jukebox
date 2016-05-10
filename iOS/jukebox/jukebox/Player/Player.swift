@@ -42,6 +42,8 @@ class Player: NSObject, PlayerProtocol {
         if currentTrack is YoutubeTrack {
             youtubePlayer.pause()
         }
+        
+        playbackState = .Paused
     }
     
     func next() {
@@ -84,7 +86,7 @@ class Player: NSObject, PlayerProtocol {
     }
     
     func getPlaybackState() -> PlaybackState {
-        return .Stopped
+        return playbackState
     }
     
     func getRepeatMode() -> RepeateMode {
