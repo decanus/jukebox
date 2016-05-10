@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Player: PlayerProtocol {
+class Player: NSObject, PlayerProtocol {
     
     // EXPERIMENTAL
     private let youtubePlayer: YoutubePlayer

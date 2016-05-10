@@ -11,7 +11,7 @@ import Foundation
 class ViewControllerFactory {
     
     class func createMainViewController() -> MainViewController {
-        return MainViewController()
+        return MainViewController(player: PlayerFactory.createPlayer())
     }
     
 //    class func createPlayerViewController() -> PlayerViewController {
