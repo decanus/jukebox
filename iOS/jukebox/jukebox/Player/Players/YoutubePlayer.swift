@@ -9,16 +9,14 @@
 import AVFoundation
 import youtube_ios_player_helper
 
-// @TODO move delegate
+// @TODO move delegate, cleanup
 class YoutubePlayer: NSObject, PlayerProtocol, YTPlayerViewDelegate {
     
     private let playerView: YTPlayerView
-    private let audioSession: AVAudioSession
 //    let tracks = [Track]()
     
-    init(audioSession: AVAudioSession) {
+    override init() {
         playerView = YTPlayerView(frame: CGRect(x: 0, y: 0, width: 300, height: 200))
-        self.audioSession = audioSession
         super.init()
         playerView.delegate = self
     }
@@ -41,7 +39,7 @@ class YoutubePlayer: NSObject, PlayerProtocol, YTPlayerViewDelegate {
             "autoplay" : 1,
             "showinfo" : 0,
             "rel" : 0,
-            "modestbranding" : 1,
+            "modestbranding" : 0,
             "controls" : 0,
             "origin" : "http://www.jukebox.ninja"
             ]
@@ -50,7 +48,6 @@ class YoutubePlayer: NSObject, PlayerProtocol, YTPlayerViewDelegate {
     
     func appendPlayerToView(view: UIView) {
         view.addSubview(playerView)
-      
     }
     
     func playerViewDidBecomeReady(playerView: YTPlayerView) {

@@ -33,6 +33,13 @@ class Player: PlayerProtocol {
         
     }
     
+    func playTrack(track: Track) {
+        if track is YoutubeTrack {
+            youtubePlayer.setTrack(track)
+        }
+        
+        play()
+    }
     
     func getNowPlaying() -> Track {
         return YoutubeTrack()

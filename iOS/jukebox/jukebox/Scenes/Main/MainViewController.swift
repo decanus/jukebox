@@ -11,7 +11,7 @@ import AVFoundation
 
 class MainViewController: UIViewController {
 
-    private var player: YoutubePlayer!
+    private var player: Player!
     private var audioSession: AVAudioSession!
     
     override func viewDidLoad() {
@@ -19,25 +19,9 @@ class MainViewController: UIViewController {
 
         view.backgroundColor = UIColor.whiteColor()
         audioSession = AVAudioSession.sharedInstance()
-//        
-//        do {
-//            try audioSession.setCategory(AVAudioSessionCategoryPlayback)
-//            
-//            do {
-//                try AVAudioSession.sharedInstance().setActive(true)
-//                print("AVAudioSession is Active")
-//            } catch let error as NSError {
-//                print(error.localizedDescription)
-//            }
-//            
-//        } catch let error as NSError {
-//            print(error.localizedDescription)
-//        }
         
-        player = YoutubePlayer(audioSession: audioSession)
-        player.setTrack(YoutubeTrack())
-        player.appendPlayerToView(view)
-        
+        player = Player(youtubePlayer: YoutubePlayer())
+        player.playTrack(YoutubeTrack())
     }
     
     override func didReceiveMemoryWarning() {
