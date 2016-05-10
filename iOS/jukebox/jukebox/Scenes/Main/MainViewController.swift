@@ -29,12 +29,6 @@ class MainViewController: UIViewController {
         view.backgroundColor = UIColor.whiteColor()
                 
         player.playTrack(YoutubeTrack())
-        
-        let time = dispatch_time(dispatch_time_t(DISPATCH_TIME_NOW), 4 * Int64(NSEC_PER_SEC))
-        dispatch_after(time, dispatch_get_main_queue()) {
-            self.navigationController!.presentViewController(ViewControllerFactory.createPlayerViewController(), animated: true, completion: nil)
-        }
-        
     }
     
     override func didReceiveMemoryWarning() {
