@@ -8,10 +8,16 @@
 
 import Foundation
 
-class YoutubeTrack: Track {
+class YoutubeTrack: NSObject, Track {
+    
+    private let id: String
+    
+    init(id: String) {
+        self.id = id
+    }
     
     func getID() -> String {
-        return "uOsGx25HvmI"
+        return self.id
     }
     
     func getTitle() -> String {

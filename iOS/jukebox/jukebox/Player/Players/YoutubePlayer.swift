@@ -13,8 +13,12 @@ import youtube_ios_player_helper
 class YoutubePlayer: NSObject, PlayerProtocol, YTPlayerViewDelegate {
     
     private let playerView: YTPlayerView
+    private let player: Player
+    private var loaded = false
     
-    override init() {
+    
+    init(player: Player) {
+        self.player = player
         playerView = YTPlayerView(frame: CGRect(x: 0, y: 0, width: 300, height: 200))
         super.init()
         playerView.delegate = self
@@ -33,6 +37,12 @@ class YoutubePlayer: NSObject, PlayerProtocol, YTPlayerViewDelegate {
     }
     
     func setTrack(track: Track) {
+        
+        if loaded {
+            playerView.cueVideoById(track.getID(), startSeconds: 0.0, suggestedQuality: .Small)
+            return
+        }
+        
         playerView.loadWithVideoId(track.getID(), playerVars: [
             "playsinline" : 1,
             "autoplay" : 1,
@@ -44,6 +54,8 @@ class YoutubePlayer: NSObject, PlayerProtocol, YTPlayerViewDelegate {
             "iv_load_policy" : 3
             ]
         )
+        
+        loaded = true
     }
     
     func appendPlayerToView(view: UIView, frame: CGRect) {
@@ -60,6 +72,7 @@ class YoutubePlayer: NSObject, PlayerProtocol, YTPlayerViewDelegate {
     func playerView(playerView: YTPlayerView, didChangeToState state: YTPlayerState) {
         
         if state == .Ended {
+            player.next()
             // @todo, notify player that we have ended
         }
         

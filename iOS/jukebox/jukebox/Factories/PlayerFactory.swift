@@ -14,7 +14,9 @@ class PlayerFactory {
     
     class func createPlayer() -> Player {
         if player == nil {
-            player = Player(youtubePlayer: YoutubePlayer())
+            player = Player()
+            let youtubePlayer = YoutubePlayer(player: player)
+            player.youtubePlayer = youtubePlayer;
         }
         
         return player

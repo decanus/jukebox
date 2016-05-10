@@ -11,12 +11,9 @@ import UIKit
 class Player: NSObject, PlayerProtocol {
     
     // EXPERIMENTAL
-    private let youtubePlayer: YoutubePlayer
+    var youtubePlayer: YoutubePlayer! = nil
     private var currentTrack: Track?
-    
-    init(youtubePlayer: YoutubePlayer) {
-        self.youtubePlayer = youtubePlayer
-    }
+    private var currentTrackIndex: Int? = nil
     
     func play() {
         if currentTrack is YoutubeTrack {
@@ -31,7 +28,7 @@ class Player: NSObject, PlayerProtocol {
     }
     
     func next() {
-        
+        playTrack(YoutubeTrack(id: "Twix375Me4Q"))
     }
     
     func previous() {

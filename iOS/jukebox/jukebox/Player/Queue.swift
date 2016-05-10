@@ -16,4 +16,12 @@ class Queue: NSObject {
         queue.append(track)
     }
     
+    func removeTrack(index: Int) {
+        queue.removeAtIndex(index)
+    }
+    
+    func clearQueue() {
+        queue.removeAll()
+    }
+    
 }
