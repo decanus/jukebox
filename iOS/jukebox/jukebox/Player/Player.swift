@@ -12,17 +12,22 @@ class Player: NSObject, PlayerProtocol {
     
     // EXPERIMENTAL
     private let youtubePlayer: YoutubePlayer
+    private var currentTrack: Track?
     
     init(youtubePlayer: YoutubePlayer) {
         self.youtubePlayer = youtubePlayer
     }
     
     func play() {
-        self.youtubePlayer.play()
+        if currentTrack is YoutubeTrack {
+            youtubePlayer.play()
+        }
     }
     
     func pause() {
-        self.youtubePlayer.pause()
+        if currentTrack is YoutubeTrack {
+            youtubePlayer.pause()
+        }
     }
     
     func next() {
@@ -38,11 +43,13 @@ class Player: NSObject, PlayerProtocol {
             youtubePlayer.setTrack(track)
         }
         
+        currentTrack = track
+        
         play()
     }
     
     func getNowPlaying() -> Track {
-        return YoutubeTrack()
+        return currentTrack!
     }
     
     func getPlaybackState() -> PlaybackState {
