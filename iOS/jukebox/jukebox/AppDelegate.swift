@@ -16,11 +16,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        let navigationController = UINavigationController()
+        navigationController.viewControllers = [ViewControllerFactory.createMainViewController()]
+        
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        window?.rootViewController = ViewControllerFactory.createPlayerViewController();
+        window?.rootViewController = navigationController;
         window?.makeKeyAndVisible()
         
-        let audioSession = AVAudioSession.sharedInstance()
+        let audioSession = AgVAudioSession.sharedInstance()
         do {
             try audioSession.setCategory(AVAudioSessionCategoryPlayback)
             
