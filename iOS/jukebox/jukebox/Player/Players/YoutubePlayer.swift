@@ -11,12 +11,18 @@ import youtube_ios_player_helper
 
 class YoutubePlayer: PlayerProtocol {
     
+    let playerView: YTPlayerView!
+    
+    init() {
+        let playerView = YTPlayerView()
+    }
+    
     func pause() {
-        
+        playerView.pauseVideo()
     }
     
     func play() {
-        
+        playerView.playVideo()
     }
     
 }
