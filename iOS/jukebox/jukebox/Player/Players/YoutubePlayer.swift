@@ -14,7 +14,7 @@ class YoutubePlayer: PlayerProtocol {
     let playerView: YTPlayerView!
     
     init() {
-        let playerView = YTPlayerView()
+        playerView = YTPlayerView()
     }
     
     func pause() {
