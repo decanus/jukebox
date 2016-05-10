@@ -40,7 +40,8 @@ class YoutubePlayer: NSObject, PlayerProtocol, YTPlayerViewDelegate {
             "rel" : 0,
             "modestbranding" : 0,
             "controls" : 0,
-            "origin" : "http://www.jukebox.ninja"
+            "origin" : "http://www.jukebox.ninja",
+            "iv_load_policy" : 3
             ]
         )
     }
