@@ -10,15 +10,32 @@ import UIKit
 
 class Player: NSObject, PlayerProtocol {
     
-    // EXPERIMENTAL
+    // EXPERIMENTAL, CLEANUP
     var youtubePlayer: YoutubePlayer! = nil
     private var currentTrack: Track?
     private var currentTrackIndex: Int? = nil
+    private var playbackState: PlaybackState = .Stopped
+    private var queue: Queue?
+    
+    func setQueue(queue: Queue) {
+        self.queue = queue
+    }
     
     func play() {
+        
+        if playbackState == .Playing {
+            return
+        }
+        
+        if playbackState == .Stopped {
+            next()
+        }
+        
         if currentTrack is YoutubeTrack {
             youtubePlayer.play()
         }
+        
+        playbackState = .Playing
     }
     
     func pause() {
@@ -28,7 +45,7 @@ class Player: NSObject, PlayerProtocol {
     }
     
     func next() {
-        playTrack(YoutubeTrack(id: "Twix375Me4Q"))
+        playTrack(queue!.getNextTrack())
     }
     
     func previous() {
@@ -41,8 +58,6 @@ class Player: NSObject, PlayerProtocol {
         }
         
         currentTrack = track
-        
-        play()
     }
     
     func hasVideoView() -> Bool {

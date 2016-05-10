@@ -11,6 +11,21 @@ import Foundation
 class Queue: NSObject {
     
     private var queue = [Track]()
+    private var currentTrack: Int? = nil
+    
+    func getNextTrack() -> Track {
+        if currentTrack == nil {
+            currentTrack = 0
+            return getTrackAtIndex(currentTrack!)
+        }
+        
+        currentTrack? += 1
+        return getTrackAtIndex(currentTrack!)
+    }
+    
+    func getTrackAtIndex(index: Int) -> Track {
+        return queue[index]
+    }
     
     func addTrack(track: Track) {
         queue.append(track)
