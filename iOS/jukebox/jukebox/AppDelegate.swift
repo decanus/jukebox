@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        window?.rootViewController = ViewControllerFactory.createMainViewController();
+        window?.rootViewController = ViewControllerFactory.createPlayerViewController();
         window?.makeKeyAndVisible()
         
         let audioSession = AVAudioSession.sharedInstance()

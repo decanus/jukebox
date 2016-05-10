@@ -45,7 +45,8 @@ class YoutubePlayer: NSObject, PlayerProtocol, YTPlayerViewDelegate {
         )
     }
     
-    func appendPlayerToView(view: UIView) {
+    func appendPlayerToView(view: UIView, frame: CGRect) {
+        playerView.frame = frame
         view.addSubview(playerView)
     }
     

@@ -6,7 +6,7 @@
 //  Copyright © 2016 jukebox. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class Player: NSObject, PlayerProtocol {
     
@@ -46,6 +46,18 @@ class Player: NSObject, PlayerProtocol {
         currentTrack = track
         
         play()
+    }
+    
+    func hasVideoView() -> Bool {
+        return currentTrack is YoutubeTrack
+    }
+    
+    func addVideoToView(view: UIView, frame: CGRect) {
+        
+        if currentTrack is YoutubeTrack {
+            youtubePlayer.appendPlayerToView(view, frame: frame)
+        }
+        
     }
     
     func getNowPlaying() -> Track {

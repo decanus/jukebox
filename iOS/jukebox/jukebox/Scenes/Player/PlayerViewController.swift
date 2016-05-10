@@ -23,8 +23,16 @@ class PlayerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        view.backgroundColor = UIColor.whiteColor()
         
-        // Do any additional setup after loading the view.
+        // @todo presenter und so
+        player.playTrack(YoutubeTrack())
+        
+        if player.hasVideoView() {
+            player.addVideoToView(view, frame: CGRect(x: 0, y: view.frame.size.height - 200, width: view.frame.size.width, height: 200))
+        }
+                
     }
     
     override func didReceiveMemoryWarning() {
