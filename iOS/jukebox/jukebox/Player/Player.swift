@@ -28,7 +28,7 @@ class Player: NSObject, PlayerProtocol {
         }
         
         if playbackState == .Stopped {
-            next()
+            start()
             return
         }
         
@@ -47,7 +47,17 @@ class Player: NSObject, PlayerProtocol {
         playbackState = .Paused
     }
     
+    func start() {
+        playTrack((queue?.getCurrentTrack())!)
+    }
+    
     func next() {
+        
+        if playbackState == .Stopped {
+            start()
+            return
+        }
+        
         if queue!.hasNext() {
             playTrack(queue!.getNextTrack())
             return

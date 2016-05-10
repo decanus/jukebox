@@ -14,16 +14,15 @@ class Queue: NSObject {
     private var queue = [Track]()
     
     // set this to 0, use a getCurrentTrack function when player is stopped
-    private var currentTrack: Int? = nil
+    private var currentTrack = 0
     
     func getNextTrack() -> Track {
-        if currentTrack == nil {
-            currentTrack = 0
-            return getTrackAtIndex(currentTrack!)
-        }
-        
-        currentTrack? += 1
-        return getTrackAtIndex(currentTrack!)
+        currentTrack += 1
+        return getTrackAtIndex(currentTrack)
+    }
+    
+    func getCurrentTrack() -> Track {
+        return getTrackAtIndex(currentTrack)
     }
     
     func getTrackAtIndex(index: Int) -> Track {
@@ -31,11 +30,7 @@ class Queue: NSObject {
     }
     
     func hasNext() -> Bool {
-        if currentTrack == nil && !queue.isEmpty {
-            return true
-        }
-        
-        return queue.count >= (currentTrack! + 2)
+        return queue.count >= (currentTrack + 2)
     }
     
     func addTrack(track: Track) {
@@ -51,7 +46,7 @@ class Queue: NSObject {
     }
     
     func rewind() {
-        currentTrack = nil
+        currentTrack = 0
     }
     
 }
