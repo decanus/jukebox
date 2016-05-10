@@ -52,12 +52,12 @@ class Player: NSObject, PlayerProtocol {
     }
     
     func next() {
-        
+
         if playbackState == .Stopped {
             start()
             return
         }
-        
+
         if queue!.hasNext() {
             playTrack(queue!.getNextTrack())
             return
