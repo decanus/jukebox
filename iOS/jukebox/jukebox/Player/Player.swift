@@ -11,7 +11,6 @@ import UIKit
 class Player: NSObject, PlayerProtocol {
     
     // EXPERIMENTAL
-    // CREATE OBSERVABLE PLAYBACK STATE, OR ADD DELEGATE FOR VIEWS
     private let youtubePlayer: YoutubePlayer
     private var currentTrack: Track?
     

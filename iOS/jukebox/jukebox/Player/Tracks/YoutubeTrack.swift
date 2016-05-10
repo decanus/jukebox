@@ -15,7 +15,7 @@ class YoutubeTrack: Track {
     }
     
     func getTitle() -> String {
-        return ""
+        return "Better"
     }
     
     func getDuration() -> NSTimeInterval {
