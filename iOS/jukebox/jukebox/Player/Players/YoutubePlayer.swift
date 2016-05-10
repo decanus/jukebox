@@ -69,10 +69,15 @@ class YoutubePlayer: NSObject, PlayerProtocol, YTPlayerViewDelegate {
         playerView.playVideo()
     }
     
+    func forwardToLastSecond() {
+        playerView.seekToSeconds(Float(playerView.duration() - 1), allowSeekAhead: true)
+    }
+    
     func playerView(playerView: YTPlayerView, didChangeToState state: YTPlayerState) {
         
         if state == .Ended {
             player.next()
+            return
             // @todo, notify player that we have ended
         }
         

@@ -49,4 +49,8 @@ class Queue: NSObject {
         currentTrack = 0
     }
     
+    func getCurrentIndex() -> Int {
+        return currentTrack
+    }
+    
 }
