@@ -10,7 +10,10 @@ import Foundation
 
 class Queue: NSObject {
     
+    // @todo make this shit less ugly
     private var queue = [Track]()
+    
+    // set this to 0, use a getCurrentTrack function when player is stopped
     private var currentTrack: Int? = nil
     
     func getNextTrack() -> Track {
