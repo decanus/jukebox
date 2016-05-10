@@ -27,7 +27,6 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = UIColor.whiteColor()
-        audioSession = AVAudioSession.sharedInstance()
         
         player.playTrack(YoutubeTrack())
     }

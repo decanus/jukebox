@@ -13,7 +13,6 @@ import youtube_ios_player_helper
 class YoutubePlayer: NSObject, PlayerProtocol, YTPlayerViewDelegate {
     
     private let playerView: YTPlayerView
-//    let tracks = [Track]()
     
     override init() {
         playerView = YTPlayerView(frame: CGRect(x: 0, y: 0, width: 300, height: 200))

@@ -10,7 +10,7 @@ import Foundation
 
 class PlayerFactory {
 
-    private static var player: Player! = nil
+    private static var player: Player!
     
     class func createPlayer() -> Player {
         if player == nil {

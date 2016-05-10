@@ -16,15 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-
-//        let navigationController = UINavigationController()
-//        navigationController.viewControllers = [ViewControllerFactory.createMainViewController()]
-        
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
-//        window?.rootViewController = navigationController
         window?.rootViewController = ViewControllerFactory.createMainViewController();
         window?.makeKeyAndVisible()
-        
         
         let audioSession = AVAudioSession.sharedInstance()
         do {
@@ -32,7 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             do {
                 try AVAudioSession.sharedInstance().setActive(true)
-                print("AVAudioSession is Active")
             } catch let error as NSError {
                 print(error.localizedDescription)
             }
