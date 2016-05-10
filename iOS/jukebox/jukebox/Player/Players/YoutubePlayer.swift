@@ -39,7 +39,7 @@ class YoutubePlayer: NSObject, PlayerProtocol, YTPlayerViewDelegate {
     func setTrack(track: Track) {
         
         if loaded {
-            playerView.cueVideoById(track.getID(), startSeconds: 0.0, suggestedQuality: .Small)
+            playerView.cueVideoById(track.getID(), startSeconds: 0.0, suggestedQuality: .Auto)
             return
         }
         
