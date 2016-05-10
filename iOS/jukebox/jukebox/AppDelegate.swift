@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,6 +24,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        window?.rootViewController = navigationController
         window?.rootViewController = ViewControllerFactory.createMainViewController();
         window?.makeKeyAndVisible()
+        
+        
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            try audioSession.setCategory(AVAudioSessionCategoryPlayback)
+            
+            do {
+                try AVAudioSession.sharedInstance().setActive(true)
+                print("AVAudioSession is Active")
+            } catch let error as NSError {
+                print(error.localizedDescription)
+            }
+            
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
         
         return true
     }
