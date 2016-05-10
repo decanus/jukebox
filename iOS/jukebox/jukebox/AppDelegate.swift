@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = navigationController;
         window?.makeKeyAndVisible()
         
-        let audioSession = AgVAudioSession.sharedInstance()
+        let audioSession = AVAudioSession.sharedInstance()
         do {
             try audioSession.setCategory(AVAudioSessionCategoryPlayback)
             
