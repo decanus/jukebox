@@ -29,13 +29,14 @@ class Player: NSObject, PlayerProtocol {
         
         if playbackState == .Stopped {
             next()
+            return
         }
         
+        playbackState = .Playing
         if currentTrack is YoutubeTrack {
             youtubePlayer.play()
         }
         
-        playbackState = .Playing
     }
     
     func pause() {
@@ -71,6 +72,8 @@ class Player: NSObject, PlayerProtocol {
     }
     
     func playTrack(track: Track) {
+        playbackState = .Playing
+        
         if track is YoutubeTrack {
             youtubePlayer.setTrack(track)
             youtubePlayer.play()
@@ -101,6 +104,17 @@ class Player: NSObject, PlayerProtocol {
     
     func getRepeatMode() -> RepeateMode {
         return .None
+    }
+    
+    func handleRemoteControl(event: UIEvent) {
+        switch event.subtype {
+        case .RemoteControlPause:
+            pause()
+        case .RemoteControlPlay:
+            play()
+        default:
+            return
+        }
     }
     
 }

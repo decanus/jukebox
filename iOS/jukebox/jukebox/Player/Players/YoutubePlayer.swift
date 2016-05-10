@@ -77,15 +77,20 @@ class YoutubePlayer: NSObject, PlayerProtocol, YTPlayerViewDelegate {
         }
         
         // this messes up if we are using background mode controls
-        if UIApplication.sharedApplication().applicationState == .Background || UIApplication.sharedApplication().applicationState == .Inactive {
-            switch state {
-            case YTPlayerState.Buffering, YTPlayerState.Paused, YTPlayerState.Playing:
-                self.play()
-                break;
-            default:
-                break;
-            }
+        
+        if player.getPlaybackState() == .Playing {
+            play()
         }
+        
+//        if UIApplication.sharedApplication().applicationState == .Background || UIApplication.sharedApplication().applicationState == .Inactive {
+//            switch state {
+//            case YTPlayerState.Buffering, YTPlayerState.Paused, YTPlayerState.Playing:
+//                self.play()
+//                break;
+//            default:
+//                break;
+//            }
+//        }
     }
     
 }
