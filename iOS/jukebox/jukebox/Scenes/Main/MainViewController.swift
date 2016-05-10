@@ -31,8 +31,8 @@ class MainViewController: UIViewController {
         
         if queue == nil {
             queue = Queue()
-            queue!.addTrack(YoutubeTrack(id: "Twix375Me4Q"))
-//            queue!.addTrack(YoutubeTrack(id: "JCT_lgJ5eq8"))
+            queue!.addTrack(YoutubeTrack(id: "jcF5HtGvX5I"))
+            queue!.addTrack(YoutubeTrack(id: "JCT_lgJ5eq8"))
             player.setQueue(queue!)
         }
         

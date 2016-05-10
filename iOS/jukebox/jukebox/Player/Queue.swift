@@ -32,7 +32,7 @@ class Queue: NSObject {
             return true
         }
         
-        return queue.endIndex <= currentTrack
+        return queue.endIndex >= currentTrack
     }
     
     func addTrack(track: Track) {
