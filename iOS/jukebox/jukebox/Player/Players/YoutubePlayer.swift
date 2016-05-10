@@ -85,7 +85,6 @@ class YoutubePlayer: NSObject, PlayerProtocol, YTPlayerViewDelegate {
             default:
                 break;
             }
-
         }
     }
     
