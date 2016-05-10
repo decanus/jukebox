@@ -10,12 +10,19 @@ import Foundation
 
 class Player: PlayerProtocol {
     
+    // EXPERIMENTAL
+    private let youtubePlayer: YoutubePlayer
+    
+    init(youtubePlayer: YoutubePlayer) {
+        self.youtubePlayer = youtubePlayer
+    }
+    
     func play() {
-        
+        self.youtubePlayer.play()
     }
     
     func pause() {
-        
+        self.youtubePlayer.pause()
     }
     
     func next() {

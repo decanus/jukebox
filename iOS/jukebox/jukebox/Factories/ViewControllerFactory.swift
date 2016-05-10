@@ -15,7 +15,7 @@ class ViewControllerFactory {
     }
     
     class func createPlayerViewController() -> PlayerViewController {
-        return PlayerViewController(player: Player())
+        return PlayerViewController(player: Player(youtubePlayer: YoutubePlayer()))
     }
     
     class func createPlaylistViewController() -> PlaylistViewController {

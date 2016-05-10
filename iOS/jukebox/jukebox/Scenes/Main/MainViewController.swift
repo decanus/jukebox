@@ -14,6 +14,15 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = UIColor.whiteColor()
+        
+        let player = YoutubePlayer()
+        
+        let playerView = player.getPlayerView();
+        playerView.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
+        
+        view.addSubview(playerView)
+        player.play()
+        
     }
 
     override func didReceiveMemoryWarning() {
