@@ -55,6 +55,7 @@ class Player: NSObject, PlayerProtocol {
     func playTrack(track: Track) {
         if track is YoutubeTrack {
             youtubePlayer.setTrack(track)
+            youtubePlayer.play()
         }
         
         currentTrack = track
