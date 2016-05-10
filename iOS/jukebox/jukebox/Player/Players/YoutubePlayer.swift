@@ -58,22 +58,16 @@ class YoutubePlayer: NSObject, PlayerProtocol, YTPlayerViewDelegate {
     }
     
     func playerView(playerView: YTPlayerView, didChangeToState state: YTPlayerState) {
-        
-        print(UIApplication.sharedApplication().applicationState.rawValue)
         if UIApplication.sharedApplication().applicationState == .Background || UIApplication.sharedApplication().applicationState == .Inactive {
-            self.play()
+            switch state {
+            case YTPlayerState.Buffering, YTPlayerState.Paused, YTPlayerState.Playing:
+                self.play()
+                break;
+            default:
+                break;
+            }
+
         }
-        
-//        switch state {
-//        case YTPlayerState.Paused:
-//            self.play()
-//            break;
-//        case YTPlayerState.Buffering:
-//            self.play()
-//            break;
-//        default:
-//            break;
-//        }
     }
     
 }
