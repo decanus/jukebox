@@ -32,7 +32,7 @@ class Queue: NSObject {
             return true
         }
         
-        return queue.endIndex >= currentTrack
+        return queue.count >= (currentTrack! + 2)
     }
     
     func addTrack(track: Track) {
@@ -45,6 +45,10 @@ class Queue: NSObject {
     
     func clearQueue() {
         queue.removeAll()
+    }
+    
+    func rewind() {
+        currentTrack = nil
     }
     
 }

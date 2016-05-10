@@ -47,13 +47,23 @@ class Player: NSObject, PlayerProtocol {
     }
     
     func next() {
-        
-        if !queue!.hasNext() {
-            playbackState = .Stopped
+        if queue!.hasNext() {
+            playTrack(queue!.getNextTrack())
             return
         }
         
-        playTrack(queue!.getNextTrack())
+        stop()
+    }
+    
+    func stop() {
+        playbackState = .Stopped
+        
+        if currentTrack is YoutubeTrack {
+            youtubePlayer.pause()
+        }
+        
+        currentTrack = nil
+        queue?.rewind()
     }
     
     func previous() {
