@@ -27,6 +27,14 @@ class Queue: NSObject {
         return queue[index]
     }
     
+    func hasNext() -> Bool {
+        if currentTrack == nil && !queue.isEmpty {
+            return true
+        }
+        
+        return queue.endIndex <= currentTrack
+    }
+    
     func addTrack(track: Track) {
         queue.append(track)
     }

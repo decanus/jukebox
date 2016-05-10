@@ -45,6 +45,12 @@ class Player: NSObject, PlayerProtocol {
     }
     
     func next() {
+        
+        if !queue!.hasNext() {
+            playbackState = .Stopped
+            return
+        }
+        
         playTrack(queue!.getNextTrack())
     }
     
