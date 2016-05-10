@@ -28,7 +28,7 @@ class MainViewController: UIViewController {
 
         view.backgroundColor = UIColor.whiteColor()
                 
-        player.playTrack(YoutubeTrack())
+        player.playTrack(YoutubeTrack())        
     }
     
     override func didReceiveMemoryWarning() {
