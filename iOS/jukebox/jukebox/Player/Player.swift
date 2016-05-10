@@ -112,6 +112,10 @@ class Player: NSObject, PlayerProtocol {
             pause()
         case .RemoteControlPlay:
             play()
+        case .RemoteControlNextTrack:
+            next()
+        case .RemoteControlPreviousTrack:
+            previous()
         default:
             return
         }

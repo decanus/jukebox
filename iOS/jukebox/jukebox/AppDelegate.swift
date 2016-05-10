@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import MediaPlayer
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        // @move somewhere else probably into the player
+        let nextTrackCommand = MPRemoteCommandCenter.sharedCommandCenter().nextTrackCommand
+        nextTrackCommand.enabled = true
+        nextTrackCommand.addTargetWithHandler({_ in return MPRemoteCommandHandlerStatus.Success})
+        
+        let previousTrackCommand = MPRemoteCommandCenter.sharedCommandCenter().previousTrackCommand
+        previousTrackCommand.enabled = true
+        previousTrackCommand.addTargetWithHandler({_ in return MPRemoteCommandHandlerStatus.Success})
+
         UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
         let audioSession = AVAudioSession.sharedInstance()
         do {
