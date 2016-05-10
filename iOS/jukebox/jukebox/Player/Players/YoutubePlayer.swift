@@ -47,6 +47,7 @@ class YoutubePlayer: NSObject, PlayerProtocol, YTPlayerViewDelegate {
     
     func appendPlayerToView(view: UIView, frame: CGRect) {
         playerView.frame = frame
+        playerView.webView?.userInteractionEnabled = false
         view.addSubview(playerView)
     }
     
