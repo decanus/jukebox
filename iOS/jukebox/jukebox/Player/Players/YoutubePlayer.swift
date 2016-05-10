@@ -76,6 +76,7 @@ class YoutubePlayer: NSObject, PlayerProtocol, YTPlayerViewDelegate {
             // @todo, notify player that we have ended
         }
         
+        // this messes up if we are using background mode controls
         if UIApplication.sharedApplication().applicationState == .Background || UIApplication.sharedApplication().applicationState == .Inactive {
             switch state {
             case YTPlayerState.Buffering, YTPlayerState.Paused, YTPlayerState.Playing:
