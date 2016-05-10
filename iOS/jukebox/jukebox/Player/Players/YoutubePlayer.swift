@@ -58,6 +58,11 @@ class YoutubePlayer: NSObject, PlayerProtocol, YTPlayerViewDelegate {
     }
     
     func playerView(playerView: YTPlayerView, didChangeToState state: YTPlayerState) {
+        
+        if state == .Ended {
+            // @todo, notify player that we have ended
+        }
+        
         if UIApplication.sharedApplication().applicationState == .Background || UIApplication.sharedApplication().applicationState == .Inactive {
             switch state {
             case YTPlayerState.Buffering, YTPlayerState.Paused, YTPlayerState.Playing:
