@@ -17,7 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
+        UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
+
         // @move somewhere else probably into the player
         let nextTrackCommand = MPRemoteCommandCenter.sharedCommandCenter().nextTrackCommand
         nextTrackCommand.enabled = true
@@ -27,7 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         previousTrackCommand.enabled = true
         previousTrackCommand.addTargetWithHandler({_ in return MPRemoteCommandHandlerStatus.Success})
 
-        UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
         let audioSession = AVAudioSession.sharedInstance()
         do {
             try audioSession.setCategory(AVAudioSessionCategoryPlayback)
@@ -53,6 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillResignActive(application: UIApplication) {
+        becomeFirstResponder()
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     }

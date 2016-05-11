@@ -9,6 +9,7 @@
 import AVKit
 import XCDYouTubeKit
 
+// @todo, figure out how to queue objects
 class YoutubePlayer: NSObject, PlayerProtocol {
     
     private let player: Player
@@ -36,7 +37,15 @@ class YoutubePlayer: NSObject, PlayerProtocol {
                 video?.streamURLs[XCDYouTubeVideoQuality.HD720.rawValue] ??
                 video?.streamURLs[XCDYouTubeVideoQuality.Medium360.rawValue] ??
                 video?.streamURLs[XCDYouTubeVideoQuality.Small240.rawValue]) {
-                playerView?.player = AVPlayer(URL: streamURL)
+                
+                if playerView!.player != nil {
+                    NSNotificationCenter.defaultCenter().removeObserver(self)
+                    self.playerView.player?.replaceCurrentItemWithPlayerItem(AVPlayerItem(URL: streamURL))
+                } else {
+                    playerView?.player = AVPlayer(URL: streamURL)
+                }
+                
+                NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.itemDidFinishPlaying), name: AVPlayerItemDidPlayToEndTimeNotification, object: playerView?.player?.currentItem)
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     self.playerView.player?.play()
@@ -44,6 +53,10 @@ class YoutubePlayer: NSObject, PlayerProtocol {
                 
             }
         }
+    }
+    
+    func itemDidFinishPlaying(note: NSNotification) {
+        self.player.next()
     }
     
     func appendPlayerToView(view: UIView, frame: CGRect) {
