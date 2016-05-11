@@ -3,4 +3,4 @@
 # Uncomment this line if you're using Swift
 use_frameworks!
 
-pod "youtube-ios-player-helper", "~> 0.1"
+pod "XCDYouTubeKit", "~> 2.5"

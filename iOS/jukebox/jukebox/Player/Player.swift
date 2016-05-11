@@ -116,6 +116,12 @@ class Player: NSObject, PlayerProtocol {
         return .None
     }
     
+    func playerWillEnterBackground() {
+        if playbackState == .Playing {
+            play()
+        }
+    }
+    
     func handleRemoteControl(event: UIEvent) {
         switch event.subtype {
         case .RemoteControlPause:

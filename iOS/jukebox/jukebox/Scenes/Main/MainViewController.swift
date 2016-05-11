@@ -38,7 +38,7 @@ class MainViewController: UIViewController {
         
         player.play()
         
-        self.presentViewController(ViewControllerFactory.createPlayerViewController(), animated: true, completion: nil)
+//        self.presentViewController(ViewControllerFactory.createPlayerViewController(), animated: true, completion: nil)
     }
     
     override func didReceiveMemoryWarning() {
