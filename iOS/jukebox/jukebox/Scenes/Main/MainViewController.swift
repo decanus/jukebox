@@ -27,6 +27,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationController?.navigationBarHidden = true
         view.backgroundColor = UIColor.whiteColor()
         
         
@@ -37,6 +38,9 @@ class MainViewController: UIViewController {
         }
         
         player.play()
+        
+        let tab = tabBarController as! TabBarController
+        tab.video()
         
 //        self.presentViewController(ViewControllerFactory.createPlayerViewController(), animated: true, completion: nil)
     }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2E0C6B3C1CE124EA0016C9FC /* PlaybackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C6B3B1CE124EA0016C9FC /* PlaybackState.swift */; };
 		2E0C6B3E1CE125420016C9FC /* RepeatMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C6B3D1CE125420016C9FC /* RepeatMode.swift */; };
+		2E11A1C81CE324E800335C29 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E11A1C71CE324E800335C29 /* TabBarController.swift */; };
 		2E124AFD1CE0743A002BC8E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E124AFC1CE0743A002BC8E4 /* AppDelegate.swift */; };
 		2E124B041CE0743A002BC8E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E124B031CE0743A002BC8E4 /* Assets.xcassets */; };
 		2E124B121CE0743A002BC8E4 /* jukeboxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E124B111CE0743A002BC8E4 /* jukeboxTests.swift */; };
@@ -29,7 +30,6 @@
 		2EF0B1811CE1BAFA0061FF7A /* YoutubePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0B1801CE1BAFA0061FF7A /* YoutubePlayer.swift */; };
 		2EF0B18B1CE1D7850061FF7A /* PlayerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0B18A1CE1D7850061FF7A /* PlayerFactory.swift */; };
 		2EF0B18F1CE1EB990061FF7A /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0B18E1CE1EB990061FF7A /* Queue.swift */; };
-		AC12BEB503A5500F4961755D /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC12BBD7F1CA543F56C1351A /* TabBarController.swift */; };
 		E53AA7DE136B2A708093BDEF /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAE09ED2BF82C36935BB372F /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +54,7 @@
 		13A9FB6EB90C4B2445431D7F /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		2E0C6B3B1CE124EA0016C9FC /* PlaybackState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackState.swift; sourceTree = "<group>"; };
 		2E0C6B3D1CE125420016C9FC /* RepeatMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatMode.swift; sourceTree = "<group>"; };
+		2E11A1C71CE324E800335C29 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		2E124AF91CE0743A002BC8E4 /* jukebox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = jukebox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E124AFC1CE0743A002BC8E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2E124B031CE0743A002BC8E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -87,7 +88,6 @@
 		2EF0B1891CE1BB9A0061FF7A /* Assets.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Assets.bundle; sourceTree = "<group>"; };
 		2EF0B18A1CE1D7850061FF7A /* PlayerFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerFactory.swift; sourceTree = "<group>"; };
 		2EF0B18E1CE1EB990061FF7A /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
-		AC12BBD7F1CA543F56C1351A /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		DAE09ED2BF82C36935BB372F /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF23D17DAB9DEEB2AF8B387D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -119,6 +119,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E11A1C61CE324E800335C29 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2E11A1C71CE324E800335C29 /* TabBarController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		2E124AF01CE0743A002BC8E4 = {
 			isa = PBXGroup;
 			children = (
@@ -144,13 +152,13 @@
 		2E124AFB1CE0743A002BC8E4 /* jukebox */ = {
 			isa = PBXGroup;
 			children = (
+				2E11A1C61CE324E800335C29 /* Controllers */,
 				2ECBCB631CE087690015ABB8 /* Factories */,
 				2ECBCB511CE07BC30015ABB8 /* Player */,
 				2ECBCB4A1CE079580015ABB8 /* Scenes */,
 				2E124AFC1CE0743A002BC8E4 /* AppDelegate.swift */,
 				2E124B031CE0743A002BC8E4 /* Assets.xcassets */,
 				2E124B081CE0743A002BC8E4 /* Info.plist */,
-				AC12BCA3BA069A330D5D58A2 /* Controllers */,
 			);
 			path = jukebox;
 			sourceTree = "<group>";
@@ -303,14 +311,6 @@
 				13A9FB6EB90C4B2445431D7F /* Pods.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		AC12BCA3BA069A330D5D58A2 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				AC12BBD7F1CA543F56C1351A /* TabBarController.swift */,
-			);
-			path = Controllers;
 			sourceTree = "<group>";
 		};
 		B137E74D3FE32D8FFE1EF7FD /* Frameworks */ = {
@@ -526,12 +526,12 @@
 				2ECBCB5C1CE07E480015ABB8 /* Playlist.swift in Sources */,
 				2ECBCB621CE0809D0015ABB8 /* PlaylistViewController.swift in Sources */,
 				2ECBCB6F1CE09DB90015ABB8 /* PlayerProtocol.swift in Sources */,
+				2E11A1C81CE324E800335C29 /* TabBarController.swift in Sources */,
 				2E0C6B3C1CE124EA0016C9FC /* PlaybackState.swift in Sources */,
 				2ECBCB501CE07A130015ABB8 /* MainViewController.swift in Sources */,
 				2ECBCB4D1CE079BF0015ABB8 /* TrackViewController.swift in Sources */,
 				2EF0B18B1CE1D7850061FF7A /* PlayerFactory.swift in Sources */,
 				2E124AFD1CE0743A002BC8E4 /* AppDelegate.swift in Sources */,
-				AC12BEB503A5500F4961755D /* TabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

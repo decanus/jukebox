@@ -40,10 +40,10 @@ class PlayerViewController: UIViewController {
         view.addSubview(next)
         
         // @todo presenter und so        
-        if player.hasVideoView() {
-            player.addVideoToView(view, frame: CGRect(x: 0, y: view.frame.size.height - 200, width: view.frame.size.width, height: 200))
-        }
-                
+//        if player.hasVideoView() {
+//            player.addVideoToView(view, frame: CGRect(x: 0, y: view.frame.size.height - 200, width: view.frame.size.width, height: 200))
+//        }
+        
     }
     
     // @move to presenter & interactor

@@ -15,7 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
 
@@ -45,8 +44,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navigationController = UINavigationController()
         navigationController.viewControllers = [ViewControllerFactory.createMainViewController()]
         
+        let tabController = TabBarController(player: PlayerFactory.createPlayer())
+        tabController.viewControllers = [ViewControllerFactory.createMainViewController()]
+        
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        window?.rootViewController = navigationController
+        window?.rootViewController = tabController
         window?.makeKeyAndVisible()
         
         return true
@@ -60,6 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidEnterBackground(application: UIApplication) {
         becomeFirstResponder()
+        PlayerFactory.createPlayer().playerWillEnterBackground()
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }

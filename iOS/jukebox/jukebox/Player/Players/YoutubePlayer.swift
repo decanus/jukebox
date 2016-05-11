@@ -60,8 +60,7 @@ class YoutubePlayer: NSObject, PlayerProtocol {
     
     func appendPlayerToView(view: UIView, frame: CGRect) {
         playerView.view.frame = frame
-        playerView.view.backgroundColor = UIColor.clearColor()
+        playerView.videoGravity = AVLayerVideoGravityResizeAspectFill
         view.addSubview(playerView.view)
     }
-    
 }
