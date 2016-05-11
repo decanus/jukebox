@@ -81,12 +81,6 @@ class Player: NSObject, PlayerProtocol {
     }
     
     func playTrack(track: Track) {
-        MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = [
-            MPMediaItemPropertyTitle: track.getTitle(),
-            MPMediaItemPropertyArtist: "Test",
-            MPMediaItemPropertyAlbumTitle: "Foo"
-        ]
-        
         playbackState = .Playing
         
         if track is YoutubeTrack {
