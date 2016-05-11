@@ -47,10 +47,6 @@ class YoutubePlayer: NSObject, PlayerProtocol {
                 
                 NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.itemDidFinishPlaying), name: AVPlayerItemDidPlayToEndTimeNotification, object: playerView?.player?.currentItem)
                 
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.playerView.player?.play()
-                })
-                
             }
         }
     }
