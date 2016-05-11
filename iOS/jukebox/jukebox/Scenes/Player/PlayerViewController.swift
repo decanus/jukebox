@@ -23,6 +23,7 @@ class PlayerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabBarItem.title = "Player"
         navigationController?.navigationBarHidden = true
 
         view.backgroundColor = UIColor.whiteColor()

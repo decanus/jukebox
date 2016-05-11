@@ -22,10 +22,15 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.selectedIndex = 0
     }
     
     func video() {
         // @todo this causes video to pause when we leave the app
 //        self.player.addVideoToView(self, frame: tabBar.frame)
+    }
+    
+    override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
+        
     }
 }
