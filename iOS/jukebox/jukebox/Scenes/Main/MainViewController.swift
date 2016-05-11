@@ -13,7 +13,7 @@ class MainViewController: UIViewController {
 
     private var player: Player!
     private var audioSession: AVAudioSession!
-    private var queue: Queue?
+    private var wasLoaded = false
     
     init(player: Player) {
         self.player = player
@@ -29,11 +29,11 @@ class MainViewController: UIViewController {
 
         view.backgroundColor = UIColor.whiteColor()
         
-        if queue == nil {
-            queue = Queue()
-            queue!.addTrack(YoutubeTrack(id: "jcF5HtGvX5I"))
-            queue!.addTrack(YoutubeTrack(id: "JCT_lgJ5eq8"))
-            player.setQueue(queue!)
+        
+        if !wasLoaded {
+            player.addToQueue(YoutubeTrack(id: "jcF5HtGvX5I"))
+            player.addToQueue(YoutubeTrack(id: "JCT_lgJ5eq8"))
+            wasLoaded = true
         }
         
         player.play()

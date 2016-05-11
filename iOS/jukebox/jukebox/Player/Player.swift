@@ -15,10 +15,14 @@ class Player: NSObject, PlayerProtocol {
     private var currentTrack: Track?
     private var currentTrackIndex: Int? = nil
     private var playbackState: PlaybackState = .Stopped
-    private var queue: Queue?
+    private let queue: Queue
     
-    func setQueue(queue: Queue) {
-        self.queue = queue
+    override init() {
+        self.queue = Queue()
+    }
+    
+    func addToQueue(track: Track) {
+        self.queue.addTrack(track)
     }
     
     func play() {
@@ -48,7 +52,7 @@ class Player: NSObject, PlayerProtocol {
     }
     
     func start() {
-        playTrack((queue?.getCurrentTrack())!)
+        playTrack((queue.getCurrentTrack()))
     }
     
     func next() {
@@ -57,8 +61,8 @@ class Player: NSObject, PlayerProtocol {
             return
         }
 
-        if queue!.hasNext() {
-            playTrack(queue!.getNextTrack())
+        if queue.hasNext() {
+            playTrack(queue.getNextTrack())
             return
         }
         
@@ -73,7 +77,7 @@ class Player: NSObject, PlayerProtocol {
         }
         
         currentTrack = nil
-        queue?.rewind()
+        queue.rewind()
     }
     
     func previous() {
