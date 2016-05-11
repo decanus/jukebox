@@ -81,6 +81,19 @@ class Player: NSObject, PlayerProtocol {
     
     func previous() {
         
+        if playbackState == .Stopped {
+            start()
+            return
+        }
+        
+        if queue.hasPrevious() {
+            playTrack(queue.getPreviousTrack())
+            return
+        }
+        
+        stop()
+        start()
+        
     }
     
     func playTrack(track: Track) {

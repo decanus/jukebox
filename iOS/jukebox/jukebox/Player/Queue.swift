@@ -21,6 +21,11 @@ class Queue: NSObject {
         return getTrackAtIndex(currentTrack)
     }
     
+    func getPreviousTrack() -> Track {
+        currentTrack -= 1
+        return getTrackAtIndex(currentTrack)
+    }
+    
     func getCurrentTrack() -> Track {
         return getTrackAtIndex(currentTrack)
     }
@@ -31,6 +36,10 @@ class Queue: NSObject {
     
     func hasNext() -> Bool {
         return queue.count >= (currentTrack + 2)
+    }
+    
+    func hasPrevious() -> Bool {
+        return queue.startIndex < currentTrack
     }
     
     func addTrack(track: Track) {
