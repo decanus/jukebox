@@ -13,6 +13,7 @@
 		2E124B041CE0743A002BC8E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E124B031CE0743A002BC8E4 /* Assets.xcassets */; };
 		2E124B121CE0743A002BC8E4 /* jukeboxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E124B111CE0743A002BC8E4 /* jukeboxTests.swift */; };
 		2E124B1D1CE0743A002BC8E4 /* jukeboxUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E124B1C1CE0743A002BC8E4 /* jukeboxUITests.swift */; };
+		2E92FEE81CE30639006BFB03 /* XCDYouTubeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E92FEE71CE30639006BFB03 /* XCDYouTubeKit.framework */; };
 		2ECBCB4D1CE079BF0015ABB8 /* TrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECBCB4C1CE079BF0015ABB8 /* TrackViewController.swift */; };
 		2ECBCB501CE07A130015ABB8 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECBCB4F1CE07A130015ABB8 /* MainViewController.swift */; };
 		2ECBCB531CE07BD20015ABB8 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECBCB521CE07BD20015ABB8 /* Player.swift */; };
@@ -25,7 +26,6 @@
 		2ECBCB671CE0892C0015ABB8 /* YoutubeTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECBCB661CE0892C0015ABB8 /* YoutubeTrack.swift */; };
 		2ECBCB6A1CE09C8C0015ABB8 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECBCB691CE09C8C0015ABB8 /* SearchViewController.swift */; };
 		2ECBCB6F1CE09DB90015ABB8 /* PlayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECBCB6E1CE09DB90015ABB8 /* PlayerProtocol.swift */; };
-		2EF0B17F1CE1BA130061FF7A /* youtube_ios_player_helper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF0B17E1CE1BA130061FF7A /* youtube_ios_player_helper.framework */; };
 		2EF0B1811CE1BAFA0061FF7A /* YoutubePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0B1801CE1BAFA0061FF7A /* YoutubePlayer.swift */; };
 		2EF0B18B1CE1D7850061FF7A /* PlayerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0B18A1CE1D7850061FF7A /* PlayerFactory.swift */; };
 		2EF0B18F1CE1EB990061FF7A /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0B18E1CE1EB990061FF7A /* Queue.swift */; };
@@ -64,6 +64,8 @@
 		2E124B181CE0743A002BC8E4 /* jukeboxUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jukeboxUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E124B1C1CE0743A002BC8E4 /* jukeboxUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = jukeboxUITests.swift; sourceTree = "<group>"; };
 		2E124B1E1CE0743A002BC8E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2E92FEE51CE304FC006BFB03 /* XCDYouTubeKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCDYouTubeKit.framework; path = "Pods/../build/Release-iphoneos/XCDYouTubeKit.framework"; sourceTree = "<group>"; };
+		2E92FEE71CE30639006BFB03 /* XCDYouTubeKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCDYouTubeKit.framework; path = "Pods/../build/Release-iphoneos/XCDYouTubeKit.framework"; sourceTree = "<group>"; };
 		2ECBCB4C1CE079BF0015ABB8 /* TrackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackViewController.swift; sourceTree = "<group>"; };
 		2ECBCB4F1CE07A130015ABB8 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		2ECBCB521CE07BD20015ABB8 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -95,7 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2EF0B17F1CE1BA130061FF7A /* youtube_ios_player_helper.framework in Frameworks */,
+				2E92FEE81CE30639006BFB03 /* XCDYouTubeKit.framework in Frameworks */,
 				E53AA7DE136B2A708093BDEF /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -314,6 +316,8 @@
 		B137E74D3FE32D8FFE1EF7FD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2E92FEE71CE30639006BFB03 /* XCDYouTubeKit.framework */,
+				2E92FEE51CE304FC006BFB03 /* XCDYouTubeKit.framework */,
 				2EF0B1821CE1BB9A0061FF7A /* youtube-ios-player-helper */,
 				2EF0B17E1CE1BA130061FF7A /* youtube_ios_player_helper.framework */,
 				DAE09ED2BF82C36935BB372F /* Pods.framework */,
@@ -657,6 +661,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/build/Release-iphoneos",
 				);
 				INFOPLIST_FILE = jukebox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -674,6 +679,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/build/Release-iphoneos",
 				);
 				INFOPLIST_FILE = jukebox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

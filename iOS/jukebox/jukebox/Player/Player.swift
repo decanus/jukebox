@@ -6,7 +6,7 @@
 //  Copyright © 2016 jukebox. All rights reserved.
 //
 
-import UIKit
+import MediaPlayer
 
 class Player: NSObject, PlayerProtocol {
     
@@ -52,7 +52,6 @@ class Player: NSObject, PlayerProtocol {
     }
     
     func next() {
-
         if playbackState == .Stopped {
             start()
             return
@@ -82,6 +81,12 @@ class Player: NSObject, PlayerProtocol {
     }
     
     func playTrack(track: Track) {
+        MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = [
+            MPMediaItemPropertyTitle: track.getTitle(),
+            MPMediaItemPropertyArtist: "Test",
+            MPMediaItemPropertyAlbumTitle: "Foo"
+        ]
+        
         playbackState = .Playing
         
         if track is YoutubeTrack {
@@ -97,11 +102,9 @@ class Player: NSObject, PlayerProtocol {
     }
     
     func addVideoToView(view: UIView, frame: CGRect) {
-        
         if currentTrack is YoutubeTrack {
             youtubePlayer.appendPlayerToView(view, frame: frame)
         }
-        
     }
     
     func getNowPlaying() -> Track {
@@ -114,6 +117,12 @@ class Player: NSObject, PlayerProtocol {
     
     func getRepeatMode() -> RepeateMode {
         return .None
+    }
+    
+    func playerWillEnterBackground() {
+        if playbackState == .Playing {
+            play()
+        }
     }
     
     func handleRemoteControl(event: UIEvent) {
