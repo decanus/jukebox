@@ -13,16 +13,15 @@ class Player: NSObject, PlayerProtocol {
     // EXPERIMENTAL, CLEANUP
     var youtubePlayer: YoutubePlayer! = nil
     private var currentTrack: Track?
-    private var currentTrackIndex: Int? = nil
     private var playbackState: PlaybackState = .Stopped
     private let queue: Queue
     
     override init() {
-        self.queue = Queue()
+        queue = Queue()
     }
     
     func addToQueue(track: Track) {
-        self.queue.addTrack(track)
+        queue.addTrack(track)
     }
     
     func play() {
