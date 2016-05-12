@@ -26,8 +26,6 @@ class PlayerViewController: UIViewController {
         tabBarItem.title = "Player"
         navigationController?.navigationBarHidden = true
         UIApplication.sharedApplication().statusBarStyle = .LightContent
-        
-
         view.backgroundColor = UIColor.blackColor()
         
         // @todo, create pause button class which includes this
