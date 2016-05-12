@@ -26,7 +26,7 @@ class PlayerViewController: UIViewController {
         tabBarItem.title = "Player"
         navigationController?.navigationBarHidden = true
 
-        view.backgroundColor = UIColor.whiteColor()
+        view.backgroundColor = UIColor.blackColor()
         
         let pause = UIButton(frame: CGRect(x: 10, y: 100, width: 50, height: 25))
         pause.addTarget(self, action: #selector(PlayerViewController.pause), forControlEvents: .TouchUpInside)
@@ -39,12 +39,7 @@ class PlayerViewController: UIViewController {
         next.backgroundColor = UIColor.redColor()
         next.setTitle("Next", forState: .Normal)
         view.addSubview(next)
-        
-        // @todo presenter und so        
-//        if player.hasVideoView() {
-//            player.addVideoToView(view, frame: CGRect(x: 0, y: view.frame.size.height - 200, width: view.frame.size.width, height: 200))
-//        }
-        
+
     }
     
     // @move to presenter & interactor
