@@ -26,6 +26,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UIApplication.sharedApplication().statusBarStyle = .Default
 
         tabBarItem.title = "foo"
         navigationController?.navigationBarHidden = true
