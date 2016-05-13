@@ -19,7 +19,7 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
     private var currentTime: UILabel!
     private var trackTitle: UILabel!
     private var source: UIButton!
-    var artworkView: UIView!
+    private var artworkView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
