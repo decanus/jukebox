@@ -28,6 +28,16 @@ class PlayerViewController: UIViewController {
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         view.backgroundColor = UIColor.blackColor()
         
+        let back = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.width))
+        back.backgroundColor = UIColor.grayColor()
+        view.addSubview(back)
+        
+        let slider = UISlider(frame: CGRect(x: 0, y: view.frame.size.width - (13 / 2), width: view.frame.size.width, height: 13))
+        slider.maximumValueImage = nil
+        slider.minimumTrackTintColor = UIColor.lightPurpleColor()
+        slider.tintColor = UIColor.lightPurpleColor()
+        slider.thumbTintColor = UIColor.lightPurpleColor()
+        view.addSubview(slider)
         
         let playButton = PlayButton(frame: CGRect(x: (view.frame.size.width / 2) - 40, y: 501 - 40, width: 80, height: 80))
         playButton.addTarget(self, action: #selector(PlayerViewController.pause), forControlEvents: .TouchUpInside)
