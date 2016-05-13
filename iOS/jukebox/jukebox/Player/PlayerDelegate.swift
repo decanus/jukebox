@@ -6,10 +6,12 @@
 //  Copyright © 2016 jukebox. All rights reserved.
 //
 
-import CoreMedia
+import AVFoundation
 
-protocol PlayerDelegate {
+protocol PlayerDelegate: class {
     
     func player(player: Player, shouldUpdateElapsedTime elapsedTime: CMTime)
+    
+    func player(player: Player, canPresentVideoLayer videoLayer: AVPlayerLayer)
     
 }

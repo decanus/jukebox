@@ -9,28 +9,16 @@
 import UIKit
 import CoreMedia
 
-class PlayerViewController: UIViewController {
+class PlayerViewController: UIViewController, PlayerPresenterOutput {
     
     var output: PlayerViewControllerOutput!
     
-    private let player: Player
     private var slider: UISlider!
     private var durationLabel: UILabel!
     private var elapsedLabel: UILabel!
     private var currentTime: UILabel!
-    var artworkView: UIView!
-    
-    // @todo remove
-    init(player: Player) {
-        self.player = player
-        super.init(nibName: nil, bundle: nil)
-        self.player.setPlayerViewController(self)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+    private var artworkView: UIView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBarItem.title = "Player"
@@ -79,26 +67,34 @@ class PlayerViewController: UIViewController {
         view.addSubview(next)
     }
     
-    func updateSlider(time: CMTime, duration: CMTime) {
-        let durationInSeconds = Float(CMTimeGetSeconds(duration))
-        
-        if slider.maximumValue != durationInSeconds && !durationInSeconds.isNaN {
-            slider.maximumValue = durationInSeconds
-            durationLabel.text = formatTime(Double(durationInSeconds))
-        }
-
-        let elapsed = CMTimeGetSeconds(time)
-        elapsedLabel.text = formatTime(Double(elapsed))
-        slider.setValue(Float(elapsed), animated: true)
+    func setPlayerProgressSliderValue(value: Float) {
+        slider.setValue(value, animated: true)
     }
     
-    func formatTime(time: Double) -> String {
-        let date = NSDate(timeIntervalSince1970: time)
-        let formatter = NSDateFormatter()
-        formatter.timeZone = NSTimeZone(name: "UTC")
-        formatter.dateFormat = "mm:ss"
-        return formatter.stringFromDate(date)
+    func updateElapsedTimeLabel(elapsedTime: String) {
+        elapsedLabel.text = elapsedTime
     }
+    
+    func frameForVideoLayer() -> CGRect {
+        return artworkView.frame
+    }
+    
+    func appendPlayerVideoToCoverView(playerVideo: UIView) {
+        artworkView.addSubview(playerVideo)
+    }
+    
+//    func updateSlider(time: CMTime, duration: CMTime) {
+//        let durationInSeconds = Float(CMTimeGetSeconds(duration))
+//        
+//        if slider.maximumValue != durationInSeconds && !durationInSeconds.isNaN {
+//            slider.maximumValue = durationInSeconds
+//            durationLabel.text = formatTime(Double(durationInSeconds))
+//        }
+//
+//        let elapsed = CMTimeGetSeconds(time)
+//         = formatTime(Double(elapsed))
+//    }
+    
     
     @objc func pause() {
         output.pausePressed()

@@ -6,7 +6,8 @@
 //  Copyright © 2016 jukebox. All rights reserved.
 //
 
-import CoreMedia
+import AVFoundation
+import UIKit
 
 class PlayerPresenter: NSObject, PlayerInteractorOutput, PlayerDelegate {
     
@@ -20,6 +21,14 @@ class PlayerPresenter: NSObject, PlayerInteractorOutput, PlayerDelegate {
         let elapsedTime = CMTimeGetSeconds(elapsedTime)
         output.setPlayerProgressSliderValue(Float(elapsedTime))
         output.updateElapsedTimeLabel(formatTime(Double(elapsedTime)))
+    }
+    
+    func player(player: Player, canPresentVideoLayer videoLayer: AVPlayerLayer) {
+        videoLayer.frame = output.frameForVideoLayer()
+        videoLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+        let playerVideo = UIView(frame: output.frameForVideoLayer())
+        playerVideo.layer.addSublayer(videoLayer)
+        output.appendPlayerVideoToCoverView(playerVideo)
     }
     
     private func formatTime(time: Double) -> String {

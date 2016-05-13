@@ -10,9 +10,11 @@ import Foundation
 
 class PlayerInteractor: NSObject, PlayerViewControllerOutput {
     
+    private var output: PlayerInteractorOutput
     private let player: Player
     
-    init(player: Player) {
+    init(output: PlayerInteractorOutput, player: Player) {
+        self.output = output
         self.player = player
     }
     

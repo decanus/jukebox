@@ -51,13 +51,14 @@ class YoutubePlayer: NSObject, PlayerProtocol {
                 // remove observer if next pressed
                 self!.observer = self!.playerView.player?.addPeriodicTimeObserverForInterval(CMTimeMake(33, 1000), queue: dispatch_get_main_queue(), usingBlock: {
                     time in
-                    self!.player.updateTime(time, duration: (self!.playerView.player?.currentItem?.duration)!)
+                    self!.player.delegate?.player(self!.player, shouldUpdateElapsedTime: time)
+//                    self!.player.updateTime(time, duration: (self!.playerView.player?.currentItem?.duration)!)
                 })
                 
                 NSNotificationCenter.defaultCenter().addObserver(self!, selector: #selector(self!.itemDidFinishPlaying), name: AVPlayerItemDidPlayToEndTimeNotification, object: self!.playerView.player?.currentItem)
                 
                 dispatch_async(dispatch_get_main_queue(), {
-                    self!.player.addPlayer()
+//                    self!.player.addPlayer()
                     self!.playerView.player?.play()
                 })
             }

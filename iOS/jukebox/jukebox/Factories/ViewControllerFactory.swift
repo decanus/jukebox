@@ -15,8 +15,12 @@ class ViewControllerFactory {
     }
     
     class func createPlayerViewController() -> PlayerViewController {
-        let viewController = PlayerViewController(player: PlayerFactory.createPlayer())
-        viewController.output = PlayerInteractor(player: PlayerFactory.createPlayer())
+        let viewController = PlayerViewController()
+        let presenter = PlayerPresenter(output: viewController)
+        let interactor = PlayerInteractor(output: presenter, player: PlayerFactory.createPlayer())
+        viewController.output = interactor
+        
+        PlayerFactory.createPlayer().delegate = presenter
         
         return viewController
     }
