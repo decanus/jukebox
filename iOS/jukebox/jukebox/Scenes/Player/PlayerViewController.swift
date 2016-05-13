@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import CoreMedia
 
 class PlayerViewController: UIViewController {
     
     private let player: Player
     private var slider: UISlider!
-    private var duration: UILabel!
+    private var durationLabel: UILabel!
+    private var elapsedLabel: UILabel!
     private var currentTime: UILabel!
     var artworkView: UIView!
     
@@ -46,10 +48,20 @@ class PlayerViewController: UIViewController {
         slider.thumbTintColor = UIColor.lightPurpleColor()
         view.addSubview(slider)
         
-        duration = UILabel(frame: CGRect(x: 16, y: 375 + 16, width: 100, height: 14))
-        duration.textColor = UIColor.whiteColor()
-        duration.font.fontWithSize(14)
-        view.addSubview(duration)
+        elapsedLabel = UILabel(frame: CGRect(x: 16, y: 375 + 16, width: 100, height: 14))
+        elapsedLabel.textColor = UIColor.whiteColor()
+        elapsedLabel.font.fontWithSize(14)
+        elapsedLabel.textAlignment = .Left
+        elapsedLabel.text = "--:--"
+        view.addSubview(elapsedLabel)
+        
+        
+        durationLabel = UILabel(frame: CGRect(x: view.frame.size.width - (100 + 16), y: 375 + 16, width: 100, height: 14))
+        durationLabel.textColor = UIColor.whiteColor()
+        durationLabel.font.fontWithSize(14)
+        durationLabel.textAlignment = .Right
+        durationLabel.text = "--:--"
+        view.addSubview(durationLabel)
         
         let playButton = PlayButton(frame: CGRect(x: (view.frame.size.width / 2) - 40, y: 501 - 40, width: 80, height: 80))
         playButton.addTarget(self, action: #selector(PlayerViewController.pause), forControlEvents: .TouchUpInside)
@@ -66,14 +78,25 @@ class PlayerViewController: UIViewController {
         view.addSubview(next)
     }
     
-    func updateSlider(time: Float, duration: Float) {
+    func updateSlider(time: CMTime, duration: CMTime) {
+        let durationInSeconds = Float(CMTimeGetSeconds(duration))
         
-        if slider.maximumValue != duration && !duration.isNaN {
-            slider.maximumValue = duration
+        if slider.maximumValue != durationInSeconds && !durationInSeconds.isNaN {
+            slider.maximumValue = durationInSeconds
+            durationLabel.text = formatTime(Double(durationInSeconds))
         }
-        
-        self.duration.text = String(duration / 60)
-        slider.setValue(time, animated: true)
+
+        let elapsed = CMTimeGetSeconds(time)
+        elapsedLabel.text = formatTime(Double(elapsed))
+        slider.setValue(Float(elapsed), animated: true)
+    }
+    
+    func formatTime(time: Double) -> String{
+        let date = NSDate(timeIntervalSince1970: time)
+        let formatter = NSDateFormatter()
+        formatter.timeZone = NSTimeZone(name: "UTC")
+        formatter.dateFormat = "mm:ss"
+        return formatter.stringFromDate(date)
     }
     
     override func canBecomeFirstResponder() -> Bool {

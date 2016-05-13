@@ -34,33 +34,29 @@ class YoutubePlayer: NSObject, PlayerProtocol {
     }
     
     func setTrack(track: Track) {
-        XCDYouTubeClient.defaultClient().getVideoWithIdentifier(track.getID()) { [weak playerView] (video: XCDYouTubeVideo?, error: NSError?) in
+        XCDYouTubeClient.defaultClient().getVideoWithIdentifier(track.getID()) { [] (video: XCDYouTubeVideo?, error: NSError?) in
             if let streamURL = (video?.streamURLs[XCDYouTubeVideoQualityHTTPLiveStreaming] ??
                 video?.streamURLs[XCDYouTubeVideoQuality.HD720.rawValue] ??
                 video?.streamURLs[XCDYouTubeVideoQuality.Medium360.rawValue] ??
                 video?.streamURLs[XCDYouTubeVideoQuality.Small240.rawValue]) {
                 
-                if playerView!.player != nil {
+                if self.playerView.player != nil {
                     NSNotificationCenter.defaultCenter().removeObserver(self)
                     self.playerView.player?.replaceCurrentItemWithPlayerItem(AVPlayerItem(URL: streamURL))
                 } else {
-                    playerView?.player = AVPlayer(URL: streamURL)
+                    self.playerView.player = AVPlayer(URL: streamURL)
                 }
                 
-                // todo, remove observer when done
                 self.observer = self.playerView.player?.addPeriodicTimeObserverForInterval(CMTimeMake(33, 1000), queue: dispatch_get_main_queue(), usingBlock: {
-                    time in                    
-                    self.player.updateTime(
-                        Float(CMTimeGetSeconds(time)),
-                        duration: Float(CMTimeGetSeconds((playerView!.player?.currentItem?.duration)!))
-                    )
+                    time in
+                    self.player.updateTime(time, duration: (self.playerView.player?.currentItem?.duration)!)
                 })
                 
-                NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.itemDidFinishPlaying), name: AVPlayerItemDidPlayToEndTimeNotification, object: playerView?.player?.currentItem)
+                NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.itemDidFinishPlaying), name: AVPlayerItemDidPlayToEndTimeNotification, object: self.playerView.player?.currentItem)
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     self.player.addPlayer()
-                    playerView?.player?.play()
+                    self.playerView.player?.play()
                 })
             }
         }

@@ -140,7 +140,7 @@ class Player: NSObject, PlayerProtocol {
         }
     }
     
-    func updateTime(time: Float, duration: Float) {
+    func updateTime(time: CMTime, duration: CMTime) {
         if playerViewController != nil {
             playerViewController?.updateSlider(time, duration: duration)
         }
