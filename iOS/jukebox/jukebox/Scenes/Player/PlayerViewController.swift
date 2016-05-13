@@ -11,6 +11,8 @@ import CoreMedia
 
 class PlayerViewController: UIViewController {
     
+    var output: PlayerViewControllerOutput!
+    
     private let player: Player
     private var slider: UISlider!
     private var durationLabel: UILabel!
@@ -18,6 +20,7 @@ class PlayerViewController: UIViewController {
     private var currentTime: UILabel!
     var artworkView: UIView!
     
+    // @todo remove
     init(player: Player) {
         self.player = player
         super.init(nibName: nil, bundle: nil)
@@ -34,7 +37,6 @@ class PlayerViewController: UIViewController {
         navigationController?.navigationBarHidden = true
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         view.backgroundColor = UIColor.blackColor()
-        
         
         artworkView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.width))
         view.addSubview(artworkView)
@@ -54,7 +56,6 @@ class PlayerViewController: UIViewController {
         elapsedLabel.textAlignment = .Left
         elapsedLabel.text = "--:--"
         view.addSubview(elapsedLabel)
-        
         
         durationLabel = UILabel(frame: CGRect(x: view.frame.size.width - (100 + 16), y: 375 + 16, width: 100, height: 14))
         durationLabel.textColor = UIColor.whiteColor()
@@ -91,7 +92,7 @@ class PlayerViewController: UIViewController {
         slider.setValue(Float(elapsed), animated: true)
     }
     
-    func formatTime(time: Double) -> String{
+    func formatTime(time: Double) -> String {
         let date = NSDate(timeIntervalSince1970: time)
         let formatter = NSDateFormatter()
         formatter.timeZone = NSTimeZone(name: "UTC")
@@ -99,31 +100,18 @@ class PlayerViewController: UIViewController {
         return formatter.stringFromDate(date)
     }
     
-    override func canBecomeFirstResponder() -> Bool {
-        return true
-    }
-    
-    // @move to presenter & interactor
     @objc func pause() {
-                
-        if player.getPlaybackState() == .Playing {
-            player.pause()
-            return
-        }
-        
-        player.play()
+        output.pausePressed()
 
     }
     
     @objc func previous() {
-        player.previous()
+        output.backPressed()
     }
     
     @objc func next() {
-        player.next()
+        output.nextPressed()
     }
-    
-    // --
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

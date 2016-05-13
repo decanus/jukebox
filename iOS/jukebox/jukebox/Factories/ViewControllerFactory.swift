@@ -15,7 +15,10 @@ class ViewControllerFactory {
     }
     
     class func createPlayerViewController() -> PlayerViewController {
-        return PlayerViewController(player: PlayerFactory.createPlayer())
+        let viewController = PlayerViewController(player: PlayerFactory.createPlayer())
+        viewController.output = PlayerInteractor(player: PlayerFactory.createPlayer())
+        
+        return viewController
     }
     
     class func createPlaylistViewController() -> PlaylistViewController {
