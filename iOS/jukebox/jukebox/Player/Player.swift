@@ -97,7 +97,6 @@ class Player: NSObject, PlayerProtocol {
         
         stop()
         start()
-        
     }
     
     func playTrack(track: Track) {
@@ -114,6 +113,7 @@ class Player: NSObject, PlayerProtocol {
             addPlayer()
         }
         
+        playerViewController!.setMetadata(currentTrack!.getTitle(), artist: "", platform: currentTrack!.getPlatform())
     }
     
     func hasVideoView() -> Bool {
@@ -127,7 +127,6 @@ class Player: NSObject, PlayerProtocol {
     func getPlaybackState() -> PlaybackState {
         return playbackState
     }
-    
     
     func getRepeatMode() -> RepeateMode {
         return .None

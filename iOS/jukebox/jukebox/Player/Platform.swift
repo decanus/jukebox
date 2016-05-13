@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Platform {
+enum Platform: String {
     case Deezer
     case Youtube
     case Spotify

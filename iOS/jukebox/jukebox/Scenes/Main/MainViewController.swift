@@ -32,12 +32,11 @@ class MainViewController: UIViewController {
         navigationController?.navigationBarHidden = true
         view.backgroundColor = UIColor.whiteColor()
         
-        
         if !wasLoaded {
             player.addToQueue(YoutubeTrack(id: "jcF5HtGvX5I"))
             player.addToQueue(YoutubeTrack(id: "JCT_lgJ5eq8"))
             wasLoaded = true
-        }        
+        } 
     }
     
     override func didReceiveMemoryWarning() {
