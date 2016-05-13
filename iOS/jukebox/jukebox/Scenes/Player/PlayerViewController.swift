@@ -71,6 +71,10 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
         slider.setValue(value, animated: true)
     }
     
+    func setMaximumSliderValue(value: Float) {
+        slider.maximumValue = value
+    }
+    
     func updateElapsedTimeLabel(elapsedTime: String) {
         elapsedLabel.text = elapsedTime
     }
@@ -89,7 +93,6 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
     
     @objc func pause() {
         output.pausePressed()
-
     }
     
     @objc func previous() {

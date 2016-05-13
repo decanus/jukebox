@@ -30,6 +30,7 @@ class PlayerPresenter: NSObject, PlayerInteractorOutput, PlayerDelegate {
             return false
         }
         
+        output.setMaximumSliderValue(Float(duration))
         output.updateDurationLabel(formatTime(Double(duration)))
         return true
     }

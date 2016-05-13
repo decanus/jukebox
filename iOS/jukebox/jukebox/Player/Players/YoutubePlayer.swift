@@ -84,7 +84,12 @@ class YoutubePlayer: NSObject, PlayerProtocol {
     }
     
     func itemDidFinishPlaying(note: NSNotification) {
-        playerView.player?.removeTimeObserver(self.observer!)
+        try {
+            playerView.player?.removeTimeObserver(self.observer!)
+        } catch {
+            print("fuck")
+        }
+        
         self.player.next()
     }
     
