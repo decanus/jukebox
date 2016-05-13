@@ -74,7 +74,11 @@ class YoutubePlayer: NSObject, PlayerProtocol {
     }
     
     func presentDuration() -> Bool {
-        return (self.player.delegate?.player(self.player, shouldUpdateDuration: (self.playerView.player?.currentItem?.duration)!))!
+        if self.player.delegate != nil {
+            return (self.player.delegate?.player(self.player, shouldUpdateDuration: (self.playerView.player?.currentItem?.duration)!))!
+        }
+        
+        return true
     }
     
     func presentVideoLayer() {
@@ -88,7 +92,6 @@ class YoutubePlayer: NSObject, PlayerProtocol {
             if presentDuration() {
                 object?.removeObserver(self, forKeyPath: keyPath!, context: context)
             }
-            
         }
     }
     
@@ -105,6 +108,10 @@ class YoutubePlayer: NSObject, PlayerProtocol {
     func removePlayerLayer() {
         if playerLayer != nil {
             playerLayer?.player = nil
+        }
+        
+        if player.getPlaybackState() == .Playing {
+            self.playerView.player?.play()
         }
     }
     

@@ -166,6 +166,14 @@ class Player: NSObject, PlayerProtocol {
     }
     
     private func activateAudioSession() {
+        let nextTrackCommand = MPRemoteCommandCenter.sharedCommandCenter().nextTrackCommand
+        nextTrackCommand.enabled = true
+        nextTrackCommand.addTargetWithHandler({_ in return MPRemoteCommandHandlerStatus.Success})
+        
+        let previousTrackCommand = MPRemoteCommandCenter.sharedCommandCenter().previousTrackCommand
+        previousTrackCommand.enabled = true
+        previousTrackCommand.addTargetWithHandler({_ in return MPRemoteCommandHandlerStatus.Success})
+        
         let audioSession = AVAudioSession.sharedInstance()
         do {
             try audioSession.setCategory(AVAudioSessionCategoryPlayback)
