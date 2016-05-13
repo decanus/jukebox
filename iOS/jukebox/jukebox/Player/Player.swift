@@ -8,7 +8,10 @@
 
 import MediaPlayer
 
+// @todo, next seems buggy
 class Player: NSObject, PlayerProtocol {
+    
+    weak var delegate: PlayerDelegate?
     
     // EXPERIMENTAL, CLEANUP
     // @todo, buffering next track
@@ -29,7 +32,7 @@ class Player: NSObject, PlayerProtocol {
     }
     
     func play() {
-        
+        activateAudioSession()
         if playbackState == .Playing {
             return
         }
@@ -110,10 +113,10 @@ class Player: NSObject, PlayerProtocol {
         currentTrack = track
         
         if playerViewController != nil {
-            addPlayer()
+//            addPlayer()
+            playerViewController!.setMetadata(currentTrack!.getTitle(), artist: "", platform: currentTrack!.getPlatform())
         }
-        
-        playerViewController!.setMetadata(currentTrack!.getTitle(), artist: "", platform: currentTrack!.getPlatform())
+
     }
     
     func hasVideoView() -> Bool {
@@ -139,26 +142,26 @@ class Player: NSObject, PlayerProtocol {
         }
     }
     
-    func updateTime(time: CMTime, duration: CMTime) {
-        if playerViewController != nil {
-            playerViewController?.updateSlider(time, duration: duration)
-        }
-    }
+//    func updateTime(time: CMTime, duration: CMTime) {
+//        if playerViewController != nil {
+//            playerViewController?.updateSlider(time, duration: duration)
+//        }
+//    }
+//    
+//    func addPlayer() {
+//        if playerViewController != nil && currentTrack is YoutubeTrack {
+//            youtubePlayer.appendPlayerToView((playerViewController?.artworkView)!)
+//        }
+//    }
     
-    func addPlayer() {
-        if playerViewController != nil && currentTrack is YoutubeTrack {
-            youtubePlayer.appendPlayerToView((playerViewController?.artworkView)!)
-        }
-    }
-    
-    func setPlayerViewController(playerVC: PlayerViewController) {
-        self.playerViewController = playerVC
-        
-        if playbackState == .Playing && currentTrack is YoutubeTrack {
-            addPlayer()
-        }
-    }
-    
+//    func setPlayerViewController(playerVC: PlayerViewController) {
+//        self.playerViewController = playerVC
+//        
+//        if playbackState == .Playing && currentTrack is YoutubeTrack {
+////            addPlayer()
+//        }
+//    }
+//    
     func playerWillEnterForeground() {
         if currentTrack is YoutubeTrack {
             youtubePlayer.enterForeground()
@@ -177,6 +180,22 @@ class Player: NSObject, PlayerProtocol {
             previous()
         default:
             return
+        }
+    }
+    
+    private func activateAudioSession() {
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            try audioSession.setCategory(AVAudioSessionCategoryPlayback)
+            
+            do {
+                try AVAudioSession.sharedInstance().setActive(true)
+            } catch {
+                print("Error info: \(error)")
+            }
+            
+        } catch {
+            print("Error info: \(error)")
         }
     }
     

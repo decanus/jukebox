@@ -9,9 +9,10 @@
 import UIKit
 import CoreMedia
 
-class PlayerViewController: UIViewController {
+class PlayerViewController: UIViewController, PlayerPresenterOutput {
     
-    private let player: Player
+    var output: PlayerViewControllerOutput!
+    
     private var slider: UISlider!
     private var durationLabel: UILabel!
     private var elapsedLabel: UILabel!
@@ -20,6 +21,7 @@ class PlayerViewController: UIViewController {
     private var source: UIButton!
     var artworkView: UIView!
     
+/*
     init(player: Player) {
         self.player = player
         super.init(nibName: nil, bundle: nil)
@@ -29,7 +31,8 @@ class PlayerViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+*/
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBarItem.title = "Player"
@@ -98,9 +101,10 @@ class PlayerViewController: UIViewController {
         source.center = CGPoint(x: view.frame.width / 2, y: view.frame.height - source.frame.height - 16 + source.frame.height / 2)
     }
     
+/*
     func updateSlider(time: CMTime, duration: CMTime) {
         let durationInSeconds = Float(CMTimeGetSeconds(duration))
-        
+
         if slider.maximumValue != durationInSeconds && !durationInSeconds.isNaN {
             slider.maximumValue = durationInSeconds
             durationLabel.text = formatTime(Double(durationInSeconds))
@@ -110,40 +114,49 @@ class PlayerViewController: UIViewController {
         elapsedLabel.text = formatTime(Double(elapsed))
         slider.setValue(Float(elapsed), animated: true)
     }
-    
-    func formatTime(time: Double) -> String{
-        let date = NSDate(timeIntervalSince1970: time)
-        let formatter = NSDateFormatter()
-        formatter.timeZone = NSTimeZone(name: "UTC")
-        formatter.dateFormat = "mm:ss"
-        return formatter.stringFromDate(date)
+*/
+
+    func setPlayerProgressSliderValue(value: Float) {
+        slider.setValue(value, animated: true)
     }
     
-    override func canBecomeFirstResponder() -> Bool {
-        return true
+    func updateElapsedTimeLabel(elapsedTime: String) {
+        elapsedLabel.text = elapsedTime
     }
     
-    // @move to presenter & interactor
+    func frameForVideoLayer() -> CGRect {
+        return artworkView.frame
+    }
+    
+    func appendPlayerVideoToCoverView(playerVideo: UIView) {
+        artworkView.addSubview(playerVideo)
+    }
+    
+//    func updateSlider(time: CMTime, duration: CMTime) {
+//        let durationInSeconds = Float(CMTimeGetSeconds(duration))
+//        
+//        if slider.maximumValue != durationInSeconds && !durationInSeconds.isNaN {
+//            slider.maximumValue = durationInSeconds
+//            durationLabel.text = formatTime(Double(durationInSeconds))
+//        }
+//
+//        let elapsed = CMTimeGetSeconds(time)
+//         = formatTime(Double(elapsed))
+//    }
+    
+    
     @objc func pause() {
-                
-        if player.getPlaybackState() == .Playing {
-            player.pause()
-            return
-        }
-        
-        player.play()
+        output.pausePressed()
 
     }
     
     @objc func previous() {
-        player.previous()
+        output.backPressed()
     }
     
     @objc func next() {
-        player.next()
+        output.nextPressed()
     }
-    
-    // --
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

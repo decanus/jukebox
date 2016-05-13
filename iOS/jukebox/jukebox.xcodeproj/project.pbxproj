@@ -29,6 +29,12 @@
 		2ECBCB671CE0892C0015ABB8 /* YoutubeTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECBCB661CE0892C0015ABB8 /* YoutubeTrack.swift */; };
 		2ECBCB6A1CE09C8C0015ABB8 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECBCB691CE09C8C0015ABB8 /* SearchViewController.swift */; };
 		2ECBCB6F1CE09DB90015ABB8 /* PlayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECBCB6E1CE09DB90015ABB8 /* PlayerProtocol.swift */; };
+		2ECC64B21CE652CC004249A4 /* PlayerViewControllerOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECC64B11CE652CC004249A4 /* PlayerViewControllerOutput.swift */; };
+		2ECC64B41CE6531C004249A4 /* PlayerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECC64B31CE6531C004249A4 /* PlayerInteractor.swift */; };
+		2ECC64B61CE655BD004249A4 /* PlayerInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECC64B51CE655BD004249A4 /* PlayerInteractorOutput.swift */; };
+		2ECC64B81CE655D7004249A4 /* PlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECC64B71CE655D7004249A4 /* PlayerDelegate.swift */; };
+		2ECC64BA1CE656E0004249A4 /* PlayerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECC64B91CE656E0004249A4 /* PlayerPresenter.swift */; };
+		2ECC64BC1CE65742004249A4 /* PlayerPresenterOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECC64BB1CE65742004249A4 /* PlayerPresenterOutput.swift */; };
 		2EF0B1811CE1BAFA0061FF7A /* YoutubePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0B1801CE1BAFA0061FF7A /* YoutubePlayer.swift */; };
 		2EF0B18B1CE1D7850061FF7A /* PlayerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0B18A1CE1D7850061FF7A /* PlayerFactory.swift */; };
 		2EF0B18F1CE1EB990061FF7A /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0B18E1CE1EB990061FF7A /* Queue.swift */; };
@@ -83,6 +89,12 @@
 		2ECBCB661CE0892C0015ABB8 /* YoutubeTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoutubeTrack.swift; sourceTree = "<group>"; };
 		2ECBCB691CE09C8C0015ABB8 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		2ECBCB6E1CE09DB90015ABB8 /* PlayerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerProtocol.swift; sourceTree = "<group>"; };
+		2ECC64B11CE652CC004249A4 /* PlayerViewControllerOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewControllerOutput.swift; sourceTree = "<group>"; };
+		2ECC64B31CE6531C004249A4 /* PlayerInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerInteractor.swift; sourceTree = "<group>"; };
+		2ECC64B51CE655BD004249A4 /* PlayerInteractorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerInteractorOutput.swift; sourceTree = "<group>"; };
+		2ECC64B71CE655D7004249A4 /* PlayerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerDelegate.swift; sourceTree = "<group>"; };
+		2ECC64B91CE656E0004249A4 /* PlayerPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerPresenter.swift; sourceTree = "<group>"; };
+		2ECC64BB1CE65742004249A4 /* PlayerPresenterOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerPresenterOutput.swift; sourceTree = "<group>"; };
 		2EF0B17E1CE1BA130061FF7A /* youtube_ios_player_helper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = youtube_ios_player_helper.framework; path = "Pods/../build/Debug-iphoneos/youtube_ios_player_helper.framework"; sourceTree = "<group>"; };
 		2EF0B1801CE1BAFA0061FF7A /* YoutubePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoutubePlayer.swift; sourceTree = "<group>"; };
 		2EF0B1841CE1BB9A0061FF7A /* YTPlayerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YTPlayerView.h; sourceTree = "<group>"; };
@@ -134,6 +146,9 @@
 		2E11A1CB1CE5B6AD00335C29 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				2ECC64B11CE652CC004249A4 /* PlayerViewControllerOutput.swift */,
+				2ECC64B51CE655BD004249A4 /* PlayerInteractorOutput.swift */,
+				2ECC64BB1CE65742004249A4 /* PlayerPresenterOutput.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -249,6 +264,7 @@
 				2E0C6B3B1CE124EA0016C9FC /* PlaybackState.swift */,
 				2E0C6B3D1CE125420016C9FC /* RepeatMode.swift */,
 				2EF0B18E1CE1EB990061FF7A /* Queue.swift */,
+				2ECC64B71CE655D7004249A4 /* PlayerDelegate.swift */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -267,6 +283,8 @@
 			children = (
 				2E11A1CB1CE5B6AD00335C29 /* Protocols */,
 				2ECBCB5E1CE080580015ABB8 /* PlayerViewController.swift */,
+				2ECC64B31CE6531C004249A4 /* PlayerInteractor.swift */,
+				2ECC64B91CE656E0004249A4 /* PlayerPresenter.swift */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -542,16 +560,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2ECC64BC1CE65742004249A4 /* PlayerPresenterOutput.swift in Sources */,
+				2ECC64B61CE655BD004249A4 /* PlayerInteractorOutput.swift in Sources */,
 				2EF0B1811CE1BAFA0061FF7A /* YoutubePlayer.swift in Sources */,
 				2E11A1CE1CE5B6D900335C29 /* PlayButton.swift in Sources */,
 				2E11A1D11CE5BA2D00335C29 /* Color.swift in Sources */,
 				2ECBCB5A1CE07DC10015ABB8 /* Platform.swift in Sources */,
+				2ECC64BA1CE656E0004249A4 /* PlayerPresenter.swift in Sources */,
 				2ECBCB651CE087780015ABB8 /* ViewControllerFactory.swift in Sources */,
 				2EF0B18F1CE1EB990061FF7A /* Queue.swift in Sources */,
 				2ECBCB5F1CE080580015ABB8 /* PlayerViewController.swift in Sources */,
 				2ECBCB531CE07BD20015ABB8 /* Player.swift in Sources */,
 				2ECBCB561CE07D5A0015ABB8 /* Track.swift in Sources */,
 				2E0C6B3E1CE125420016C9FC /* RepeatMode.swift in Sources */,
+				2ECC64B21CE652CC004249A4 /* PlayerViewControllerOutput.swift in Sources */,
+				2ECC64B41CE6531C004249A4 /* PlayerInteractor.swift in Sources */,
+				2ECC64B81CE655D7004249A4 /* PlayerDelegate.swift in Sources */,
 				2ECBCB671CE0892C0015ABB8 /* YoutubeTrack.swift in Sources */,
 				2ECBCB6A1CE09C8C0015ABB8 /* SearchViewController.swift in Sources */,
 				2ECBCB5C1CE07E480015ABB8 /* Playlist.swift in Sources */,
