@@ -108,7 +108,7 @@ class YoutubePlayer: NSObject, PlayerProtocol {
     func removePlayerLayer() {
         
         if player.getPlaybackState() == .Playing {
-            self.playerView.player?.play()
+            playerView.player?.play()
         }
         
         if playerLayer != nil {
@@ -117,6 +117,7 @@ class YoutubePlayer: NSObject, PlayerProtocol {
     }
     
     func deletePlayerLayer() {
+        playerLayer?.player = nil
         playerLayer = nil
     }
 }
