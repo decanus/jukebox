@@ -45,6 +45,14 @@ class YoutubePlayer: NSObject, PlayerProtocol {
                     playerView?.player = AVPlayer(URL: streamURL)
                 }
                 
+                
+                
+                // todo, remove observer when done
+                playerView!.player?.addPeriodicTimeObserverForInterval(CMTimeMake(33, 1000), queue: dispatch_get_main_queue(), usingBlock: {
+                    time in                    
+                    self.player.updateTime(Float(CMTimeGetSeconds(time)))
+                })
+                
                 NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.itemDidFinishPlaying), name: AVPlayerItemDidPlayToEndTimeNotification, object: playerView?.player?.currentItem)
                 
                 dispatch_async(dispatch_get_main_queue(), {

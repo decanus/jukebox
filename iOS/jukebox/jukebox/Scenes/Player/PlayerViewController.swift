@@ -11,10 +11,12 @@ import UIKit
 class PlayerViewController: UIViewController {
     
     private let player: Player
+    private var slider: UISlider!
     
     init(player: Player) {
         self.player = player
         super.init(nibName: nil, bundle: nil)
+        self.player.setPlayerViewController(self)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -32,8 +34,10 @@ class PlayerViewController: UIViewController {
         back.backgroundColor = UIColor.grayColor()
         view.addSubview(back)
         
-        let slider = UISlider(frame: CGRect(x: 0, y: view.frame.size.width - (13 / 2), width: view.frame.size.width, height: 13))
+        slider = UISlider(frame: CGRect(x: 0, y: view.frame.size.width - (13 / 2), width: view.frame.size.width, height: 13))
         slider.maximumValueImage = nil
+        slider.minimumValue = 0
+        slider.maximumValue = 122.833
         slider.minimumTrackTintColor = UIColor.lightPurpleColor()
         slider.tintColor = UIColor.lightPurpleColor()
         slider.thumbTintColor = UIColor.lightPurpleColor()
@@ -52,6 +56,10 @@ class PlayerViewController: UIViewController {
         next.addTarget(self, action: #selector(PlayerViewController.next), forControlEvents: .TouchUpInside)
         next.setImage(UIImage(named: "next"), forState: .Normal)
         view.addSubview(next)
+    }
+    
+    func updateSlider(time: Float) {
+        slider.setValue(time, animated: true)
     }
     
     // @move to presenter & interactor

@@ -16,6 +16,9 @@ class Player: NSObject, PlayerProtocol {
     private var playbackState: PlaybackState = .Stopped
     private let queue: Queue
     
+    // change to presenter
+    private weak var playerViewController: PlayerViewController?
+    
     override init() {
         queue = Queue()
     }
@@ -133,6 +136,16 @@ class Player: NSObject, PlayerProtocol {
         if playbackState == .Playing {
             play()
         }
+    }
+    
+    func updateTime(time: Float) {
+        if playerViewController != nil {
+            playerViewController?.updateSlider(time)
+        }
+    }
+    
+    func setPlayerViewController(playerVC: PlayerViewController) {
+        self.playerViewController = playerVC
     }
     
     func handleRemoteControl(event: UIEvent) {
