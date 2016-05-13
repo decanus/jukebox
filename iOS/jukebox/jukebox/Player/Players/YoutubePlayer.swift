@@ -56,8 +56,6 @@ class YoutubePlayer: NSObject, PlayerProtocol {
                     self!.player.delegate?.player(self!.player, shouldUpdateElapsedTime: time)
                 })
                 
-                self!.playerView.player?.currentItem?.addObserver(self!, forKeyPath: "duration", options: .New, context: &self!.durationUpdate)
-                
                 NSNotificationCenter.defaultCenter().addObserver(
                     self!,
                     selector: #selector(self!.itemDidFinishPlaying),
@@ -66,6 +64,7 @@ class YoutubePlayer: NSObject, PlayerProtocol {
                 )
                 
                 dispatch_async(dispatch_get_main_queue(), {
+                    self!.playerView.player?.currentItem?.addObserver(self!, forKeyPath: "duration", options: .New, context: &self!.durationUpdate)
                     self!.player.delegate?.player(self!.player, canPresentVideoLayer: AVPlayerLayer(player: self!.playerView.player))
                     self!.playerView.player?.play()
                 })
@@ -84,12 +83,6 @@ class YoutubePlayer: NSObject, PlayerProtocol {
     }
     
     func itemDidFinishPlaying(note: NSNotification) {
-        do {
-            playerView.player?.removeTimeObserver(self.observer!)
-        } catch {
-            print("fuck")
-        }
-        
         self.player.next()
     }
     

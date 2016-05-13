@@ -20,7 +20,7 @@ class Player: NSObject, PlayerProtocol {
     private var playbackState: PlaybackState = .Stopped
     private let queue: Queue
     
-    // change to presenter
+    // only use delegate
     private weak var playerViewController: PlayerViewController?
     
     override init() {
