@@ -10,6 +10,7 @@
 		2E0C6B3C1CE124EA0016C9FC /* PlaybackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C6B3B1CE124EA0016C9FC /* PlaybackState.swift */; };
 		2E0C6B3E1CE125420016C9FC /* RepeatMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C6B3D1CE125420016C9FC /* RepeatMode.swift */; };
 		2E11A1C81CE324E800335C29 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E11A1C71CE324E800335C29 /* TabBarController.swift */; };
+		2E11A1CE1CE5B6D900335C29 /* PlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E11A1CD1CE5B6D900335C29 /* PlayButton.swift */; };
 		2E124AFD1CE0743A002BC8E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E124AFC1CE0743A002BC8E4 /* AppDelegate.swift */; };
 		2E124B041CE0743A002BC8E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E124B031CE0743A002BC8E4 /* Assets.xcassets */; };
 		2E124B121CE0743A002BC8E4 /* jukeboxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E124B111CE0743A002BC8E4 /* jukeboxTests.swift */; };
@@ -55,6 +56,7 @@
 		2E0C6B3B1CE124EA0016C9FC /* PlaybackState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackState.swift; sourceTree = "<group>"; };
 		2E0C6B3D1CE125420016C9FC /* RepeatMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatMode.swift; sourceTree = "<group>"; };
 		2E11A1C71CE324E800335C29 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		2E11A1CD1CE5B6D900335C29 /* PlayButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayButton.swift; sourceTree = "<group>"; };
 		2E124AF91CE0743A002BC8E4 /* jukebox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = jukebox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E124AFC1CE0743A002BC8E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2E124B031CE0743A002BC8E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -127,6 +129,21 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		2E11A1CB1CE5B6AD00335C29 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		2E11A1CC1CE5B6CF00335C29 /* Elements */ = {
+			isa = PBXGroup;
+			children = (
+				2E11A1CD1CE5B6D900335C29 /* PlayButton.swift */,
+			);
+			path = Elements;
+			sourceTree = "<group>";
+		};
 		2E124AF01CE0743A002BC8E4 = {
 			isa = PBXGroup;
 			children = (
@@ -152,6 +169,7 @@
 		2E124AFB1CE0743A002BC8E4 /* jukebox */ = {
 			isa = PBXGroup;
 			children = (
+				2E11A1CC1CE5B6CF00335C29 /* Elements */,
 				2E11A1C61CE324E800335C29 /* Controllers */,
 				2ECBCB631CE087690015ABB8 /* Factories */,
 				2ECBCB511CE07BC30015ABB8 /* Player */,
@@ -236,6 +254,7 @@
 		2ECBCB5D1CE080480015ABB8 /* Player */ = {
 			isa = PBXGroup;
 			children = (
+				2E11A1CB1CE5B6AD00335C29 /* Protocols */,
 				2ECBCB5E1CE080580015ABB8 /* PlayerViewController.swift */,
 			);
 			path = Player;
@@ -514,6 +533,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2EF0B1811CE1BAFA0061FF7A /* YoutubePlayer.swift in Sources */,
+				2E11A1CE1CE5B6D900335C29 /* PlayButton.swift in Sources */,
 				2ECBCB5A1CE07DC10015ABB8 /* Platform.swift in Sources */,
 				2ECBCB651CE087780015ABB8 /* ViewControllerFactory.swift in Sources */,
 				2EF0B18F1CE1EB990061FF7A /* Queue.swift in Sources */,
