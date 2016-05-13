@@ -9,6 +9,7 @@
 import UIKit
 import CoreMedia
 
+// @todo add loading animation
 class PlayerViewController: UIViewController, PlayerPresenterOutput {
     
     var output: PlayerViewControllerOutput!
