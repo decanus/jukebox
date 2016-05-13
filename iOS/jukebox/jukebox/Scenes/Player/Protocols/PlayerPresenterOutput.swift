@@ -14,6 +14,8 @@ protocol PlayerPresenterOutput: class {
     
     func updateElapsedTimeLabel(elapsedTime: String)
     
+    func updateDurationLabel(duration: String)
+    
     func frameForVideoLayer() -> CGRect
     
     func appendPlayerVideoToCoverView(playerVideo: UIView)

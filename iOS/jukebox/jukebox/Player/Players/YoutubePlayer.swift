@@ -13,6 +13,8 @@ import XCDYouTubeKit
 // @todo, playerlayer code still very buggy
 class YoutubePlayer: NSObject, PlayerProtocol {
     
+    // remove observer once duration is in Track object
+    private var durationUpdate = 0
     private let player: Player
     private var loaded = false
     private let playerView: AVPlayerViewController
@@ -52,32 +54,38 @@ class YoutubePlayer: NSObject, PlayerProtocol {
                 self!.observer = self!.playerView.player?.addPeriodicTimeObserverForInterval(CMTimeMake(33, 1000), queue: dispatch_get_main_queue(), usingBlock: {
                     time in
                     self!.player.delegate?.player(self!.player, shouldUpdateElapsedTime: time)
-//                    self!.player.updateTime(time, duration: (self!.playerView.player?.currentItem?.duration)!)
                 })
                 
-                NSNotificationCenter.defaultCenter().addObserver(self!, selector: #selector(self!.itemDidFinishPlaying), name: AVPlayerItemDidPlayToEndTimeNotification, object: self!.playerView.player?.currentItem)
+                self!.playerView.player?.currentItem?.addObserver(self!, forKeyPath: "duration", options: .New, context: &self!.durationUpdate)
+                
+                NSNotificationCenter.defaultCenter().addObserver(
+                    self!,
+                    selector: #selector(self!.itemDidFinishPlaying),
+                    name: AVPlayerItemDidPlayToEndTimeNotification,
+                    object: self!.playerView.player?.currentItem
+                )
                 
                 dispatch_async(dispatch_get_main_queue(), {
-//                    self!.player.addPlayer()
+                    self!.player.delegate?.player(self!.player, canPresentVideoLayer: AVPlayerLayer(player: self!.playerView.player))
                     self!.playerView.player?.play()
                 })
             }
         }
     }
     
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        
+        if context == &durationUpdate {
+            if self.player.delegate?.player(self.player, shouldUpdateDuration: (self.playerView.player?.currentItem?.duration)!) == true {
+                object?.removeObserver(self, forKeyPath: keyPath!, context: context)
+            }
+            
+        }
+    }
+    
     func itemDidFinishPlaying(note: NSNotification) {
         playerView.player?.removeTimeObserver(self.observer!)
         self.player.next()
-    }
-    
-    func appendPlayerToView(view: UIView) {
-        playerLayer = AVPlayerLayer(player: playerView.player)
-        playerLayer!.frame = view.frame
-        playerLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
-        let playerVideo = UIView(frame: view.frame)
-        playerVideo.layer.addSublayer(playerLayer!)
-        view.addSubview(playerVideo)
-        playerView.player?.play()
     }
     
     func enterForeground() {
