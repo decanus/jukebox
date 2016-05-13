@@ -28,28 +28,10 @@ class PlayerViewController: UIViewController {
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         view.backgroundColor = UIColor.blackColor()
         
-        // @todo, create pause button class which includes this
-        let circlePath = UIBezierPath(
-            arcCenter: CGPoint(x: (view.frame.size.width / 2), y: 501),
-            radius: CGFloat(40),
-            startAngle: CGFloat(0),
-            endAngle:CGFloat(M_PI * 2),
-            clockwise: true
-        )
         
-        let shapeLayer = CAShapeLayer()
-        shapeLayer.path = circlePath.CGPath
-        shapeLayer.fillColor = UIColor(red: 155 / 255, green: 80 / 255, blue: 186 / 255, alpha: 1).CGColor
-        shapeLayer.strokeColor = UIColor(red: 155 / 255, green: 80 / 255, blue: 186 / 255, alpha: 1).CGColor
-        shapeLayer.lineWidth = 3.0
-        view.layer.addSublayer(shapeLayer)
-        
-        let pause = UIButton(frame: CGRect(x: (view.frame.size.width / 2) - 40, y: 501 - (80 / 2), width: 80, height: 80))
-        pause.addTarget(self, action: #selector(PlayerViewController.pause), forControlEvents: .TouchUpInside)
-        pause.setImage(UIImage(named: "play"), forState: .Normal)
-        pause.imageView?.frame.size = CGSize(width: 20, height: 24)
-        pause.imageView?.contentMode = .Center
-        view.addSubview(pause)
+        let playButton = PlayButton(frame: CGRect(x: (view.frame.size.width / 2) - 40, y: 501 - 40, width: 80, height: 80))
+        playButton.addTarget(self, action: #selector(PlayerViewController.pause), forControlEvents: .TouchUpInside)
+        view.addSubview(playButton)
         
         let previous = UIButton(frame: CGRect(x: (view.frame.size.width / 2) - (40 + 40 + 31), y: 501 - (21 / 2), width: 31, height: 21))
         previous.addTarget(self, action: #selector(PlayerViewController.previous), forControlEvents: .TouchUpInside)

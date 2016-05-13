@@ -14,7 +14,7 @@ class PlayButton: UIButton {
     
     override init(frame: CGRect) {
         let circlePath = UIBezierPath(
-            arcCenter: CGPoint(x: 0, y: 0),
+            arcCenter: CGPoint(x: frame.size.width / 2, y: frame.size.height / 2),
             radius: CGFloat(frame.size.width / 2),
             startAngle: CGFloat(0),
             endAngle:CGFloat(M_PI * 2),
@@ -23,16 +23,16 @@ class PlayButton: UIButton {
         
         circle = CAShapeLayer()
         circle.path = circlePath.CGPath
-        circle.fillColor = UIColor(red: 155 / 255, green: 80 / 255, blue: 186 / 255, alpha: 1).CGColor
-        circle.strokeColor = UIColor(red: 155 / 255, green: 80 / 255, blue: 186 / 255, alpha: 1).CGColor
+        circle.fillColor = UIColor.lightPurpleColor().CGColor
+        circle.strokeColor = UIColor.lightPurpleColor().CGColor
         circle.lineWidth = 3.0
         
         super.init(frame: frame)
         layer.addSublayer(circle)
         
         setImage(UIImage(named: "play"), forState: .Normal)
-        imageView?.frame.size = CGSize(width: 20, height: 24)
         imageView?.contentMode = .Center
+        bringSubviewToFront((imageView)!)
     }
     
     required init?(coder aDecoder: NSCoder) {
