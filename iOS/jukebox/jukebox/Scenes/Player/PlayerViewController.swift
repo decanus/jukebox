@@ -20,18 +20,6 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
     private var trackTitle: UILabel!
     private var source: UIButton!
     var artworkView: UIView!
-    
-/*
-    init(player: Player) {
-        self.player = player
-        super.init(nibName: nil, bundle: nil)
-        self.player.setPlayerViewController(self)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-*/
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,21 +88,6 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
         source.sizeToFit()
         source.center = CGPoint(x: view.frame.width / 2, y: view.frame.height - source.frame.height - 16 + source.frame.height / 2)
     }
-    
-/*
-    func updateSlider(time: CMTime, duration: CMTime) {
-        let durationInSeconds = Float(CMTimeGetSeconds(duration))
-
-        if slider.maximumValue != durationInSeconds && !durationInSeconds.isNaN {
-            slider.maximumValue = durationInSeconds
-            durationLabel.text = formatTime(Double(durationInSeconds))
-        }
-
-        let elapsed = CMTimeGetSeconds(time)
-        elapsedLabel.text = formatTime(Double(elapsed))
-        slider.setValue(Float(elapsed), animated: true)
-    }
-*/
 
     func setPlayerProgressSliderValue(value: Float) {
         slider.setValue(value, animated: true)
