@@ -12,6 +12,9 @@ class PlayerViewController: UIViewController {
     
     private let player: Player
     private var slider: UISlider!
+    private var duration: UILabel!
+    private var currentTime: UILabel!
+    var artworkView: UIView!
     
     init(player: Player) {
         self.player = player
@@ -30,18 +33,23 @@ class PlayerViewController: UIViewController {
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         view.backgroundColor = UIColor.blackColor()
         
-        let back = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.width))
-        back.backgroundColor = UIColor.grayColor()
-        view.addSubview(back)
+        
+        artworkView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.width))
+        view.addSubview(artworkView)
         
         slider = UISlider(frame: CGRect(x: 0, y: view.frame.size.width - (13 / 2), width: view.frame.size.width, height: 13))
         slider.maximumValueImage = nil
         slider.minimumValue = 0
-        slider.maximumValue = 122.833
+        slider.maximumValue = 0
         slider.minimumTrackTintColor = UIColor.lightPurpleColor()
         slider.tintColor = UIColor.lightPurpleColor()
         slider.thumbTintColor = UIColor.lightPurpleColor()
         view.addSubview(slider)
+        
+        duration = UILabel(frame: CGRect(x: 16, y: 375 + 16, width: 100, height: 14))
+        duration.textColor = UIColor.whiteColor()
+        duration.font.fontWithSize(14)
+        view.addSubview(duration)
         
         let playButton = PlayButton(frame: CGRect(x: (view.frame.size.width / 2) - 40, y: 501 - 40, width: 80, height: 80))
         playButton.addTarget(self, action: #selector(PlayerViewController.pause), forControlEvents: .TouchUpInside)
@@ -58,8 +66,18 @@ class PlayerViewController: UIViewController {
         view.addSubview(next)
     }
     
-    func updateSlider(time: Float) {
+    func updateSlider(time: Float, duration: Float) {
+        
+        if slider.maximumValue != duration {
+            slider.maximumValue = duration
+        }
+        
+        self.duration.text = String(duration / 60)
         slider.setValue(time, animated: true)
+    }
+    
+    override func canBecomeFirstResponder() -> Bool {
+        return true
     }
     
     // @move to presenter & interactor

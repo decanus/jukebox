@@ -15,6 +15,8 @@ class YoutubePlayer: NSObject, PlayerProtocol {
     private let player: Player
     private var loaded = false
     private let playerView: AVPlayerViewController
+    private var playerLayer: AVPlayerLayer?
+    private var observer: AnyObject?
     
     init(player: Player) {
         self.player = player
@@ -45,17 +47,19 @@ class YoutubePlayer: NSObject, PlayerProtocol {
                     playerView?.player = AVPlayer(URL: streamURL)
                 }
                 
-                
-                
                 // todo, remove observer when done
-                playerView!.player?.addPeriodicTimeObserverForInterval(CMTimeMake(33, 1000), queue: dispatch_get_main_queue(), usingBlock: {
+                self.observer = self.playerView.player?.addPeriodicTimeObserverForInterval(CMTimeMake(33, 1000), queue: dispatch_get_main_queue(), usingBlock: {
                     time in                    
-                    self.player.updateTime(Float(CMTimeGetSeconds(time)))
+                    self.player.updateTime(
+                        Float(CMTimeGetSeconds(time)),
+                        duration: Float(CMTimeGetSeconds((playerView!.player?.currentItem?.duration)!))
+                    )
                 })
                 
                 NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.itemDidFinishPlaying), name: AVPlayerItemDidPlayToEndTimeNotification, object: playerView?.player?.currentItem)
                 
                 dispatch_async(dispatch_get_main_queue(), {
+                    self.player.addPlayer()
                     playerView?.player?.play()
                 })
             }
@@ -63,12 +67,27 @@ class YoutubePlayer: NSObject, PlayerProtocol {
     }
     
     func itemDidFinishPlaying(note: NSNotification) {
+        playerView.player?.removeTimeObserver(self.observer!)
         self.player.next()
     }
     
-    func appendPlayerToView(view: UIView, frame: CGRect) {
-        playerView.view.frame = frame
-        playerView.videoGravity = AVLayerVideoGravityResizeAspectFill
-        view.addSubview(playerView.view)
+    func appendPlayerToView(view: UIView) {
+        playerLayer = AVPlayerLayer(player: playerView.player)
+        playerLayer!.frame = view.frame
+        playerLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
+        let playerVideo = UIView(frame: view.frame)
+        playerVideo.layer.addSublayer(playerLayer!)
+        view.addSubview(playerVideo)
+        playerView.player?.play()
+    }
+    
+    func enterForeground() {
+        playerLayer?.player = playerView.player
+    }
+    
+    func removePlayerLayer() {
+        if playerLayer != nil {
+            playerLayer?.player = nil
+        }
     }
 }

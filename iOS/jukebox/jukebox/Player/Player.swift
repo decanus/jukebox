@@ -108,16 +108,15 @@ class Player: NSObject, PlayerProtocol {
         }
         
         currentTrack = track
+        
+        if playerViewController != nil {
+            addPlayer()
+        }
+        
     }
     
     func hasVideoView() -> Bool {
         return currentTrack is YoutubeTrack
-    }
-    
-    func addVideoToView(view: UIView, frame: CGRect) {
-        if currentTrack is YoutubeTrack {
-            youtubePlayer.appendPlayerToView(view, frame: frame)
-        }
     }
     
     func getNowPlaying() -> Track {
@@ -128,24 +127,42 @@ class Player: NSObject, PlayerProtocol {
         return playbackState
     }
     
+    
     func getRepeatMode() -> RepeateMode {
         return .None
     }
     
     func playerWillEnterBackground() {
-        if playbackState == .Playing {
-            play()
+        
+        if currentTrack is YoutubeTrack {
+            youtubePlayer.removePlayerLayer()
         }
     }
     
-    func updateTime(time: Float) {
+    func updateTime(time: Float, duration: Float) {
         if playerViewController != nil {
-            playerViewController?.updateSlider(time)
+            playerViewController?.updateSlider(time, duration: duration)
+        }
+    }
+    
+    func addPlayer() {
+        if playerViewController != nil && currentTrack is YoutubeTrack {
+            youtubePlayer.appendPlayerToView((playerViewController?.artworkView)!)
         }
     }
     
     func setPlayerViewController(playerVC: PlayerViewController) {
         self.playerViewController = playerVC
+        
+        if playbackState == .Playing && currentTrack is YoutubeTrack {
+            addPlayer()
+        }
+    }
+    
+    func playerWillEnterForeground() {
+        if currentTrack is YoutubeTrack {
+            youtubePlayer.enterForeground()
+        }
     }
     
     func handleRemoteControl(event: UIEvent) {
