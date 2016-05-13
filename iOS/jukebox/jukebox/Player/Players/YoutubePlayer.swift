@@ -45,7 +45,6 @@ class YoutubePlayer: NSObject, PlayerProtocol {
                     NSNotificationCenter.defaultCenter().removeObserver(self!)
                     self!.playerView.player?.replaceCurrentItemWithPlayerItem(AVPlayerItem(URL: streamURL))
                 } else {
-                    print("wtf")
                     self!.playerView.player = AVPlayer(URL: streamURL)
                 }
                 
