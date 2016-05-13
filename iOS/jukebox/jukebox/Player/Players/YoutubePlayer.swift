@@ -65,7 +65,8 @@ class YoutubePlayer: NSObject, PlayerProtocol {
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     self!.playerView.player?.currentItem?.addObserver(self!, forKeyPath: "duration", options: .New, context: &self!.durationUpdate)
-                    self!.player.delegate?.player(self!.player, canPresentVideoLayer: AVPlayerLayer(player: self!.playerView.player))
+                    self?.playerLayer = AVPlayerLayer(player: self!.playerView.player)
+                    self!.player.delegate?.player(self!.player, canPresentVideoLayer: self!.playerLayer!)
                     self!.playerView.player?.play()
                 })
             }

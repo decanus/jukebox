@@ -142,26 +142,6 @@ class Player: NSObject, PlayerProtocol {
         }
     }
     
-//    func updateTime(time: CMTime, duration: CMTime) {
-//        if playerViewController != nil {
-//            playerViewController?.updateSlider(time, duration: duration)
-//        }
-//    }
-//    
-//    func addPlayer() {
-//        if playerViewController != nil && currentTrack is YoutubeTrack {
-//            youtubePlayer.appendPlayerToView((playerViewController?.artworkView)!)
-//        }
-//    }
-    
-//    func setPlayerViewController(playerVC: PlayerViewController) {
-//        self.playerViewController = playerVC
-//        
-//        if playbackState == .Playing && currentTrack is YoutubeTrack {
-////            addPlayer()
-//        }
-//    }
-//    
     func playerWillEnterForeground() {
         if currentTrack is YoutubeTrack {
             youtubePlayer.enterForeground()
