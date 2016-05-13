@@ -37,12 +37,7 @@ class MainViewController: UIViewController {
             player.addToQueue(YoutubeTrack(id: "jcF5HtGvX5I"))
             player.addToQueue(YoutubeTrack(id: "JCT_lgJ5eq8"))
             wasLoaded = true
-        }
-        
-        player.play()
-        
-        let tab = tabBarController as! TabBarController
-        tab.video()        
+        }        
     }
     
     override func didReceiveMemoryWarning() {
