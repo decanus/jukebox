@@ -25,15 +25,4 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         
         self.selectedIndex = 0
     }
-    
-    func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
-
-        // ugly hack
-        if viewController is PlayerViewController {
-            presentViewController(ViewControllerFactory.createPlayerViewController(), animated: true, completion: nil)
-            return false
-        }
-        
-        return true
-    }
 }

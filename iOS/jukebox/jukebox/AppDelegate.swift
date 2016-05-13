@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationController.viewControllers = [ViewControllerFactory.createMainViewController()]
         
         let tabController = TabBarController(player: PlayerFactory.createPlayer())
-        tabController.viewControllers = [ViewControllerFactory.createMainViewController(), ViewControllerFactory.createPlayerViewController()]
+        tabController.viewControllers = [ViewControllerFactory.createMainViewController()]
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         window?.rootViewController = tabController

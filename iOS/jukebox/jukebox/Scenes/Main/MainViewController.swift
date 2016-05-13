@@ -32,6 +32,12 @@ class MainViewController: UIViewController {
         navigationController?.navigationBarHidden = true
         view.backgroundColor = UIColor.whiteColor()
         
+        let button = UIButton(frame: CGRect(x: 10, y: 10, width: 100, height: 100))
+        button.setTitle("player", forState: .Normal)
+        button.backgroundColor = UIColor.redColor()
+        button.addTarget(self, action: #selector(open), forControlEvents: .TouchUpInside)
+        view.addSubview(button)
+        
         if !wasLoaded {
             player.addToQueue(YoutubeTrack(id: "bpOSxM0rNPM"))
             player.addToQueue(YoutubeTrack(id: "QnxpHIl5Ynw"))
@@ -39,6 +45,10 @@ class MainViewController: UIViewController {
             player.addToQueue(YoutubeTrack(id: "JCT_lgJ5eq8"))
             wasLoaded = true
         } 
+    }
+    
+    @objc func open() {
+        presentViewController(ViewControllerFactory.createPlayerViewController(), animated: true, completion: nil)
     }
     
     override func didReceiveMemoryWarning() {
