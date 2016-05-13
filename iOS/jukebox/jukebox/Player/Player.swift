@@ -11,6 +11,7 @@ import MediaPlayer
 class Player: NSObject, PlayerProtocol {
     
     // EXPERIMENTAL, CLEANUP
+    // @todo, buffering next track
     var youtubePlayer: YoutubePlayer! = nil
     private var currentTrack: Track?
     private var playbackState: PlaybackState = .Stopped

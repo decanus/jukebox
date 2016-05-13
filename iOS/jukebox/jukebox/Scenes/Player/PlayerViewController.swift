@@ -68,7 +68,7 @@ class PlayerViewController: UIViewController {
     
     func updateSlider(time: Float, duration: Float) {
         
-        if slider.maximumValue != duration {
+        if slider.maximumValue != duration && !duration.isNaN {
             slider.maximumValue = duration
         }
         
