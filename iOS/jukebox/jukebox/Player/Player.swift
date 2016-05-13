@@ -8,6 +8,7 @@
 
 import MediaPlayer
 
+// @todo, next seems buggy
 class Player: NSObject, PlayerProtocol {
     
     // EXPERIMENTAL, CLEANUP
@@ -29,7 +30,7 @@ class Player: NSObject, PlayerProtocol {
     }
     
     func play() {
-        
+        activateAudioSession()
         if playbackState == .Playing {
             return
         }
@@ -178,6 +179,22 @@ class Player: NSObject, PlayerProtocol {
             previous()
         default:
             return
+        }
+    }
+    
+    private func activateAudioSession() {
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            try audioSession.setCategory(AVAudioSessionCategoryPlayback)
+            
+            do {
+                try AVAudioSession.sharedInstance().setActive(true)
+            } catch {
+                print("Error info: \(error)")
+            }
+            
+        } catch {
+            print("Error info: \(error)")
         }
     }
     
