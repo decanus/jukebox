@@ -12,7 +12,11 @@ protocol PlayerPresenterOutput: class {
     
     func setPlayerProgressSliderValue(value: Float)
     
+    func setMaximumSliderValue(value: Float)
+    
     func updateElapsedTimeLabel(elapsedTime: String)
+    
+    func updateDurationLabel(duration: String)
     
     func frameForVideoLayer() -> CGRect
     

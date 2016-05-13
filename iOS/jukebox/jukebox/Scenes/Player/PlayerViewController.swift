@@ -120,6 +120,10 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
         slider.setValue(value, animated: true)
     }
     
+    func setMaximumSliderValue(value: Float) {
+        slider.maximumValue = value
+    }
+    
     func updateElapsedTimeLabel(elapsedTime: String) {
         elapsedLabel.text = elapsedTime
     }
@@ -132,22 +136,12 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
         artworkView.addSubview(playerVideo)
     }
     
-//    func updateSlider(time: CMTime, duration: CMTime) {
-//        let durationInSeconds = Float(CMTimeGetSeconds(duration))
-//        
-//        if slider.maximumValue != durationInSeconds && !durationInSeconds.isNaN {
-//            slider.maximumValue = durationInSeconds
-//            durationLabel.text = formatTime(Double(durationInSeconds))
-//        }
-//
-//        let elapsed = CMTimeGetSeconds(time)
-//         = formatTime(Double(elapsed))
-//    }
-    
+    func updateDurationLabel(duration: String) {
+        durationLabel.text = duration
+    }
     
     @objc func pause() {
         output.pausePressed()
-
     }
     
     @objc func previous() {
@@ -157,10 +151,4 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
     @objc func next() {
         output.nextPressed()
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
 }

@@ -23,6 +23,18 @@ class PlayerPresenter: NSObject, PlayerInteractorOutput, PlayerDelegate {
         output.updateElapsedTimeLabel(formatTime(Double(elapsedTime)))
     }
     
+    func player(player: Player, shouldUpdateDuration duration: CMTime) -> Bool {
+        let duration = CMTimeGetSeconds(duration)
+        
+        if duration.isNaN {
+            return false
+        }
+        
+        output.setMaximumSliderValue(Float(duration))
+        output.updateDurationLabel(formatTime(Double(duration)))
+        return true
+    }
+    
     func player(player: Player, canPresentVideoLayer videoLayer: AVPlayerLayer) {
         videoLayer.frame = output.frameForVideoLayer()
         videoLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
