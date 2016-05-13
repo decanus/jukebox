@@ -18,6 +18,10 @@ class PlayerInteractor: NSObject, PlayerViewControllerOutput {
         self.player = player
     }
     
+    func viewDidLoad() {
+        player.delegate = output
+    }
+    
     func pausePressed() {
         if player.getPlaybackState() == .Playing {
             player.pause()
@@ -33,6 +37,10 @@ class PlayerInteractor: NSObject, PlayerViewControllerOutput {
     
     func backPressed() {
         player.previous()
+    }
+    
+    func closePressed() {
+        player.delegate = nil
     }
     
 }

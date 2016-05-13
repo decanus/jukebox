@@ -32,6 +32,13 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
         artworkView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.width))
         view.addSubview(artworkView)
         
+        let closeButton = UIButton(frame: CGRect(x: 16, y: UIApplication.sharedApplication().statusBarFrame.size.height + 16, width: 17, height: 10))
+        closeButton.alpha = 0.85
+        closeButton.setImage(UIImage(named: "chevron"), forState: .Normal)
+        closeButton.imageView?.contentMode = .Top
+        closeButton.addTarget(self, action: #selector(PlayerViewController.close), forControlEvents: .TouchDown)
+        view.addSubview(closeButton)
+        
         slider = UISlider(frame: CGRect(x: 0, y: view.frame.size.width - (13 / 2), width: view.frame.size.width, height: 13))
         slider.maximumValueImage = nil
         slider.minimumValue = 0
@@ -78,6 +85,7 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
         next.addTarget(self, action: #selector(PlayerViewController.next), forControlEvents: .TouchUpInside)
         next.setImage(UIImage(named: "next"), forState: .Normal)
         view.addSubview(next)
+        output.viewDidLoad()
     }
     
     func setTrackTitle(title: String) {
@@ -114,6 +122,11 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
     
     func updateDurationLabel(duration: String) {
         durationLabel.text = duration
+    }
+    
+    @objc func close() {
+        output.closePressed()
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     @objc func pause() {

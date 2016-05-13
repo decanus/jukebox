@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol PlayerInteractorOutput {
+protocol PlayerInteractorOutput: PlayerDelegate {
 
 }

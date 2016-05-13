@@ -33,6 +33,8 @@ class MainViewController: UIViewController {
         view.backgroundColor = UIColor.whiteColor()
         
         if !wasLoaded {
+            player.addToQueue(YoutubeTrack(id: "bpOSxM0rNPM"))
+            player.addToQueue(YoutubeTrack(id: "QnxpHIl5Ynw"))
             player.addToQueue(YoutubeTrack(id: "jcF5HtGvX5I"))
             player.addToQueue(YoutubeTrack(id: "JCT_lgJ5eq8"))
             wasLoaded = true

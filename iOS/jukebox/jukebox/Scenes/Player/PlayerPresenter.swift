@@ -9,7 +9,7 @@
 import AVFoundation
 import UIKit
 
-class PlayerPresenter: NSObject, PlayerInteractorOutput, PlayerDelegate {
+class PlayerPresenter: NSObject, PlayerInteractorOutput {
     
     weak private var output: PlayerPresenterOutput!
     

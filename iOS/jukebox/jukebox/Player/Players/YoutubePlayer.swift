@@ -65,18 +65,27 @@ class YoutubePlayer: NSObject, PlayerProtocol {
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     self!.playerView.player?.currentItem?.addObserver(self!, forKeyPath: "duration", options: .New, context: &self!.durationUpdate)
-                    self?.playerLayer = AVPlayerLayer(player: self!.playerView.player)
-                    self!.player.delegate?.player(self!.player, canPresentVideoLayer: self!.playerLayer!)
+                    self?.presentVideoLayer()
                     self!.playerView.player?.play()
                 })
             }
+            
         }
+    }
+    
+    func presentDuration() -> Bool {
+        return (self.player.delegate?.player(self.player, shouldUpdateDuration: (self.playerView.player?.currentItem?.duration)!))!
+    }
+    
+    func presentVideoLayer() {
+        self.playerLayer = AVPlayerLayer(player: self.playerView.player)
+        self.player.delegate?.player(self.player, canPresentVideoLayer: self.playerLayer!)
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         
         if context == &durationUpdate {
-            if self.player.delegate?.player(self.player, shouldUpdateDuration: (self.playerView.player?.currentItem?.duration)!) == true {
+            if presentDuration() {
                 object?.removeObserver(self, forKeyPath: keyPath!, context: context)
             }
             
@@ -88,12 +97,18 @@ class YoutubePlayer: NSObject, PlayerProtocol {
     }
     
     func enterForeground() {
-        playerLayer?.player = playerView.player
+        if playerLayer != nil {
+            playerLayer?.player = playerView.player        
+        }
     }
     
     func removePlayerLayer() {
         if playerLayer != nil {
             playerLayer?.player = nil
         }
+    }
+    
+    func deletePlayerLayer() {
+        playerLayer = nil
     }
 }

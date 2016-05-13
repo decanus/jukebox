@@ -16,4 +16,8 @@ protocol PlayerViewControllerOutput {
     
     func backPressed()
     
+    func closePressed()
+    
+    func viewDidLoad()
+    
 }

@@ -11,7 +11,17 @@ import MediaPlayer
 // @todo, next seems buggy
 class Player: NSObject, PlayerProtocol {
     
-    weak var delegate: PlayerDelegate?
+    weak var delegate: PlayerDelegate? {
+        didSet {
+            if playbackState == .Playing && delegate != nil {
+                delegate?.player(self, shouldUpdateTrack: currentTrack!)
+                youtubePlayer.presentVideoLayer()
+                youtubePlayer.presentDuration()
+            } else {
+                youtubePlayer.deletePlayerLayer()
+            }
+        }
+    }
     
     // EXPERIMENTAL, CLEANUP
     // @todo, buffering next track
