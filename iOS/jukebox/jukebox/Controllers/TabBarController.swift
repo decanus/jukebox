@@ -5,13 +5,14 @@
 
 import UIKit
 
-class TabBarController: UITabBarController {
+class TabBarController: UITabBarController, UITabBarControllerDelegate {
 
     private let player: Player
     
     init(player: Player) {
         self.player = player
         super.init(nibName: nil, bundle: nil)
+        delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -25,7 +26,14 @@ class TabBarController: UITabBarController {
         self.selectedIndex = 0
     }
     
-    override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
+    func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
+
+        // ugly hack
+        if viewController is PlayerViewController {
+            presentViewController(ViewControllerFactory.createPlayerViewController(), animated: true, completion: nil)
+            return false
+        }
         
+        return true
     }
 }
