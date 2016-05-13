@@ -43,6 +43,11 @@ class PlayerPresenter: NSObject, PlayerInteractorOutput, PlayerDelegate {
         output.appendPlayerVideoToCoverView(playerVideo)
     }
     
+    func player(player: Player, shouldUpdateTrack track: Track) {
+        output.setCurrentPlatform(track.getPlatform())
+        output.setTrackTitle(track.getTitle())
+    }
+    
     private func formatTime(time: Double) -> String {
         let date = NSDate(timeIntervalSince1970: time)
         let formatter = NSDateFormatter()

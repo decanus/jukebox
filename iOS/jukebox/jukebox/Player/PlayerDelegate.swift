@@ -16,4 +16,6 @@ protocol PlayerDelegate: class {
     
     func player(player: Player, canPresentVideoLayer videoLayer: AVPlayerLayer)
     
+    func player(player: Player, shouldUpdateTrack track: Track)
+    
 }

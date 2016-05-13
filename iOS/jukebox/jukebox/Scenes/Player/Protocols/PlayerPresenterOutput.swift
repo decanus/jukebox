@@ -22,4 +22,7 @@ protocol PlayerPresenterOutput: class {
     
     func appendPlayerVideoToCoverView(playerVideo: UIView)
     
+    func setTrackTitle(title: String)
+    
+    func setCurrentPlatform(platform: Platform)
 }

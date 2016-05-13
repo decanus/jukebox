@@ -20,9 +20,6 @@ class Player: NSObject, PlayerProtocol {
     private var playbackState: PlaybackState = .Stopped
     private let queue: Queue
     
-    // only use delegate
-    private weak var playerViewController: PlayerViewController?
-    
     override init() {
         queue = Queue()
     }
@@ -111,12 +108,7 @@ class Player: NSObject, PlayerProtocol {
         }
         
         currentTrack = track
-        
-        if playerViewController != nil {
-//            addPlayer()
-            playerViewController!.setMetadata(currentTrack!.getTitle(), artist: "", platform: currentTrack!.getPlatform())
-        }
-
+        delegate?.player(self, shouldUpdateTrack: currentTrack!)
     }
     
     func hasVideoView() -> Bool {

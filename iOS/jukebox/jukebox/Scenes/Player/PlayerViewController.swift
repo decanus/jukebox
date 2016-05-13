@@ -79,11 +79,13 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
         view.addSubview(next)
     }
     
-    func setMetadata(title: String, artist: String, platform: Platform) {
+    func setTrackTitle(title: String) {
         trackTitle.text = title
         trackTitle.sizeToFit()
         trackTitle.center = CGPoint(x: view.frame.width / 2, y: durationLabel.frame.maxY + 19 + trackTitle.frame.height / 2)
-
+    }
+    
+    func setCurrentPlatform(platform: Platform) {
         source.setTitle(platform.rawValue.uppercaseString, forState: .Normal)
         source.sizeToFit()
         source.center = CGPoint(x: view.frame.width / 2, y: view.frame.height - source.frame.height - 16 + source.frame.height / 2)
