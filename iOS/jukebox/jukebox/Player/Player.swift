@@ -138,7 +138,6 @@ class Player: NSObject, PlayerProtocol {
     }
     
     func playerWillEnterBackground() {
-        
         if currentTrack is YoutubeTrack {
             youtubePlayer.removePlayerLayer()
         }
