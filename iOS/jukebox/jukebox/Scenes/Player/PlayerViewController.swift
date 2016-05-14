@@ -33,11 +33,13 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
         artworkView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.width))
         view.addSubview(artworkView)
         
-        let closeButton = UIButton(frame: CGRect(x: 16, y: UIApplication.sharedApplication().statusBarFrame.size.height + 16, width: 17, height: 10))
+        let closeButton = UIButton(
+            frame: CGRect(x: 16, y: UIApplication.sharedApplication().statusBarFrame.size.height + 16, width: 50, height: 20)
+        )
         closeButton.alpha = 0.85
         closeButton.setImage(UIImage(named: "chevron"), forState: .Normal)
-        closeButton.imageView?.contentMode = .Top
-        closeButton.addTarget(self, action: #selector(PlayerViewController.close), forControlEvents: .TouchDown)
+        closeButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: closeButton.frame.size.height - 10, right: 50 - 17)
+        closeButton.addTarget(self, action: #selector(PlayerViewController.close), forControlEvents: .TouchUpInside)
         view.addSubview(closeButton)
         
         slider = UISlider(frame: CGRect(x: 0, y: view.frame.size.width - (13 / 2), width: view.frame.size.width, height: 13))
