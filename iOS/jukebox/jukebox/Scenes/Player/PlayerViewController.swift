@@ -43,9 +43,9 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
         slider.maximumValueImage = nil
         slider.minimumValue = 0
         slider.maximumValue = 0
+        slider.setThumbImage(UIImage(named: "scrubber-button"), forState: .Normal)
         slider.minimumTrackTintColor = UIColor.lightPurpleColor()
         slider.tintColor = UIColor.lightPurpleColor()
-        slider.thumbTintColor = UIColor.lightPurpleColor()
         view.addSubview(slider)
 
         elapsedLabel = UILabel(frame: CGRect(x: 16, y: 375 + 16, width: 100, height: 14))
