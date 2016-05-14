@@ -96,6 +96,7 @@ class YoutubePlayer: NSObject, PlayerProtocol {
     }
     
     func itemDidFinishPlaying(note: NSNotification) {
+        self.playerView.player?.removeObserver(self, forKeyPath: "duration", context: &durationUpdate)
         self.player.next()
     }
     
