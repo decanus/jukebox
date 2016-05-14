@@ -11,6 +11,8 @@ import UIKit
 class PlayButton: UIButton {
     
     private let circle: CAShapeLayer
+    private var touchUpFlag = false
+    private var isAnimating = false
     
     override init(frame: CGRect) {
         let circlePath = UIBezierPath(
@@ -33,19 +35,55 @@ class PlayButton: UIButton {
         setImage(UIImage(named: "play"), forState: .Normal)
         imageView?.contentMode = .Center
         bringSubviewToFront((imageView)!)
-        
+        exclusiveTouch = true
         addTarget(self, action: #selector(PlayButton.touchDown), forControlEvents: [.TouchDown])
+        addTarget(self, action: #selector(PlayButton.touchUp), forControlEvents: [.TouchUpInside, .TouchDragOutside, .TouchCancel, .TouchDragExit])
     }
     
     func touchDown() {
+        touchUpFlag = false
+        isAnimating = true
+        animateFillColorToColor(UIColor.clearColor().CGColor, completion: {
+        
+            if self.touchUpFlag {
+                self.touchUpAnimation()
+            } else {
+                self.isAnimating = false
+            }
+            
+        })
+    }
+    
+    func touchUp() {
+        touchUpFlag = true
+        
+        if !self.isAnimating {
+            touchUpAnimation()
+        }
+
+    }
+    
+    func touchUpAnimation() {
+        isAnimating = true
+        animateFillColorToColor(UIColor.lightPurpleColor().CGColor, completion: {
+            self.isAnimating = false
+        })
+    }
+    
+    private func animateFillColorToColor(color: CGColor, completion: (() -> Void)?) {
+        CATransaction.begin()
+        CATransaction.setCompletionBlock(completion)
+        
         let animation = CABasicAnimation(keyPath: "fillColor")
         animation.fromValue = self.circle.fillColor
-        animation.toValue = UIColor.clearColor().CGColor
-        animation.duration = 0.13
+        animation.toValue = color
+        animation.duration = 0.25
         animation.repeatCount = 0
-        animation.autoreverses = true
-        circle.addAnimation(animation, forKey: "strokeColor")
+        circle.addAnimation(animation, forKey: "fillColor")
+        
+        CATransaction.commit()
     }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
