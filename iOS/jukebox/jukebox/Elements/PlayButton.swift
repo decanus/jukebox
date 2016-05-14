@@ -44,13 +44,11 @@ class PlayButton: UIButton {
         touchUpFlag = false
         isAnimating = true
         animateFillColorToColor(UIColor.clearColor().CGColor, completion: {
-        
             if self.touchUpFlag {
                 self.touchUpAnimation()
             } else {
                 self.isAnimating = false
             }
-            
         })
     }
     
