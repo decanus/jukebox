@@ -11,6 +11,7 @@ import XCDYouTubeKit
 
 // @todo, figure out how to queue objects
 // @todo, playerlayer code still very buggy
+// @todo, play in AVQueuePlayer, can solve a lot of issues
 class YoutubePlayer: NSObject, PlayerProtocol {
     
     // remove observer once duration is in Track object
@@ -96,8 +97,11 @@ class YoutubePlayer: NSObject, PlayerProtocol {
     }
     
     func itemDidFinishPlaying(note: NSNotification) {
-        self.playerView.player?.removeObserver(self, forKeyPath: "duration", context: &durationUpdate)
-        self.player.next()
+        // @ TODO SO BROKEN
+        if observer != nil {
+            playerView.player?.removeTimeObserver(observer!)
+        }
+        player.next()
     }
     
     func enterForeground() {
