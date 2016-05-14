@@ -131,7 +131,6 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
     }
     
     @objc func pause() {
-        playButton.animate()
         output.pausePressed()
     }
     
