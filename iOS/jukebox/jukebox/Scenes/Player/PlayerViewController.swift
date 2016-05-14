@@ -21,6 +21,7 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
     private var trackTitle: UILabel!
     private var source: UIButton!
     private var artworkView: UIView!
+    private var playButton: PlayButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,7 +73,7 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
         source.titleLabel?.font = source.titleLabel?.font.fontWithSize(14)
         view.addSubview(source)
 
-        let playButton = PlayButton(frame: CGRect(x: (view.frame.size.width / 2) - 40, y: 501, width: 80, height: 80))
+        playButton = PlayButton(frame: CGRect(x: (view.frame.size.width / 2) - 40, y: 501, width: 80, height: 80))
         playButton.addTarget(self, action: #selector(PlayerViewController.pause), forControlEvents: .TouchUpInside)
         view.addSubview(playButton)
 
@@ -130,6 +131,7 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
     }
     
     @objc func pause() {
+        playButton.animate()
         output.pausePressed()
     }
     
