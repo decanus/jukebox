@@ -1,10 +1,10 @@
 <?php
 
-namespace Park\Framework
+namespace Jukebox\Framework
 {
 
-    use Park\Framework\Bootstrap\AbstractBootstrapper;
-    use Park\Framework\Http\Response\AbstractResponse;
+    use Jukebox\Framework\Bootstrap\AbstractBootstrapper;
+    use Jukebox\Framework\Http\Response\AbstractResponse;
 
     class FrontController
     {

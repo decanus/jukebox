@@ -1,6 +1,6 @@
 <?php
 
-namespace Park\Framework
+namespace Jukebox\Framework
 {
     class Map
     {
