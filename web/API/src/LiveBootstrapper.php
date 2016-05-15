@@ -30,14 +30,15 @@ namespace Jukebox\API
             $factory->addFactory(new \Jukebox\API\Factories\ControllerFactory);
             $factory->addFactory(new \Jukebox\API\Factories\HandlerFactory);
             $factory->addFactory(new \Jukebox\Framework\Factories\LoggerFactory);
-            $factory->addFactory(new \Jukebox\Framework\Factories\ApplicationFactory);
+            $factory->addFactory(new \Jukebox\Framework\Factories\BackendFactory);
+            $factory->addFactory(new \Jukebox\API\Factories\ApplicationFactory);
 
             return $factory;
         }
 
         protected function buildRouter()
         {
-            $router = new Router();
+            $router = new Router($this->getFactory()->createAccessControl());
 
             $router->addRouter($this->getFactory()->createIndexRouter());
             $router->addRouter($this->getFactory()->createGetRequestRouter());
