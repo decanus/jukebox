@@ -31,7 +31,7 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        PlayerFactory.createPlayer().playTrack(YoutubeTrack(id: "4aKteL3vMvU"))
+        PlayerFactory.createPlayer().playTrack(YoutubeTrack(id: "Bag1gUxuU0g"))
     }
     
 }

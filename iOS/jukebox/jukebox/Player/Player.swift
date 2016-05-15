@@ -110,6 +110,7 @@ class Player: NSObject, PlayerProtocol {
     }
     
     func playTrack(track: Track) {
+        activateAudioSession()
         playbackState = .Playing
         
         if track is YoutubeTrack {
