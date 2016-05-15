@@ -33,6 +33,11 @@ namespace Jukebox\API\Routers
             }
 
             $uri = $request->getUri();
+
+            switch ($uri->getPath()) {
+                case '/v1/search':
+                    return $this->factory->createSearchController(new ControllerParameterObject($uri));
+            }
         }
     }
 }

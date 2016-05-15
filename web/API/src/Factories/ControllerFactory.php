@@ -38,6 +38,20 @@ namespace Jukebox\API\Factories
             );
         }
 
+        public function createSearchController(ControllerParameterObject $parameterObject): GetController
+        {
+            return new GetController(
+                new \Jukebox\API\Models\APIModel($parameterObject->getUri()),
+                $this->getMasterFactory()->createPreHandler(),
+                $this->getMasterFactory()->createCommandHandler(),
+                $this->getMasterFactory()->createQueryHandler(),
+                $this->getMasterFactory()->createIndexTransformationHandler(),
+                $this->getMasterFactory()->createResponseHandler(),
+                $this->getMasterFactory()->createPostHandler(),
+                new JsonResponse
+            );
+        }
+
         public function createNotFoundController(ControllerParameterObject $parameterObject): GetController
         {
             return new GetController(
