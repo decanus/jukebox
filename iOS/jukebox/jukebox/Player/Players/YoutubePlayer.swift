@@ -75,7 +75,7 @@ class YoutubePlayer: NSObject, PlayerProtocol {
     }
     
     func presentDuration() -> Bool {
-        if self.player.delegate != nil {
+        if player.delegate != nil {
             return (player.delegate?.player(player, shouldUpdateDuration: (playerView.player?.currentItem?.duration)!))!
         }
         
@@ -83,8 +83,8 @@ class YoutubePlayer: NSObject, PlayerProtocol {
     }
     
     func presentVideoLayer() {
-        self.playerLayer = AVPlayerLayer(player: playerView.player)
-        self.player.delegate?.player(player, canPresentVideoLayer: playerLayer!)
+        playerLayer = AVPlayerLayer(player: playerView.player)
+        player.delegate?.player(player, canPresentVideoLayer: playerLayer!)
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
