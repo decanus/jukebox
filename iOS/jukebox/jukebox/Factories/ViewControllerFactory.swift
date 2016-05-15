@@ -22,7 +22,11 @@ class ViewControllerFactory {
                 
         return viewController
     }
-    
+
+    class func createSearchViewController() -> SearchViewController {
+        return SearchViewController()
+    }
+
     class func createPlaylistViewController() -> PlaylistViewController {
         return PlaylistViewController()
     }
