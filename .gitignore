@@ -1,5 +1,6 @@
 .idea/
-
+Vagrant/.vagrant
+Vagrant/provisioned
 iOS/jukebox/jukebox.xcworkspace/
 iOS/jukebox/jukebox.xcodeproj/project.xcworkspace/xcuserdata/
 iOS/jukebox/jukebox.xcodeproj/xcuserdata/

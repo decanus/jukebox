@@ -19,6 +19,11 @@ namespace Jukebox\API
 
         public function hasPermissions(RequestInterface $request): bool
         {
+            if ($request->getUri()->getPath() === '/') {
+                return true;
+            }
+
+
             if (!$request->hasParameter('key')) {
                 return false;
             }

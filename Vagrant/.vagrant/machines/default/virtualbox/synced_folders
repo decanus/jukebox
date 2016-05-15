@@ -1,0 +1,1 @@
+{"virtualbox":{"/var/www":{"create":true,"guestpath":"/var/www","hostpath":"/Users/deaneigenmann/Documents/jukebox/web","disabled":false},"/vagrant":{"guestpath":"/vagrant","hostpath":"/Users/deaneigenmann/Documents/jukebox/Vagrant","disabled":false}}}
