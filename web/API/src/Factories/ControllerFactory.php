@@ -10,20 +10,6 @@ namespace Jukebox\API\Factories
 
     class ControllerFactory extends AbstractFactory
     {
-        public function createGetJukeboxingController(ControllerParameterObject $parameterObject): GetController
-        {
-            return new GetController(
-                new \Jukebox\API\Models\APIModel($parameterObject->getUri()),
-                $this->getMasterFactory()->createPreHandler(),
-                $this->getMasterFactory()->createCommandHandler(),
-                $this->getMasterFactory()->createGetJukeboxingQueryHandler(),
-                $this->getMasterFactory()->createTransformationHandler(),
-                $this->getMasterFactory()->createResponseHandler(),
-                $this->getMasterFactory()->createPostHandler(),
-                new JsonResponse
-            );
-        }
-
         public function createIndexController(ControllerParameterObject $parameterObject): GetController
         {
             return new GetController(
@@ -44,8 +30,8 @@ namespace Jukebox\API\Factories
                 new \Jukebox\API\Models\APIModel($parameterObject->getUri()),
                 $this->getMasterFactory()->createPreHandler(),
                 $this->getMasterFactory()->createCommandHandler(),
-                $this->getMasterFactory()->createQueryHandler(),
-                $this->getMasterFactory()->createIndexTransformationHandler(),
+                $this->getMasterFactory()->createSearchQueryHandler(),
+                $this->getMasterFactory()->createTransformationHandler(),
                 $this->getMasterFactory()->createResponseHandler(),
                 $this->getMasterFactory()->createPostHandler(),
                 new JsonResponse
