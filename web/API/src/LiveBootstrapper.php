@@ -8,7 +8,7 @@ namespace Jukebox\API
     use Jukebox\Framework\ErrorHandlers\DevelopmentErrorHandler;
     use Jukebox\API\ErrorHandlers\ProductionErrorHandler;
     use Jukebox\Framework\Factories\MasterFactory;
-    use Jukebox\Framework\Routers\Router;
+    use Jukebox\API\Routers\Router;
 
     class LiveBootstrapper extends AbstractBootstrapper
     {
