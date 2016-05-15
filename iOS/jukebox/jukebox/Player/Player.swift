@@ -16,7 +16,6 @@ class Player: NSObject, PlayerProtocol {
             if playbackState == .Playing && delegate != nil {
                 delegate?.player(self, shouldUpdateTrack: currentTrack!)
                 youtubePlayer.presentVideoLayer()
-                youtubePlayer.presentDuration()
             } else {
                 youtubePlayer.deletePlayerLayer()
             }

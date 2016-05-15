@@ -11,9 +11,11 @@ import Foundation
 class YoutubeTrack: NSObject, Track {
     
     private let id: String
+    private let duration: NSTimeInterval
     
-    init(id: String) {
+    init(id: String, duration: NSTimeInterval) {
         self.id = id
+        self.duration = duration
     }
     
     func getID() -> String {
@@ -25,7 +27,7 @@ class YoutubeTrack: NSObject, Track {
     }
     
     func getDuration() -> NSTimeInterval {
-        return 0
+        return duration
     }
     
     func getPlatform() -> Platform {

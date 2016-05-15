@@ -12,8 +12,6 @@ protocol PlayerDelegate: class {
     
     func player(player: Player, shouldUpdateElapsedTime elapsedTime: CMTime)
     
-    func player(player: Player, shouldUpdateDuration duration: CMTime) -> Bool
-    
     func player(player: Player, canPresentVideoLayer videoLayer: AVPlayerLayer)
     
     func player(player: Player, shouldUpdateTrack track: Track)

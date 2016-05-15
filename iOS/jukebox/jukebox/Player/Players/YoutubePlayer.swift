@@ -15,7 +15,6 @@ import XCDYouTubeKit
 class YoutubePlayer: NSObject, PlayerProtocol {
     
     // remove observer once duration is in Track object
-    private var durationUpdate = 0
     private let player: Player
     private var loaded = false
     private let playerView: AVPlayerViewController
@@ -52,6 +51,7 @@ class YoutubePlayer: NSObject, PlayerProtocol {
                 }
                 
                 // remove observer if next pressed
+                // no more observer, use time from our track player object
                 self!.observer = self!.playerView.player?.addPeriodicTimeObserverForInterval(CMTimeMake(33, 1000), queue: dispatch_get_main_queue(), usingBlock: {
                     time in
                     self!.player.delegate?.player(self!.player, shouldUpdateElapsedTime: time)
@@ -65,21 +65,11 @@ class YoutubePlayer: NSObject, PlayerProtocol {
                 )
                 
                 dispatch_async(dispatch_get_main_queue(), {
-                    self!.playerView.player?.currentItem?.addObserver(self!, forKeyPath: "duration", options: .New, context: &self!.durationUpdate)
                     self?.presentVideoLayer()
                     self!.playerView.player?.play()
                 })
             }
-            
         }
-    }
-    
-    func presentDuration() -> Bool {
-        if player.delegate != nil {
-            return (player.delegate?.player(player, shouldUpdateDuration: (playerView.player?.currentItem?.duration)!))!
-        }
-        
-        return true
     }
     
     func presentVideoLayer() {
@@ -87,21 +77,12 @@ class YoutubePlayer: NSObject, PlayerProtocol {
         player.delegate?.player(player, canPresentVideoLayer: playerLayer!)
     }
     
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        
-        if context == &durationUpdate {
-            if presentDuration() {
-                object?.removeObserver(self, forKeyPath: keyPath!, context: context)
-            }
-        }
-    }
-    
     func itemDidFinishPlaying(note: NSNotification) {
-        // @ TODO SO BROKEN
         if observer != nil {
             playerView.player?.removeTimeObserver(observer!)
             observer = nil
         }
+        
         player.next()
     }
     
