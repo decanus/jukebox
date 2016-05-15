@@ -34,10 +34,35 @@ namespace Jukebox\Search
 
         public function search(string $query): array
         {
-            return $this->curl->get(
+            $response = $this->curl->get(
                 $this->searchEndpoint,
-                ['part' => 'snippet', 'query' => $query, 'type' => 'video', 'key' => $this->apiKey]
-            )->getDecodedJsonResponse();
+                ['part' => 'snippet', 'q' => urlencode($query), 'type' => 'video', 'key' => $this->apiKey, 'maxResults' => '20']
+            );
+
+            if ($response->getResponseCode() !== 200) {
+                throw new \RuntimeException('Something went wrong');
+            }
+
+            $data = $response->getDecodedJsonResponse();
+
+            if (!isset($data['items'])) {
+                throw new \RuntimeException('Something went wrong');
+            }
+
+            $return = [];
+
+            foreach ($data['items'] as $item) {
+
+                $snippet = [
+                    'platform' => 'youtube',
+                    'title' => $item['snippet']['title'],
+                    'id' => $item['id']['videoId']
+                ];
+
+                $return[] = $snippet;
+            }
+
+            return $return;
         }
     }
 }

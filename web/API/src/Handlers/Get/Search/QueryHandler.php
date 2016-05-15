@@ -32,7 +32,7 @@ namespace Jukebox\API\Handlers\Get\Search
                 return;
             }
 
-            var_dump($this->search->search($request->getParameter('query')));exit;
+            $model->setData($this->search->search($request->getParameter('query')));
         }
     }
 }
