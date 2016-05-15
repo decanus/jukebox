@@ -6,5 +6,5 @@
 import Foundation
 
 protocol SearchInteractorOutput {
-    
+        
 }

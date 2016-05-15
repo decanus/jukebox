@@ -10,6 +10,8 @@ import UIKit
 
 class SearchViewController: UIViewController {
  
+    var output: SearchViewControllerOutput!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,7 +33,7 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        PlayerFactory.createPlayer().playTrack(YoutubeTrack(id: "Bag1gUxuU0g"))
+        PlayerFactory.createPlayer().playTrack(output.trackForIndex(indexPath.row))
     }
     
 }
@@ -39,7 +41,7 @@ extension SearchViewController: UITableViewDelegate {
 extension SearchViewController: UITableViewDataSource {
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return (output.tracks?.count)!
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

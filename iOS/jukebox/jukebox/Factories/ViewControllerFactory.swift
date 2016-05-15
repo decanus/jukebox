@@ -24,7 +24,9 @@ class ViewControllerFactory {
     }
 
     class func createSearchViewController() -> SearchViewController {
-        return SearchViewController()
+        let viewController = SearchViewController()
+        viewController.output = SearchInteractor()
+        return viewController
     }
 
     class func createPlaylistViewController() -> PlaylistViewController {
