@@ -10,12 +10,11 @@
       "scale" : "3x"
     },
     {
-      "extent" : "full-screen",
-      "idiom" : "iphone",
-      "subtype" : "736h",
-      "filename" : "-Retina HD 5.5 Landscape.png",
-      "minimum-system-version" : "8.0",
       "orientation" : "landscape",
+      "idiom" : "iphone",
+      "extent" : "full-screen",
+      "minimum-system-version" : "8.0",
+      "subtype" : "736h",
       "scale" : "3x"
     },
     {
@@ -55,7 +54,6 @@
     {
       "orientation" : "landscape",
       "idiom" : "ipad",
-      "filename" : "- iPad Landscape.png",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
       "scale" : "1x"
@@ -71,7 +69,6 @@
     {
       "orientation" : "landscape",
       "idiom" : "ipad",
-      "filename" : "- iPad Landscape@2x.png",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
       "scale" : "2x"
