@@ -15,8 +15,7 @@ class SearchViewController: UIViewController {
     init() {
         super.init(nibName: nil, bundle: nil)
         
-        tabBarItem.image = UIImage(named: "search")
-        tabBarItem.title = "Search"
+        tabBarItem = UITabBarItem(title: "Search", image: UIImage(named: "search"), tag: 1)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -25,8 +24,8 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         navigationController?.navigationBarHidden = false
+
         
         let tableView = UITableView(frame: view.frame, style: .Plain)
         tableView.delegate = self
