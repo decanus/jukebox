@@ -21,6 +21,7 @@ class YoutubePlayer: NSObject, PlayerProtocol {
     private let playerView: AVPlayerViewController
     private var playerLayer: AVPlayerLayer?
     private var observer: AnyObject?
+    private var track: Track!
     
     init(player: Player) {
         self.player = player
@@ -38,6 +39,8 @@ class YoutubePlayer: NSObject, PlayerProtocol {
     }
     
     func setTrack(track: Track) {
+        self.track = track
+        
         XCDYouTubeClient.defaultClient().getVideoWithIdentifier(track.getID()) { [weak self] (video: XCDYouTubeVideo?, error: NSError?) in
             if let streamURL = (video?.streamURLs[XCDYouTubeVideoQualityHTTPLiveStreaming] ??
                 video?.streamURLs[XCDYouTubeVideoQuality.HD720.rawValue] ??
@@ -50,9 +53,10 @@ class YoutubePlayer: NSObject, PlayerProtocol {
                 } else {
                     self!.playerView.player = AVPlayer(URL: streamURL)
                 }
-                
-                // remove observer if next pressed
-                // no more observer, use time from our track player object
+
+                self!.track.setDuration((video?.duration)!)
+                self!.player.delegate?.player(self!.player, shouldUpdateTrack: self!.track)
+
                 self!.observer = self!.playerView.player?.addPeriodicTimeObserverForInterval(CMTimeMake(33, 1000), queue: dispatch_get_main_queue(), usingBlock: {
                     time in
                     self!.player.delegate?.player(self!.player, shouldUpdateElapsedTime: time)
@@ -69,6 +73,8 @@ class YoutubePlayer: NSObject, PlayerProtocol {
                     self?.presentVideoLayer()
                     self!.playerView.player?.play()
                 })
+                self!.playerView.player?.play()
+
             }
         }
     }

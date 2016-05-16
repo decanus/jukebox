@@ -11,8 +11,8 @@ import Foundation
 class YoutubeTrack: NSObject, Track {
     
     private let id: String
-    private let duration: NSTimeInterval
     private let title: String
+    private var duration: NSTimeInterval
     
     init(id: String, duration: NSTimeInterval, title: String = "Better") {
         self.id = id
@@ -28,8 +28,16 @@ class YoutubeTrack: NSObject, Track {
         return title
     }
     
+    func getArtist() -> String {
+        return "Jukebox Ninja"
+    }
+    
     func getDuration() -> NSTimeInterval {
         return duration
+    }
+    
+    func setDuration(duration: NSTimeInterval) {
+        self.duration = duration
     }
     
     func getPlatform() -> Platform {
