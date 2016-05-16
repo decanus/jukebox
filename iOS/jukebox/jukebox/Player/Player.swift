@@ -20,6 +20,7 @@ class Player: NSObject, PlayerProtocol {
                 youtubePlayer.presentDuration()
                 youtubePlayer.showElapsed()
             } else {
+                // @todo don't always delete
                 youtubePlayer.deletePlayerLayer()
             }
         }
