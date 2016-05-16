@@ -31,6 +31,7 @@ class PlayButton: UIButton {
         
         super.init(frame: frame)
         layer.addSublayer(circle)
+        adjustsImageWhenHighlighted = false
         
         setImage(UIImage(named: "play"), forState: .Normal)
         imageView?.contentMode = .Center
