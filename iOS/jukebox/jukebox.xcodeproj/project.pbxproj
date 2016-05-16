@@ -36,6 +36,7 @@
 		2ECC64BA1CE656E0004249A4 /* PlayerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECC64B91CE656E0004249A4 /* PlayerPresenter.swift */; };
 		2ECC64BC1CE65742004249A4 /* PlayerPresenterOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECC64BB1CE65742004249A4 /* PlayerPresenterOutput.swift */; };
 		2ECC64BE1CE8BA8E004249A4 /* SearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECC64BD1CE8BA8E004249A4 /* SearchInteractor.swift */; };
+		2ECC64C31CEA22AC004249A4 /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECC64C21CEA22AC004249A4 /* TrackCell.swift */; };
 		2EF0B1811CE1BAFA0061FF7A /* YoutubePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0B1801CE1BAFA0061FF7A /* YoutubePlayer.swift */; };
 		2EF0B18B1CE1D7850061FF7A /* PlayerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0B18A1CE1D7850061FF7A /* PlayerFactory.swift */; };
 		2EF0B18F1CE1EB990061FF7A /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0B18E1CE1EB990061FF7A /* Queue.swift */; };
@@ -100,6 +101,7 @@
 		2ECC64B91CE656E0004249A4 /* PlayerPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerPresenter.swift; sourceTree = "<group>"; };
 		2ECC64BB1CE65742004249A4 /* PlayerPresenterOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerPresenterOutput.swift; sourceTree = "<group>"; };
 		2ECC64BD1CE8BA8E004249A4 /* SearchInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchInteractor.swift; sourceTree = "<group>"; };
+		2ECC64C21CEA22AC004249A4 /* TrackCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
 		2EF0B17E1CE1BA130061FF7A /* youtube_ios_player_helper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = youtube_ios_player_helper.framework; path = "Pods/../build/Debug-iphoneos/youtube_ios_player_helper.framework"; sourceTree = "<group>"; };
 		2EF0B1801CE1BAFA0061FF7A /* YoutubePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoutubePlayer.swift; sourceTree = "<group>"; };
 		2EF0B1841CE1BB9A0061FF7A /* YTPlayerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YTPlayerView.h; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 		2E124AFB1CE0743A002BC8E4 /* jukebox */ = {
 			isa = PBXGroup;
 			children = (
+				2ECC64C11CEA22A4004249A4 /* Views */,
 				2E11A1CF1CE5BA2300335C29 /* Appearence */,
 				2E11A1CC1CE5B6CF00335C29 /* Elements */,
 				2E11A1C61CE324E800335C29 /* Controllers */,
@@ -331,6 +334,14 @@
 				2EF0B1801CE1BAFA0061FF7A /* YoutubePlayer.swift */,
 			);
 			path = Players;
+			sourceTree = "<group>";
+		};
+		2ECC64C11CEA22A4004249A4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2ECC64C21CEA22AC004249A4 /* TrackCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		2EF0B1821CE1BB9A0061FF7A /* youtube-ios-player-helper */ = {
@@ -612,6 +623,7 @@
 				AC12B127AE05E20CE95EC95E /* SearchViewControllerOutput.swift in Sources */,
 				AC12B5E154B2C8DA24C96393 /* SearchPresenterOutput.swift in Sources */,
 				AC12B5FE069319AAF8903CE6 /* SearchInteractorOutput.swift in Sources */,
+				2ECC64C31CEA22AC004249A4 /* TrackCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

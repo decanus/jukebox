@@ -15,11 +15,15 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBarHidden = false
+        
         tabBarItem.title = "foo"
 
         let tableView = UITableView(frame: view.frame, style: .Plain)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .None
+        tableView.allowsMultipleSelection = false
         view.addSubview(tableView)
     }
     
@@ -45,8 +49,9 @@ extension SearchViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = "Test"
+        let cell = TrackCell(track: output.trackForIndex(indexPath.row))
+//        cell.textLabel?.text = "Test"
+//        cell.detailTextLabel?.text = "Foo"
         return cell
     }
     

@@ -6,7 +6,7 @@
 //  Copyright © 2016 jukebox. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class ViewControllerFactory {
     
@@ -23,10 +23,15 @@ class ViewControllerFactory {
         return viewController
     }
 
-    class func createSearchViewController() -> SearchViewController {
+    class func createSearchViewController() -> UINavigationController {
+        
         let viewController = SearchViewController()
         viewController.output = SearchInteractor()
-        return viewController
+        
+        let navigationController = UINavigationController()
+        navigationController.viewControllers = [viewController]
+        
+        return navigationController
     }
 
     class func createPlaylistViewController() -> PlaylistViewController {
