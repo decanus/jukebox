@@ -15,6 +15,7 @@ class Player: NSObject, PlayerProtocol {
         didSet {
             if playbackState != .Stopped && delegate != nil {
                 delegate?.player(self, shouldUpdateTrack: currentTrack!)
+                delegate?.player(self, shouldUpdatePlaybackState: playbackState)
                 youtubePlayer.presentVideoLayer()
                 youtubePlayer.presentDuration()
                 youtubePlayer.showElapsed()
