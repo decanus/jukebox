@@ -155,6 +155,7 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
     }
     
     @objc func close() {
+        UIApplication.sharedApplication().statusBarStyle = .Default
         output.closePressed()
         dismissViewControllerAnimated(true, completion: nil)
     }
