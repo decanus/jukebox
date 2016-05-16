@@ -5,7 +5,7 @@
 
 import UIKit
 
-class TabBarController: UITabBarController, UITabBarControllerDelegate {
+class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDelegate {
 
     private let player: Player
     
@@ -13,6 +13,13 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         self.player = player
         super.init(nibName: nil, bundle: nil)
         delegate = self
+        
+        player.delegate = self
+        
+        let test = UIView(frame: CGRect(x: 0, y: view.frame.size.height - (tabBar.frame.size.height * 2), width: view.frame.size.width, height: tabBar.frame.size.height))
+        test.backgroundColor = UIColor.purpleColor()
+        view.addSubview(test)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
