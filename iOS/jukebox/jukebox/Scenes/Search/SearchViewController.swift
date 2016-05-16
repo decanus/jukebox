@@ -12,12 +12,21 @@ class SearchViewController: UIViewController {
  
     var output: SearchViewControllerOutput!
     
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        
+        tabBarItem.image = UIImage(named: "search")
+        tabBarItem.title = "Search"
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationController?.navigationBarHidden = false
-        
-        tabBarItem.image = UIImage(named: "search")
         
         let tableView = UITableView(frame: view.frame, style: .Plain)
         tableView.delegate = self
