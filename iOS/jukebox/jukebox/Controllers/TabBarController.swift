@@ -38,9 +38,10 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
         playerBar.layer.addSublayer(topBorder)
         
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(self.openPlayerView))
-//        recognizer.delegate = self
         recognizer.numberOfTapsRequired = 1
-        playerBar.addGestureRecognizer(recognizer)
+        let recognizerView = UIView(frame: CGRect(x: button.frame.origin.x + button.frame.size.width, y: 0, width: playerBar.frame.size.width - (button.frame.origin.x + button.frame.size.width), height: playerBar.frame.size.height))
+        recognizerView.addGestureRecognizer(recognizer)
+        playerBar.addSubview(recognizerView)
         
         songTitle = UILabel()
         songTitle.textColor = UIColor.blackColor()
