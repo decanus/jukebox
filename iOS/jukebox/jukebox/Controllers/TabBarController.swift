@@ -13,13 +13,13 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
     private var albumTitle: UILabel!
     // @todo seperate class
     private let playerBar: UIView!
-    private var button: UIButton
+    private var button: PlayButton
     
     init(player: Player) {
         self.player = player
         
         playerBar = UIView()
-        button = UIButton()
+        button = PlayButton(frame: CGRect(x: 16, y: 19, width: 16, height: 16), type: .Small)
         
         super.init(nibName: nil, bundle: nil)
         delegate = self
@@ -50,8 +50,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
         albumTitle.textColor = UIColor.grayColor()
         albumTitle.font = UIFont.systemFontOfSize(10)
         
-        button.setImage(UIImage(named: "player-bar-play"), forState: .Normal)
-        button.frame = CGRect(x: 16, y: 19, width: 16, height: 16)
         button.addTarget(self, action: #selector(TabBarController.pausePressed), forControlEvents: .TouchUpInside)
         
         playerBar.addSubview(songTitle)
@@ -93,11 +91,11 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
         }
         
         if state == .Playing {
-            button.setImage(UIImage(named: "player-bar-pause"), forState: .Normal)
+            button.setPlaying()
             return
         }
         
-        button.setImage(UIImage(named: "player-bar-play"), forState: .Normal)
+        button.setPaused()
     }
     
     required init?(coder aDecoder: NSCoder) {
