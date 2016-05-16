@@ -14,9 +14,7 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         navigationController?.navigationBarHidden = false
-        
         tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "search"), tag: 1)
         
         let tableView = UITableView(frame: view.frame, style: .Plain)
