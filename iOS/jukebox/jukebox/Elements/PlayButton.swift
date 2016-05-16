@@ -69,6 +69,14 @@ class PlayButton: UIButton {
         })
     }
     
+    func setPaused() {
+        setImage(UIImage(named: "play"), forState: .Normal)
+    }
+    
+    func setPlaying() {
+        setImage(UIImage(named: "pause"), forState: .Normal)
+    }
+    
     private func animateFillColorToColor(color: CGColor, completion: (() -> Void)?) {
         CATransaction.begin()
         CATransaction.setCompletionBlock(completion)
