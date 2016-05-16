@@ -14,6 +14,8 @@ protocol Track {
     
     func getTitle() -> String
     
+    func getArtist() -> String
+    
     func getDuration() -> NSTimeInterval
     
     func getPlatform() -> Platform

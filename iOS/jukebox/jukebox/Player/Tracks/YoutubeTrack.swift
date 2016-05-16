@@ -24,6 +24,10 @@ class YoutubeTrack: NSObject, Track {
         return "Better"
     }
     
+    func getArtist() -> String {
+        return "Jukebox Ninja"
+    }
+    
     func getDuration() -> NSTimeInterval {
         return 0
     }
