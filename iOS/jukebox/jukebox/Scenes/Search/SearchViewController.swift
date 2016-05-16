@@ -14,8 +14,8 @@ class SearchViewController: UIViewController {
     
     init() {
         super.init(nibName: nil, bundle: nil)
-        
-        tabBarItem = UITabBarItem(title: "Search", image: UIImage(named: "search"), tag: 1)
+        tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "search"), tag: 1)
+        tabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
     }
     
     required init?(coder aDecoder: NSCoder) {
