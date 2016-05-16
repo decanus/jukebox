@@ -18,4 +18,6 @@ protocol PlayerDelegate: class {
     
     func player(player: Player, shouldUpdateTrack track: Track)
     
+    func player(player: Player, shouldUpdatePlaybackState state: PlaybackState)
+    
 }

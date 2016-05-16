@@ -25,4 +25,7 @@ protocol PlayerPresenterOutput: class {
     func setTrackTitle(title: String)
     
     func setCurrentPlatform(platform: Platform)
+    
+    func setPlaybackState(state: PlaybackState)
+    
 }

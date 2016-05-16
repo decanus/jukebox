@@ -127,6 +127,16 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
         durationLabel.text = duration
     }
     
+    func setPlaybackState(state: PlaybackState) {
+        switch(state) {
+        case .Paused,
+             .Stopped:
+            playButton.setPaused()
+        case .Playing:
+            playButton.setPlaying()
+        }
+    }
+    
     @objc func close() {
         output.closePressed()
         dismissViewControllerAnimated(true, completion: nil)

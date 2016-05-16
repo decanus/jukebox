@@ -48,6 +48,10 @@ class PlayerPresenter: NSObject, PlayerInteractorOutput {
         output.setTrackTitle(track.getTitle())
     }
     
+    func player(player: Player, shouldUpdatePlaybackState state: PlaybackState) {
+        output.setPlaybackState(state)
+    }
+    
     private func formatTime(time: Double) -> String {
         let date = NSDate(timeIntervalSince1970: time)
         let formatter = NSDateFormatter()
