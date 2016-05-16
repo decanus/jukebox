@@ -12,7 +12,6 @@ import AVFoundation
 class MainViewController: UIViewController {
 
     private var player: Player!
-    private var audioSession: AVAudioSession!
     private var wasLoaded = false
     
     init(player: Player) {
@@ -31,13 +30,7 @@ class MainViewController: UIViewController {
         tabBarItem.title = "foo"
         navigationController?.navigationBarHidden = true
         view.backgroundColor = UIColor.whiteColor()
-        
-        let button = UIButton(frame: CGRect(x: 10, y: 10, width: 100, height: 100))
-        button.setTitle("player", forState: .Normal)
-        button.backgroundColor = UIColor.redColor()
-        button.addTarget(self, action: #selector(open), forControlEvents: .TouchUpInside)
-        view.addSubview(button)
-        
+
         if !wasLoaded {
             player.addToQueue(YoutubeTrack(id: "bpOSxM0rNPM", duration: 265, title: "Do I Wanna Know?"))
             player.addToQueue(YoutubeTrack(id: "QnxpHIl5Ynw", duration: 297, title: "High By The Beach"))
@@ -45,10 +38,6 @@ class MainViewController: UIViewController {
             player.addToQueue(YoutubeTrack(id: "JCT_lgJ5eq8", duration: 205))
             wasLoaded = true
         } 
-    }
-    
-    @objc func open() {
-        presentViewController(ViewControllerFactory.createPlayerViewController(), animated: true, completion: nil)
     }
     
     override func didReceiveMemoryWarning() {
