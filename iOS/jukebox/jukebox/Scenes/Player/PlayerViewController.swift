@@ -127,14 +127,12 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
         durationLabel.text = duration
     }
     
-    func setPlaybackState(state: PlaybackState) {
-        switch(state) {
-        case .Paused,
-             .Stopped:
-            playButton.setPaused()
-        case .Playing:
-            playButton.setPlaying()
+    func updatePlaybackState(state: PlaybackState) {
+        if (state == .Paused) {
+            return playButton.setPaused()
         }
+        
+        playButton.setPlaying()
     }
     
     @objc func close() {

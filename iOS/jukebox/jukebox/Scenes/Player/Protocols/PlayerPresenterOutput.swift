@@ -26,6 +26,6 @@ protocol PlayerPresenterOutput: class {
     
     func setCurrentPlatform(platform: Platform)
     
-    func setPlaybackState(state: PlaybackState)
+    func updatePlaybackState(state: PlaybackState)
     
 }
