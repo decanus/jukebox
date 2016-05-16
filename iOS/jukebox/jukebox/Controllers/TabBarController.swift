@@ -25,7 +25,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
         topBorder.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: 0.5)
         topBorder.backgroundColor = UIColor.lightGrayColor().CGColor
         
-
         playerBar.frame = CGRect(
             x: 0,
             y: view.frame.size.height - (tabBar.frame.size.height * 2),
