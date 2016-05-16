@@ -22,6 +22,7 @@ class YoutubePlayer: NSObject, PlayerProtocol {
     private let playerView: AVPlayerViewController
     private var playerLayer: AVPlayerLayer?
     private var observer: AnyObject?
+    private var track: Track!
     
     init(player: Player) {
         self.player = player
@@ -39,6 +40,8 @@ class YoutubePlayer: NSObject, PlayerProtocol {
     }
     
     func setTrack(track: Track) {
+        self.track = track
+        
         XCDYouTubeClient.defaultClient().getVideoWithIdentifier(track.getID()) { [weak self] (video: XCDYouTubeVideo?, error: NSError?) in
             if let streamURL = (video?.streamURLs[XCDYouTubeVideoQualityHTTPLiveStreaming] ??
                 video?.streamURLs[XCDYouTubeVideoQuality.HD720.rawValue] ??
@@ -52,7 +55,9 @@ class YoutubePlayer: NSObject, PlayerProtocol {
                     self!.playerView.player = AVPlayer(URL: streamURL)
                 }
                 
-                // remove observer if next pressed
+                self!.track.setDuration((video?.duration)!)
+                self!.player.delegate?.player(self!.player, shouldUpdateTrack: self!.track)
+
                 self!.observer = self!.playerView.player?.addPeriodicTimeObserverForInterval(CMTimeMake(33, 1000), queue: dispatch_get_main_queue(), usingBlock: {
                     time in
                     self!.player.delegate?.player(self!.player, shouldUpdateElapsedTime: time)
@@ -65,13 +70,9 @@ class YoutubePlayer: NSObject, PlayerProtocol {
                     object: self!.playerView.player?.currentItem
                 )
                 
-                dispatch_async(dispatch_get_main_queue(), {
-                    self!.playerView.player?.currentItem?.addObserver(self!, forKeyPath: "duration", options: .New, context: &self!.durationUpdate)
-                    self?.presentVideoLayer()
-                    self!.playerView.player?.play()
-                })
+                self!.playerView.player?.play()
+
             }
-            
         }
     }
     
@@ -79,26 +80,9 @@ class YoutubePlayer: NSObject, PlayerProtocol {
         self.player.delegate?.player(self.player, shouldUpdateElapsedTime: (self.playerView.player?.currentItem?.currentTime())!)
     }
     
-    func presentDuration() -> Bool {
-        if player.delegate != nil {
-            return (player.delegate?.player(player, shouldUpdateDuration: (playerView.player?.currentItem?.duration)!))!
-        }
-        
-        return true
-    }
-    
     func presentVideoLayer() {
         playerLayer = AVPlayerLayer(player: playerView.player)
         player.delegate?.player(player, canPresentVideoLayer: playerLayer!)
-    }
-    
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        
-        if context == &durationUpdate {
-            if presentDuration() {
-                object?.removeObserver(self, forKeyPath: keyPath!, context: context)
-            }
-        }
     }
     
     func itemDidFinishPlaying(note: NSNotification) {

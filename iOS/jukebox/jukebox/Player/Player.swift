@@ -21,7 +21,6 @@ class Player: NSObject, PlayerProtocol {
                     youtubePlayer.presentVideoLayer()
                 }
                 
-                youtubePlayer.presentDuration()
                 youtubePlayer.showElapsed()
                 
             } else {

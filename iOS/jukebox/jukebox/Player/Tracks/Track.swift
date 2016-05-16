@@ -16,6 +16,8 @@ protocol Track {
     
     func getDuration() -> NSTimeInterval
     
+    func setDuration(duration: NSTimeInterval)
+    
     func getPlatform() -> Platform
     
 }
