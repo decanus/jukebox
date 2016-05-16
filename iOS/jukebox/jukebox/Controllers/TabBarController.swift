@@ -35,6 +35,11 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
         
         playerBar.layer.addSublayer(topBorder)
         
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(self.openPlayerView))
+//        recognizer.delegate = self
+        recognizer.numberOfTapsRequired = 1
+        playerBar.addGestureRecognizer(recognizer)
+        
         songTitle = UILabel()
         songTitle.textColor = UIColor.blackColor()
         songTitle.font = UIFont.systemFontOfSize(14)
@@ -49,6 +54,9 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
         view.addSubview(playerBar)
     }
     
+    func openPlayerView() {
+        presentViewController(ViewControllerFactory.createPlayerViewController(), animated: true, completion: nil)
+    }
     
     func player(player: Player, shouldUpdateElapsedTime elapsedTime: CMTime) {
         
