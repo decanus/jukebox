@@ -21,7 +21,7 @@ class Player: NSObject, PlayerProtocol {
                     youtubePlayer.presentVideoLayer()
                 }
                 
-g                youtubePlayer.showElapsed()
+                youtubePlayer.showElapsed()
                 
             } else {
                 if !(oldValue is TabBarController) {
