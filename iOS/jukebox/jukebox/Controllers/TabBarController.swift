@@ -5,7 +5,7 @@
 
 import UIKit
 
-class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDelegate {
+class TabBarController: UITabBarController, UITabBarControllerDelegate {
 
     private let player: Player
     
@@ -14,10 +14,8 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
         super.init(nibName: nil, bundle: nil)
         delegate = self
         
-        player.delegate = self
-        
         let test = UIView(frame: CGRect(x: 0, y: view.frame.size.height - (tabBar.frame.size.height * 2), width: view.frame.size.width, height: tabBar.frame.size.height))
-        test.backgroundColor = UIColor.purpleColor()
+        test.backgroundColor = tabBar.backgroundColor
         view.addSubview(test)
         
     }
@@ -25,7 +23,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
