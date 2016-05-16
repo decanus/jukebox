@@ -39,9 +39,9 @@ class MainViewController: UIViewController {
         view.addSubview(button)
         
         if !wasLoaded {
-            player.addToQueue(YoutubeTrack(id: "bpOSxM0rNPM", duration: 265))
-            player.addToQueue(YoutubeTrack(id: "QnxpHIl5Ynw", duration: 297))
-            player.addToQueue(YoutubeTrack(id: "jcF5HtGvX5I", duration: 122))
+            player.addToQueue(YoutubeTrack(id: "bpOSxM0rNPM", duration: 265, title: "Do I Wanna Know?"))
+            player.addToQueue(YoutubeTrack(id: "QnxpHIl5Ynw", duration: 297, title: "High By The Beach"))
+            player.addToQueue(YoutubeTrack(id: "jcF5HtGvX5I", duration: 122, title: "Yoncé"))
             player.addToQueue(YoutubeTrack(id: "JCT_lgJ5eq8", duration: 205))
             wasLoaded = true
         } 

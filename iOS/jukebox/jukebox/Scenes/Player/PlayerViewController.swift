@@ -22,6 +22,7 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
     private var source: UIButton!
     private var artworkView: UIView!
     private var playButton: PlayButton!
+    private var artistAndAlbumLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,6 +77,11 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
         trackTitle.font = UIFont.boldSystemFontOfSize(18)
         view.addSubview(trackTitle)
 
+        artistAndAlbumLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        artistAndAlbumLabel.textColor = UIColor.grayColor()
+        artistAndAlbumLabel.font = UIFont.systemFontOfSize(15)
+        view.addSubview(artistAndAlbumLabel)
+        
         source = UIButton(type: .System)
         source.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         source.titleLabel?.font = source.titleLabel?.font.fontWithSize(14)
@@ -101,6 +107,10 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
         trackTitle.text = title
         trackTitle.sizeToFit()
         trackTitle.center = CGPoint(x: view.frame.width / 2, y: durationLabel.frame.maxY + 19 + trackTitle.frame.height / 2)
+        
+        artistAndAlbumLabel.text = "Foo bar - Baz bat"
+        artistAndAlbumLabel.sizeToFit()
+        artistAndAlbumLabel.center = CGPoint(x: view.frame.width / 2, y: trackTitle.frame.maxY + 5 + artistAndAlbumLabel.frame.height / 2)
     }
     
     func setCurrentPlatform(platform: Platform) {
