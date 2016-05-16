@@ -24,6 +24,8 @@ protocol PlayerPresenterOutput: class {
     
     func setTrackTitle(title: String)
     
+    func setArtistAndAlbumLabel(artistAndAlbum: String)
+    
     func setCurrentPlatform(platform: Platform)
     
     func updatePlaybackState(state: PlaybackState)

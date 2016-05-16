@@ -107,8 +107,10 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
         trackTitle.text = title
         trackTitle.sizeToFit()
         trackTitle.center = CGPoint(x: view.frame.width / 2, y: durationLabel.frame.maxY + 19 + trackTitle.frame.height / 2)
-        
-        artistAndAlbumLabel.text = "Foo bar - Baz bat"
+    }
+    
+    func setArtistAndAlbumLabel(artistAndAlbum: String) {
+        artistAndAlbumLabel.text = artistAndAlbum
         artistAndAlbumLabel.sizeToFit()
         artistAndAlbumLabel.center = CGPoint(x: view.frame.width / 2, y: trackTitle.frame.maxY + 5 + artistAndAlbumLabel.frame.height / 2)
     }

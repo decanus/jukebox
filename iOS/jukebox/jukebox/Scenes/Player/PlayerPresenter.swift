@@ -34,6 +34,7 @@ class PlayerPresenter: NSObject, PlayerInteractorOutput {
     func player(player: Player, shouldUpdateTrack track: Track) {
         output.setCurrentPlatform(track.getPlatform())
         output.setTrackTitle(track.getTitle())
+        output.setArtistAndAlbumLabel("Foo bar - baz bat")
         output.updateElapsedTimeLabel("00:00")
         
         let duration = track.getDuration()
