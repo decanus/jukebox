@@ -49,7 +49,7 @@ class PlayerPresenter: NSObject, PlayerInteractorOutput {
     }
     
     func player(player: Player, shouldUpdatePlaybackState state: PlaybackState) {
-        output.setPlaybackState(state)
+        output.updatePlaybackState(state)
     }
     
     private func formatTime(time: Double) -> String {
