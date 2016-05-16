@@ -17,8 +17,8 @@ class SearchViewController: UIViewController {
         
         navigationController?.navigationBarHidden = false
         
-        tabBarItem.title = "foo"
-
+        tabBarItem.image = UIImage(named: "search")
+        
         let tableView = UITableView(frame: view.frame, style: .Plain)
         tableView.delegate = self
         tableView.dataSource = self
