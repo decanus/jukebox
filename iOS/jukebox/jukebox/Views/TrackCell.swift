@@ -16,6 +16,7 @@ class TrackCell: UITableViewCell {
         selectionStyle = .None
         textLabel?.text = track.getTitle()
         detailTextLabel?.text = "bar"
+        detailTextLabel?.textColor = UIColor.grayColor()
         
     }
     
