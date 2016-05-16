@@ -16,7 +16,10 @@ class MainViewController: UIViewController {
     
     init(player: Player) {
         self.player = player
+        
         super.init(nibName: nil, bundle: nil)
+        
+        tabBarItem.title = "Home"
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -27,7 +30,6 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         UIApplication.sharedApplication().statusBarStyle = .Default
 
-        tabBarItem.title = "foo"
         navigationController?.navigationBarHidden = true
         view.backgroundColor = UIColor.whiteColor()
 

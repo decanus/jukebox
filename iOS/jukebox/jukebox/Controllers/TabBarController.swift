@@ -58,6 +58,8 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
         playerBar.addSubview(button)
         playerBar.hidden = true
         view.addSubview(playerBar)
+        
+        tabBar.tintColor = UIColor.lightPurpleColor()
     }
     
     func openPlayerView() {
