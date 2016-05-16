@@ -30,7 +30,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
         
         playerBar.frame = CGRect(
             x: 0,
-            y: view.frame.size.height - (tabBar.frame.size.height * 2),
+            y: tabBar.frame.size.height + tabBar.frame.origin.y,
             width: view.frame.size.width,
             height: tabBar.frame.size.height
         )
@@ -56,7 +56,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
         playerBar.addSubview(songTitle)
         playerBar.addSubview(artistName)
         playerBar.addSubview(button)
-        playerBar.hidden = true
         view.addSubview(playerBar)
     }
     
@@ -88,7 +87,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
     
     func player(player: Player, shouldUpdatePlaybackState state: PlaybackState) {
         if state != .Stopped {
-            playerBar.hidden = false
+            animatePlayerBar()
         }
         
         if state == .Playing {
@@ -96,7 +95,19 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
             return
         }
         
+        
+        
         button.setPaused()
+    }
+    
+    func animatePlayerBar() {
+        UIView.animateWithDuration(0.7, delay: 0, options: .CurveEaseOut, animations: {
+            self.playerBar.frame = CGRect(
+                origin: CGPoint(x: 0, y: self.tabBar.frame.origin.y - self.playerBar.frame.size.height),
+                size: self.playerBar.frame.size
+            )
+        }, completion: nil)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -111,8 +122,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.selectedIndex = 0
+        selectedIndex = 0
     }
     
     func pausePressed() {
