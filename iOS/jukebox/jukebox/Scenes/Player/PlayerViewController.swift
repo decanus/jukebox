@@ -129,7 +129,8 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
     
     func updatePlaybackState(state: PlaybackState) {
         if (state == .Paused) {
-            return playButton.setPaused()
+            playButton.setPaused()
+            return
         }
         
         playButton.setPlaying()
