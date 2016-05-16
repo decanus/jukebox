@@ -34,7 +34,11 @@ class Player: NSObject, PlayerProtocol {
     // EXPERIMENTAL, CLEANUP
     // @todo, buffering next track
     var youtubePlayer: YoutubePlayer! = nil
-    private var currentTrack: Track?
+    private var currentTrack: Track? {
+        didSet {
+            delegate?.player(self, shouldUpdateTrack: currentTrack!)
+        }
+    }
     
     private var playbackState: PlaybackState = .Stopped {
         didSet {
@@ -133,7 +137,6 @@ class Player: NSObject, PlayerProtocol {
         }
         
         currentTrack = track
-        delegate?.player(self, shouldUpdateTrack: currentTrack!)
     }
     
     func hasVideoView() -> Bool {
