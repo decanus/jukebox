@@ -10,6 +10,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
 
     private let player: Player
     private var songTitle: UILabel!
+    private var albumTitle: UILabel!
     // @todo seperate class
     private let playerBar: UIView!
     
@@ -37,7 +38,13 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
         songTitle = UILabel()
         songTitle.textColor = UIColor.blackColor()
         songTitle.font = UIFont.systemFontOfSize(14)
+        
+        albumTitle = UILabel()
+        albumTitle.textColor = UIColor.grayColor()
+        albumTitle.font = UIFont.systemFontOfSize(10)
+        
         playerBar.addSubview(songTitle)
+        playerBar.addSubview(albumTitle)
         playerBar.hidden = true
         view.addSubview(playerBar)
     }
@@ -59,6 +66,10 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
         songTitle.text = track.getTitle()
         songTitle.sizeToFit()
         songTitle.center = CGPoint(x: view.frame.width / 2, y: 10 + songTitle.frame.height / 2)
+        
+        albumTitle.text = "foo"
+        albumTitle.sizeToFit()
+        albumTitle.center = CGPoint(x: view.frame.width / 2, y: songTitle.frame.size.height + songTitle.frame.origin.y + songTitle.frame.height / 2)
     }
     
     func player(player: Player, shouldUpdatePlaybackState state: PlaybackState) {
