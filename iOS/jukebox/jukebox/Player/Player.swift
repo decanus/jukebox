@@ -15,6 +15,7 @@ class Player: NSObject, PlayerProtocol {
         didSet {
             if playbackState != .Stopped && delegate != nil {
                 delegate?.player(self, shouldUpdateTrack: currentTrack!)
+                delegate?.player(self, shouldUpdatePlaybackState: playbackState)
                 youtubePlayer.presentVideoLayer()
                 youtubePlayer.showElapsed()
             } else {
@@ -27,7 +28,13 @@ class Player: NSObject, PlayerProtocol {
     // @todo, buffering next track
     var youtubePlayer: YoutubePlayer! = nil
     private var currentTrack: Track?
-    private var playbackState: PlaybackState = .Stopped
+    
+    private var playbackState: PlaybackState = .Stopped {
+        didSet {
+            delegate?.player(self, shouldUpdatePlaybackState: playbackState)
+        }
+    }
+    
     private let queue: Queue
     
     override init() {
