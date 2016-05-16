@@ -9,6 +9,7 @@
 import MediaPlayer
 
 // @todo, next seems buggy
+// @todo previous crashes
 class Player: NSObject, PlayerProtocol {
     
     weak var delegate: PlayerDelegate? {
