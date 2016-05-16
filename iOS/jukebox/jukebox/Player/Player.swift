@@ -37,7 +37,9 @@ class Player: NSObject, PlayerProtocol {
     var youtubePlayer: YoutubePlayer! = nil
     private var currentTrack: Track? {
         didSet {
-            delegate?.player(self, shouldUpdateTrack: currentTrack!)
+            if currentTrack != nil {
+                delegate?.player(self, shouldUpdateTrack: currentTrack!)
+            }
         }
     }
     

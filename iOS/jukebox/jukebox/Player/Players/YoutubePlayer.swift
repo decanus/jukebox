@@ -31,6 +31,10 @@ class YoutubePlayer: NSObject, PlayerProtocol {
     }
     
     func pause() {
+        if playerView.player == nil {
+            return
+        }
+        
         playerView.player?.pause()
     }
     
