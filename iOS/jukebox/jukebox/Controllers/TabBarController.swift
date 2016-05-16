@@ -10,7 +10,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
 
     private let player: Player
     private var songTitle: UILabel!
-    private var albumTitle: UILabel!
+    private var artistName: UILabel!
     // @todo seperate class
     private let playerBar: UIView!
     private var button: PlayButton
@@ -47,14 +47,14 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
         songTitle.textColor = UIColor.blackColor()
         songTitle.font = UIFont.systemFontOfSize(14)
         
-        albumTitle = UILabel()
-        albumTitle.textColor = UIColor.grayColor()
-        albumTitle.font = UIFont.systemFontOfSize(10)
+        artistName = UILabel()
+        artistName.textColor = UIColor.grayColor()
+        artistName.font = UIFont.systemFontOfSize(10)
         
         button.addTarget(self, action: #selector(TabBarController.pausePressed), forControlEvents: .TouchUpInside)
         
         playerBar.addSubview(songTitle)
-        playerBar.addSubview(albumTitle)
+        playerBar.addSubview(artistName)
         playerBar.addSubview(button)
         playerBar.hidden = true
         view.addSubview(playerBar)
@@ -81,9 +81,9 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
         songTitle.sizeToFit()
         songTitle.center = CGPoint(x: view.frame.width / 2, y: 10 + songTitle.frame.height / 2)
         
-        albumTitle.text = "foo"
-        albumTitle.sizeToFit()
-        albumTitle.center = CGPoint(x: view.frame.width / 2, y: songTitle.frame.size.height + songTitle.frame.origin.y + songTitle.frame.height / 2)
+        artistName.text = track.getArtist()
+        artistName.sizeToFit()
+        artistName.center = CGPoint(x: view.frame.width / 2, y: songTitle.frame.size.height + songTitle.frame.origin.y + songTitle.frame.height / 2)
     }
     
     func player(player: Player, shouldUpdatePlaybackState state: PlaybackState) {
