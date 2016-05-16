@@ -13,18 +13,20 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
     private var albumTitle: UILabel!
     // @todo seperate class
     private let playerBar: UIView!
+    private var button: UIButton
     
     init(player: Player) {
         self.player = player
         
         playerBar = UIView()
+        button = UIButton()
         
         super.init(nibName: nil, bundle: nil)
         delegate = self
         
         let topBorder = CALayer()
         topBorder.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: 0.5)
-        topBorder.backgroundColor = UIColor.lightGrayColor().CGColor
+        topBorder.backgroundColor = UIColor.lighterGray().CGColor
         
         playerBar.frame = CGRect(
             x: 0,
@@ -48,8 +50,13 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
         albumTitle.textColor = UIColor.grayColor()
         albumTitle.font = UIFont.systemFontOfSize(10)
         
+        button.setImage(UIImage(named: "player-bar-play"), forState: .Normal)
+        button.frame = CGRect(x: 16, y: 19, width: 16, height: 16)
+        button.addTarget(self, action: #selector(TabBarController.pausePressed), forControlEvents: .TouchUpInside)
+        
         playerBar.addSubview(songTitle)
         playerBar.addSubview(albumTitle)
+        playerBar.addSubview(button)
         playerBar.hidden = true
         view.addSubview(playerBar)
     }
@@ -84,6 +91,13 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
         if state != .Stopped {
             playerBar.hidden = false
         }
+        
+        if state == .Playing {
+            button.setImage(UIImage(named: "player-bar-pause"), forState: .Normal)
+            return
+        }
+        
+        button.setImage(UIImage(named: "player-bar-play"), forState: .Normal)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -100,5 +114,14 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
         super.viewDidLoad()
         
         self.selectedIndex = 0
+    }
+    
+    func pausePressed() {
+        if player.getPlaybackState() == .Playing {
+            player.pause()
+            return
+        }
+        
+        player.play()
     }
 }
