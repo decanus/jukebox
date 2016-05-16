@@ -16,11 +16,18 @@ class Player: NSObject, PlayerProtocol {
             if playbackState != .Stopped && delegate != nil {
                 delegate?.player(self, shouldUpdateTrack: currentTrack!)
                 delegate?.player(self, shouldUpdatePlaybackState: playbackState)
-                youtubePlayer.presentVideoLayer()
+                
+                if !(delegate is TabBarController) {
+                    youtubePlayer.presentVideoLayer()
+                }
+                
                 youtubePlayer.presentDuration()
                 youtubePlayer.showElapsed()
+                
             } else {
-                youtubePlayer.deletePlayerLayer()
+                if !(oldValue is TabBarController) {
+                    youtubePlayer.deletePlayerLayer()
+                }
             }
         }
     }

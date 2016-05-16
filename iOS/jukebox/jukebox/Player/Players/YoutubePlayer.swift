@@ -12,6 +12,7 @@ import XCDYouTubeKit
 // @todo, figure out how to queue objects
 // @todo, playerlayer code still very buggy
 // @todo, play in AVQueuePlayer, can solve a lot of issues
+// @todo, update, don't always add playerlayers
 class YoutubePlayer: NSObject, PlayerProtocol {
     
     // remove observer once duration is in Track object
