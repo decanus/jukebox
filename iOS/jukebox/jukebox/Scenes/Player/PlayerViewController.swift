@@ -42,14 +42,20 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
         closeButton.addTarget(self, action: #selector(PlayerViewController.close), forControlEvents: .TouchUpInside)
         view.addSubview(closeButton)
         
-        slider = UISlider(frame: CGRect(x: 0, y: view.frame.size.width - (13 / 2), width: view.frame.size.width, height: 13))
+        slider = UISlider(frame: CGRect(x: 0, y: view.frame.size.width - ((13 / 2) - (3 / 2)), width: view.frame.size.width, height: 13))
         slider.maximumValueImage = nil
         slider.minimumValue = 0
         slider.maximumValue = 0
         slider.setThumbImage(UIImage(named: "scrubber-button"), forState: .Normal)
         slider.minimumTrackTintColor = UIColor.lightPurpleColor()
         slider.tintColor = UIColor.lightPurpleColor()
+        slider.setMinimumTrackImage(UIImage(named: "scrubber-bar"), forState: .Normal)
+        slider.setMaximumTrackImage(UIImage(named: "scrubber-background"), forState: .Normal)
         view.addSubview(slider)
+        
+        let imageView = UIImageView(frame: CGRect(x: 0, y: view.frame.size.width, width: 2, height: 3))
+        imageView.image = UIImage(named: "scrubber-bar")
+        view.addSubview(imageView)
 
         elapsedLabel = UILabel(frame: CGRect(x: 16, y: 375 + 16, width: 100, height: 14))
         elapsedLabel.textColor = UIColor.whiteColor()
