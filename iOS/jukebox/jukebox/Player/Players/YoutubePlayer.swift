@@ -72,6 +72,10 @@ class YoutubePlayer: NSObject, PlayerProtocol {
         }
     }
     
+    func showElapsed() {
+        self.player.delegate?.player(self.player, shouldUpdateElapsedTime: (self.playerView.player?.currentItem?.currentTime())!)
+    }
+    
     func presentVideoLayer() {
         playerLayer = AVPlayerLayer(player: playerView.player)
         player.delegate?.player(player, canPresentVideoLayer: playerLayer!)
