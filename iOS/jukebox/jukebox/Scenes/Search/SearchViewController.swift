@@ -26,6 +26,8 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         navigationController?.navigationBarHidden = false
 
+        let searchController = UISearchController(searchResultsController: nil)
+        navigationItem.titleView = searchController.searchBar
         
         let tableView = UITableView(frame: view.frame, style: .Plain)
         tableView.delegate = self
