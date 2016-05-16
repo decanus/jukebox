@@ -49,10 +49,7 @@ extension SearchViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = TrackCell(track: output.trackForIndex(indexPath.row))
-//        cell.textLabel?.text = "Test"
-//        cell.detailTextLabel?.text = "Foo"
-        return cell
+        return TrackCell(track: output.trackForIndex(indexPath.row))
     }
     
 }
