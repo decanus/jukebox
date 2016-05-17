@@ -31,6 +31,11 @@ namespace Jukebox\Backend\EventHandlers\Import
         {
             try {
                 $response = $this->spotify->getArtist($this->event->getArtistId());
+
+                if ($response->getResponseCode() !== 200) {
+                    throw new \RuntimeException('API did not return expected value');
+                }
+
             } catch (\Exception $e) {
                 // @todo handle
             }
