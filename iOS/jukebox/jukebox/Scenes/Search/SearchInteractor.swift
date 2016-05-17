@@ -24,7 +24,7 @@ class SearchInteractor: NSObject, SearchViewControllerOutput {
             return
         }
         
-        // @todo load tracks
+        // @todo load tracks somewhere else, move this ugly shit
         Alamofire.request(
             .GET,
             "http://devapi.jukebox.ninja/v1/search",
