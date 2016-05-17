@@ -49,6 +49,19 @@ namespace Jukebox\Backend\Services
             return $this->curl->sendMultiRequest();
         }
 
+        public function getArtist(string $artistId): Response
+        {
+            return $this->curl->get($this->buildUrl('/artist/' , $artistId), ['token' => $this->getAuthorizationToken()]);
+        }
+
+        public function getArtists($page = 1): Response
+        {
+            return $this->curl->get(
+                $this->buildUrl('/artists'),
+                ['token' => $this->getAuthorizationToken(), 'page' => $page, 'size' => 200]
+            );
+        }
+
         private function buildUrl(string $path): Uri
         {
             return new Uri($this->baseUri . $path);
