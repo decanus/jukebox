@@ -35,9 +35,23 @@ namespace Jukebox\Backend\Services
         public function getVideoForId(string $videoId): Response
         {
             return $this->curl->get(
-                new Uri($this->baseUri . '/video/' . $videoId),
+                $this->buildUrl('/video/' . $videoId),
                 ['token' => $this->getAuthorizationToken()]
             );
+        }
+
+        public function getVideosForIds(array $videoIds): array
+        {
+            foreach ($videoIds as $videoId) {
+                $this->curl->getMulti($this->buildUrl('/video/' . $videoId), ['token' => $this->getAuthorizationToken()]);
+            }
+
+            return $this->curl->sendMultiRequest();
+        }
+
+        private function buildUrl(string $path): Uri
+        {
+            return new Uri($this->baseUri . $path);
         }
 
         private function getAuthorizationToken(): string
