@@ -63,7 +63,6 @@ extension SearchViewController: UISearchResultsUpdating {
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         output.searchForText(searchController.searchBar.text!)
-        
     }
     
 }

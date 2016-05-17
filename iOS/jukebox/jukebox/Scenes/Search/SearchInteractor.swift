@@ -23,6 +23,9 @@ class SearchInteractor: NSObject, SearchViewControllerOutput {
     }
     
     func searchForText(search: String) {
+        
+        // @todo load tracks
+        
         output.presentTracks(tracks!)
     }
     

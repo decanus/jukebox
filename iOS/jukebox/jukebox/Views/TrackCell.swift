@@ -37,5 +37,4 @@ class TrackCell: UITableViewCell {
             textLabel?.textColor = UIColor.blackColor()
         }
     }
-    
 }
