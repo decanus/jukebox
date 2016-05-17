@@ -36,6 +36,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
             height: tabBar.frame.size.height
         )
         
+        playerBar.backgroundColor = UIColor.whiteColor()
         playerBar.layer.addSublayer(topBorder)
         
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(self.openPlayerView))

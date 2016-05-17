@@ -41,6 +41,7 @@
 		2EF0B18B1CE1D7850061FF7A /* PlayerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0B18A1CE1D7850061FF7A /* PlayerFactory.swift */; };
 		2EF0B18F1CE1EB990061FF7A /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0B18E1CE1EB990061FF7A /* Queue.swift */; };
 		2EFD5D521CEAF1B5003A8C23 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFD5D511CEAF1B5003A8C23 /* SearchPresenter.swift */; };
+		2EFD5D561CEAF748003A8C23 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EFD5D551CEAF748003A8C23 /* Alamofire.framework */; };
 		AC12B127AE05E20CE95EC95E /* SearchViewControllerOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC12B9A7336C1DA6665BB9E9 /* SearchViewControllerOutput.swift */; };
 		AC12B5E154B2C8DA24C96393 /* SearchPresenterOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC12B675E72C86FAF174A8F6 /* SearchPresenterOutput.swift */; };
 		AC12B5FE069319AAF8903CE6 /* SearchInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC12B2E3073DEF176B9C0412 /* SearchInteractorOutput.swift */; };
@@ -113,6 +114,8 @@
 		2EF0B18A1CE1D7850061FF7A /* PlayerFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerFactory.swift; sourceTree = "<group>"; };
 		2EF0B18E1CE1EB990061FF7A /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		2EFD5D511CEAF1B5003A8C23 /* SearchPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
+		2EFD5D531CEAF6AC003A8C23 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "Pods/../build/Release-iphoneos/Alamofire.framework"; sourceTree = "<group>"; };
+		2EFD5D551CEAF748003A8C23 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../../Library/Developer/Xcode/DerivedData/jukebox-extkoihjwulklqfehiuyeledfxkt/Build/Products/Release-iphonesimulator/Alamofire.framework"; sourceTree = "<group>"; };
 		AC12B2E3073DEF176B9C0412 /* SearchInteractorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchInteractorOutput.swift; sourceTree = "<group>"; };
 		AC12B675E72C86FAF174A8F6 /* SearchPresenterOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPresenterOutput.swift; sourceTree = "<group>"; };
 		AC12B9A7336C1DA6665BB9E9 /* SearchViewControllerOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewControllerOutput.swift; sourceTree = "<group>"; };
@@ -125,6 +128,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EFD5D561CEAF748003A8C23 /* Alamofire.framework in Frameworks */,
 				2E92FEE81CE30639006BFB03 /* XCDYouTubeKit.framework in Frameworks */,
 				E53AA7DE136B2A708093BDEF /* Pods.framework in Frameworks */,
 			);
@@ -398,6 +402,8 @@
 		B137E74D3FE32D8FFE1EF7FD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2EFD5D551CEAF748003A8C23 /* Alamofire.framework */,
+				2EFD5D531CEAF6AC003A8C23 /* Alamofire.framework */,
 				2E92FEE71CE30639006BFB03 /* XCDYouTubeKit.framework */,
 				2E92FEE51CE304FC006BFB03 /* XCDYouTubeKit.framework */,
 				2EF0B1821CE1BB9A0061FF7A /* youtube-ios-player-helper */,
