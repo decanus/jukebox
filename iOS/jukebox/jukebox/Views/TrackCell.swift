@@ -16,7 +16,7 @@ class TrackCell: UITableViewCell {
         selectionStyle = .None
         textLabel?.text = track.getTitle()
         textLabel?.font = UIFont.boldSystemFontOfSize(14)
-        detailTextLabel?.text = "bar"
+        detailTextLabel?.text = track.getArtist()
         detailTextLabel?.textColor = UIColor.grayColor()
         detailTextLabel?.font = UIFont.systemFontOfSize(12)
         
