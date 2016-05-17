@@ -30,7 +30,6 @@ class SearchInteractor: NSObject, SearchViewControllerOutput {
             .responseJSON { (response) -> Void in
                 if response.result.isSuccess {
                     self.tracks = []
-                    
                     if let json = response.result.value as? NSArray {
                         for item in json {
                             if let trackJson = item as? NSDictionary {
