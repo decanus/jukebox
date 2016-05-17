@@ -10,7 +10,11 @@ import Foundation
 
 class SearchInteractor: NSObject, SearchViewControllerOutput {
     
-    var tracks: [Track]? = [YoutubeTrack(id: "Bag1gUxuU0g", duration: 287), YoutubeTrack(id: "Bag1gUxuU0g", duration: 287), YoutubeTrack(id: "Bag1gUxuU0g", duration: 287)]
+    var tracks: [Track]? = [
+        YoutubeTrack(id: "Bag1gUxuU0g", duration: 287),
+        YoutubeTrack(id: "Bag1gUxuU0g", duration: 287),
+        YoutubeTrack(id: "Bag1gUxuU0g", duration: 287)
+    ]
     
     func trackForIndex(index: Int) -> Track {
         return YoutubeTrack(id: "Bag1gUxuU0g", duration: 287)
