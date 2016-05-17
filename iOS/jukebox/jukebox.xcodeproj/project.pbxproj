@@ -35,9 +35,16 @@
 		2ECC64B81CE655D7004249A4 /* PlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECC64B71CE655D7004249A4 /* PlayerDelegate.swift */; };
 		2ECC64BA1CE656E0004249A4 /* PlayerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECC64B91CE656E0004249A4 /* PlayerPresenter.swift */; };
 		2ECC64BC1CE65742004249A4 /* PlayerPresenterOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECC64BB1CE65742004249A4 /* PlayerPresenterOutput.swift */; };
+		2ECC64BE1CE8BA8E004249A4 /* SearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECC64BD1CE8BA8E004249A4 /* SearchInteractor.swift */; };
+		2ECC64C31CEA22AC004249A4 /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECC64C21CEA22AC004249A4 /* TrackCell.swift */; };
 		2EF0B1811CE1BAFA0061FF7A /* YoutubePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0B1801CE1BAFA0061FF7A /* YoutubePlayer.swift */; };
 		2EF0B18B1CE1D7850061FF7A /* PlayerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0B18A1CE1D7850061FF7A /* PlayerFactory.swift */; };
 		2EF0B18F1CE1EB990061FF7A /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0B18E1CE1EB990061FF7A /* Queue.swift */; };
+		2EFD5D521CEAF1B5003A8C23 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFD5D511CEAF1B5003A8C23 /* SearchPresenter.swift */; };
+		2EFD5D561CEAF748003A8C23 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EFD5D551CEAF748003A8C23 /* Alamofire.framework */; };
+		AC12B127AE05E20CE95EC95E /* SearchViewControllerOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC12B9A7336C1DA6665BB9E9 /* SearchViewControllerOutput.swift */; };
+		AC12B5E154B2C8DA24C96393 /* SearchPresenterOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC12B675E72C86FAF174A8F6 /* SearchPresenterOutput.swift */; };
+		AC12B5FE069319AAF8903CE6 /* SearchInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC12B2E3073DEF176B9C0412 /* SearchInteractorOutput.swift */; };
 		E53AA7DE136B2A708093BDEF /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAE09ED2BF82C36935BB372F /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -95,6 +102,8 @@
 		2ECC64B71CE655D7004249A4 /* PlayerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerDelegate.swift; sourceTree = "<group>"; };
 		2ECC64B91CE656E0004249A4 /* PlayerPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerPresenter.swift; sourceTree = "<group>"; };
 		2ECC64BB1CE65742004249A4 /* PlayerPresenterOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerPresenterOutput.swift; sourceTree = "<group>"; };
+		2ECC64BD1CE8BA8E004249A4 /* SearchInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchInteractor.swift; sourceTree = "<group>"; };
+		2ECC64C21CEA22AC004249A4 /* TrackCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
 		2EF0B17E1CE1BA130061FF7A /* youtube_ios_player_helper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = youtube_ios_player_helper.framework; path = "Pods/../build/Debug-iphoneos/youtube_ios_player_helper.framework"; sourceTree = "<group>"; };
 		2EF0B1801CE1BAFA0061FF7A /* YoutubePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoutubePlayer.swift; sourceTree = "<group>"; };
 		2EF0B1841CE1BB9A0061FF7A /* YTPlayerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YTPlayerView.h; sourceTree = "<group>"; };
@@ -104,6 +113,12 @@
 		2EF0B1891CE1BB9A0061FF7A /* Assets.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Assets.bundle; sourceTree = "<group>"; };
 		2EF0B18A1CE1D7850061FF7A /* PlayerFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerFactory.swift; sourceTree = "<group>"; };
 		2EF0B18E1CE1EB990061FF7A /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
+		2EFD5D511CEAF1B5003A8C23 /* SearchPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
+		2EFD5D531CEAF6AC003A8C23 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "Pods/../build/Release-iphoneos/Alamofire.framework"; sourceTree = "<group>"; };
+		2EFD5D551CEAF748003A8C23 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../../Library/Developer/Xcode/DerivedData/jukebox-extkoihjwulklqfehiuyeledfxkt/Build/Products/Release-iphonesimulator/Alamofire.framework"; sourceTree = "<group>"; };
+		AC12B2E3073DEF176B9C0412 /* SearchInteractorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchInteractorOutput.swift; sourceTree = "<group>"; };
+		AC12B675E72C86FAF174A8F6 /* SearchPresenterOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPresenterOutput.swift; sourceTree = "<group>"; };
+		AC12B9A7336C1DA6665BB9E9 /* SearchViewControllerOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewControllerOutput.swift; sourceTree = "<group>"; };
 		DAE09ED2BF82C36935BB372F /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF23D17DAB9DEEB2AF8B387D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -113,6 +128,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EFD5D561CEAF748003A8C23 /* Alamofire.framework in Frameworks */,
 				2E92FEE81CE30639006BFB03 /* XCDYouTubeKit.framework in Frameworks */,
 				E53AA7DE136B2A708093BDEF /* Pods.framework in Frameworks */,
 			);
@@ -194,6 +210,7 @@
 		2E124AFB1CE0743A002BC8E4 /* jukebox */ = {
 			isa = PBXGroup;
 			children = (
+				2ECC64C11CEA22A4004249A4 /* Views */,
 				2E11A1CF1CE5BA2300335C29 /* Appearence */,
 				2E11A1CC1CE5B6CF00335C29 /* Elements */,
 				2E11A1C61CE324E800335C29 /* Controllers */,
@@ -309,7 +326,10 @@
 		2ECBCB681CE09C7A0015ABB8 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				AC12B1CB420D84289019FBD2 /* Protocols */,
 				2ECBCB691CE09C8C0015ABB8 /* SearchViewController.swift */,
+				2ECC64BD1CE8BA8E004249A4 /* SearchInteractor.swift */,
+				2EFD5D511CEAF1B5003A8C23 /* SearchPresenter.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -321,6 +341,14 @@
 				2EF0B1801CE1BAFA0061FF7A /* YoutubePlayer.swift */,
 			);
 			path = Players;
+			sourceTree = "<group>";
+		};
+		2ECC64C11CEA22A4004249A4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2ECC64C21CEA22AC004249A4 /* TrackCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		2EF0B1821CE1BB9A0061FF7A /* youtube-ios-player-helper */ = {
@@ -361,9 +389,21 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		AC12B1CB420D84289019FBD2 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				AC12B9A7336C1DA6665BB9E9 /* SearchViewControllerOutput.swift */,
+				AC12B675E72C86FAF174A8F6 /* SearchPresenterOutput.swift */,
+				AC12B2E3073DEF176B9C0412 /* SearchInteractorOutput.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		B137E74D3FE32D8FFE1EF7FD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2EFD5D551CEAF748003A8C23 /* Alamofire.framework */,
+				2EFD5D531CEAF6AC003A8C23 /* Alamofire.framework */,
 				2E92FEE71CE30639006BFB03 /* XCDYouTubeKit.framework */,
 				2E92FEE51CE304FC006BFB03 /* XCDYouTubeKit.framework */,
 				2EF0B1821CE1BB9A0061FF7A /* youtube-ios-player-helper */,
@@ -444,6 +484,7 @@
 				TargetAttributes = {
 					2E124AF81CE0743A002BC8E4 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 9W792Z62E5;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -571,6 +612,7 @@
 				2EF0B18F1CE1EB990061FF7A /* Queue.swift in Sources */,
 				2ECBCB5F1CE080580015ABB8 /* PlayerViewController.swift in Sources */,
 				2ECBCB531CE07BD20015ABB8 /* Player.swift in Sources */,
+				2EFD5D521CEAF1B5003A8C23 /* SearchPresenter.swift in Sources */,
 				2ECBCB561CE07D5A0015ABB8 /* Track.swift in Sources */,
 				2E0C6B3E1CE125420016C9FC /* RepeatMode.swift in Sources */,
 				2ECC64B21CE652CC004249A4 /* PlayerViewControllerOutput.swift in Sources */,
@@ -587,6 +629,11 @@
 				2ECBCB4D1CE079BF0015ABB8 /* TrackViewController.swift in Sources */,
 				2EF0B18B1CE1D7850061FF7A /* PlayerFactory.swift in Sources */,
 				2E124AFD1CE0743A002BC8E4 /* AppDelegate.swift in Sources */,
+				2ECC64BE1CE8BA8E004249A4 /* SearchInteractor.swift in Sources */,
+				AC12B127AE05E20CE95EC95E /* SearchViewControllerOutput.swift in Sources */,
+				AC12B5E154B2C8DA24C96393 /* SearchPresenterOutput.swift in Sources */,
+				AC12B5FE069319AAF8903CE6 /* SearchInteractorOutput.swift in Sources */,
+				2ECC64C31CEA22AC004249A4 /* TrackCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -714,6 +761,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
@@ -724,6 +772,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jukebox.jukebox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -734,6 +783,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
@@ -744,6 +794,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jukebox.jukebox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

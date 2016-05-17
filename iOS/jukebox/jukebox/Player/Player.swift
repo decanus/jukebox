@@ -130,6 +130,7 @@ class Player: NSObject, PlayerProtocol {
     }
     
     func playTrack(track: Track) {
+        activateAudioSession()
         playbackState = .Playing
         
         if track is YoutubeTrack {
@@ -191,6 +192,7 @@ class Player: NSObject, PlayerProtocol {
         let previousTrackCommand = MPRemoteCommandCenter.sharedCommandCenter().previousTrackCommand
         previousTrackCommand.enabled = true
         previousTrackCommand.addTargetWithHandler({_ in return MPRemoteCommandHandlerStatus.Success})
+        
         
         let audioSession = AVAudioSession.sharedInstance()
         do {

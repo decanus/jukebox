@@ -11,19 +11,21 @@ import Foundation
 class YoutubeTrack: NSObject, Track {
     
     private let id: String
+    private let title: String
     private var duration: NSTimeInterval
     
-    init(id: String) {
-        duration = 0
+    init(id: String, duration: NSTimeInterval, title: String = "Better") {
         self.id = id
+        self.duration = duration
+        self.title = title
     }
     
     func getID() -> String {
-        return self.id
+        return id
     }
     
     func getTitle() -> String {
-        return "Better"
+        return title
     }
     
     func getArtist() -> String {

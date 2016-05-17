@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationController.viewControllers = [ViewControllerFactory.createMainViewController()]
         
         let tabController = TabBarController(player: PlayerFactory.createPlayer())
-        tabController.viewControllers = [ViewControllerFactory.createMainViewController()]
+        tabController.viewControllers = [ViewControllerFactory.createMainViewController(), ViewControllerFactory.createSearchViewController()]
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         window?.rootViewController = tabController
@@ -45,7 +45,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
-//        resignFirstResponder()
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
 

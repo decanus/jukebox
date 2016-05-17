@@ -22,6 +22,7 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
     private var source: UIButton!
     private var artworkView: UIView!
     private var playButton: PlayButton!
+    private var artistAndAlbumLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,14 +43,20 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
         closeButton.addTarget(self, action: #selector(PlayerViewController.close), forControlEvents: .TouchUpInside)
         view.addSubview(closeButton)
         
-        slider = UISlider(frame: CGRect(x: 0, y: view.frame.size.width - (13 / 2), width: view.frame.size.width, height: 13))
+        slider = UISlider(frame: CGRect(x: 0, y: view.frame.size.width - ((13 / 2) - (3 / 2)), width: view.frame.size.width, height: 13))
         slider.maximumValueImage = nil
         slider.minimumValue = 0
         slider.maximumValue = 0
         slider.setThumbImage(UIImage(named: "scrubber-button"), forState: .Normal)
         slider.minimumTrackTintColor = UIColor.lightPurpleColor()
         slider.tintColor = UIColor.lightPurpleColor()
+        slider.setMinimumTrackImage(UIImage(named: "scrubber-bar"), forState: .Normal)
+        slider.setMaximumTrackImage(UIImage(named: "scrubber-background"), forState: .Normal)
         view.addSubview(slider)
+        
+        let imageView = UIImageView(frame: CGRect(x: 0, y: view.frame.size.width, width: 2, height: 3))
+        imageView.image = UIImage(named: "scrubber-bar")
+        view.addSubview(imageView)
 
         elapsedLabel = UILabel(frame: CGRect(x: 16, y: 375 + 16, width: 100, height: 14))
         elapsedLabel.textColor = UIColor.whiteColor()
@@ -70,6 +77,11 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
         trackTitle.font = UIFont.boldSystemFontOfSize(18)
         view.addSubview(trackTitle)
 
+        artistAndAlbumLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        artistAndAlbumLabel.textColor = UIColor.grayColor()
+        artistAndAlbumLabel.font = UIFont.systemFontOfSize(15)
+        view.addSubview(artistAndAlbumLabel)
+        
         source = UIButton(type: .System)
         source.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         source.titleLabel?.font = source.titleLabel?.font.fontWithSize(14)
@@ -95,6 +107,12 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
         trackTitle.text = title
         trackTitle.sizeToFit()
         trackTitle.center = CGPoint(x: view.frame.width / 2, y: durationLabel.frame.maxY + 19 + trackTitle.frame.height / 2)
+    }
+    
+    func setArtistAndAlbumLabel(artistAndAlbum: String) {
+        artistAndAlbumLabel.text = artistAndAlbum
+        artistAndAlbumLabel.sizeToFit()
+        artistAndAlbumLabel.center = CGPoint(x: view.frame.width / 2, y: trackTitle.frame.maxY + 5 + artistAndAlbumLabel.frame.height / 2)
     }
     
     func setCurrentPlatform(platform: Platform) {
@@ -137,6 +155,7 @@ class PlayerViewController: UIViewController, PlayerPresenterOutput {
     }
     
     @objc func close() {
+        UIApplication.sharedApplication().statusBarStyle = .Default
         output.closePressed()
         UIApplication.sharedApplication().statusBarStyle = .Default
         dismissViewControllerAnimated(true, completion: nil)

@@ -16,7 +16,6 @@ import XCDYouTubeKit
 class YoutubePlayer: NSObject, PlayerProtocol {
     
     // remove observer once duration is in Track object
-    private var durationUpdate = 0
     private let player: Player
     private var loaded = false
     private let playerView: AVPlayerViewController
@@ -32,6 +31,10 @@ class YoutubePlayer: NSObject, PlayerProtocol {
     }
     
     func pause() {
+        if playerView.player == nil {
+            return
+        }
+        
         playerView.player?.pause()
     }
     
@@ -54,7 +57,7 @@ class YoutubePlayer: NSObject, PlayerProtocol {
                 } else {
                     self!.playerView.player = AVPlayer(URL: streamURL)
                 }
-                
+
                 self!.track.setDuration((video?.duration)!)
                 self!.player.delegate?.player(self!.player, shouldUpdateTrack: self!.track)
 
@@ -70,14 +73,20 @@ class YoutubePlayer: NSObject, PlayerProtocol {
                     object: self!.playerView.player?.currentItem
                 )
                 
+                dispatch_async(dispatch_get_main_queue(), {
+                    self?.presentVideoLayer()
+                    self!.playerView.player?.play()
+                })
                 self!.playerView.player?.play()
 
             }
         }
     }
     
-    func showElapsed() {
-        self.player.delegate?.player(self.player, shouldUpdateElapsedTime: (self.playerView.player?.currentItem?.currentTime())!)
+    func showElapsed() {        
+        if self.playerView.player?.currentItem != nil {
+            self.player.delegate?.player(self.player, shouldUpdateElapsedTime: (self.playerView.player?.currentItem?.currentTime())!)
+        }
     }
     
     func presentVideoLayer() {
@@ -86,11 +95,11 @@ class YoutubePlayer: NSObject, PlayerProtocol {
     }
     
     func itemDidFinishPlaying(note: NSNotification) {
-        // @ TODO SO BROKEN
         if observer != nil {
             playerView.player?.removeTimeObserver(observer!)
             observer = nil
         }
+        
         player.next()
     }
     

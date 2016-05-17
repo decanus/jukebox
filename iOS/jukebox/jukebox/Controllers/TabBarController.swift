@@ -19,6 +19,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
         self.player = player
         
         playerBar = UIView()
+        playerBar.hidden = true
         button = PlayButton(frame: CGRect(x: 16, y: 19, width: 16, height: 16), type: .Small)
         
         super.init(nibName: nil, bundle: nil)
@@ -30,11 +31,12 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
         
         playerBar.frame = CGRect(
             x: 0,
-            y: tabBar.frame.size.height + tabBar.frame.origin.y,
+            y: tabBar.frame.origin.y - tabBar.frame.size.height,
             width: view.frame.size.width,
             height: tabBar.frame.size.height
         )
         
+        playerBar.backgroundColor = UIColor.whiteColor()
         playerBar.layer.addSublayer(topBorder)
         
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(self.openPlayerView))
@@ -57,6 +59,8 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
         playerBar.addSubview(artistName)
         playerBar.addSubview(button)
         view.addSubview(playerBar)
+        
+        tabBar.tintColor = UIColor.lightPurpleColor()
     }
     
     func openPlayerView() {
@@ -87,7 +91,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
     
     func player(player: Player, shouldUpdatePlaybackState state: PlaybackState) {
         if state != .Stopped {
-            animatePlayerBar()
+            playerBar.hidden = false
         }
         
         if state == .Playing {
@@ -95,19 +99,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
             return
         }
         
-        
-        
         button.setPaused()
-    }
-    
-    func animatePlayerBar() {
-        UIView.animateWithDuration(0.7, delay: 0, options: .CurveEaseOut, animations: {
-            self.playerBar.frame = CGRect(
-                origin: CGPoint(x: 0, y: self.tabBar.frame.origin.y - self.playerBar.frame.size.height),
-                size: self.playerBar.frame.size
-            )
-        }, completion: nil)
-        
     }
     
     required init?(coder aDecoder: NSCoder) {

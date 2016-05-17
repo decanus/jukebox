@@ -34,10 +34,13 @@ class PlayerPresenter: NSObject, PlayerInteractorOutput {
     func player(player: Player, shouldUpdateTrack track: Track) {
         output.setCurrentPlatform(track.getPlatform())
         output.setTrackTitle(track.getTitle())
+
+        output.setArtistAndAlbumLabel(track.getArtist())
+        output.updateElapsedTimeLabel("00:00")
         
-        
-        output.setMaximumSliderValue(Float(track.getDuration()))
-        output.updateDurationLabel(formatTime(Double(track.getDuration())))
+        let duration = track.getDuration()
+        output.setMaximumSliderValue(Float(duration))
+        output.updateDurationLabel(formatTime(Double(duration)))
     }
     
     func player(player: Player, shouldUpdatePlaybackState state: PlaybackState) {
