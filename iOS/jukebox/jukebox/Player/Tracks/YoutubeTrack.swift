@@ -12,12 +12,14 @@ class YoutubeTrack: NSObject, Track {
     
     private let id: String
     private let title: String
+    private let artist: String
     private var duration: NSTimeInterval
     
-    init(id: String, duration: NSTimeInterval, title: String = "Better") {
+    init(id: String, duration: NSTimeInterval, title: String = "Better", artist: String = "Jukebox Ninja") {
         self.id = id
         self.duration = duration
         self.title = title
+        self.artist = artist
     }
     
     func getID() -> String {
@@ -29,7 +31,7 @@ class YoutubeTrack: NSObject, Track {
     }
     
     func getArtist() -> String {
-        return "Jukebox Ninja"
+        return artist
     }
     
     func getDuration() -> NSTimeInterval {
