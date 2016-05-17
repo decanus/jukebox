@@ -14,13 +14,6 @@ sudo yum clean all
 sudo yum install -y php70 php-cli php-dom php-xsl php-mbstring php-mssql php-gd php-pecl-imagick php-tidy php-soap php-mysqlnd php-dom php-pdo php-devel php-pear php-redis php-fpm --enablerepo remi-php70
 sudo yum install -y nginx redis gcc gcc-c++ openssl-devel mongodb-org
 
-
-wget http://neo4j.com/artifact.php?name=neo4j-community-3.0.1-unix.tar.gz > neo4j.tar.gz
-tar -xvf neo4j*.tar.gz
-
-cd neo4j-community-3.0.1/bin/
-sh neo4j start
-
 sudo pecl install mongodb
 
 service mongod start
