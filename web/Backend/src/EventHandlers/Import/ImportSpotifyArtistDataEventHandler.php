@@ -5,6 +5,7 @@ namespace Jukebox\Backend\EventHandlers\Import
 
     use Jukebox\Backend\EventHandlers\EventHandlerInterface;
     use Jukebox\Backend\Events\ImportSpotifyArtistDataEvent;
+    use Jukebox\Backend\Services\Spotify;
 
     class ImportSpotifyArtistDataEventHandler implements EventHandlerInterface
     {
@@ -12,15 +13,27 @@ namespace Jukebox\Backend\EventHandlers\Import
          * @var ImportSpotifyArtistDataEvent
          */
         private $event;
+        /**
+         * @var Spotify
+         */
+        private $spotify;
 
-        public function __construct(ImportSpotifyArtistDataEvent $event)
+        public function __construct(
+            ImportSpotifyArtistDataEvent $event,
+            Spotify $spotify
+        )
         {
             $this->event = $event;
+            $this->spotify = $spotify;
         }
 
         public function execute()
         {
-            // TODO: Implement execute() method.
+            try {
+                $response = $this->spotify->getArtist($this->event->getArtistId());
+            } catch (\Exception $e) {
+                // @todo handle
+            }
         }
     }
 
