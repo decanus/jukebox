@@ -39,6 +39,10 @@ class Queue: NSObject {
     }
     
     func hasPrevious() -> Bool {
+        if currentTrack == 0 {
+            return false
+        }
+        
         return queue.startIndex < currentTrack
     }
     
