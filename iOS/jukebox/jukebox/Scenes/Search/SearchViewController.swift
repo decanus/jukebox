@@ -30,6 +30,7 @@ class SearchViewController: UIViewController {
 
         searchController.dimsBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchResultsUpdater = self
         navigationItem.titleView = searchController.searchBar
         definesPresentationContext = true
         
@@ -43,6 +44,14 @@ class SearchViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+}
+
+extension SearchViewController: UISearchResultsUpdating {
+    
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+            print("ok")
     }
     
 }
