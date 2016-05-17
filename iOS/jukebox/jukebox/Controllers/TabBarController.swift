@@ -99,8 +99,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, PlayerDe
             return
         }
         
-        
-        
         button.setPaused()
     }
     
