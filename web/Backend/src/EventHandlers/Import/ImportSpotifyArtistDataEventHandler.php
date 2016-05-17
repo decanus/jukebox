@@ -13,6 +13,7 @@ namespace Jukebox\Backend\EventHandlers\Import
          * @var ImportSpotifyArtistDataEvent
          */
         private $event;
+
         /**
          * @var Spotify
          */
@@ -35,6 +36,8 @@ namespace Jukebox\Backend\EventHandlers\Import
                 if ($response->getResponseCode() !== 200) {
                     throw new \RuntimeException('API did not return expected value');
                 }
+
+                $response->getDecodedJsonResponse();
 
             } catch (\Exception $e) {
                 // @todo handle
