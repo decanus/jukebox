@@ -17,5 +17,13 @@ namespace Jukebox\Framework\Factories
                 $this->getMasterFactory()->getConfiguration()->get('redisPort')
             );
         }
+
+        public function createMongoDatabaseBackend(): \Jukebox\Framework\Backends\MongoDatabaseBackend
+        {
+            return new \Jukebox\Framework\Backends\MongoDatabaseBackend(
+                new \MongoDB\Client($this->getMasterFactory()->getConfiguration()->get('mongoServer')),
+                $this->getMasterFactory()->getConfiguration()->get('mongoDatabase')
+            );
+        }
     }
 }
