@@ -11,8 +11,10 @@ import UIKit
 class SearchViewController: UIViewController {
  
     var output: SearchViewControllerOutput!
+    private let searchController: UISearchController
     
     init() {
+        searchController = UISearchController(searchResultsController: nil)
         super.init(nibName: nil, bundle: nil)
         tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "search"), tag: 1)
         tabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
@@ -25,6 +27,11 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBarHidden = false
+
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
+        navigationItem.titleView = searchController.searchBar
+        definesPresentationContext = true
         
         let tableView = UITableView(frame: view.frame, style: .Plain)
         tableView.delegate = self
