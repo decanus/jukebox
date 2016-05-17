@@ -10,6 +10,8 @@ namespace Jukebox\Backend\Locators
         public function locate(string $event): EventInterface
         {
             switch ($event) {
+                case 'InitialVevoArtistsImport':
+                    return new \Jukebox\Backend\Events\InitialVevoArtistsImportEvent;
                 default:
                     throw new \InvalidArgumentException('Event "' . $event . '" does not exist');
             }

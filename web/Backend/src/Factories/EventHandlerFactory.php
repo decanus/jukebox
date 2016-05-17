@@ -3,12 +3,15 @@
 namespace Jukebox\Backend\Factories
 {
 
-    use Jukebox\Backend\DomCleaner\DomCleaner;
     use Jukebox\Framework\Factories\AbstractFactory;
-    use Jukebox\Framework\ValueObjects\Uri;
 
     class EventHandlerFactory extends AbstractFactory
     {
-
+        public function createInitialVevoArtistsImportEventHandler(): \Jukebox\Backend\EventHandlers\Import\InitialVevoArtistsImportEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\Import\InitialVevoArtistsImportEventHandler(
+                $this->getMasterFactory()->createVevoService()
+            );
+        }
     }
 }

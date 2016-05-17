@@ -26,7 +26,8 @@ namespace Jukebox\Backend\Locators
         public function locate(EventInterface $event): EventHandlerInterface
         {
             switch ($event->getName()) {
-
+                case 'InitialVevoArtistsImport':
+                    return $this->factory->createInitialVevoArtistsImportEventHandler();
             }
         }
     }
