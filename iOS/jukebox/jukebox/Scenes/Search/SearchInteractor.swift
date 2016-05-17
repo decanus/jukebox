@@ -20,6 +20,10 @@ class SearchInteractor: NSObject, SearchViewControllerOutput {
     
     func searchForText(search: String) {
         
+        if search == "" {
+            return
+        }
+        
         // @todo load tracks
         Alamofire.request(
             .GET,
