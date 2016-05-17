@@ -8,15 +8,18 @@ sudo getent passwd php >/dev/null || useradd -r -s /sbin/nologin -d /var/www -c"
 wget http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 sudo rpm -Uvh remi-release-7*.rpm
 
-wget http://debian.neo4j.org/neotechnology.gpg.key
-rpm --import neotechnology.gpg.key
-
 sudo ln -s /vagrant/conf/yum/mongodb.repo /etc/yum.repos.d/mongodb.repo
-sudo ln -s /vagrant/conf/yum/neo4j.repo /etc/yum.repos.d/neo4j.repo
 
 sudo yum clean all
 sudo yum install -y php70 php-cli php-dom php-xsl php-mbstring php-mssql php-gd php-pecl-imagick php-tidy php-soap php-mysqlnd php-dom php-pdo php-devel php-pear php-redis php-fpm --enablerepo remi-php70
-sudo yum install -y nginx redis gcc gcc-c++ openssl-devel mongodb-org neo4j
+sudo yum install -y nginx redis gcc gcc-c++ openssl-devel mongodb-org
+
+
+wget http://neo4j.com/artifact.php?name=neo4j-community-3.0.1-unix.tar.gz > neo4j.tar.gz
+tar -xvf neo4j*.tar.gz
+
+cd neo4j-community-3.0.1/bin/
+sh neo4j start
 
 sudo pecl install mongodb
 

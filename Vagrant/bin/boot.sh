@@ -6,4 +6,6 @@ service nginx start
 service php-fpm start
 service redis start
 service mongod start
-service neo4j start
+
+cd neo4j-community-3.0.1/bin/
+sh neo4j start
