@@ -25,9 +25,6 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBarHidden = false
-
-        let searchController = UISearchController(searchResultsController: nil)
-        navigationItem.titleView = searchController.searchBar
         
         let tableView = UITableView(frame: view.frame, style: .Plain)
         tableView.delegate = self
