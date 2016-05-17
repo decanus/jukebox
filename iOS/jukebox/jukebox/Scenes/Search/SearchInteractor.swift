@@ -34,7 +34,9 @@ class SearchInteractor: NSObject, SearchViewControllerOutput {
                     if let json = response.result.value as? NSArray {
                         for item in json {
                             if let trackJson = item as? NSDictionary {
-                                self.tracks.append(YoutubeTrack(id: (trackJson["id"] as! String), duration: 0, title: (trackJson["title"] as! String)))
+                                self.tracks.append(
+                                    YoutubeTrack(id: (trackJson["id"] as! String), duration: 0, title: (trackJson["title"] as! String))
+                                )
                             }
                         }
                     }
