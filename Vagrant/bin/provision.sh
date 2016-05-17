@@ -8,10 +8,16 @@ sudo getent passwd php >/dev/null || useradd -r -s /sbin/nologin -d /var/www -c"
 wget http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 sudo rpm -Uvh remi-release-7*.rpm
 
+sudo ln -s /vagrant/conf/yum/mongodb.repo /etc/yum.repos.d/mongodb.repo
 
 sudo yum clean all
 sudo yum install -y php70 php-cli php-dom php-xsl php-mbstring php-mssql php-gd php-pecl-imagick php-tidy php-soap php-mysqlnd php-dom php-pdo php-devel php-pear php-redis php-fpm --enablerepo remi-php70
-sudo yum install -y nginx gcc gcc-c++ openssl-devel
+sudo yum install -y nginx gcc gcc-c++ openssl-devel mongodb-org
+
+sudo pecl install mongodb
+
+service mongod start
+bash /vagrant/conf/mongo/setup.sh
 
 rm /etc/hosts
 ln -s /vagrant/conf/hosts /etc/hosts
