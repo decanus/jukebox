@@ -12,12 +12,7 @@ import Alamofire
 class SearchInteractor: NSObject, SearchViewControllerOutput {
     
     private let output: SearchInteractorOutput
-    
-    private var tracks: [Track]? = [
-        YoutubeTrack(id: "Bag1gUxuU0g", duration: 287),
-        YoutubeTrack(id: "Bag1gUxuU0g", duration: 287),
-        YoutubeTrack(id: "Bag1gUxuU0g", duration: 287)
-    ]
+    private var tracks: [Track] = []
     
     init(output: SearchInteractorOutput) {
         self.output = output
@@ -39,14 +34,14 @@ class SearchInteractor: NSObject, SearchViewControllerOutput {
                     if let json = response.result.value as? NSArray {
                         for item in json {
                             if let trackJson = item as? NSDictionary {
-                                self.tracks?.append(YoutubeTrack(id: (trackJson["id"] as! String), duration: 0, title: (trackJson["title"] as! String)))
+                                self.tracks.append(YoutubeTrack(id: (trackJson["id"] as! String), duration: 0, title: (trackJson["title"] as! String)))
                             }
                         }
                     }
                 }
         }
         
-        output.presentTracks(tracks!)
+        output.presentTracks(tracks)
     }
     
 }
