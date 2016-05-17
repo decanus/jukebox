@@ -26,7 +26,9 @@ class ViewControllerFactory {
     class func createSearchViewController() -> UINavigationController {
         
         let viewController = SearchViewController()
-        viewController.output = SearchInteractor()
+        let presenter = SearchPresenter(output: viewController)
+        let interactor = SearchInteractor(output: presenter)
+        viewController.output = interactor
         
         let navigationController = UINavigationController()
         navigationController.viewControllers = [viewController]

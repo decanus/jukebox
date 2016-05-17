@@ -6,5 +6,7 @@
 import Foundation
 
 protocol SearchInteractorOutput {
-        
+    
+    func presentTracks(tracks: [Track])
+    
 }

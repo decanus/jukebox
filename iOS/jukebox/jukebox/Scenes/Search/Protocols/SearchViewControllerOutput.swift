@@ -6,9 +6,7 @@
 import Foundation
 
 protocol SearchViewControllerOutput {
-    
-    var tracks: [Track]? { get }
-
-    func trackForIndex(index: Int) -> Track
+        
+    func searchForText(search: String)
     
 }

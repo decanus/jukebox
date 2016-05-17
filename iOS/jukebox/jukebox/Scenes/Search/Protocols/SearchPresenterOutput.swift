@@ -7,4 +7,6 @@ import Foundation
 
 protocol SearchPresenterOutput: class {
 
+    func displayTracks(tracks: [Track])
+    
 }

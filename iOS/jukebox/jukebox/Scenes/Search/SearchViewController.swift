@@ -8,14 +8,18 @@
 
 import UIKit
 
-class SearchViewController: UIViewController {
+class SearchViewController: UIViewController, SearchPresenterOutput {
  
     var output: SearchViewControllerOutput!
     private let searchController: UISearchController
+    private let tableView: UITableView
+    private var tracks: [Track] = []
     
     init() {
         searchController = UISearchController(searchResultsController: nil)
+        tableView = UITableView()
         super.init(nibName: nil, bundle: nil)
+        tableView.frame = view.frame
         tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "search"), tag: 1)
         tabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
     }
@@ -34,7 +38,6 @@ class SearchViewController: UIViewController {
         navigationItem.titleView = searchController.searchBar
         definesPresentationContext = true
         
-        let tableView = UITableView(frame: view.frame, style: .Plain)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .None
@@ -46,12 +49,21 @@ class SearchViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
+    func displayTracks(tracks: [Track]) {
+        self.tracks = tracks
+
+        dispatch_async(dispatch_get_main_queue(), {
+            self.tableView.reloadData()
+        })
+    }
+    
 }
 
 extension SearchViewController: UISearchResultsUpdating {
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
-            print("ok")
+        output.searchForText(searchController.searchBar.text!)
+        
     }
     
 }
@@ -59,7 +71,7 @@ extension SearchViewController: UISearchResultsUpdating {
 extension SearchViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        PlayerFactory.createPlayer().playTrack(output.trackForIndex(indexPath.row))
+        PlayerFactory.createPlayer().playTrack(tracks[indexPath.row])
     }
     
 }
@@ -67,11 +79,11 @@ extension SearchViewController: UITableViewDelegate {
 extension SearchViewController: UITableViewDataSource {
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (output.tracks?.count)!
+        return tracks.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return TrackCell(track: output.trackForIndex(indexPath.row))
+        return TrackCell(track: tracks[indexPath.row])
     }
     
 }
