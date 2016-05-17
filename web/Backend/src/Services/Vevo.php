@@ -4,6 +4,7 @@ namespace Jukebox\Backend\Services
 {
 
     use Jukebox\Framework\Curl\Curl;
+    use Jukebox\Framework\Curl\Response;
     use Jukebox\Framework\DataPool\RedisBackend;
     use Jukebox\Framework\ValueObjects\Uri;
 
@@ -29,6 +30,14 @@ namespace Jukebox\Backend\Services
             $this->baseUri = $baseUri;
             $this->curl = $curl;
             $this->redisBackend = $redisBackend;
+        }
+
+        public function getVideoForId(string $videoId): Response
+        {
+            return $this->curl->get(
+                new Uri($this->baseUri . '/video/' . $videoId),
+                ['token' => $this->getAuthorizationToken()]
+            );
         }
 
         private function getAuthorizationToken(): string
