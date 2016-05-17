@@ -12,7 +12,7 @@ sudo ln -s /vagrant/conf/yum/mongodb.repo /etc/yum.repos.d/mongodb.repo
 
 sudo yum clean all
 sudo yum install -y php70 php-cli php-dom php-xsl php-mbstring php-mssql php-gd php-pecl-imagick php-tidy php-soap php-mysqlnd php-dom php-pdo php-devel php-pear php-redis php-fpm --enablerepo remi-php70
-sudo yum install -y nginx gcc gcc-c++ openssl-devel mongodb-org
+sudo yum install -y nginx redis gcc gcc-c++ openssl-devel mongodb-org
 
 sudo pecl install mongodb
 
