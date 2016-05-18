@@ -3,6 +3,7 @@
 namespace Jukebox\Backend\EventHandlers\Import
 {
 
+    use Jukebox\Backend\Commands\InsertArtistCommand;
     use Jukebox\Backend\EventHandlers\EventHandlerInterface;
     use Jukebox\Backend\Events\VevoArtistImportEvent;
     use Jukebox\Backend\Services\Vevo;
@@ -26,13 +27,20 @@ namespace Jukebox\Backend\EventHandlers\Import
          */
         private $vevo;
 
+        /**
+         * @var InsertArtistCommand
+         */
+        private $insertArtistCommand;
+
         public function __construct(
             VevoArtistImportEvent $event,
-            Vevo $vevo
+            Vevo $vevo,
+            InsertArtistCommand $insertArtistCommand
         )
         {
             $this->event = $event;
             $this->vevo = $vevo;
+            $this->insertArtistCommand = $insertArtistCommand;
         }
 
         public function execute()
@@ -46,6 +54,12 @@ namespace Jukebox\Backend\EventHandlers\Import
                 }
 
                 $artist = $response->getDecodedJsonResponse();
+
+                $result = $this->insertArtistCommand->execute($artist['name'], $artist['urlSafeName'], true);
+
+                if (!$result) {
+                    throw new \Exception('Inserting artist failed');
+                }
 
             } catch (\Exception $e) {
                 // @todo log

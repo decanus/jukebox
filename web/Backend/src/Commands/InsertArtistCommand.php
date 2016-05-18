@@ -17,11 +17,11 @@ namespace Jukebox\Backend\Commands
             $this->postgreDatabaseBackend = $postgreDatabaseBackend;
         }
 
-        public function execute($artist, $urlSafeName): bool
+        public function execute($artist, $urlSafeName, bool $isVevo = false): bool
         {
             return $this->postgreDatabaseBackend->insert(
-                'INSERT INTO artists (name, urlSafeName) VALUES (:name, :urlSafeName)',
-                [':name' => $artist, ':urlSafeName' => $urlSafeName]
+                'INSERT INTO artists (name, urlSafeName, isVevo) VALUES (:name, :urlSafeName, :isVevo)',
+                [':name' => $artist, ':urlSafeName' => $urlSafeName, ':isVevo' => $isVevo]
             );
         }
     }
