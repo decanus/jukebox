@@ -13,5 +13,12 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createVevoService()
             );
         }
+        
+        public function createInitialVevoGenresImportEventHandler(): \Jukebox\Backend\EventHandlers\Import\InitialVevoGenresImportEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\Import\InitialVevoGenresImportEventHandler(
+                $this->getMasterFactory()->createVevoService()
+            );
+        }
     }
 }
