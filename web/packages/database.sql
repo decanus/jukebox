@@ -24,3 +24,16 @@ CREATE TABLE IF NOT EXISTS `trackArtists` (
   FOREIGN KEY (track) REFERENCES tracks(id),
   CHECK (role IN ('main', 'featured'))
 );
+
+CREATE TABLE IF NOT EXISTS `genres` (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS `trackGenres` (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  track INT NOT NULL,
+  genre INT NOT NULL,
+  FOREIGN KEY (track) REFERENCES tracks(id),
+  FOREIGN KEY (genre) REFERENCES genres(id)
+)
