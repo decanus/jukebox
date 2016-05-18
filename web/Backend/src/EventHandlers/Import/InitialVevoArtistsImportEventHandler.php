@@ -41,7 +41,7 @@ namespace Jukebox\Backend\EventHandlers\Import
             }
         }
 
-        public function handleArtist(array $artist)
+        private function handleArtist(array $artist)
         {
 
         }

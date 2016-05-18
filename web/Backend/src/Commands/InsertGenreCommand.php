@@ -2,16 +2,16 @@
 
 namespace Jukebox\Backend\EventHandlers\Commands
 {
-    use Jukebox\Framework\Backends\PostgresDatabaseBackend;
+    use Jukebox\Framework\Backends\PostgreDatabaseBackend;
 
     class InsertGenreCommand
     {
         /**
-         * @var PostgresDatabaseBackend
+         * @var PostgreDatabaseBackend
          */
         private $databaseBackend;
 
-        public function __construct(PostgresDatabaseBackend $databaseBackend)
+        public function __construct(PostgreDatabaseBackend $databaseBackend)
         {
             $this->databaseBackend = $databaseBackend;
         }

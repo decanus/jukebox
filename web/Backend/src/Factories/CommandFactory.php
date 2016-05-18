@@ -9,7 +9,7 @@ namespace Jukebox\Backend\Factories
         public function createInsertGenreCommand()
         {
             return new \Jukebox\Backend\EventHandlers\Commands\InsertGenreCommand(
-                $this->getMasterFactory()->createPostgresDatabaseBackend()
+                $this->getMasterFactory()->createPostgreDatabaseBackend()
             );
         }
     }

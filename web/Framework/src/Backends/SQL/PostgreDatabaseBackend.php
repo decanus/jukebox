@@ -2,7 +2,7 @@
 
 namespace Jukebox\Framework\Backends
 {
-    class PostgresDatabaseBackend
+    class PostgreDatabaseBackend
     {
         /**
          * @var \PDO
