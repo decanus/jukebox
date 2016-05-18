@@ -13,8 +13,8 @@ namespace Jukebox\Backend\Locators
             switch ($request->getAction()) {
                 case 'InitialVevoArtistsImport':
                     return new \Jukebox\Backend\Events\InitialVevoArtistsImportEvent;
-                case 'InitialVevoGenresImport':
-                    return new \Jukebox\Backend\Events\InitialVevoGenresImportEvent;
+                case 'VevoGenresImport':
+                    return new \Jukebox\Backend\Events\VevoGenresImportEvent;
                 default:
                     throw new \InvalidArgumentException('Event "' . $request->getAction() . '" does not exist');
             }

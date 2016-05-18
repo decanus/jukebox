@@ -14,10 +14,11 @@ namespace Jukebox\Backend\Factories
             );
         }
         
-        public function createInitialVevoGenresImportEventHandler(): \Jukebox\Backend\EventHandlers\Import\InitialVevoGenresImportEventHandler
+        public function createVevoGenresImportEventHandler(): \Jukebox\Backend\EventHandlers\Import\VevoGenresImportEventHandler
         {
-            return new \Jukebox\Backend\EventHandlers\Import\InitialVevoGenresImportEventHandler(
-                $this->getMasterFactory()->createVevoService()
+            return new \Jukebox\Backend\EventHandlers\Import\VevoGenresImportEventHandler(
+                $this->getMasterFactory()->createVevoService(),
+                $this->getMasterFactory()->createInsertGenreCommand()
             );
         }
     }
