@@ -2,6 +2,9 @@
 
 namespace Jukebox\Framework\Factories
 {
+
+    use ;
+
     class BackendFactory extends AbstractFactory
     {
         public function createFileBackend(): \Jukebox\Framework\Backends\FileBackend
@@ -23,6 +26,17 @@ namespace Jukebox\Framework\Factories
             return new \Jukebox\Framework\Backends\MongoDatabaseBackend(
                 new \MongoDB\Client($this->getMasterFactory()->getConfiguration()->get('mongoServer')),
                 $this->getMasterFactory()->getConfiguration()->get('mongoDatabase')
+            );
+        }
+
+        public function createPostgreDatabaseBackend(): \Jukebox\Framework\Backends\PostgreDatabaseBackend
+        {
+            return new \Jukebox\Framework\Backends\PostgreDatabaseBackend(
+                new \Jukebox\Framework\Backends\PDO(
+                    $this->getMasterFactory()->getConfiguration()->get('postgreServer'),
+                    $this->getMasterFactory()->getConfiguration()->get('postgreUsername'),
+                    $this->getMasterFactory()->getConfiguration()->get('postgrePassword')
+                )
             );
         }
     }
