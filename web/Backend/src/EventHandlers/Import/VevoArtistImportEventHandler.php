@@ -9,6 +9,7 @@ namespace Jukebox\Backend\EventHandlers\Import
     use Jukebox\Backend\Services\Vevo;
     use Jukebox\Framework\Logging\LoggerAware;
     use Jukebox\Framework\Logging\LoggingProvider;
+    use Jukebox\Framework\ValueObjects\Uri;
 
     class VevoArtistImportEventHandler implements EventHandlerInterface, LoggerAware
     {
@@ -46,7 +47,6 @@ namespace Jukebox\Backend\EventHandlers\Import
         public function execute()
         {
             try {
-
                 $response = $this->vevo->getArtist($this->event->getArtist());
 
                 if ($response->getResponseCode() !== 200) {
@@ -55,7 +55,58 @@ namespace Jukebox\Backend\EventHandlers\Import
 
                 $artist = $response->getDecodedJsonResponse();
 
-                $result = $this->insertArtistCommand->execute($artist['name'], $artist['urlSafeName']);
+                $officialWebsite = null;
+                $twitter = null;
+                $facebook = null;
+                $itunes = null;
+                $amazon = null;
+
+                foreach ($artist['links'] as $link) {
+                    try {
+                        if ($link['type'] === 'Facebook') {
+                            $facebook = new Uri($link['url']);
+                            continue;
+                        }
+
+                        if ($link['type'] === 'Twitter') {
+                            $twitter = $link['userName'];
+                            continue;
+                        }
+
+                        if ($link['type'] === 'Official Website') {
+                            $officialWebsite = new Uri($link['url']);
+                            continue;
+                        }
+                    } catch (\Throwable $e) {
+                        continue;
+                    }
+                }
+
+                foreach ($artist['buyLinks'] as $link) {
+                    try {
+                        if ($link['vendor'] === 'iTunes') {
+                            $itunes = new Uri($link['url']);
+                            continue;
+                        }
+
+                        if ($link['vendor'] === 'Amazon') {
+                            $officialWebsite = new Uri($link['url']);
+                            continue;
+                        }
+                    } catch (\Throwable $e) {
+                        continue;
+                    }
+                }
+
+                $result = $this->insertArtistCommand->execute(
+                    $artist['name'],
+                    $artist['urlSafeName'],
+                    $officialWebsite,
+                    $twitter,
+                    $facebook,
+                    $itunes,
+                    $amazon
+                );
                 
                 if (!$result) {
                     throw new \Exception('Inserting artist failed');
