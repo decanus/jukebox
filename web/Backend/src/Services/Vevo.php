@@ -54,6 +54,14 @@ namespace Jukebox\Backend\Services
             return $this->curl->get($this->buildUrl('/artist/' . $artistId), ['token' => $this->getAuthorizationToken()]);
         }
 
+        public function getVideosForArtist(string $artistId, $page = 1): Response
+        {
+            return $this->curl->get(
+                $this->buildUrl('/artist/' . $artistId . '/videos'),
+                ['token' => $this->getAuthorizationToken(), 'page' => $page, 'size' => 200]
+            );
+        }
+
         public function getArtists($page = 1): Response
         {
             return $this->curl->get(
