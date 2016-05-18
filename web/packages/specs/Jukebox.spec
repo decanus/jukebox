@@ -6,7 +6,7 @@ Release: jukebox.1
 Group: System Environment/Libraries
 License: jukebox.ninja
 Vendor: jukebox.ninja
-Version: 0.0.1
+Version: 0.0.2
 Url: http://www.jukebox.ninja/
 
 #Source:
@@ -31,12 +31,14 @@ Jukebox release
 install -m 755 -d $RPM_BUILD_ROOT%{_wwwDir}Frontend
 install -m 755 -d $RPM_BUILD_ROOT%{_wwwDir}Frontend/html
 install -m 755 -d $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/css/
+install -m 755 -d $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/images/
 
 cp -R %{_sourcedir}Frontend/bootstrap.php $RPM_BUILD_ROOT%{_wwwDir}Frontend/bootstrap.php
 
 cp -R %{_sourcedir}Frontend/html/index.html $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/index.html
 cp -R %{_sourcedir}Frontend/html/robots.txt $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/robots.txt
 cp -R %{_sourcedir}Styles/css/* $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/css/
+cp -R %{_sourcedir}Frontend/html/images/* $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/images/
 
 %clean
 rm -rf $RPM_BUILD_ROOT
