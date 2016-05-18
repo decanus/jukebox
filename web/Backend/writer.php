@@ -11,6 +11,6 @@ namespace Jukebox\Backend
 
     $factory = $bootstrapper->getFactory();
     $writer = $factory->createEventQueueWriter();
-    $writer->add($factory->createEventLocator()->locate($argv[1]));
+    $writer->add($factory->createEventLocator()->locate($bootstrapper->getRequest()));
 
 }

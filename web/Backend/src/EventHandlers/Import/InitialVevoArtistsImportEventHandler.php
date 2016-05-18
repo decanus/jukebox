@@ -18,7 +18,6 @@ namespace Jukebox\Backend\EventHandlers\Import
             $this->vevo = $vevo;
         }
 
-
         public function execute()
         {
             try {
