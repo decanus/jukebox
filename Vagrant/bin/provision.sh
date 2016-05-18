@@ -17,6 +17,7 @@ rm /etc/hosts
 ln -s /vagrant/conf/hosts /etc/hosts
 
 sudo ln -s /var/www/packages/configs/dev/api.jukebox.ninja.conf /etc/nginx/conf.d/api.jukebox.ninja.conf
+sudo ln -s /var/www/packages/configs/dev/jukebox.ninja.conf /etc/nginx/conf.d/jukebox.ninja.conf
 
 rm /etc/php.ini
 sudo ln -s /vagrant/conf/php.ini /etc/php.ini
