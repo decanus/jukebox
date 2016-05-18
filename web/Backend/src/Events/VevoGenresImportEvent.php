@@ -4,11 +4,11 @@ namespace Jukebox\Backend\Events
 {
     use Jukebox\Framework\Events\EventInterface;
 
-    class InitialVevoGenresImportEvent implements EventInterface
+    class VevoGenresImportEvent implements EventInterface
     {
         public function getName(): string
         {
-            return 'InitialVevoGenresImport';
+            return 'VevoGenresImport';
         }
     }
 }
