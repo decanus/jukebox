@@ -56,7 +56,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                 $artist = $response->getDecodedJsonResponse();
 
                 $result = $this->insertArtistCommand->execute($artist['name'], $artist['urlSafeName']);
-
+                
                 if (!$result) {
                     throw new \Exception('Inserting artist failed');
                 }
