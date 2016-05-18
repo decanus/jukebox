@@ -5,7 +5,7 @@ namespace Jukebox\Backend\Commands
 
     use Jukebox\Framework\Backends\PostgreDatabaseBackend;
 
-    class InsertArtistCommand
+    class InsertVevoArtistCommand
     {
         /**
          * @var PostgreDatabaseBackend
@@ -17,11 +17,11 @@ namespace Jukebox\Backend\Commands
             $this->postgreDatabaseBackend = $postgreDatabaseBackend;
         }
 
-        public function execute($artist, $urlSafeName, bool $isVevo = false): bool
+        public function execute($artist, $urlSafeName): bool
         {
             return $this->postgreDatabaseBackend->insert(
                 'INSERT INTO artists (name, urlSafeName, isVevo) VALUES (:name, :urlSafeName, :isVevo)',
-                [':name' => $artist, ':urlSafeName' => $urlSafeName, ':isVevo' => $isVevo]
+                [':name' => $artist, ':urlSafeName' => $urlSafeName, ':isVevo' => true]
             );
         }
     }
