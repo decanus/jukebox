@@ -37,14 +37,13 @@ namespace Jukebox\Backend\EventHandlers\Import
                 }
 
             } catch (\Exception $e) {
-                var_dump($e->getMessage());
                 // @todo handle
             }
         }
 
         public function handleArtist(array $artist)
         {
-            var_dump($artist['name']);
+
         }
     }
 }
