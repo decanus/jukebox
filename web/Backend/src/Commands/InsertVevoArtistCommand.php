@@ -29,12 +29,12 @@ namespace Jukebox\Backend\Commands
         ): bool
         {
             return $this->postgreDatabaseBackend->insert(
-                'INSERT INTO artists (name, urlSafeName, isVevo, officialWebsite, twitter, facebook, itunes, amazon) VALUES (:name, :urlSafeName, :isVevo, :officialWebsite, :twitter, :facebook, :itunes, :amazon)',
+                'INSERT INTO artists (name, url_safe_name, is_vevo, official_website, twitter, facebook, itunes, amazon) VALUES (:name, :url_safe_name, :is_vevo, :official_website, :twitter, :facebook, :itunes, :amazon)',
                 [
                     ':name' => $artist,
-                    ':urlSafeName' => $urlSafeName,
-                    ':isVevo' => true,
-                    ':officialWebsite' => (string) $officialWebsite,
+                    ':url_safe_name' => $urlSafeName,
+                    ':is_vevo' => true,
+                    ':official_website' => (string) $officialWebsite,
                     ':twitter' => $twitter,
                     ':facebook' => (string) $facebook,
                     ':itunes' => (string) $itunes,
