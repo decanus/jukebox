@@ -47,6 +47,9 @@ namespace Jukebox\Backend\EventHandlers\Import
         public function execute()
         {
             try {
+
+                // @todo check if we already have the artist
+
                 $response = $this->vevo->getArtist($this->event->getArtist());
 
                 if ($response->getResponseCode() !== 200) {
