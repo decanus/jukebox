@@ -5,7 +5,7 @@ namespace Jukebox\Framework\Backends
     class PostgresDatabaseBackend
     {
         /**
-         * @var PDO
+         * @var \PDO
          */
         private $PDO;
 
@@ -16,7 +16,6 @@ namespace Jukebox\Framework\Backends
 
         public function fetchAll(string $sql, array $parameters = []): mixed
         {
-            /** @var $statement \PDOStatement */
             $statement = $this->PDO->prepare($sql);
             $statement->execute($parameters);
 
@@ -25,7 +24,6 @@ namespace Jukebox\Framework\Backends
 
         public function insert(string $sql, array $parameters = []): bool
         {
-            /** @var $statement \PDOStatement */
             $statement = $this->PDO->prepare($sql);
             return $statement->execute($parameters);
         }
