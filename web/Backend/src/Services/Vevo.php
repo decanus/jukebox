@@ -61,6 +61,14 @@ namespace Jukebox\Backend\Services
                 ['token' => $this->getAuthorizationToken(), 'page' => $page, 'size' => 200]
             );
         }
+        
+        public function getGenres(): Response
+        {
+            return $this->curl->get(
+                $this->buildUrl('/genres'),
+                ['token' => $this->getAuthorizationToken() ]
+            );
+        }
 
         private function buildUrl(string $path): Uri
         {
