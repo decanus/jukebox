@@ -4,7 +4,9 @@ namespace Jukebox\Backend\EventHandlers\Import
 {
 
     use Jukebox\Backend\EventHandlers\EventHandlerInterface;
+    use Jukebox\Backend\Events\VevoArtistImportEvent;
     use Jukebox\Backend\Services\Vevo;
+    use Jukebox\Backend\Writers\EventQueueWriter;
 
     class InitialVevoArtistsImportEventHandler implements EventHandlerInterface
     {
@@ -13,9 +15,15 @@ namespace Jukebox\Backend\EventHandlers\Import
          */
         private $vevo;
 
-        public function __construct(Vevo $vevo)
+        /**
+         * @var EventQueueWriter
+         */
+        private $eventQueueWriter;
+
+        public function __construct(Vevo $vevo, EventQueueWriter $eventQueueWriter)
         {
             $this->vevo = $vevo;
+            $this->eventQueueWriter = $eventQueueWriter;
         }
 
         public function execute()
@@ -43,7 +51,7 @@ namespace Jukebox\Backend\EventHandlers\Import
 
         private function handleArtist(array $artist)
         {
-
+            $this->eventQueueWriter->add(new VevoArtistImportEvent($artist['urlSafeName']));
         }
     }
 }

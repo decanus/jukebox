@@ -10,7 +10,8 @@ namespace Jukebox\Backend\Factories
         public function createInitialVevoArtistsImportEventHandler(): \Jukebox\Backend\EventHandlers\Import\InitialVevoArtistsImportEventHandler
         {
             return new \Jukebox\Backend\EventHandlers\Import\InitialVevoArtistsImportEventHandler(
-                $this->getMasterFactory()->createVevoService()
+                $this->getMasterFactory()->createVevoService(),
+                $this->getMasterFactory()->createEventQueueWriter()
             );
         }
         
@@ -26,7 +27,8 @@ namespace Jukebox\Backend\Factories
         {
             return new \Jukebox\Backend\EventHandlers\Import\VevoArtistImportEventHandler(
                 $event,
-                $this->getMasterFactory()->createVevoService()
+                $this->getMasterFactory()->createVevoService(),
+                $this->getMasterFactory()->createInsertVevoArtistCommand()
             );
         }
     }
