@@ -3,8 +3,6 @@
 namespace Jukebox\Framework\Factories
 {
 
-    use ;
-
     class BackendFactory extends AbstractFactory
     {
         public function createFileBackend(): \Jukebox\Framework\Backends\FileBackend
