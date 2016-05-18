@@ -33,6 +33,7 @@ namespace Jukebox\Framework\Curl
             CURLOPT_FRESH_CONNECT => 1,
             CURLOPT_FORBID_REUSE => 1,
         ];
+
         /**
          * @var callback
          */
