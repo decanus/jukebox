@@ -56,6 +56,7 @@ namespace Jukebox\Search
                 $snippet = [
                     'platform' => 'youtube',
                     'title' => $item['snippet']['title'],
+                    'artistName' => $item['snippet']['channelTitle'],
                     'id' => $item['id']['videoId']
                 ];
 
