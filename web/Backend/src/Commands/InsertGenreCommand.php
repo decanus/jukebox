@@ -1,6 +1,6 @@
 <?php
 
-namespace Jukebox\Backend\EventHandlers\Commands
+namespace Jukebox\Backend\Commands
 {
     use Jukebox\Framework\Backends\PostgreDatabaseBackend;
 

@@ -8,7 +8,13 @@ namespace Jukebox\Backend\Factories
     {
         public function createInsertGenreCommand()
         {
-            return new \Jukebox\Backend\EventHandlers\Commands\InsertGenreCommand(
+            return new \Jukebox\Backend\Commands\InsertGenreCommand(
+                $this->getMasterFactory()->createPostgreDatabaseBackend()
+            );
+        }
+        public function createInsertVevoArtistCommand()
+        {
+            return new \Jukebox\Backend\Commands\InsertVevoArtistCommand(
                 $this->getMasterFactory()->createPostgreDatabaseBackend()
             );
         }
