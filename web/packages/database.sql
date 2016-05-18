@@ -3,8 +3,24 @@ CREATE DATABASE jukebox
   DEFAULT COLLATE utf8_general_ci;
 
 CREATE TABLE IF NOT EXISTS `tracks` (
-  `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  `duration` INT NOT NULL,
-  `title` VARCHAR(255) NOT NULL,
-  `youtubeID` VARCHAR(255) NULL
-)
+  id INT AUTO_INCREMENT PRIMARY KEY ,
+  duration INT NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  youtubeID VARCHAR(20) DEFAULT NULL
+);
+
+CREATE TABLE IF NOT EXISTS `artists` (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  urlSafeName VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS `trackArtists` (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  artist INT NOT NULL,
+  track INT NOT NULL,
+  role VARCHAR(11),
+  FOREIGN KEY (artist) REFERENCES artists(id),
+  FOREIGN KEY (track) REFERENCES tracks(id),
+  CHECK (role IN ('main', 'featured'))
+);
