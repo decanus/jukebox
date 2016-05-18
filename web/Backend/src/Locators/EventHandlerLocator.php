@@ -30,6 +30,8 @@ namespace Jukebox\Backend\Locators
                     return $this->factory->createInitialVevoArtistsImportEventHandler();
                 case 'InitialVevoGenresImport':
                     return $this->factory->createInitialVevoGenresImportEventHandler();
+                case 'VevoArtistImport':
+                    return $this->factory->createVevoArtistImportEventHandler($event);
             }
         }
     }

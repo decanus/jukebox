@@ -40,4 +40,4 @@ CREATE TABLE IF NOT EXISTS trackGenres (
   genre INT NOT NULL,
   FOREIGN KEY (track) REFERENCES tracks(id),
   FOREIGN KEY (genre) REFERENCES genres(id)
-)
+);
