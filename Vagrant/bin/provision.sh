@@ -28,7 +28,7 @@ postgresql-setup initdb
 systemctl start postgresql
 systemctl enable postgresql
 
-su - postgres -C "psql -a -w -f /var/www/packages/database.sql" 
+sudo su - postgres -C "psql -a -w -f /var/www/packages/database.sql"
 
 rm /var/lib/pgsql/data/pg_hba.conf
 ln -s /vagrant/conf/postgres.conf /var/lib/pgsql/data/pg_hba.conf
