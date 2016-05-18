@@ -4,6 +4,7 @@ namespace Jukebox\Framework\Logging
 {
 
     use Jukebox\Framework\Logging\Loggers\LoggerInterface;
+    use Jukebox\Framework\Logging\Logs\CriticalLog;
     use Jukebox\Framework\Logging\Logs\EmergencyLog;
     use Jukebox\Framework\Logging\Logs\LogInterface;
 
@@ -27,6 +28,11 @@ namespace Jukebox\Framework\Logging
         public function logEmergency(\Throwable $e)
         {
             $this->log(new EmergencyLog($e));
+        }
+
+        public function logCritical(\Throwable $e)
+        {
+            $this->log(new CriticalLog($e));
         }
 
         private function log(LogInterface $log)

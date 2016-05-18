@@ -116,8 +116,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                 }
 
             } catch (\Exception $e) {
-                // @todo log
-                throw $e;
+                $this->logCritical($e);
             }
         }
     }

@@ -7,9 +7,16 @@ namespace Jukebox\Backend\EventHandlers\Import
     use Jukebox\Backend\Events\VevoArtistImportEvent;
     use Jukebox\Backend\Services\Vevo;
     use Jukebox\Backend\Writers\EventQueueWriter;
+    use Jukebox\Framework\Logging\LoggerAware;
+    use Jukebox\Framework\Logging\LoggingProvider;
 
-    class InitialVevoArtistsImportEventHandler implements EventHandlerInterface
+    class InitialVevoArtistsImportEventHandler implements EventHandlerInterface, LoggerAware
     {
+        /**
+         * @trait
+         */
+        use LoggingProvider;
+
         /**
          * @var Vevo
          */
@@ -45,7 +52,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                 }
 
             } catch (\Exception $e) {
-                // @todo handle
+                $this->logCritical($e);
             }
         }
 
