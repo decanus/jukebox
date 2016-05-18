@@ -37,6 +37,7 @@ cp -R %{_sourcedir}Frontend/bootstrap.php $RPM_BUILD_ROOT%{_wwwDir}Frontend/boot
 
 cp -R %{_sourcedir}Frontend/html/index.html $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/index.html
 cp -R %{_sourcedir}Frontend/html/robots.txt $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/robots.txt
+cp -R %{_sourcedir}Frontend/html/favicon.ico $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/favicon.ico
 cp -R %{_sourcedir}Styles/css/* $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/css/
 cp -R %{_sourcedir}Frontend/html/images/* $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/images/
 
