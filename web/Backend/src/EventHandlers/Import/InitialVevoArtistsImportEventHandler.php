@@ -27,7 +27,6 @@ namespace Jukebox\Backend\EventHandlers\Import
                 foreach ($artists['artists'] as $artist) {
                     $this->handleArtist($artist);
                 }
-                
 
                 $pages = $artists['paging']['pages'];
                 for ($i = 2; $i <= $pages; $i++) {
