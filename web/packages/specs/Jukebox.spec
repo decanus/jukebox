@@ -1,4 +1,3 @@
-
 %define _wwwDir /var/www/jukebox/
 
 Summary: jukebox
@@ -31,7 +30,7 @@ Jukebox release
 
 install -m 755 -d $RPM_BUILD_ROOT%{_wwwDir}Frontend
 install -m 755 -d $RPM_BUILD_ROOT%{_wwwDir}Frontend/html
-install -m 755 -d $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/{css}
+install -m 755 -d $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/css/
 
 cp -R %{_sourcedir}Frontend/bootstrap.php $RPM_BUILD_ROOT%{_wwwDir}Frontend/bootstrap.php
 
