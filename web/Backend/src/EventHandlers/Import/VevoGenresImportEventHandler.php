@@ -42,7 +42,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                 }
 
             } catch (\Exception $e) {
-                $this->critical($e);
+                $this->getLogger()->critical($e);
             }
         }
     }
