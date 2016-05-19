@@ -8,7 +8,5 @@ namespace Jukebox\Framework\Logging
     interface LoggerAware
     {
         public function setLogger(LoggerInterface $logger);
-
-        public function getLogger(): LoggerInterface;
     }
 }
