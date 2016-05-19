@@ -56,7 +56,7 @@ namespace Jukebox\Framework\Backends
                 $result->setTypeMap(['root' => 'array', 'document' => 'array', 'array' => 'array']);
                 return $result->toArray();
             } catch (\Throwable $e) {
-                $this->emergency($e);
+                $this->getLogger()->emergency($e);
                 throw $e;
             }
         }
@@ -66,7 +66,7 @@ namespace Jukebox\Framework\Backends
             try {
                 return $this->getDatabase()->selectCollection($collectionName)->findOne($query);
             } catch (\Throwable $e) {
-                $this->emergency($e);
+                $this->getLogger()->emergency($e);
                 throw $e;
             }
         }
@@ -80,7 +80,7 @@ namespace Jukebox\Framework\Backends
                     ['upsert' => $upsert, 'returnDocument' => FindOneAndUpdate::RETURN_DOCUMENT_AFTER]
                 );
             } catch (\Throwable $e) {
-                $this->emergency($e);
+                $this->getLogger()->emergency($e);
                 throw $e;
             }
         }
@@ -90,7 +90,7 @@ namespace Jukebox\Framework\Backends
             try {
                 return $this->getDatabase()->selectCollection($collectionName)->updateOne($filter, $update);
             } catch (\Throwable $e) {
-                $this->emergency($e);
+                $this->getLogger()->emergency($e);
                 throw $e;
             }
         }
@@ -100,7 +100,7 @@ namespace Jukebox\Framework\Backends
             try {
                 return $this->getDatabase()->selectCollection($collectionName)->insertOne($document);
             } catch (\Throwable $e) {
-                $this->emergency($e);
+                $this->getLogger()->emergency($e);
                 throw $e;
             }
         }
@@ -114,7 +114,7 @@ namespace Jukebox\Framework\Backends
 
                 return $this->database;
             } catch (\Throwable $e) {
-                $this->emergency($e);
+                $this->getLogger()->emergency($e);
                 throw $e;
             }
 

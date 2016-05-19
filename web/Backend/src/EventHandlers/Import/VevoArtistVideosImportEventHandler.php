@@ -55,7 +55,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                 $this->vevo->getVideosForIds($this->videoIds, [$this, 'handleVideos']);
 
             } catch (\Throwable $e) {
-                $this->critical($e);
+                $this->getLogger()->critical($e);
             }
         }
 
