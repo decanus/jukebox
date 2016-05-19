@@ -2,14 +2,13 @@
 
 namespace Jukebox\Backend\EventHandlers\Import
 {
-
     use Jukebox\Backend\Commands\InsertGenreCommand;
     use Jukebox\Backend\EventHandlers\EventHandlerInterface;
     use Jukebox\Backend\Services\Vevo;
-    use Jukebox\Framework\Logging\Loggers\LoggerInterface;
+    use Jukebox\Framework\Logging\LoggerAware;
     use Jukebox\Framework\Logging\LoggerAwareTrait;
 
-    class VevoGenresImportEventHandler implements EventHandlerInterface, LoggerInterface
+    class VevoGenresImportEventHandler implements EventHandlerInterface, LoggerAware
     {
         /**
          * @trait

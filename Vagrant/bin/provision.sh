@@ -29,6 +29,7 @@ systemctl start postgresql
 systemctl enable postgresql
 
 sudo su - postgres -c "psql -a -w -f /var/www/packages/database.sql"
+sudo su - postgres -c "psql -t jukebox -a -w -f /var/www/packages/tables.sql"
 
 rm /var/lib/pgsql/data/pg_hba.conf
 ln -s /vagrant/conf/postgres.conf /var/lib/pgsql/data/pg_hba.conf
