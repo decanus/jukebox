@@ -6,6 +6,7 @@ namespace Jukebox\Backend\EventHandlers\Import
     use Jukebox\Backend\EventHandlers\EventHandlerInterface;
     use Jukebox\Backend\Events\VevoArtistVideosImportEvent;
     use Jukebox\Backend\Services\Vevo;
+    use Jukebox\Framework\Curl\Response;
     use Jukebox\Framework\Logging\LoggerAware;
     use Jukebox\Framework\Logging\LoggingProvider;
 
@@ -41,7 +42,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                 $artist = $this->event->getArtist();
                 $response = $this->vevo->getVideosForArtist($artist);
                 $videos = $response->getDecodedJsonResponse();
-                $this->handleVideos($videos);
+                $this->handleVideoIds($videos);
 
                 if ($videos['paging']['pages'] === 1) {
                     return;
@@ -51,22 +52,22 @@ namespace Jukebox\Backend\EventHandlers\Import
                 for ($i = 2; $i <= $pages; $i++) {
                     $response = $this->vevo->getVideosForArtist($artist, $i);
                     $videos = $response->getDecodedJsonResponse();
-                    $this->handleVideos($videos);
+                    $this->handleVideoIds($videos);
                 }
 
-                // @todo: should probably change MultiCurl to rollingCurl so we don't fill ram with 80+ videos
-                $videos = $this->vevo->getVideosForIds($this->videoIds);
-
-                foreach ($videos as $video) {
-                    // @todo: put into DB etc
-                }
+                $this->vevo->getVideosForIds($this->videoIds, [$this, 'handleVideos']);
 
             } catch (\Throwable $e) {
                 $this->logCritical($e);
             }
         }
 
-        private function handleVideos(array $videos)
+        public function handleVideos(string $id, Response $response)
+        {
+            var_dump($response);
+        }
+
+        private function handleVideoIds(array $videos)
         {
             foreach ($videos as $video) {
                 $this->videoIds[] = $video['isrc'];

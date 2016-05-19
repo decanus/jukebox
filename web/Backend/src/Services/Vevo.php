@@ -5,6 +5,7 @@ namespace Jukebox\Backend\Services
 
     use Jukebox\Framework\Curl\Curl;
     use Jukebox\Framework\Curl\Response;
+    use Jukebox\Framework\Curl\RollingCurl;
     use Jukebox\Framework\DataPool\RedisBackend;
     use Jukebox\Framework\ValueObjects\Uri;
 
@@ -25,11 +26,22 @@ namespace Jukebox\Backend\Services
          */
         private $redisBackend;
 
-        public function __construct(Uri $baseUri, Curl $curl, RedisBackend $redisBackend)
+        /**
+         * @var RollingCurl
+         */
+        private $rollingCurl;
+
+        public function __construct(
+            Uri $baseUri,
+            Curl $curl,
+            RollingCurl $rollingCurl,
+            RedisBackend $redisBackend
+        )
         {
             $this->baseUri = $baseUri;
             $this->curl = $curl;
             $this->redisBackend = $redisBackend;
+            $this->rollingCurl = $rollingCurl;
         }
 
         public function getVideoForId(string $videoId): Response
@@ -40,13 +52,18 @@ namespace Jukebox\Backend\Services
             );
         }
 
-        public function getVideosForIds(array $videoIds): array
+        public function getVideosForIds(array $videoIds, callback $callback, $processingLimit = 10)
         {
+            $this->rollingCurl->setCallback($callback[0], $callback[1]);
+            $this->rollingCurl->setProcessingLimit($processingLimit);
+
             foreach ($videoIds as $videoId) {
-                $this->curl->getMulti($this->buildUrl('/video/' . $videoId), ['token' => $this->getAuthorizationToken()]);
+                $this->rollingCurl->addRequest(
+                    $this->buildUrl('/video/' . $videoId, ['token' => $this->getAuthorizationToken()]), $videoId
+                );
             }
 
-            return $this->curl->sendMultiRequest();
+            $this->rollingCurl->execute();
         }
 
         public function getArtist(string $artistId): Response
@@ -78,9 +95,14 @@ namespace Jukebox\Backend\Services
             );
         }
 
-        private function buildUrl(string $path): Uri
+        private function buildUrl(string $path, array $query = []): Uri
         {
-            return new Uri($this->baseUri . $path);
+            $queryString = '';
+            if (!empty($query)) {
+                $queryString = '?' . http_build_query($query);
+            }
+
+            return new Uri($this->baseUri . $path . $queryString);
         }
 
         private function getAuthorizationToken(): string
