@@ -17,7 +17,7 @@ namespace Jukebox\Framework\Logging
             $this->logger = $logger;
         }
 
-        public function getLogger(): LoggerInterface
+        protected function getLogger(): LoggerInterface
         {
             return $this->logger;
         }
