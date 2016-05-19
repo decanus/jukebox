@@ -93,7 +93,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                         }
 
                         if ($link['vendor'] === 'Amazon') {
-                            $officialWebsite = new Uri($link['url']);
+                            $amazon = new Uri($link['url']);
                             continue;
                         }
                     } catch (\Throwable $e) {
