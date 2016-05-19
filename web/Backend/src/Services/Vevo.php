@@ -52,7 +52,7 @@ namespace Jukebox\Backend\Services
             );
         }
 
-        public function getVideosForIds(array $videoIds, callback $callback, $processingLimit = 10)
+        public function getVideosForIds(array $videoIds, array $callback, $processingLimit = 10)
         {
             $this->rollingCurl->setCallback($callback[0], $callback[1]);
             $this->rollingCurl->setProcessingLimit($processingLimit);

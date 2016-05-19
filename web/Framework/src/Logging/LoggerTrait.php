@@ -8,7 +8,7 @@ namespace Jukebox\Framework\Logging
     use Jukebox\Framework\Logging\Logs\EmergencyLog;
     use Jukebox\Framework\Logging\Logs\LogInterface;
 
-    trait LoggingProvider
+    trait LoggerTrait
     {
         /**
          * @var LoggerInterface
@@ -25,14 +25,39 @@ namespace Jukebox\Framework\Logging
             return $this->logger;
         }
 
-        public function logEmergency(\Throwable $e)
+        public function emergency(\Throwable $e)
         {
             $this->log(new EmergencyLog($e));
         }
 
-        public function logCritical(\Throwable $e)
+        public function critical(\Throwable $e)
         {
             $this->log(new CriticalLog($e));
+        }
+
+        public function alert(\Throwable $e)
+        {
+
+        }
+
+        public function error(\Throwable $e)
+        {
+
+        }
+
+        public function warning(\Throwable $e)
+        {
+
+        }
+
+        public function notice(\Throwable $e)
+        {
+
+        }
+
+        public function debug(\Throwable $e)
+        {
+            
         }
 
         private function log(LogInterface $log)

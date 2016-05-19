@@ -31,5 +31,13 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createInsertVevoArtistCommand()
             );
         }
+
+        public function createVevoArtistVideosImportEventHandler(\Jukebox\Backend\Events\VevoArtistVideosImportEvent $event): \Jukebox\Backend\EventHandlers\Import\VevoArtistVideosImportEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\Import\VevoArtistVideosImportEventHandler(
+                $event,
+                $this->getMasterFactory()->createVevoService()
+            );
+        }
     }
 }

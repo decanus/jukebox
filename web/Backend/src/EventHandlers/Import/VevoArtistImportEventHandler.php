@@ -8,7 +8,7 @@ namespace Jukebox\Backend\EventHandlers\Import
     use Jukebox\Backend\Events\VevoArtistImportEvent;
     use Jukebox\Backend\Services\Vevo;
     use Jukebox\Framework\Logging\LoggerAware;
-    use Jukebox\Framework\Logging\LoggingProvider;
+    use Jukebox\Framework\Logging\LoggerTrait;
     use Jukebox\Framework\ValueObjects\Uri;
 
     class VevoArtistImportEventHandler implements EventHandlerInterface, LoggerAware
@@ -16,7 +16,7 @@ namespace Jukebox\Backend\EventHandlers\Import
         /**
          * @trait
          */
-        use LoggingProvider;
+        use LoggerTrait;
 
         /**
          * @var VevoArtistImportEvent
@@ -116,7 +116,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                 }
 
             } catch (\Exception $e) {
-                $this->logCritical($e);
+                $this->critical($e);
             }
         }
     }

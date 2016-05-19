@@ -87,7 +87,7 @@ namespace Jukebox\Framework\Curl
             curl_multi_close($master);
         }
 
-        public function setCallback(object $object, string $method)
+        public function setCallback($object, $method)
         {
             if (!is_callable([$object, $method])) {
                 throw new \InvalidArgumentException('Invalid callback');
@@ -118,7 +118,11 @@ namespace Jukebox\Framework\Curl
             return $response;
         }
 
-        private function createCurlHandle(array $request): resource
+        /**
+         * @param array $request
+         * @return resource
+         */
+        private function createCurlHandle(array $request)
         {
             $ch = curl_init();
             $options = $this->options;

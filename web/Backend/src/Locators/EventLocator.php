@@ -17,6 +17,8 @@ namespace Jukebox\Backend\Locators
                     return new \Jukebox\Backend\Events\VevoGenresImportEvent;
                 case 'VevoArtistImport':
                     return new \Jukebox\Backend\Events\VevoArtistImportEvent($request->getParam('artist'));
+                case 'VevoArtistVideosImport':
+                    return new \Jukebox\Backend\Events\VevoArtistVideosImportEvent($request->getParam('artist'));
                 default:
                     throw new \InvalidArgumentException('Event "' . $request->getAction() . '" does not exist');
             }

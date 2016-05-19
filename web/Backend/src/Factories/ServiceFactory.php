@@ -13,6 +13,7 @@ namespace Jukebox\Backend\Factories
             return new \Jukebox\Backend\Services\Vevo(
                 new Uri('http://apiv2.vevo.com'),
                 $this->getMasterFactory()->createCurl(),
+                $this->getMasterFactory()->createRollingCurl(),
                 $this->getMasterFactory()->createRedisBackend()
             );
         }
