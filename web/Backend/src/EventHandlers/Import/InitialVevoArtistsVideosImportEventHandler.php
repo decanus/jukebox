@@ -5,14 +5,14 @@ namespace Jukebox\Backend\EventHandlers\Import
 
     use Jukebox\Backend\EventHandlers\EventHandlerInterface;
     use Jukebox\Framework\Logging\LoggerAware;
-    use Jukebox\Framework\Logging\LoggerTrait;
+    use Jukebox\Framework\Logging\LoggerAwareTrait;
 
     class InitialVevoArtistsVideosImportEventHandler implements EventHandlerInterface, LoggerAware
     {
         /**
          * @trait
          */
-        use LoggerTrait;
+        use LoggerAwareTrait;
 
         public function execute()
         {

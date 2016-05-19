@@ -9,14 +9,14 @@ namespace Jukebox\Framework\Backends
     use MongoDB\Operation\FindOneAndUpdate;
     use MongoDB\UpdateResult;
     use Jukebox\Framework\Logging\LoggerAware;
-    use Jukebox\Framework\Logging\LoggerTrait;
+    use Jukebox\Framework\Logging\LoggerAwareTrait;
 
     class MongoDatabaseBackend implements LoggerAware
     {
         /**
          * @trait
          */
-        use LoggerTrait;
+        use LoggerAwareTrait;
 
         /**
          * @var Client

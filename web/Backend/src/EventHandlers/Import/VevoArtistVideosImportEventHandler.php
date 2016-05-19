@@ -8,14 +8,14 @@ namespace Jukebox\Backend\EventHandlers\Import
     use Jukebox\Backend\Services\Vevo;
     use Jukebox\Framework\Curl\Response;
     use Jukebox\Framework\Logging\LoggerAware;
-    use Jukebox\Framework\Logging\LoggerTrait;
+    use Jukebox\Framework\Logging\LoggerAwareTrait;
 
     class VevoArtistVideosImportEventHandler implements EventHandlerInterface, LoggerAware
     {
         /**
          * @trait
          */
-        use LoggerTrait;
+        use LoggerAwareTrait;
 
         /**
          * @var VevoArtistVideosImportEvent
