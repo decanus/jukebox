@@ -8,6 +8,16 @@ namespace Jukebox\Frontend\Transformations
 
     class AppendTrackingSnippetTransformation
     {
+        /**
+         * @var bool
+         */
+        private $isDevelopment;
+
+        /**
+         * @var FileBackend
+         */
+        private $fileBackend;
+
         public function __construct(FileBackend $fileBackend, $isDevelopment = false)
         {
             $this->isDevelopment = $isDevelopment;
