@@ -8,7 +8,10 @@ namespace Jukebox\Backend\Commands
     {
         public function execute(string $trackID, string $artistID, ArtistRole $role)
         {
-
+            $this->getDatabaseBackend()->insert(
+                'INSERT INTO track_artists (artist, track, role) VALUES (:artist, :track, :role)',
+                [':artist' => $artistID, ':track' => $trackID, ':role' => (string) $role]
+            );
         }
     }
 }
