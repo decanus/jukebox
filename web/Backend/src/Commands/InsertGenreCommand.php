@@ -2,23 +2,11 @@
 
 namespace Jukebox\Backend\Commands
 {
-    use Jukebox\Framework\Backends\PostgreDatabaseBackend;
-
-    class InsertGenreCommand
+    class InsertGenreCommand extends AbstractDatabaseBackendCommand
     {
-        /**
-         * @var PostgreDatabaseBackend
-         */
-        private $databaseBackend;
-
-        public function __construct(PostgreDatabaseBackend $databaseBackend)
-        {
-            $this->databaseBackend = $databaseBackend;
-        }
-
         public function execute(string $name)
         {
-            $this->databaseBackend->insert('INSERT INTO genres (name) VALUES (:name)', [
+            $this->getDatabaseBackend()->insert('INSERT INTO genres (name) VALUES (:name)', [
                 'name' => $name
             ]);
         }

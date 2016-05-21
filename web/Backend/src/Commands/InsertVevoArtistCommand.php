@@ -3,21 +3,10 @@
 namespace Jukebox\Backend\Commands
 {
 
-    use Jukebox\Framework\Backends\PostgreDatabaseBackend;
     use Jukebox\Framework\ValueObjects\Uri;
 
-    class InsertVevoArtistCommand
+    class InsertVevoArtistCommand extends AbstractDatabaseBackendCommand
     {
-        /**
-         * @var PostgreDatabaseBackend
-         */
-        private $postgreDatabaseBackend;
-
-        public function __construct(PostgreDatabaseBackend $postgreDatabaseBackend)
-        {
-            $this->postgreDatabaseBackend = $postgreDatabaseBackend;
-        }
-
         public function execute(
             string $artist,
             string $urlSafeName,
@@ -28,7 +17,7 @@ namespace Jukebox\Backend\Commands
             Uri $amazon = null
         ): bool
         {
-            return $this->postgreDatabaseBackend->insert(
+            return $this->getDatabaseBackend()->insert(
                 'INSERT INTO artists (name, url_safe_name, is_vevo, official_website, twitter, facebook, itunes, amazon) VALUES (:name, :url_safe_name, :is_vevo, :official_website, :twitter, :facebook, :itunes, :amazon)',
                 [
                     ':name' => $artist,
