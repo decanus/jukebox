@@ -90,24 +90,19 @@ namespace Jukebox\Backend\EventHandlers\Import
 
         public function handleVideos(string $vevoId, Response $response)
         {
+            if ($response->getResponseCode() !== 200) {
+                return;
+            }
+
             try {
-                if ($response->getResponseCode() !== 200) {
-                    return;
-                }
-
                 $video = $response->getDecodedJsonResponse();
-
-                try {
-                    $id = $this->insertTrackCommand->execute(
-                        $video['duration'] * 1000,
-                        $video['title'],
-                        $video['youTubeId'],
-                        $video['isrc'],
-                        $video['isLive']
-                    );
-                } catch (\Throwable $e) {
-                    return;
-                }
+                $id = $this->insertTrackCommand->execute(
+                    $video['duration'] * 1000,
+                    $video['title'],
+                    $video['youTubeId'],
+                    $video['isrc'],
+                    $video['isLive']
+                );
 
                 foreach ($video['artists'] as $artist) {
                     try {
@@ -129,12 +124,9 @@ namespace Jukebox\Backend\EventHandlers\Import
                         continue;
                     }
                 }
-
             } catch (\Throwable $e) {
                 $this->getLogger()->critical($e);
-                return;
             }
-
         }
 
         private function handleVideoIds(array $videos)
