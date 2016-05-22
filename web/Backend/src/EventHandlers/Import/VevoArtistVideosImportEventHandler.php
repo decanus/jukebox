@@ -119,12 +119,11 @@ namespace Jukebox\Backend\EventHandlers\Import
                         }
                     } catch (\Throwable $e) {
                         $this->getLogger()->emergency($e);
+                        continue;
                     }
 
                     $artistInfo = $this->fetchArtistByVevoIdQuery->execute($artist['urlSafeName']);
                 }
-
-                $video['title'];
 
             } catch (\Throwable $e) {
                 return;
