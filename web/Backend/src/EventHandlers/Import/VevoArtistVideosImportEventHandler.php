@@ -88,7 +88,7 @@ namespace Jukebox\Backend\EventHandlers\Import
             }
         }
 
-        public function handleVideos(string $id, Response $response)
+        public function handleVideos(string $vevoId, Response $response)
         {
             try {
                 if ($response->getResponseCode() !== 200) {
@@ -121,12 +121,15 @@ namespace Jukebox\Backend\EventHandlers\Import
                             default:
                                 throw new \InvalidArgumentException('Unknown role "' . $artist['role'] . '"');
                         }
+
+                        $artistInfo = $this->fetchArtistByVevoIdQuery->execute($artist['urlSafeName']);
+
+                        $this->insertTrackArtistsCommand->execute($id, $artistInfo['id'], $role);
+
                     } catch (\Throwable $e) {
                         $this->getLogger()->emergency($e);
                         continue;
                     }
-
-                    $artistInfo = $this->fetchArtistByVevoIdQuery->execute($artist['urlSafeName']);
                 }
 
             } catch (\Throwable $e) {
