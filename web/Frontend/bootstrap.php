@@ -3,6 +3,8 @@
 namespace Jukebox\Frontend
 {
 
-    echo file_get_contents(__DIR__ . '/html/index.html');
+    use Jukebox\Framework\FrontController;
+
+    (new FrontController(new LiveBootstrapper))->run()->send();
 
 }
