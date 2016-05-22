@@ -12,9 +12,9 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createPostgreDatabaseBackend()
             );
         }
-        public function createInsertVevoArtistCommand()
+        public function createInsertArtistCommand()
         {
-            return new \Jukebox\Backend\Commands\InsertVevoArtistCommand(
+            return new \Jukebox\Backend\Commands\InsertArtistCommand(
                 $this->getMasterFactory()->createPostgreDatabaseBackend()
             );
         }

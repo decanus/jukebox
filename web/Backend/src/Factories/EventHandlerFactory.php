@@ -28,7 +28,7 @@ namespace Jukebox\Backend\Factories
             return new \Jukebox\Backend\EventHandlers\Import\VevoArtistImportEventHandler(
                 $event,
                 $this->getMasterFactory()->createVevoService(),
-                $this->getMasterFactory()->createInsertVevoArtistCommand()
+                $this->getMasterFactory()->createInsertArtistCommand()
             );
         }
 

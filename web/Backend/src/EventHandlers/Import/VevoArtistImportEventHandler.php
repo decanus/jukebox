@@ -3,7 +3,7 @@
 namespace Jukebox\Backend\EventHandlers\Import
 {
 
-    use Jukebox\Backend\Commands\InsertVevoArtistCommand;
+    use Jukebox\Backend\Commands\InsertArtistCommand;
     use Jukebox\Backend\EventHandlers\EventHandlerInterface;
     use Jukebox\Backend\Events\VevoArtistImportEvent;
     use Jukebox\Backend\Services\Vevo;
@@ -29,14 +29,14 @@ namespace Jukebox\Backend\EventHandlers\Import
         private $vevo;
 
         /**
-         * @var InsertVevoArtistCommand
+         * @var InsertArtistCommand
          */
         private $insertArtistCommand;
 
         public function __construct(
             VevoArtistImportEvent $event,
             Vevo $vevo,
-            InsertVevoArtistCommand $insertArtistCommand
+            InsertArtistCommand $insertArtistCommand
         )
         {
             $this->event = $event;

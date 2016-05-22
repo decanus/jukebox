@@ -5,11 +5,11 @@ namespace Jukebox\Backend\Commands
 
     use Jukebox\Framework\ValueObjects\Uri;
 
-    class InsertVevoArtistCommand extends AbstractDatabaseBackendCommand
+    class InsertArtistCommand extends AbstractDatabaseBackendCommand
     {
         public function execute(
             string $artist,
-            string $urlSafeName,
+            string $vevoId = null,
             Uri $officialWebsite = null,
             string $twitter = null,
             Uri $facebook = null,
@@ -18,11 +18,10 @@ namespace Jukebox\Backend\Commands
         ): bool
         {
             return $this->getDatabaseBackend()->insert(
-                'INSERT INTO artists (name, url_safe_name, is_vevo, official_website, twitter, facebook, itunes, amazon) VALUES (:name, :url_safe_name, :is_vevo, :official_website, :twitter, :facebook, :itunes, :amazon)',
+                'INSERT INTO artists (name, vevo_id, official_website, twitter, facebook, itunes, amazon) VALUES (:name, :vevo_id, :official_website, :twitter, :facebook, :itunes, :amazon)',
                 [
                     ':name' => $artist,
-                    ':url_safe_name' => $urlSafeName,
-                    ':is_vevo' => true,
+                    ':vevo_id' => $vevoId,
                     ':official_website' => (string) $officialWebsite,
                     ':twitter' => $twitter,
                     ':facebook' => (string) $facebook,

@@ -5,7 +5,7 @@ namespace Jukebox\Backend\Queries
 
     use Jukebox\Framework\Backends\PostgreDatabaseBackend;
 
-    class FetchArtistByUrlSafeNameQuery
+    class FetchArtistByVevoIdQuery
     {
         /**
          * @var PostgreDatabaseBackend
@@ -17,11 +17,11 @@ namespace Jukebox\Backend\Queries
             $this->databaseBackend = $databaseBackend;
         }
         
-        public function execute($urlSafeName): mixed
+        public function execute($vevoId): mixed
         {
             return $this->databaseBackend->fetchAll(
-                'SELECT * FROM artists WHERE url_safe_name = :url_safe_name',
-                [':url_safe_name' => $urlSafeName]
+                'SELECT * FROM artists WHERE vevo_id = :vevo_id',
+                [':vevo_id' => $vevoId]
             );
         }
     }
