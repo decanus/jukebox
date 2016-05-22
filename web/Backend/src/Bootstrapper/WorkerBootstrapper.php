@@ -48,6 +48,7 @@ namespace Jukebox\Backend\Bootstrapper
             $factory->addFactory(new \Jukebox\Backend\Factories\LoggerFactory);
             $factory->addFactory(new \Jukebox\Backend\Factories\ServiceFactory);
             $factory->addFactory(new \Jukebox\Backend\Factories\CommandFactory);
+            $factory->addFactory(new \Jukebox\Backend\Factories\QueryFactory);
 
             return $factory;
         }

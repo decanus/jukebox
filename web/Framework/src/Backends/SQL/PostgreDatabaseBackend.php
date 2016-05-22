@@ -28,9 +28,9 @@ namespace Jukebox\Framework\Backends
             return $statement->execute($parameters);
         }
         
-        public function lastInsertId(): string
+        public function lastInsertId($name = null)
         {
-            return $this->PDO->lastInsertId();
+            return $this->PDO->lastInsertId($name);
         }
     }
 }

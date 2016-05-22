@@ -16,12 +16,13 @@ namespace Jukebox\Backend\Commands
                 'INSERT INTO tracks (duration, title, youtube_id, vevo_id, is_live) VALUES (:duration, :title, :youtube_id, :vevo_id, :is_live)',
                 [':duration' => $duration, ':title' => $title, ':youtube_id' => $youtubeId, ':vevo_id' => $vevoId, ':is_live' => $isLive]
             );
-
+            
             if (!$result) {
                 throw new \Exception('Track could not be added');
             }
 
-            return $this->getDatabaseBackend()->lastInsertId();
+
+            return $this->getDatabaseBackend()->lastInsertId('tracks_id_seq');
         }
     }
 }

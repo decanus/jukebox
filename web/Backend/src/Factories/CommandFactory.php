@@ -12,9 +12,24 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createPostgreDatabaseBackend()
             );
         }
+        
         public function createInsertArtistCommand()
         {
             return new \Jukebox\Backend\Commands\InsertArtistCommand(
+                $this->getMasterFactory()->createPostgreDatabaseBackend()
+            );
+        }
+        
+        public function createInsertTrackCommand()
+        {
+            return new \Jukebox\Backend\Commands\InsertTrackCommand(
+                $this->getMasterFactory()->createPostgreDatabaseBackend()
+            );
+        }
+        
+        public function createInsertTrackArtistCommand()
+        {
+            return new \Jukebox\Backend\Commands\InsertTrackArtistCommand(
                 $this->getMasterFactory()->createPostgreDatabaseBackend()
             );
         }

@@ -3,7 +3,7 @@
 namespace Jukebox\Backend\EventHandlers\Import
 {
 
-    use Jukebox\Backend\Commands\InsertTrackArtistsCommand;
+    use Jukebox\Backend\Commands\InsertTrackArtistCommand;
     use Jukebox\Backend\Commands\InsertTrackCommand;
     use Jukebox\Backend\EventHandlers\EventHandlerInterface;
     use Jukebox\Backend\Events\VevoArtistVideosImportEvent;
@@ -43,7 +43,7 @@ namespace Jukebox\Backend\EventHandlers\Import
         private $insertTrackCommand;
 
         /**
-         * @var InsertTrackArtistsCommand
+         * @var InsertTrackArtistCommand
          */
         private $insertTrackArtistsCommand;
 
@@ -54,7 +54,7 @@ namespace Jukebox\Backend\EventHandlers\Import
             Vevo $vevo,
             FetchArtistByVevoIdQuery $fetchArtistByVevoIdQuery,
             InsertTrackCommand $insertTrackCommand,
-            InsertTrackArtistsCommand $insertTrackArtistsCommand
+            InsertTrackArtistCommand $insertTrackArtistsCommand
         )
         {
             $this->event = $event;
@@ -109,8 +109,6 @@ namespace Jukebox\Backend\EventHandlers\Import
                     return;
                 }
 
-                var_dump($id);
-
                 foreach ($video['artists'] as $artist) {
                     try {
                         switch ($artist['role']) {
@@ -132,6 +130,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                 }
 
             } catch (\Throwable $e) {
+                $this->getLogger()->critical($e);
                 return;
             }
 

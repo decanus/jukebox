@@ -4,7 +4,7 @@ namespace Jukebox\Backend\Commands
 {
     use Jukebox\Framework\ValueObjects\ArtistRole;
 
-    class InsertTrackArtistsCommand extends AbstractDatabaseBackendCommand
+    class InsertTrackArtistCommand extends AbstractDatabaseBackendCommand
     {
         public function execute(string $trackID, string $artistID, ArtistRole $role)
         {
