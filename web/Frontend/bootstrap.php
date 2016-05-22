@@ -3,6 +3,11 @@
 namespace Jukebox\Frontend
 {
 
-    echo file_get_contents(__DIR__ . '/html/index.html');
+    require __DIR__ . '/src/autoload.php';
+    require __DIR__ . '/../Framework/bootstrap.php';
+
+    use Jukebox\Framework\FrontController;
+
+    (new FrontController(new LiveBootstrapper))->run()->send();
 
 }
