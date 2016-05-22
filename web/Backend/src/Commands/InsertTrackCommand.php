@@ -2,7 +2,7 @@
 
 namespace Jukebox\Backend\Commands
 {
-    class InsertVevoTrackCommand extends AbstractDatabaseBackendCommand
+    class InsertTrackCommand extends AbstractDatabaseBackendCommand
     {
         public function execute()
         {
