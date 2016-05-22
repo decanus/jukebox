@@ -27,6 +27,8 @@ namespace Jukebox\Frontend
             $factory->addFactory(new \Jukebox\Framework\Factories\BackendFactory);
             $factory->addFactory(new \Jukebox\Frontend\Factories\RouterFactory);
             $factory->addFactory(new \Jukebox\Frontend\Factories\ControllerFactory);
+            $factory->addFactory(new \Jukebox\Frontend\Factories\HandlerFactory);
+            $factory->addFactory(new \Jukebox\Frontend\Factories\TransformationFactory);
 
             return $factory;
         }

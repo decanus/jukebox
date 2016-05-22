@@ -3,21 +3,11 @@
 namespace Jukebox\Frontend\Handlers
 {
 
-    use Jukebox\Framework\Handlers\ResponseHandlerInterface;
-    use Jukebox\Framework\Http\Response\ResponseInterface;
-    use Jukebox\Framework\Models\AbstractModel;
-
-    class ResponseHandler implements ResponseHandlerInterface
+    class ResponseHandler extends AbstractResponseHandler
     {
-        /**
-         * @param ResponseInterface $response
-         * @param AbstractModel     $model
-         */
-        public function execute(ResponseInterface $response, AbstractModel $model)
+        protected function doExecute()
         {
-            if ($model->hasStatusCode()) {
-                $response->setStatusCode($model->getStatusCode());
-            }
+            // TODO: Implement doExecute() method.
         }
     }
 }
