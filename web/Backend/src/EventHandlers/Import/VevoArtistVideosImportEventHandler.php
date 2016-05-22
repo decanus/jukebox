@@ -3,6 +3,7 @@
 namespace Jukebox\Backend\EventHandlers\Import
 {
 
+    use Jukebox\Backend\Commands\InsertTrackArtistsCommand;
     use Jukebox\Backend\Commands\InsertTrackCommand;
     use Jukebox\Backend\EventHandlers\EventHandlerInterface;
     use Jukebox\Backend\Events\VevoArtistVideosImportEvent;
@@ -41,19 +42,26 @@ namespace Jukebox\Backend\EventHandlers\Import
          */
         private $insertTrackCommand;
 
+        /**
+         * @var InsertTrackArtistsCommand
+         */
+        private $insertTrackArtistsCommand;
+
         private $videoIds = [];
 
         public function __construct(
             VevoArtistVideosImportEvent $event,
             Vevo $vevo,
             FetchArtistByVevoIdQuery $fetchArtistByVevoIdQuery,
-            InsertTrackCommand $insertTrackCommand
+            InsertTrackCommand $insertTrackCommand,
+            InsertTrackArtistsCommand $insertTrackArtistsCommand
         )
         {
             $this->event = $event;
             $this->vevo = $vevo;
             $this->fetchArtistByVevoIdQuery = $fetchArtistByVevoIdQuery;
             $this->insertTrackCommand = $insertTrackCommand;
+            $this->insertTrackArtistsCommand = $insertTrackArtistsCommand;
         }
 
         public function execute()
@@ -88,6 +96,14 @@ namespace Jukebox\Backend\EventHandlers\Import
                 }
 
                 $video = $response->getDecodedJsonResponse();
+                
+                $this->insertTrackCommand->execute(
+                    $video['duration'] * 1000,
+                    $video['title'],
+                    $video['youTubeId'],
+                    $video['isrc'],
+                    $video['isLive']
+                );
 
                 foreach ($video['artists'] as $artist) {
                     try {
