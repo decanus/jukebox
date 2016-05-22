@@ -22,6 +22,11 @@ namespace Jukebox\Frontend
         protected function buildFactory(): MasterFactory
         {
             $factory = new MasterFactory($this->getConfiguration());
+            
+            $factory->addFactory(new \Jukebox\Framework\Factories\LoggerFactory);
+            $factory->addFactory(new \Jukebox\Framework\Factories\BackendFactory);
+            $factory->addFactory(new \Jukebox\Frontend\Factories\RouterFactory);
+            $factory->addFactory(new \Jukebox\Frontend\Factories\ControllerFactory);
 
             return $factory;
         }
@@ -29,6 +34,9 @@ namespace Jukebox\Frontend
         protected function buildRouter()
         {
             $router = new Router;
+
+            $router->addRouter($this->getFactory()->createStaticPageRouter());
+            $router->addRouter($this->getFactory()->createErrorPageRouter());
 
             return $router;
         }
