@@ -27,5 +27,10 @@ namespace Jukebox\Framework\Backends
             $statement = $this->PDO->prepare($sql);
             return $statement->execute($parameters);
         }
+        
+        public function lastInsertId(): string
+        {
+            return $this->PDO->lastInsertId();
+        }
     }
 }

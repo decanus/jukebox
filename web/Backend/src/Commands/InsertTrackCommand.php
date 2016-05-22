@@ -10,12 +10,18 @@ namespace Jukebox\Backend\Commands
             string $youtubeId = null,
             string $vevoId = null,
             bool $isLive = false
-        ): bool
+        ): string
         {
-            return $this->getDatabaseBackend()->insert(
+            $result = $this->getDatabaseBackend()->insert(
                 'INSERT INTO tracks (duration, title, youtube_id, vevo_id, is_live) VALUES (:duration, :title, :youtube_id, :vevo_id, :is_live)',
                 [':duration' => $duration, ':title' => $title, ':youtube_id' => $youtubeId, ':vevo_id' => $vevoId, ':is_live' => $isLive]
             );
+
+            if (!$result) {
+                throw new \Exception('Track could not be added');
+            }
+
+            return $this->getDatabaseBackend()->lastInsertId();
         }
     }
 }

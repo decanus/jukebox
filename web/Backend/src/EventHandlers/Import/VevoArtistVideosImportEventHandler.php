@@ -96,14 +96,20 @@ namespace Jukebox\Backend\EventHandlers\Import
                 }
 
                 $video = $response->getDecodedJsonResponse();
-                
-                $this->insertTrackCommand->execute(
-                    $video['duration'] * 1000,
-                    $video['title'],
-                    $video['youTubeId'],
-                    $video['isrc'],
-                    $video['isLive']
-                );
+
+                try {
+                    $id = $this->insertTrackCommand->execute(
+                        $video['duration'] * 1000,
+                        $video['title'],
+                        $video['youTubeId'],
+                        $video['isrc'],
+                        $video['isLive']
+                    );
+                } catch (\Throwable $e) {
+                    return;
+                }
+
+                var_dump($id);
 
                 foreach ($video['artists'] as $artist) {
                     try {
