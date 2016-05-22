@@ -5,6 +5,7 @@ namespace Jukebox\Backend\EventHandlers\Import
 
     use Jukebox\Backend\Commands\InsertTrackArtistCommand;
     use Jukebox\Backend\Commands\InsertTrackCommand;
+    use Jukebox\Backend\Commands\InsertTrackGenreCommand;
     use Jukebox\Backend\EventHandlers\EventHandlerInterface;
     use Jukebox\Backend\Events\VevoArtistVideosImportEvent;
     use Jukebox\Backend\Queries\FetchArtistByVevoIdQuery;
@@ -47,6 +48,11 @@ namespace Jukebox\Backend\EventHandlers\Import
          */
         private $insertTrackArtistsCommand;
 
+        /**
+         * @var InsertTrackGenreCommand
+         */
+        private $insertTrackGenreCommand;
+
         private $videoIds = [];
 
         public function __construct(
@@ -54,7 +60,8 @@ namespace Jukebox\Backend\EventHandlers\Import
             Vevo $vevo,
             FetchArtistByVevoIdQuery $fetchArtistByVevoIdQuery,
             InsertTrackCommand $insertTrackCommand,
-            InsertTrackArtistCommand $insertTrackArtistsCommand
+            InsertTrackArtistCommand $insertTrackArtistsCommand,
+            InsertTrackGenreCommand $insertTrackGenreCommand
         )
         {
             $this->event = $event;
@@ -62,6 +69,7 @@ namespace Jukebox\Backend\EventHandlers\Import
             $this->fetchArtistByVevoIdQuery = $fetchArtistByVevoIdQuery;
             $this->insertTrackCommand = $insertTrackCommand;
             $this->insertTrackArtistsCommand = $insertTrackArtistsCommand;
+            $this->insertTrackGenreCommand = $insertTrackGenreCommand;
         }
 
         public function execute()
@@ -106,27 +114,31 @@ namespace Jukebox\Backend\EventHandlers\Import
 
                 foreach ($video['artists'] as $artist) {
                     try {
-                        switch ($artist['role']) {
-                            case 'Main':
-                                $role = new Main;
-                                break;
-                            case 'Featured':
-                                $role = new Featured;
-                                break;
-                            default:
-                                throw new \InvalidArgumentException('Unknown role "' . $artist['role'] . '"');
-                        }
-
-                        $artistInfo = $this->fetchArtistByVevoIdQuery->execute($artist['urlSafeName']);
-                        $this->insertTrackArtistsCommand->execute($id, $artistInfo['id'], $role);
+                        $this->handleArtist($id, $artist);
                     } catch (\Throwable $e) {
                         $this->getLogger()->emergency($e);
-                        continue;
                     }
                 }
             } catch (\Throwable $e) {
                 $this->getLogger()->critical($e);
             }
+        }
+
+        private function handleArtist($trackID, array $artist)
+        {
+            switch ($artist['role']) {
+                case 'Main':
+                    $role = new Main;
+                    break;
+                case 'Featured':
+                    $role = new Featured;
+                    break;
+                default:
+                    throw new \InvalidArgumentException('Unknown role "' . $artist['role'] . '"');
+            }
+
+            $artistInfo = $this->fetchArtistByVevoIdQuery->execute($artist['urlSafeName']);
+            $this->insertTrackArtistsCommand->execute($trackID, $artistInfo['id'], $role);
         }
 
         private function handleVideoIds(array $videos)
