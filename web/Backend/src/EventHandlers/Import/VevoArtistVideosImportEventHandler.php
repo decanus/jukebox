@@ -3,6 +3,7 @@
 namespace Jukebox\Backend\EventHandlers\Import
 {
 
+    use Jukebox\Backend\Commands\InsertTrackCommand;
     use Jukebox\Backend\EventHandlers\EventHandlerInterface;
     use Jukebox\Backend\Events\VevoArtistVideosImportEvent;
     use Jukebox\Backend\Queries\FetchArtistByVevoIdQuery;
@@ -35,17 +36,24 @@ namespace Jukebox\Backend\EventHandlers\Import
          */
         private $fetchArtistByVevoIdQuery;
 
+        /**
+         * @var InsertTrackCommand
+         */
+        private $insertTrackCommand;
+
         private $videoIds = [];
 
         public function __construct(
             VevoArtistVideosImportEvent $event,
             Vevo $vevo,
-            FetchArtistByVevoIdQuery $fetchArtistByVevoIdQuery
+            FetchArtistByVevoIdQuery $fetchArtistByVevoIdQuery,
+            InsertTrackCommand $insertTrackCommand
         )
         {
             $this->event = $event;
             $this->vevo = $vevo;
             $this->fetchArtistByVevoIdQuery = $fetchArtistByVevoIdQuery;
+            $this->insertTrackCommand = $insertTrackCommand;
         }
 
         public function execute()
