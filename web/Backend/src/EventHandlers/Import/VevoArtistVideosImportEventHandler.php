@@ -123,9 +123,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                         }
 
                         $artistInfo = $this->fetchArtistByVevoIdQuery->execute($artist['urlSafeName']);
-
                         $this->insertTrackArtistsCommand->execute($id, $artistInfo['id'], $role);
-
                     } catch (\Throwable $e) {
                         $this->getLogger()->emergency($e);
                         continue;
