@@ -1,9 +1,17 @@
 .page-content {
-  text-align: center;
+
+  &.-centered {
+    text-align: center;
+  }
 
   > .container {
     max-width: 75rem;
     margin: auto;
-    padding: 0 2rem;
+    padding: 2rem;
   }
+
+  > .container.-small {
+    width: 30rem;
+  }
+
 }
