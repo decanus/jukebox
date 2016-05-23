@@ -33,6 +33,13 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createPostgreDatabaseBackend()
             );
         }
+
+        public function createInsertTrackGenreCommand()
+        {
+            return new \Jukebox\Backend\Commands\InsertTrackGenreCommand(
+                $this->getMasterFactory()->createPostgreDatabaseBackend()
+            );
+        }
     }
 }
 

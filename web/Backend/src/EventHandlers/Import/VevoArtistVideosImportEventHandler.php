@@ -55,6 +55,11 @@ namespace Jukebox\Backend\EventHandlers\Import
 
         private $videoIds = [];
 
+        /**
+         * @var string
+         */
+        private $artistId;
+
         public function __construct(
             VevoArtistVideosImportEvent $event,
             Vevo $vevo,
@@ -137,8 +142,17 @@ namespace Jukebox\Backend\EventHandlers\Import
                     throw new \InvalidArgumentException('Unknown role "' . $artist['role'] . '"');
             }
 
-            $artistInfo = $this->fetchArtistByVevoIdQuery->execute($artist['urlSafeName']);
-            $this->insertTrackArtistsCommand->execute($trackID, $artistInfo['id'], $role);
+            if ($artist['urlSafeName'] === $this->event->getArtist()) {
+                if ($this->artistId === null) {
+                    $this->artistId = $this->fetchArtistByVevoIdQuery->execute($artist['urlSafeName'])['id'];
+                }
+
+                $artistId = $this->artistId;
+            } else {
+                $artistId = $this->fetchArtistByVevoIdQuery->execute($artist['urlSafeName'])['id'];
+            }
+
+            $this->insertTrackArtistsCommand->execute($trackID, $artistId, $role);
         }
 
         private function handleVideoIds(array $videos)
