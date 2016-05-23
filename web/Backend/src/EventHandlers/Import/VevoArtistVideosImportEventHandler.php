@@ -10,6 +10,7 @@ namespace Jukebox\Backend\EventHandlers\Import
     use Jukebox\Backend\Events\VevoArtistVideosImportEvent;
     use Jukebox\Backend\Queries\FetchArtistByVevoIdQuery;
     use Jukebox\Backend\Queries\FetchGenreByNameQuery;
+    use Jukebox\Backend\Queries\FetchTrackByVevoIdQuery;
     use Jukebox\Backend\Services\Vevo;
     use Jukebox\Framework\Curl\Response;
     use Jukebox\Framework\Logging\LoggerAware;
@@ -59,6 +60,11 @@ namespace Jukebox\Backend\EventHandlers\Import
          */
         private $fetchGenreByNameQuery;
 
+        /**
+         * @var FetchTrackByVevoIdQuery
+         */
+        private $fetchTrackByVevoIdQuery;
+
         private $videoIds = [];
 
         /**
@@ -73,7 +79,8 @@ namespace Jukebox\Backend\EventHandlers\Import
             InsertTrackCommand $insertTrackCommand,
             InsertTrackArtistCommand $insertTrackArtistsCommand,
             InsertTrackGenreCommand $insertTrackGenreCommand,
-            FetchGenreByNameQuery $fetchGenreByNameQuery
+            FetchGenreByNameQuery $fetchGenreByNameQuery,
+            FetchTrackByVevoIdQuery $fetchTrackByVevoIdQuery
         )
         {
             $this->event = $event;
@@ -83,6 +90,7 @@ namespace Jukebox\Backend\EventHandlers\Import
             $this->insertTrackArtistsCommand = $insertTrackArtistsCommand;
             $this->insertTrackGenreCommand = $insertTrackGenreCommand;
             $this->fetchGenreByNameQuery = $fetchGenreByNameQuery;
+            $this->fetchTrackByVevoIdQuery = $fetchTrackByVevoIdQuery;
         }
 
         public function execute()
@@ -117,6 +125,11 @@ namespace Jukebox\Backend\EventHandlers\Import
 
             try {
                 $video = $response->getDecodedJsonResponse();
+
+                if (is_array($this->fetchTrackByVevoIdQuery->execute($video['isrc']))) {
+                    return;
+                }
+                
                 $id = $this->insertTrackCommand->execute(
                     $video['duration'] * 1000,
                     $video['title'],
@@ -133,14 +146,16 @@ namespace Jukebox\Backend\EventHandlers\Import
                     }
                 }
 
-                foreach ($video['genres'] as $genre) {
-                    try {
-                        $this->insertTrackGenreCommand->execute(
-                            $id,
-                            $this->fetchGenreByNameQuery->execute($genre)['id']
-                        );
-                    } catch (\Throwable $e) {
-                        $this->getLogger()->emergency($e);
+                if (isset($video['genres'])) {
+                    foreach ($video['genres'] as $genre) {
+                        try {
+                            $this->insertTrackGenreCommand->execute(
+                                $id,
+                                $this->fetchGenreByNameQuery->execute($genre)['id']
+                            );
+                        } catch (\Throwable $e) {
+                            $this->getLogger()->emergency($e);
+                        }
                     }
                 }
             } catch (\Throwable $e) {

@@ -42,7 +42,16 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createInsertTrackCommand(),
                 $this->getMasterFactory()->createInsertTrackArtistCommand(),
                 $this->getMasterFactory()->createInsertTrackGenreCommand(),
-                $this->getMasterFactory()->createFetchGenreByNameQuery()
+                $this->getMasterFactory()->createFetchGenreByNameQuery(),
+                $this->getMasterFactory()->createFetchTrackByVevoIdQuery()
+            );
+        }
+
+        public function createInitialVevoArtistsVideosImportEventHandler(): \Jukebox\Backend\EventHandlers\Import\InitialVevoArtistsVideosImportEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\Import\InitialVevoArtistsVideosImportEventHandler(
+                $this->getMasterFactory()->createFetchVevoArtistsQuery(),
+                $this->getMasterFactory()->createEventQueueWriter()
             );
         }
     }

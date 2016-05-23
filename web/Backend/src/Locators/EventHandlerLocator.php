@@ -34,6 +34,8 @@ namespace Jukebox\Backend\Locators
                     return $this->factory->createVevoArtistImportEventHandler($event);
                 case 'VevoArtistVideosImport':
                     return $this->factory->createVevoArtistVideosImportEventHandler($event);
+                case 'InitialVevoArtistsVideosImport':
+                    return $this->factory->createInitialVevoArtistsVideosImportEventHandler();
             }
         }
     }

@@ -7,16 +7,30 @@ namespace Jukebox\Backend\Factories
 
     class QueryFactory extends AbstractFactory
     {
-        public function createFetchArtistByVevoIdQuery()
+        public function createFetchArtistByVevoIdQuery(): \Jukebox\Backend\Queries\FetchArtistByVevoIdQuery
         {
             return new \Jukebox\Backend\Queries\FetchArtistByVevoIdQuery(
                 $this->getMasterFactory()->createPostgreDatabaseBackend()
             );
         }
         
-        public function createFetchGenreByNameQuery()
+        public function createFetchGenreByNameQuery(): \Jukebox\Backend\Queries\FetchGenreByNameQuery
         {
             return new \Jukebox\Backend\Queries\FetchGenreByNameQuery(
+                $this->getMasterFactory()->createPostgreDatabaseBackend()
+            );
+        }
+        
+        public function createFetchTrackByVevoIdQuery(): \Jukebox\Backend\Queries\FetchTrackByVevoIdQuery
+        {
+            return new \Jukebox\Backend\Queries\FetchTrackByVevoIdQuery(
+                $this->getMasterFactory()->createPostgreDatabaseBackend()
+            );
+        }
+
+        public function createFetchVevoArtistsQuery(): \Jukebox\Backend\Queries\FetchVevoArtistsQuery
+        {
+            return new \Jukebox\Backend\Queries\FetchVevoArtistsQuery(
                 $this->getMasterFactory()->createPostgreDatabaseBackend()
             );
         }
