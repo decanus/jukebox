@@ -129,6 +129,10 @@ namespace Jukebox\Backend\EventHandlers\Import
                 if (is_array($this->fetchTrackByVevoIdQuery->execute($video['isrc']))) {
                     return;
                 }
+
+                if (!isset($video['youTubeId'])) {
+                    return;
+                }
                 
                 $id = $this->insertTrackCommand->execute(
                     $video['duration'] * 1000,
