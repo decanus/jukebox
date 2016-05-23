@@ -6,6 +6,7 @@ namespace Jukebox\Backend\EventHandlers\Import
     use Jukebox\Backend\Commands\InsertArtistCommand;
     use Jukebox\Backend\EventHandlers\EventHandlerInterface;
     use Jukebox\Backend\Events\VevoArtistImportEvent;
+    use Jukebox\Backend\Queries\FetchArtistByVevoIdQuery;
     use Jukebox\Backend\Services\Vevo;
     use Jukebox\Framework\Logging\LoggerAware;
     use Jukebox\Framework\Logging\LoggerAwareTrait;
@@ -33,24 +34,39 @@ namespace Jukebox\Backend\EventHandlers\Import
          */
         private $insertArtistCommand;
 
+        /**
+         * @var FetchArtistByVevoIdQuery
+         */
+        private $fetchArtistByVevoIdQuery;
+
         public function __construct(
             VevoArtistImportEvent $event,
             Vevo $vevo,
-            InsertArtistCommand $insertArtistCommand
+            InsertArtistCommand $insertArtistCommand,
+            FetchArtistByVevoIdQuery $fetchArtistByVevoIdQuery
         )
         {
             $this->event = $event;
             $this->vevo = $vevo;
             $this->insertArtistCommand = $insertArtistCommand;
+            $this->fetchArtistByVevoIdQuery = $fetchArtistByVevoIdQuery;
         }
 
         public function execute()
         {
+            $artistName = $this->event->getArtist();
+
             try {
+                if (is_array($this->fetchArtistByVevoIdQuery->execute($artistName))) {
+                    return;
+                }
+            } catch (\Throwable $e) {
+                $this->getLogger()->warning($e);
+                return;
+            }
 
-                // @todo check if we already have the artist
-
-                $response = $this->vevo->getArtist($this->event->getArtist());
+            try {
+                $response = $this->vevo->getArtist($artistName);
 
                 if ($response->getResponseCode() !== 200) {
                     throw new \Exception('Artist could not be imported');
