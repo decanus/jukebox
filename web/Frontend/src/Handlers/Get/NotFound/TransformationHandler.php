@@ -1,6 +1,6 @@
 <?php
 
-namespace Jukebox\Frontend\Handlers\Get\Homepage
+namespace Jukebox\Frontend\Handlers\Get\NotFound
 {
 
     use Jukebox\Framework\Backends\FileBackend;
@@ -29,14 +29,15 @@ namespace Jukebox\Frontend\Handlers\Get\Homepage
         {
             $template = $this->getTemplate();
 
-            $template->queryOne('/html:html/html:head/html:title')->nodeValue = 'Jukebox Ninja';
+            $template->queryOne('/html:html/html:head/html:title')->nodeValue = 'Not Found - Jukebox Ninja';
 
             $content = new fDOMDocument;
-            $content->loadXML($this->fileBackend->load(__DIR__ . '/../../../../data/templates/homepage.xml'));
+            $content->loadXML($this->fileBackend->load(__DIR__ . '/../../../../data/templates/404.xml'));
 
             $main = $template->queryOne('//html:main');
 
             $main->parentNode->replaceChild($template->importNode($content->documentElement, true), $main);
+
         }
     }
 }

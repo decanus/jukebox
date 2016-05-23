@@ -24,5 +24,19 @@ namespace Jukebox\Frontend\Factories
                 new HtmlResponse
             );
         }
+        
+        public function createNotFoundPageController(ControllerParameterObject $parameterObject): GetController
+        {
+            return new GetController(
+                new PageModel($parameterObject->getUri()),
+                $this->getMasterFactory()->createPreHandler(),
+                $this->getMasterFactory()->createCommandHandler(),
+                $this->getMasterFactory()->createQueryHandler(),
+                $this->getMasterFactory()->createNotFoundTransformationHandler(),
+                $this->getMasterFactory()->createResponseHandler(),
+                $this->getMasterFactory()->createPostHandler(),
+                new HtmlResponse
+            );
+        }
     }
 }
