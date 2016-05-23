@@ -27,7 +27,7 @@ namespace Jukebox\Framework\Backends
             $statement = $this->PDO->prepare($sql);
             $statement->execute($parameters);
 
-            return $statement->fetch();
+            return $statement->fetch(\PDO::FETCH_ASSOC);
         }
 
         public function insert(string $sql, array $parameters = []): bool
