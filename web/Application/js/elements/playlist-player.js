@@ -33,7 +33,7 @@ export class PlaylistPlayer extends HTMLElement {
    * @internal
    */
   createdCallback () {
-    this.classList.add('audio-player')
+    this.classList.add('player-controls')
 
     let playerState = PlayerState.STOPPED
 

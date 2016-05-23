@@ -2,28 +2,14 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { createElement } from '../dom/create-element'
+import { createFragmentFromString } from '../dom/fragment'
 
 /**
  *
  * @param {Document} doc
- * @param {{path:string}} data
  */
-export function renderPageNotFoundTemplate (doc, data) {
-  const fragment = doc.createDocumentFragment()
-
-  const wrap = createElement(doc, 'div', '', {
-    'class': 'page-wrap -padding'
-  })
-
-  fragment.appendChild(wrap)
-
-  wrap.appendChild(createElement(doc, 'h1', 'Page Not Found'))
-  wrap.appendChild(createElement(doc, 'p', `Could not locate page ${data.uri}`))
-  wrap.appendChild(createElement(doc, 'a', 'Back To Home', {
-    href: '/',
-    is: 'jukebox-link'
-  }))
-
-  return Promise.resolve(fragment)
+export function renderPageNotFoundTemplate (doc) {
+  return fetch('/html/404.html')
+    .then((response) => response.text())
+    .then((text) => createFragmentFromString(doc, text))
 }
