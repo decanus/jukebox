@@ -8,10 +8,13 @@
     <link rel="icon" href="/images/favicon-152.png" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300"/>
     <link rel="stylesheet" href="/css/jukebox.css"/>
+
+    <meta name="description" content="Jukebox Ninja turns all your music sources into one amazing service."/>
+
     <title />
 </head>
-    <body>
-    <header class="page-header">
+    <body class="page-layout">
+    <!--<header class="page-header">
         <div class="container">
             <a href="/" class="logo">
                 <img src="/images/logo.svg" alt="Jukebox Ninja"/>
@@ -19,25 +22,38 @@
 
             <nav class="social">
                 <a href="https://twitter.com/jukeboxninjaapp" rel="nofollow" target="_blank">
-                    <svg class="twitter-icon" width="18px" height="15px" viewBox="1270 43 18 15" version="1.1"
-                         xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1285.87896,45.313157 C1286.64146,44.8560957 1287.22697,44.1323823 1287.50271,43.2700757 C1286.7892,43.6932295 1285.99886,44.0005706 1285.15769,44.1662241 C1284.48401,43.4485021 1283.52426,43 1282.46213,43 C1280.42261,43 1278.7691,44.6534401 1278.7691,46.6928344 C1278.7691,46.9822671 1278.80182,47.2641282 1278.86476,47.5344014 C1275.79557,47.3804016 1273.07447,45.9101942 1271.25307,43.6759794 C1270.93519,44.221398 1270.75308,44.8557665 1270.75308,45.5325359 C1270.75308,46.8137167 1271.40509,47.9440579 1272.39598,48.6062767 C1271.79058,48.5871173 1271.2212,48.421003 1270.72325,48.1444091 C1270.72299,48.1598156 1270.72299,48.1752881 1270.72299,48.1908263 C1270.72299,49.9800944 1271.99594,51.4726874 1273.68533,51.8118951 C1273.37542,51.896302 1273.04918,51.9414024 1272.71235,51.9414024 C1272.4744,51.9414024 1272.24304,51.9182925 1272.0176,51.8751673 C1272.4875,53.3423461 1273.85131,54.4100077 1275.46729,54.4398332 C1274.20342,55.4302645 1272.61108,56.0206518 1270.88094,56.0206518 C1270.58288,56.0206518 1270.28891,56.0032042 1270,55.9690991 C1271.63428,57.016877 1273.57544,57.6282015 1275.66092,57.6282015 C1282.45351,57.6282015 1286.16794,52.0010534 1286.16794,47.1210578 C1286.16794,46.9609349 1286.16438,46.8016679 1286.15727,46.6433227 C1286.87874,46.1226599 1287.50488,45.4722265 1288,44.7316581 C1287.33772,45.0253704 1286.62598,45.223878 1285.87896,45.313157 Z"
-                              id="Fill-1" stroke="none" fill-rule="evenodd"></path>
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18" height="15" class="twitter-icon">
+                        <use xlink:href="/images/icons/twitter.svg#icon" />
                     </svg>
                 </a>
             </nav>
         </div>
-    </header>
+    </header>-->
 
-    <main />
+    <aside class="sidebar">
+        <a href="/" class="logo _margin-bottom-20" is="jukebox-link">
+            <img src="/images/logo-white.svg" alt="Jukebox Ninja"/>
+        </a>
 
-    <footer class="page-footer">
+        <div id="youtube-player-wrap" class="youtube-player _margin-bottom-20">
+            <div id="youtube-player" />
+        </div>
+
+        <playlist-player/>
+    </aside>
+
+    <main class="content"/>
+
+    <!--<footer class="page-footer">
         <div class="container">
             <div class="line"></div>
 
             © 2016 Jukebox Ninja
         </div>
-    </footer>
+    </footer>-->
+
+    <script type="application/javascript" src="/js/polyfills.js"></script>
+    <script type="application/javascript" src="/js/jukebox.js"></script>
 
     </body>
 </html>
