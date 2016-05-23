@@ -9,6 +9,7 @@ import { createElement } from '../dom/create-element'
 import { formatSeconds } from '../time/format-seconds'
 
 const player = new Player([
+  new Track(0, 'Yoncé - Beyoncé', { youtubeId: 'jcF5HtGvX5I' }),
   new Track(0, 'Faded - Alan Walker', { youtubeId: '60ItHLz5WEA' }),
   new Track(149, 'Cheap Thrills', { youtubeId: 'J1b22l1kFKY' }),
   new Track(170, 'Someone Like You', { youtubeId: 'hLQl3WQQoQ0' })
