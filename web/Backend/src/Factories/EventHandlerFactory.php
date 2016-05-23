@@ -3,12 +3,56 @@
 namespace Jukebox\Backend\Factories
 {
 
-    use Jukebox\Backend\DomCleaner\DomCleaner;
     use Jukebox\Framework\Factories\AbstractFactory;
-    use Jukebox\Framework\ValueObjects\Uri;
 
     class EventHandlerFactory extends AbstractFactory
     {
+        public function createInitialVevoArtistsImportEventHandler(): \Jukebox\Backend\EventHandlers\Import\InitialVevoArtistsImportEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\Import\InitialVevoArtistsImportEventHandler(
+                $this->getMasterFactory()->createVevoService(),
+                $this->getMasterFactory()->createEventQueueWriter()
+            );
+        }
+        
+        public function createVevoGenresImportEventHandler(): \Jukebox\Backend\EventHandlers\Import\VevoGenresImportEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\Import\VevoGenresImportEventHandler(
+                $this->getMasterFactory()->createVevoService(),
+                $this->getMasterFactory()->createInsertGenreCommand()
+            );
+        }
 
+        public function createVevoArtistImportEventHandler(\Jukebox\Backend\Events\VevoArtistImportEvent $event): \Jukebox\Backend\EventHandlers\Import\VevoArtistImportEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\Import\VevoArtistImportEventHandler(
+                $event,
+                $this->getMasterFactory()->createVevoService(),
+                $this->getMasterFactory()->createInsertArtistCommand(),
+                $this->getMasterFactory()->createFetchArtistByVevoIdQuery()
+            );
+        }
+
+        public function createVevoArtistVideosImportEventHandler(\Jukebox\Backend\Events\VevoArtistVideosImportEvent $event): \Jukebox\Backend\EventHandlers\Import\VevoArtistVideosImportEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\Import\VevoArtistVideosImportEventHandler(
+                $event,
+                $this->getMasterFactory()->createVevoService(),
+                $this->getMasterFactory()->createFetchArtistByVevoIdQuery(),
+                $this->getMasterFactory()->createInsertTrackCommand(),
+                $this->getMasterFactory()->createInsertTrackArtistCommand(),
+                $this->getMasterFactory()->createInsertTrackGenreCommand(),
+                $this->getMasterFactory()->createFetchGenreByNameQuery(),
+                $this->getMasterFactory()->createFetchTrackByVevoIdQuery()
+            );
+        }
+
+        public function createInitialVevoArtistsVideosImportEventHandler(): \Jukebox\Backend\EventHandlers\Import\InitialVevoArtistsVideosImportEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\Import\InitialVevoArtistsVideosImportEventHandler(
+                $this->getMasterFactory()->createFetchVevoArtistsQuery(),
+                $this->getMasterFactory()->createEventQueueWriter()
+            );
+        }
     }
 }

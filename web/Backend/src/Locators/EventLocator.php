@@ -3,15 +3,26 @@
 namespace Jukebox\Backend\Locators
 {
 
+    use Jukebox\Backend\CLI\Request;
     use Jukebox\Framework\Events\EventInterface;
 
     class EventLocator
     {
-        public function locate(string $event): EventInterface
+        public function locate(Request $request): EventInterface
         {
-            switch ($event) {
+            switch ($request->getAction()) {
+                case 'InitialVevoArtistsImport':
+                    return new \Jukebox\Backend\Events\InitialVevoArtistsImportEvent;
+                case 'VevoGenresImport':
+                    return new \Jukebox\Backend\Events\VevoGenresImportEvent;
+                case 'VevoArtistImport':
+                    return new \Jukebox\Backend\Events\VevoArtistImportEvent($request->getParam('artist'));
+                case 'VevoArtistVideosImport':
+                    return new \Jukebox\Backend\Events\VevoArtistVideosImportEvent($request->getParam('artist'));
+                case 'InitialVevoArtistsVideosImport':
+                    return new \Jukebox\Backend\Events\InitialVevoArtistsVideosImportEvent;
                 default:
-                    throw new \InvalidArgumentException('Event "' . $event . '" does not exist');
+                    throw new \InvalidArgumentException('Event "' . $request->getAction() . '" does not exist');
             }
         }
     }

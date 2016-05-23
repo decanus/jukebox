@@ -28,6 +28,11 @@ namespace Jukebox\Framework\Factories
             return $logger;
         }
 
+        public function createCLILogger(): \Jukebox\Framework\Logging\Loggers\CLILogger
+        {
+            return new \Jukebox\Framework\Logging\Loggers\CLILogger;
+        }
+
         public function createSlackLogger()
         {
             return new  \Jukebox\Framework\Logging\Loggers\SlackLogger(

@@ -98,6 +98,12 @@ namespace Jukebox\Framework\DataPool
             $this->redis->delete($queueName);
         }
 
+        public function expireAt(string $key, int $timestamp)
+        {
+            $this->connect();
+            $this->redis->expireAt($key, $timestamp);
+        }
+
         private function connect()
         {
             if ($this->isConnected) {
