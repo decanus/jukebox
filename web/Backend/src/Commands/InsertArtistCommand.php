@@ -22,11 +22,11 @@ namespace Jukebox\Backend\Commands
                 [
                     ':name' => $artist,
                     ':vevo_id' => $vevoId,
-                    ':official_website' => (string) $officialWebsite,
+                    ':official_website' => $officialWebsite,
                     ':twitter' => $twitter,
-                    ':facebook' => (string) $facebook,
-                    ':itunes' => (string) $itunes,
-                    ':amazon' => (string) $amazon
+                    ':facebook' => $facebook,
+                    ':itunes' => $itunes,
+                    ':amazon' => $amazon
                 ]
             );
         }
