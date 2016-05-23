@@ -56,7 +56,10 @@ export class YoutubePlayer extends Emitter {
               rel: 0,
               showinfo: 0,
               modestbranding: 1,
-              disablekb: 1
+              disablekb: 0,
+              autoplay: 0,
+              autohide: 1,
+              iv_load_policy: 1
             }
           })
         })
