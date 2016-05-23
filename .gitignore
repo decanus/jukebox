@@ -10,3 +10,6 @@ iOS/jukebox/Podfile.lock
 cache.properties
 web/Styles/css/
 web/Styles/node_modules/
+/web/Application/build/
+/web/Application/data/tokens.json
+/web/Application/node_modules/

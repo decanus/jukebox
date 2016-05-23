@@ -1,0 +1,23 @@
+.page-layout {
+  display: flex;
+  height: 100vh;
+
+  > .sidebar {
+    padding: 1.5rem;
+    background-color: #000;
+  }
+
+  > .sidebar > .logo {
+    display: block;
+  }
+
+  > .sidebar,
+  > .content {
+    height: 100%;
+    overflow: auto;
+  }
+
+  > .content {
+    flex-grow: 1;
+  }
+}

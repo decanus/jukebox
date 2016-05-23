@@ -29,9 +29,7 @@ namespace Jukebox\Frontend\Routers
         {
             $uri = $request->getUri();
 
-            if ($uri->getPath() === '/') {
-                return $this->factory->createHomepageController(new ControllerParameterObject($uri));
-            }
+            return $this->factory->createHomepageController(new ControllerParameterObject($uri));
         }
     }
 }

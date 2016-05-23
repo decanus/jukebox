@@ -29,8 +29,9 @@ namespace Jukebox\Frontend\Transformations
             if ($this->isDevelopment) {
                 return;
             }
+
             $tracking = new fDOMDocument;
-            $tracking->loadXML($this->fileBackend->load(__DIR__ . '/../../data/templates/trackingSnippet.xml'));
+            $tracking->loadXML($this->fileBackend->load(__DIR__ . '/../../data/templates/tracking/googleAnalytics.xml'));
             $template->queryOne('//html:body')->appendChild($template->importNode($tracking->documentElement, true));
         }
     }
