@@ -21,7 +21,6 @@ namespace Jukebox\API\Routers
             $this->factory = $factory;
         }
 
-
         /**
          * @param RequestInterface $request
          *
