@@ -3,6 +3,8 @@
 namespace Jukebox\Backend\Bootstrapper
 {
 
+    use Jukebox\Backend\CLI\ParameterParser;
+    use Jukebox\Backend\CLI\Request;
     use Jukebox\Framework\Bootstrap\AbstractBootstrapper;
     use Jukebox\Framework\Configuration;
     use Jukebox\Framework\ErrorHandlers\DevelopmentErrorHandler;
@@ -20,6 +22,11 @@ namespace Jukebox\Backend\Bootstrapper
          * @var array
          */
         private $argv;
+
+        /**
+         * @var Request
+         */
+        private $request;
 
         /**
          * @param array $argv
@@ -44,7 +51,8 @@ namespace Jukebox\Backend\Bootstrapper
             $factory->addFactory(new \Jukebox\Backend\Factories\EventHandlerFactory);
             $factory->addFactory(new \Jukebox\Backend\Factories\LocatorFactory);
             $factory->addFactory(new \Jukebox\Backend\Factories\WriterFactory);
-            $factory->addFactory(new \Jukebox\Framework\Factories\LoggerFactory);
+            $factory->addFactory(new \Jukebox\Backend\Factories\LoggerFactory);
+            $factory->addFactory(new \Jukebox\Backend\Factories\CommandFactory);
 
             return $factory;
         }
@@ -74,16 +82,31 @@ namespace Jukebox\Backend\Bootstrapper
         }
 
         /**
+         * @return Request
+         */
+        public function getRequest()
+        {
+            return $this->request;
+        }
+
+        protected function buildRequest()
+        {
+            $action = '';
+            if (isset($this->argv[1])) {
+                $action = $this->argv[1];
+            }
+            
+            $parser = new ParameterParser;
+            $this->request = new Request($action, $parser->parse($this->argv));
+        }
+
+
+        /**
          * @return bool
          */
         private function isDevelopmentMode(): bool
         {
             return $this->getConfiguration()->isDevelopmentMode();
-        }
-
-        protected function buildRequest()
-        {
-            return;
         }
     }
 }

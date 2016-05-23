@@ -51,5 +51,33 @@ namespace Jukebox\API\Factories
                 new JsonResponse
             );
         }
+
+        public function createGetArtistController(ControllerParameterObject $parameterObject): GetController
+        {
+            return new GetController(
+                new \Jukebox\API\Models\APIModel($parameterObject->getUri()),
+                $this->getMasterFactory()->createPreHandler(),
+                $this->getMasterFactory()->createCommandHandler(),
+                $this->getMasterFactory()->createGetArtistQueryHandler(),
+                $this->getMasterFactory()->createTransformationHandler(),
+                $this->getMasterFactory()->createResponseHandler(),
+                $this->getMasterFactory()->createPostHandler(),
+                new JsonResponse
+            );
+        }
+
+        public function createGetArtistTracksController(ControllerParameterObject $parameterObject): GetController
+        {
+            return new GetController(
+                new \Jukebox\API\Models\APIModel($parameterObject->getUri()),
+                $this->getMasterFactory()->createPreHandler(),
+                $this->getMasterFactory()->createCommandHandler(),
+                $this->getMasterFactory()->createGetArtistTracksQueryHandler(),
+                $this->getMasterFactory()->createTransformationHandler(),
+                $this->getMasterFactory()->createResponseHandler(),
+                $this->getMasterFactory()->createPostHandler(),
+                new JsonResponse
+            );
+        }
     }
 }

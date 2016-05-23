@@ -32,6 +32,7 @@ namespace Jukebox\API
             $factory->addFactory(new \Jukebox\Framework\Factories\LoggerFactory);
             $factory->addFactory(new \Jukebox\Framework\Factories\BackendFactory);
             $factory->addFactory(new \Jukebox\API\Factories\ApplicationFactory);
+            $factory->addFactory(new \Jukebox\API\Factories\QueryFactory);
 
             return $factory;
         }

@@ -51,7 +51,7 @@ namespace Jukebox\Backend
                     $event = $this->eventQueueReader->getEvent();
 
                     $handler = $this->eventHandlerLocator->locate($event);
-
+                    
                     $handler->execute();
 
                 } catch (\Throwable $e) {
