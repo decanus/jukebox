@@ -5,6 +5,7 @@ namespace Jukebox\Frontend\Routers
 
     use Jukebox\Framework\Factories\MasterFactory;
     use Jukebox\Framework\Http\Request\RequestInterface;
+    use Jukebox\Framework\ParamterObjects\ControllerParameterObject;
     use Jukebox\Framework\Routers\RouterInterface;
 
     class ErrorPageRouter implements RouterInterface
@@ -26,7 +27,7 @@ namespace Jukebox\Frontend\Routers
          */
         public function route(RequestInterface $request)
         {
-            return $this->factory->createNotFoundPageController($request->getUri());
+            return $this->factory->createNotFoundPageController(new ControllerParameterObject($request->getUri()));
         }
     }
 }

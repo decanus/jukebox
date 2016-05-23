@@ -55,7 +55,17 @@ namespace Jukebox\Frontend\Factories
         {
             return new \Jukebox\Frontend\Handlers\Get\Homepage\TransformationHandler(
                 $this->getTemplate(),
-                $this->getMasterFactory()->createGenericPageTransformationHandler()
+                $this->getMasterFactory()->createGenericPageTransformationHandler(),
+                $this->getMasterFactory()->createFileBackend()
+            );
+        }
+        
+        public function createNotFoundTransformationHandler(): \Jukebox\Frontend\Handlers\Get\NotFound\TransformationHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Get\NotFound\TransformationHandler(
+                $this->getTemplate(),
+                $this->getMasterFactory()->createGenericPageTransformationHandler(),
+                $this->getMasterFactory()->createFileBackend()
             );
         }
 
