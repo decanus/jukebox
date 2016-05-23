@@ -13,5 +13,12 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createPostgreDatabaseBackend()
             );
         }
+        
+        public function createFetchGenreByNameQuery()
+        {
+            return new \Jukebox\Backend\Queries\FetchGenreByNameQuery(
+                $this->getMasterFactory()->createPostgreDatabaseBackend()
+            );
+        }
     }
 }

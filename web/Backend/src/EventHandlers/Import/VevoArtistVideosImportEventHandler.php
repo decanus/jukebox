@@ -9,6 +9,7 @@ namespace Jukebox\Backend\EventHandlers\Import
     use Jukebox\Backend\EventHandlers\EventHandlerInterface;
     use Jukebox\Backend\Events\VevoArtistVideosImportEvent;
     use Jukebox\Backend\Queries\FetchArtistByVevoIdQuery;
+    use Jukebox\Backend\Queries\FetchGenreByNameQuery;
     use Jukebox\Backend\Services\Vevo;
     use Jukebox\Framework\Curl\Response;
     use Jukebox\Framework\Logging\LoggerAware;
@@ -52,6 +53,11 @@ namespace Jukebox\Backend\EventHandlers\Import
          * @var InsertTrackGenreCommand
          */
         private $insertTrackGenreCommand;
+        
+        /**
+         * @var FetchGenreByNameQuery
+         */
+        private $fetchGenreByNameQuery;
 
         private $videoIds = [];
 
@@ -66,7 +72,8 @@ namespace Jukebox\Backend\EventHandlers\Import
             FetchArtistByVevoIdQuery $fetchArtistByVevoIdQuery,
             InsertTrackCommand $insertTrackCommand,
             InsertTrackArtistCommand $insertTrackArtistsCommand,
-            InsertTrackGenreCommand $insertTrackGenreCommand
+            InsertTrackGenreCommand $insertTrackGenreCommand,
+            FetchGenreByNameQuery $fetchGenreByNameQuery
         )
         {
             $this->event = $event;
@@ -75,6 +82,7 @@ namespace Jukebox\Backend\EventHandlers\Import
             $this->insertTrackCommand = $insertTrackCommand;
             $this->insertTrackArtistsCommand = $insertTrackArtistsCommand;
             $this->insertTrackGenreCommand = $insertTrackGenreCommand;
+            $this->fetchGenreByNameQuery = $fetchGenreByNameQuery;
         }
 
         public function execute()
@@ -120,6 +128,17 @@ namespace Jukebox\Backend\EventHandlers\Import
                 foreach ($video['artists'] as $artist) {
                     try {
                         $this->handleArtist($id, $artist);
+                    } catch (\Throwable $e) {
+                        $this->getLogger()->emergency($e);
+                    }
+                }
+
+                foreach ($video['genres'] as $genre) {
+                    try {
+                        $this->insertTrackGenreCommand->execute(
+                            $id,
+                            $this->fetchGenreByNameQuery->execute($genre)['id']
+                        );
                     } catch (\Throwable $e) {
                         $this->getLogger()->emergency($e);
                     }
