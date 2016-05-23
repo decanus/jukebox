@@ -133,6 +133,21 @@ export class YoutubePlayer extends Emitter {
   }
 
   /**
+   * 
+   * @returns {Promise}
+   */
+  stop() {
+    let stopped = this._getStateChange()
+      .filter((e) => e.data !== YT.PlayerState.PLAYING)
+      .once()
+      .then(() => console.log('stopped'))
+    
+    this._player.stopVideo()
+    
+    return stopped
+  }
+
+  /**
    *
    * @returns {Observable}
    */
@@ -148,6 +163,15 @@ export class YoutubePlayer extends Emitter {
   getPlay () {
     return this._getStateChange()
       .filter((e) => e.data === YT.PlayerState.PLAYING)
+  }
+
+  /**
+   *
+   * @returns {Observable}
+   */
+  getPause () {
+    return this._getStateChange()
+      .filter((e) => e.data === YT.PlayerState.PAUSED)
   }
 
   /**

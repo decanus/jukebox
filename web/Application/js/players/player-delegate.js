@@ -122,7 +122,7 @@ export class PlayerDelegate extends Emitter {
     let pause = this.pause()
 
     if (index < 0 || index > this._tracks.length - 1) {
-      this._current = null
+      this.stop()
       return Promise.resolve()
     }
 
@@ -177,10 +177,14 @@ export class PlayerDelegate extends Emitter {
    * @returns {Promise<void>}
    */
   stop () {
-    return this.pause()
-      .then(() => {
-        this._current = null
-      })
+    if (this._current === null) {
+      return Promise.resolve()
+    }
+    
+    return this.currentPlayer
+      .ready()
+      .then((player) => player.stop())
+      .then(() => (this._current = null))
   }
 
   /**
@@ -189,6 +193,16 @@ export class PlayerDelegate extends Emitter {
    */
   addTrack (track) {
     this._tracks.push(track)
+  }
+
+  /**
+   *
+   * @returns {Promise}
+   */
+  removeAllTracks() {
+    return this.stop().then(() => {
+      this._tracks = []
+    })
   }
 
   /**

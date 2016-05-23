@@ -11,6 +11,11 @@ export class JukeboxLink extends HTMLAnchorElement {
       e.preventDefault()
 
       let $app = this.ownerDocument.querySelector('jukebox-app')
+      
+      if ($app == null) {
+        window.location = this.pathname
+        return
+      }
 
       $app.route = this.pathname
     })
