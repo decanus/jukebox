@@ -66,5 +66,12 @@ namespace Jukebox\API\Factories
                 $this->getMasterFactory()->createFetchArtistQuery()
             );
         }
+
+        public function createGetArtistTracksQueryHandler(): \Jukebox\API\Handlers\Get\ArtistTracks\QueryHandler
+        {
+            return new \Jukebox\API\Handlers\Get\ArtistTracks\QueryHandler(
+                $this->getMasterFactory()->createFetchTracksForArtistQuery()
+            );
+        }
     }
 }

@@ -13,5 +13,12 @@ namespace Jukebox\API\Factories
                 $this->getMasterFactory()->createPostgreDatabaseBackend()
             );
         }
+
+        public function createFetchTracksForArtistQuery(): \Jukebox\API\Queries\FetchTracksForArtistQuery
+        {
+            return new \Jukebox\API\Queries\FetchTracksForArtistQuery(
+                $this->getMasterFactory()->createPostgreDatabaseBackend()
+            );
+        }
     }
 }

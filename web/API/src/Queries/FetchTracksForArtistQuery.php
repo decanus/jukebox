@@ -24,10 +24,10 @@ namespace Jukebox\API\Queries
         public function execute(string $artist)
         {
             return $this->databaseBackend->fetchAll(
-                'SELECT tracks.* 
+                'SELECT tracks.*
                   FROM tracks 
                   LEFT JOIN track_artists ON track_artists.track = tracks.id
-                  WHERE track_artists.artist = :artist',
+                  WHERE track_artists.artist = :artist GROUP BY tracks.id',
                 [':artist' => $artist]
             );
         }
