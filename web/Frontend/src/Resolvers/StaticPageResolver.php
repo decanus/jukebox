@@ -15,7 +15,10 @@ namespace Jukebox\Frontend\Resolvers
          */
         public function resolve(Uri $uri)
         {
-            // TODO: Implement resolve() method.
+            switch ($uri->getPath()) {
+                case '/':
+                    return ['page' => 'home'];
+            }
         }
     }
 }
