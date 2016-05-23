@@ -14,12 +14,20 @@ namespace Jukebox\Framework\Backends
             $this->PDO = $PDO;
         }
 
-        public function fetchAll(string $sql, array $parameters = []): mixed
+        public function fetchAll(string $sql, array $parameters = [])
         {
             $statement = $this->PDO->prepare($sql);
             $statement->execute($parameters);
 
-            return $this->fetchAll(\PDO::FETCH_ASSOC);
+            return $statement->fetchAll(\PDO::FETCH_ASSOC);
+        }
+
+        public function fetch(string $sql, array $parameters = [])
+        {
+            $statement = $this->PDO->prepare($sql);
+            $statement->execute($parameters);
+
+            return $statement->fetch();
         }
 
         public function insert(string $sql, array $parameters = []): bool

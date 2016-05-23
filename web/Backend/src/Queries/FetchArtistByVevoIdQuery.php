@@ -17,9 +17,9 @@ namespace Jukebox\Backend\Queries
             $this->databaseBackend = $databaseBackend;
         }
         
-        public function execute($vevoId): mixed
+        public function execute($vevoId): array
         {
-            return $this->databaseBackend->fetchAll(
+            return $this->databaseBackend->fetch(
                 'SELECT * FROM artists WHERE vevo_id = :vevo_id',
                 [':vevo_id' => $vevoId]
             );

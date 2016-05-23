@@ -17,9 +17,9 @@ namespace Jukebox\Backend\Queries
             $this->databaseBackend = $databaseBackend;
         }
 
-        public function execute(string $name): mixed
+        public function execute(string $name): array
         {
-            return $this->databaseBackend->fetchAll('SELECT * FROM genres WHERE name = :name', [':name' => $name]);
+            return $this->databaseBackend->fetch('SELECT * FROM genres WHERE name = :name', [':name' => $name]);
         }
     }
 }

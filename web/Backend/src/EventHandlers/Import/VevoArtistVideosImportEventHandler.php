@@ -165,7 +165,6 @@ namespace Jukebox\Backend\EventHandlers\Import
                 if ($this->artistId === null) {
                     $this->artistId = $this->fetchArtistByVevoIdQuery->execute($artist['urlSafeName'])['id'];
                 }
-
                 $artistId = $this->artistId;
             } else {
                 $artistId = $this->fetchArtistByVevoIdQuery->execute($artist['urlSafeName'])['id'];
