@@ -38,6 +38,20 @@ namespace Jukebox\API\Routers
                 case '/v1/search':
                     return $this->factory->createSearchController(new ControllerParameterObject($uri));
             }
+
+            $path = $uri->getExplodedPath();
+
+            if (count($path) === 3 && $path[0] === 'v1' && $path[1] === 'artists' && is_numeric($path[2])) {
+                return $this->factory->createGetArtistController(new ControllerParameterObject($uri));
+            }
+
+            if (count($path) === 4 && $path[0] === 'v1' && $path[1] === 'artists' && is_numeric($path[2]) && $path[3] === 'tracks') {
+                return $this->factory->createGetArtistTracksController(new ControllerParameterObject($uri));
+            }
+
+            if (count($path) === 3 && $path[0] === 'v1' && $path[1] === 'tracks' && is_numeric($path[2])) {
+                return $this->factory->createGetTrackController(new ControllerParameterObject($uri));
+            }
         }
     }
 }

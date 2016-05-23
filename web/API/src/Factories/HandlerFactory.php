@@ -59,5 +59,26 @@ namespace Jukebox\API\Factories
                 )
             );
         }
+        
+        public function createGetArtistQueryHandler(): \Jukebox\API\Handlers\Get\Artist\QueryHandler
+        {
+            return new \Jukebox\API\Handlers\Get\Artist\QueryHandler(
+                $this->getMasterFactory()->createFetchArtistQuery()
+            );
+        }
+
+        public function createGetArtistTracksQueryHandler(): \Jukebox\API\Handlers\Get\ArtistTracks\QueryHandler
+        {
+            return new \Jukebox\API\Handlers\Get\ArtistTracks\QueryHandler(
+                $this->getMasterFactory()->createFetchTracksForArtistQuery()
+            );
+        }
+
+        public function createGetTrackQueryHandler(): \Jukebox\API\Handlers\Get\Track\QueryHandler
+        {
+            return new \Jukebox\API\Handlers\Get\Track\QueryHandler(
+                $this->getMasterFactory()->createFetchTrackByIdQuery()
+            );
+        }
     }
 }
