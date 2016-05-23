@@ -2,14 +2,12 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { createFragmentFromString } from '../dom/fragment'
+import { fetchDom } from '../dom/fetch-dom'
 
 /**
  *
  * @param {Document} doc
  */
 export function renderPageNotFoundTemplate (doc) {
-  return fetch('/html/404.html')
-    .then((response) => response.text())
-    .then((text) => createFragmentFromString(doc, text))
+  return fetchDom(doc, '/html/404.html')
 }

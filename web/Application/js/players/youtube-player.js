@@ -59,7 +59,7 @@ export class YoutubePlayer extends Emitter {
               disablekb: 0,
               autoplay: 0,
               autohide: 1,
-              iv_load_policy: 1
+              iv_load_policy: 3
             }
           })
         })

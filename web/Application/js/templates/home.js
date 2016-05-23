@@ -2,7 +2,7 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { createFragmentFromString } from '../dom/fragment'
+import { fetchDom } from '../dom/fetch-dom'
 
 /**
  *
@@ -10,7 +10,5 @@ import { createFragmentFromString } from '../dom/fragment'
  * @returns {Promise<DocumentFragment>}
  */
 export function renderHomeTemplate (doc) {
-  return fetch('/html/homepage.html')
-    .then((response) => response.text())
-    .then((text) => createFragmentFromString(doc, text))
+  return fetchDom(doc, '/html/homepage.html')
 }

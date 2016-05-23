@@ -34,7 +34,7 @@ function delegateToCurrentPlayer (method) {
   })
 }
 
-export class PlaylistPlayer extends Emitter {
+export class PlayerDelegate extends Emitter {
   /**
    *
    * @param {Array<Track>} tracks
