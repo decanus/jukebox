@@ -73,5 +73,12 @@ namespace Jukebox\API\Factories
                 $this->getMasterFactory()->createFetchTracksForArtistQuery()
             );
         }
+
+        public function createGetTrackQueryHandler(): \Jukebox\API\Handlers\Get\Track\QueryHandler
+        {
+            return new \Jukebox\API\Handlers\Get\Track\QueryHandler(
+                $this->getMasterFactory()->createFetchTrackByIdQuery()
+            );
+        }
     }
 }

@@ -1,0 +1,25 @@
+<?php
+
+namespace Jukebox\API\Queries
+{
+
+    use Jukebox\Framework\Backends\PostgreDatabaseBackend;
+
+    class FetchTrackByIdQuery
+    {
+        /**
+         * @var PostgreDatabaseBackend
+         */
+        private $databaseBackend;
+
+        public function __construct(PostgreDatabaseBackend $databaseBackend)
+        {
+            $this->databaseBackend = $databaseBackend;
+        }
+
+        public function execute(string $id)
+        {
+            return $this->databaseBackend->fetch('SELECT * FROM tracks WHERE id = :id', [':id' => $id]);
+        }
+    }
+}

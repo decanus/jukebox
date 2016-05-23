@@ -20,5 +20,12 @@ namespace Jukebox\API\Factories
                 $this->getMasterFactory()->createPostgreDatabaseBackend()
             );
         }
+
+        public function createFetchTrackByIdQuery(): \Jukebox\API\Queries\FetchTrackByIdQuery
+        {
+            return new \Jukebox\API\Queries\FetchTrackByIdQuery(
+                $this->getMasterFactory()->createPostgreDatabaseBackend()
+            );
+        }
     }
 }
