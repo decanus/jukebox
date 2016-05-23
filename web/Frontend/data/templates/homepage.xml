@@ -1,7 +1,7 @@
 <main class="content">
 
     <jukebox-app/>
-    <playlist-player/>
+
 
     <!--
     <main class="page-content -centered">

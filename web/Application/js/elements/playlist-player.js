@@ -14,13 +14,13 @@ const player = new Player([
 ])
 
 function createControlElement (doc, icon) {
-  let $control = createElement(doc, 'button', icon, {
+  let $control = createElement(doc, 'div', '', {
     'class': 'control',
     'role': 'button'
   })
 
-  let $icon = createElement(doc, 'span', '', {
-    'class': `fa fa-${icon}`
+  let $icon = createElement(doc, 'img', '', {
+    'src': `/images/icons/${icon}.svg`
   })
 
   $control.appendChild($icon)
@@ -53,13 +53,14 @@ export class PlaylistPlayer extends HTMLElement {
 
     this.appendChild($controls)
 
-    let $prev = $controls.appendChild(createControlElement(this.ownerDocument, 'step-backward'))
+    let $prev = $controls.appendChild(createControlElement(this.ownerDocument, 'previous'))
     $prev.addEventListener('click', () => player.prev())
+    $prev.classList.add('-prev')
 
     let $play = $controls.appendChild(createControlElement(this.ownerDocument, 'play'))
-    $play.classList.add('-larger')
+    $play.classList.add('-playpause')
 
-    let $playIcon = $play.querySelector('.fa')
+    let $playIcon = $play.querySelector('img')
 
     $play.addEventListener('click', () => {
       switch (playerState) {
@@ -72,20 +73,20 @@ export class PlaylistPlayer extends HTMLElement {
     })
 
     player.getPlay().forEach(() => {
-      $playIcon.className = 'fa fa-pause'
+      $playIcon.src = '/images/icons/pause.svg'
     })
 
     player.getPause().forEach(() => {
-      $playIcon.className = 'fa fa-play'
+      $playIcon.src =  '/images/icons/play.svg'
     })
 
     player.getLoading().forEach(() => {
-      console.log('loading')
-      $playIcon.className = 'fa fa-cog fa-spin'
+      $playIcon.src =  '/images/icons/play.svg'
     })
 
-    let $next = $controls.appendChild(createControlElement(this.ownerDocument, 'step-forward'))
+    let $next = $controls.appendChild(createControlElement(this.ownerDocument, 'next'))
     $next.addEventListener('click', () => player.next())
+    $next.classList.add('-next')
 
     let $time = createElement(this.ownerDocument, 'div', '0:00', {
       'class': 'time'
@@ -146,20 +147,12 @@ export class PlaylistPlayer extends HTMLElement {
 
     this.appendChild($duration)
 
-    let $artwork = createElement(this.ownerDocument, 'img', '', {
-      'class': 'artwork'
-    })
-
     player.getTrack().forEach((track) => {
-      $artwork.src = track.artwork
-
       this.ownerDocument
         .querySelector('#youtube-player-wrap')
         .style.display = track.video ? '' : 'none'
     })
-
-    this.appendChild($artwork)
-
+    
     let $track = createElement(this.ownerDocument, 'div', '', {
       'class': 'track'
     })
