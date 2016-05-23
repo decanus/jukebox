@@ -24,5 +24,5 @@ export function renderLoremTemplate (doc) {
     wrap.appendChild(createElement(doc, 'p', LOREM))
   }
 
-  return fragment
+  return Promise.resolve(fragment)
 }

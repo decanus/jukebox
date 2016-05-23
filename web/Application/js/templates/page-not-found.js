@@ -25,5 +25,5 @@ export function renderPageNotFoundTemplate (doc, data) {
     is: 'jukebox-link'
   }))
 
-  return fragment
+  return Promise.resolve(fragment)
 }

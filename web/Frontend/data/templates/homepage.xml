@@ -1,13 +1,25 @@
-<main class="page-content -centered">
-<div class="container">
-    <img src="/images/preview.svg" alt="Preview" class="content-image _margin-bottom-40" />
+<main>
 
-    <h1>Introducing Jukebox</h1>
-    <p class="teaser-text _margin-bottom-40">All Of Your Music In One Place</p>
+   <div id="youtube-player-wrap">
+       <div id="youtube-player" />
+   </div>
 
-    <button disabled="disabled">
-        <img src="/images/icons/apple.svg" class="icon" />
-        <span class="text">Coming Soon</span>
-    </button>
-</div>
+    <jukebox-app/>
+    <playlist-player/>
+
+    <!--
+    <main class="page-content -centered">
+    <div class="container">
+        <img src="/images/preview.svg" alt="Preview" class="content-image _margin-bottom-40" />
+
+        <h1>Introducing Jukebox</h1>
+        <p class="teaser-text _margin-bottom-40">All Of Your Music In One Place</p>
+
+        <button disabled="disabled">
+            <img src="/images/icons/apple.svg" class="icon" />
+            <span class="text">Coming Soon</span>
+        </button>
+    </div>
+    </main>
+    -->
 </main>

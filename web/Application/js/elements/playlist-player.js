@@ -22,7 +22,7 @@ const player = new Player([
 ])
 
 function createControlElement (doc, icon) {
-  let $control = createElement(doc, 'div', '', {
+  let $control = createElement(doc, 'button', icon, {
     'class': 'control',
     'role': 'button'
   })

@@ -3,7 +3,7 @@
  */
 
 import { updatePath } from '../history/update-path'
-import { resolveRoute } from '../routes'
+import { resolveRoute } from '../routing/routes'
 import { renderTemplate } from '../templates'
 
 export class JukeboxApp extends HTMLElement {
@@ -36,11 +36,15 @@ export class JukeboxApp extends HTMLElement {
     updatePath(this.route)
 
     return resolveRoute(this.route)
-      .then((resolved) => {
-        this.ownerDocument.title = resolved.title
-
+      .then((page) => {
+        this.ownerDocument.title = page.title
+        
         this.innerHTML = ''
-        this.appendChild(renderTemplate(resolved.template, this.ownerDocument, resolved.data))
+        
+        return renderTemplate(page.template, this.ownerDocument, page.data)
+      })
+      .then((dom) => {
+        this.appendChild(dom)
       })
   }
 
