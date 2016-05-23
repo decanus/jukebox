@@ -4,6 +4,7 @@ namespace Jukebox\API\Routers
 {
 
     use Jukebox\Framework\Factories\MasterFactory;
+    use Jukebox\Framework\Http\Request\PostRequest;
     use Jukebox\Framework\Http\Request\RequestInterface;
     use Jukebox\Framework\ParamterObjects\ControllerParameterObject;
     use Jukebox\Framework\Routers\RouterInterface;
@@ -28,6 +29,10 @@ namespace Jukebox\API\Routers
          */
         public function route(RequestInterface $request)
         {
+            if (!$request instanceof PostRequest) {
+                return;
+            }
+
             $uri = $request->getUri();
 
             switch ($uri->getPath()) {
