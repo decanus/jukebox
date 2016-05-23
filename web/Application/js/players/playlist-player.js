@@ -1,15 +1,8 @@
-import { PlayerFactory } from './player-factory'
+//import { PlayerFactory } from './player-factory'
+import { YoutubePlayer } from './youtube-player'
 import { Emitter } from '../event/emitter'
 import { Observable } from '../observable'
 import { PlayerState } from './player-state'
-
-import tokens from '../../data/tokens.json'
-
-/**
- *
- * @type {PlayerFactory}
- */
-const factory = new PlayerFactory(tokens)
 
 /**
  *
@@ -44,17 +37,24 @@ function delegateToCurrentPlayer (method) {
 export class PlaylistPlayer extends Emitter {
   /**
    *
-   * @param {Array<string>} tracks
+   * @param {Array<Track>} tracks
    */
   constructor (tracks = []) {
     super()
 
     /**
      *
-     * @type {Array}
+     * @type {Array<Track>}
      * @private
      */
     this._tracks = []
+
+    /**
+     *
+     * @type {YoutubePlayer}
+     * @private
+     */
+    this._youtubePlayer = new YoutubePlayer()
 
     /**
      *
@@ -133,7 +133,8 @@ export class PlaylistPlayer extends Emitter {
       .then(() => this.currentPlayer.ready())
       .then(() => this.emit('trackUpdate', this._current))
       .then(() => this.emit('playerState', PlayerState.LOADING))
-      .then(() => this.currentPlayer.playTrack(this.currentTrack.id))
+      // todo: make this non-youtube specific
+      .then(() => this.currentPlayer.playTrack(this.currentTrack.youtubeId))
       // wait for end
       .then(() => {
         let cancelled = false
@@ -184,17 +185,10 @@ export class PlaylistPlayer extends Emitter {
 
   /**
    *
-   * @param {string} uri
+   * @param {Track} track
    */
-  addTrack (uri) {
-    let parts = uri.split(':')
-    let service = parts[ 0 ]
-
-    this._tracks.push({ service, id: parts[ 1 ], uri })
-
-    // the deezer api takes a lot of time to load, so we want
-    // to load it as early as possible
-    factory.getPlayer(service)
+  addTrack (track) {
+    this._tracks.push(track)
   }
 
   /**
@@ -289,17 +283,18 @@ export class PlaylistPlayer extends Emitter {
 
   /**
    *
-   * @returns {{id:string,service:string,uri:string}}
+   * @returns {Track}
    */
   get currentTrack () {
     return this._tracks[ this._current ]
   }
 
   /**
-   *
-   * @returns {DeezerPlayer|SoundcloudPlayer|YoutubePlayer}
+   * @todo implement
+   * @returns {YoutubePlayer}
    */
   get currentPlayer () {
-    return factory.getPlayer(this.currentTrack.service)
+    //return factory.getPlayer(this.currentTrack.service)
+    return this._youtubePlayer
   }
 }

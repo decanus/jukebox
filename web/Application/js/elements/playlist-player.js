@@ -3,22 +3,14 @@
  */
 
 import { PlaylistPlayer as Player } from '../players/playlist-player'
+import { Track } from '../value/track'
 import { PlayerState } from '../players/player-state'
 import { createElement } from '../dom/create-element'
 import { formatSeconds } from '../time/format-seconds'
 
 const player = new Player([
-  'youtube:jcF5HtGvX5I',
-  'deezer:92818806',
-  'soundcloud:245692565',
-  'soundcloud:244408910',
-  'youtube:DQMbHNofCzw',
-  'deezer:118204446',
-  'deezer:104953416',
-  'soundcloud:211719430',
-  'deezer:103779780',
-  'deezer:99938476',
-  'deezer:114394690'
+  new Track(149, 'Cheap Thrills', { youtubeId: 'J1b22l1kFKY' }),
+  new Track(170, 'Someone Like You', { youtubeId: 'hLQl3WQQoQ0' })
 ])
 
 function createControlElement (doc, icon) {

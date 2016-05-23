@@ -1,8 +1,4 @@
-<main>
-
-   <div id="youtube-player-wrap">
-       <div id="youtube-player" />
-   </div>
+<main class="content">
 
     <jukebox-app/>
     <playlist-player/>
