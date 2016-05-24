@@ -37,6 +37,41 @@ export class PlaylistPlayer extends HTMLElement {
     player.getTrack().forEach((track) => {
       trackDuration = track.duration
     })
+
+    let $position = createElement(this.ownerDocument, 'div', '', {
+      'class': 'position'
+    })
+
+    $position.addEventListener('click', (e) => {
+      if (playerState !== PlayerState.PLAYING) {
+        return
+      }
+
+      let box = $position.getBoundingClientRect()
+      let position = e.clientX - box.left
+
+      player.setPosition(position / box.width * trackDuration)
+    })
+
+    this.appendChild($position)
+
+    let $inner = createElement(this.ownerDocument, 'div', '', {
+      'class': 'inner'
+    })
+
+    let $handle = createElement(this.ownerDocument, 'div', '', {
+      'class': 'handle'
+    })
+
+    player.getPosition().forEach((value) => {
+      let pos = (100 / trackDuration * value) + '%'
+
+      $inner.style.width = pos
+      $handle.style.left = pos
+    })
+
+    $position.appendChild($inner)
+    $position.appendChild($handle)
     
     let $controls = createElement(this.ownerDocument, 'div', '', {
       'class': 'controls'
@@ -79,40 +114,7 @@ export class PlaylistPlayer extends HTMLElement {
 
     this.appendChild($time)
 
-    let $position = createElement(this.ownerDocument, 'div', '', {
-      'class': 'position'
-    })
-
-    $position.addEventListener('click', (e) => {
-      if (playerState !== PlayerState.PLAYING) {
-        return
-      }
-
-      let box = $position.getBoundingClientRect()
-      let position = e.clientX - box.left
-
-      player.setPosition(position / box.width * trackDuration)
-    })
-
-    this.appendChild($position)
-
-    let $inner = createElement(this.ownerDocument, 'div', '', {
-      'class': 'inner'
-    })
-
-    let $handle = createElement(this.ownerDocument, 'div', '', {
-      'class': 'handle'
-    })
-
-    player.getPosition().forEach((value) => {
-      let pos = (100 / trackDuration * value) + '%'
-
-      $inner.style.width = pos
-      $handle.style.left = pos
-    })
-
-    $position.appendChild($inner)
-    $position.appendChild($handle)
+    
 
     let $duration = createElement(this.ownerDocument, 'div', '0:00', {
       'class': 'time'

@@ -134,7 +134,6 @@ export class PlayerDelegate extends Emitter {
     let pause = this.pause()
 
     if (index < 0 || index > this._tracks.length - 1) {
-      this.stop()
       return Promise.resolve()
     }
 

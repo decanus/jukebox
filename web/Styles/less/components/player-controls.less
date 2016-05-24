@@ -16,4 +16,48 @@
     border-radius: 100%;
     padding: 1.5rem;
   }
+
+  @scrobble-bar-height: 9px;
+  @scrobble-bar-small-height: 3px;
+  @scrobble-button-height: 13px;
+
+  > .position {
+    flex-grow: 1;
+    color: #fff;
+    background: linear-gradient(rgba(255,255,255,.08), rgba(255,255,255,.08)) no-repeat center center;
+    background-size: 100% 3px;
+    cursor: pointer;
+    display: flex;
+    align-items: stretch;
+    height: 13px;
+    margin-bottom: 1.5rem;
+  }
+
+  > .position > .inner {
+    width: 0;
+    background: linear-gradient(@brand-color, @brand-color) no-repeat center center;
+    background-size: 100% 3px;
+    transition: width 125ms;
+  }
+
+  > .position > .handle {
+    width: 13px;
+    border-radius: 100%;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .39);
+    background-color: #fff;
+    pointer-events: none;
+    opacity: 0;
+    transition: all .125s;
+    margin-left: -1px;
+  }
+
+  > .position:hover > .handle {
+    pointer-events: initial;
+    opacity: 1;
+  }
+
+  > .position:hover > .inner,
+  > .position:hover {
+    background-size: 100% 5px;
+  }
 }
