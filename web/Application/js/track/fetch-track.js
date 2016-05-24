@@ -2,7 +2,7 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { Track } from '../value/track'
+import { Track } from './track'
 
 /**
  * 

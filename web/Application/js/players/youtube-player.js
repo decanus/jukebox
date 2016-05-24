@@ -140,7 +140,6 @@ export class YoutubePlayer extends Emitter {
     let stopped = this._getStateChange()
       .filter((e) => e.data !== YT.PlayerState.PLAYING)
       .once()
-      .then(() => console.log('stopped'))
     
     this._player.stopVideo()
     
