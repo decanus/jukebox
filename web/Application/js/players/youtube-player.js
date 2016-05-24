@@ -171,15 +171,6 @@ export class YoutubePlayer extends Emitter {
 
   /**
    *
-   * @returns {Observable}
-   */
-  getPause () {
-    return this._getStateChange()
-      .filter((e) => e.data === YT.PlayerState.PAUSED)
-  }
-
-  /**
-   *
    * @returns {Observable<number>}
    */
   getPosition () {

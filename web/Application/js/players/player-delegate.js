@@ -140,7 +140,7 @@ export class PlayerDelegate extends Emitter {
     this._current = index
 
     return pause
-    // wait for the api to be ready
+      // wait for the api to be ready
       .then(() => this.currentPlayer.ready())
       .then(() => this.emit('trackUpdate', this._current))
       .then(() => this.emit('playerState', PlayerState.LOADING))
@@ -161,6 +161,7 @@ export class PlayerDelegate extends Emitter {
               return
             }
 
+            this.emit('playerState', PlayerState.PAUSED)
             this.next()
           })
       })
