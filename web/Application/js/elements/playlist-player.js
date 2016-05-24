@@ -41,7 +41,7 @@ export class PlaylistPlayer extends HTMLElement {
     player.getTrack().forEach((track) => {
       trackDuration = track.duration
     })
-
+    
     let $controls = createElement(this.ownerDocument, 'div', '', {
       'class': 'controls'
     })
