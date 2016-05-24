@@ -85,6 +85,18 @@ export class PlayerDelegate extends Emitter {
   }
 
   /**
+   * 
+   * @param  {Track} track
+   * @returns {Promise}
+   */
+  playTrack(track) {
+    return this
+      .removeAllTracks()
+      .then(() => this.addTrack(track))
+      .then(() => this.play())
+  }
+
+  /**
    *
    * @returns {Promise<void>}
    */
@@ -234,15 +246,11 @@ export class PlayerDelegate extends Emitter {
 
   /**
    *
-   * @returns {Observable}
+   * @returns {Observable<Track>}
    */
   getTrack () {
-    return delegateToCurrentPlayer.call(this, 'getTrack')
-      .map((track) => {
-        track.service = this.currentTrack.service
-
-        return track
-      })
+    return this.getTrackUpdate()
+      .map((index) => this._tracks[index])
   }
 
   /**

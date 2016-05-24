@@ -125,12 +125,6 @@ export class PlaylistPlayer extends HTMLElement {
     })
 
     this.appendChild($duration)
-
-    player.getTrack().forEach((track) => {
-      this.ownerDocument
-        .querySelector('#youtube-player-wrap')
-        .style.display = track.video ? '' : 'none'
-    })
     
     let $track = createElement(this.ownerDocument, 'div', '', {
       'class': 'track'
