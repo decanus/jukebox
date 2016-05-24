@@ -32,10 +32,6 @@ export class PlaylistPlayer extends HTMLElement {
 
     let playerState = PlayerState.STOPPED
 
-    player.getState().forEach((value) => {
-      playerState = value
-    })
-
     let trackDuration = 0
 
     player.getTrack().forEach((track) => {
@@ -65,18 +61,6 @@ export class PlaylistPlayer extends HTMLElement {
         case PlayerState.STOPPED:
           return player.play()
       }
-    })
-
-    player.getPlay().forEach(() => {
-      $playIcon.src = '/images/icons/pause.svg'
-    })
-
-    player.getPause().forEach(() => {
-      $playIcon.src =  '/images/icons/play.svg'
-    })
-
-    player.getLoading().forEach(() => {
-      $playIcon.src =  '/images/icons/play.svg'
     })
 
     let $next = $controls.appendChild(createControlElement(this.ownerDocument, 'next'))
@@ -173,6 +157,17 @@ export class PlaylistPlayer extends HTMLElement {
     })
 
     $track.appendChild($name)
+
+    player.getState().forEach((value) => {
+      playerState = value
+
+      if (playerState === PlayerState.PLAYING) {
+        $playIcon.src = '/images/icons/pause.svg'
+        return
+      }
+
+      $playIcon.src =  '/images/icons/play.svg'
+    })
 
     player.preload()
   }

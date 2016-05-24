@@ -184,7 +184,10 @@ export class PlayerDelegate extends Emitter {
     return this.currentPlayer
       .ready()
       .then((player) => player.stop())
-      .then(() => (this._current = null))
+      .then(() => {
+        this._current = null
+        this.emit('playerState', PlayerState.LOADING)
+      })
   }
 
   /**
