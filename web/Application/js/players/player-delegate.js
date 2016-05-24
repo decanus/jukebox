@@ -144,8 +144,7 @@ export class PlayerDelegate extends Emitter {
       .then(() => this.currentPlayer.ready())
       .then(() => this.emit('trackUpdate', this._current))
       .then(() => this.emit('playerState', PlayerState.LOADING))
-      // todo: make this non-youtube specific
-      .then(() => this.currentPlayer.playTrack(this.currentTrack.youtubeId))
+      .then(() => this.currentPlayer.playTrack(this.currentTrack))
       // wait for end
       .then(() => {
         let cancelled = false
@@ -248,8 +247,7 @@ export class PlayerDelegate extends Emitter {
    * @returns {Observable<Track>}
    */
   getTrack () {
-    return this.getTrackUpdate()
-      .map((index) => this._tracks[index])
+    return delegateToCurrentPlayer.call(this, 'getTrack')
   }
 
   /**
