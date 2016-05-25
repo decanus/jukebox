@@ -1,0 +1,21 @@
+{
+  "artists": {
+    "_id": {
+      "path": "id"
+    },
+    "_all": {
+      "enabled": "false"
+    },
+    "dynamic": "strict",
+    "properties": {
+      "id": {"type": "string", "index": "not_analyzed"},
+      "name": {"type": "string", "index": "analyzed", "analyzer": "trans_standard"},
+      "vevo_id": {"type": "string", "index": "not_analyzed"},
+      "official_website": {"type": "string", "index": "not_analyzed"},
+      "twitter": {"type": "string", "index": "not_analyzed"},
+      "facebook": {"type": "string", "index": "not_analyzed"},
+      "itunes": {"type": "string", "index": "not_analyzed"},
+      "amazon": {"type": "string", "index": "not_analyzed"}
+    }
+  }
+}
