@@ -34,7 +34,5 @@ function render($element, route) {
 export function createJukeboxApp(app) {
   return CustomElement(($) => {
     app.getRoute().forEach((route) => render($.dom, route))
-    
-    $.attributes.forEach((attr) => console.log(attr.name, attr.newValue))
   })
 }

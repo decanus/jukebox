@@ -55,6 +55,21 @@ export default class Application {
     })
   }
 
+  /**
+   * 
+   * @param {string} extendsTag
+   * @param {string} tagName
+   * @param {Function} createPrototype
+   */
+  extendElement(extendsTag, tagName, createPrototype) {
+    const Element = createPrototype(this)
+
+    this._document.registerElement(tagName, {
+      prototype: Element,
+      'extends': extendsTag
+    })
+  }
+
   getPlayer() {
     return this._player
   }

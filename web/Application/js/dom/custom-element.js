@@ -7,7 +7,8 @@ import { Emitter } from '../event/emitter'
 class ElementWrapper {
   /**
    *
-   * @param {HTMLElement} dom
+   * @param {T} dom
+   * @template T
    * @param {Observable} attributes
    */
   constructor(dom, attributes) {
@@ -16,15 +17,40 @@ class ElementWrapper {
 
     Object.freeze(this)
   }
+
+  /**
+   *
+   * @returns {Document}
+   */
+  get document() {
+    return this.dom.ownerDocument
+  }
+
+  /**
+   *
+   * @template T
+   * @param {T} node
+   * @returns {T}
+   */
+  append(node) {
+    return this.dom.appendChild(node)
+  }
 }
 
 /**
- *
- * @param {Function} initializeFn
- * @returns {HTMLElement}
+ * @callback initializeFn
+ * @param {ElementWrapper} $
  */
-export function CustomElement(initializeFn) {
-  const Element = Object.create(HTMLElement.prototype)
+
+/**
+ *
+ * @template T
+ * @param {T} Base
+ * @param {(function(ElementWrapper<T>))} initializeFn
+ * @returns {T}
+ */
+function makeCustomElement(Base, initializeFn) {
+  const Element = Object.create(Base.prototype)
   const emitter = new Emitter()
 
   Element.createdCallback = function () {
@@ -36,4 +62,22 @@ export function CustomElement(initializeFn) {
   }
 
   return Element
+}
+
+/**
+ *
+ * @param {(function(ElementWrapper<HTMLElement>))} initializeFn
+ * @returns {HTMLElement}
+ */
+export function CustomElement(initializeFn) {
+  return makeCustomElement(HTMLElement, initializeFn)
+}
+
+/**
+ * 
+ * @param {(function(ElementWrapper<HTMLAnchorElement>))} initializeFn
+ * @returns {HTMLAnchorElement}
+ */
+export function CustomAnchorElement(initializeFn) {
+  return makeCustomElement(HTMLAnchorElement, initializeFn)
 }
