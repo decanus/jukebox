@@ -5,6 +5,7 @@
 /**
  *
  * @param {string} path
+ * @todo: allow passing in the window instance
  */
 export function updatePath (path) {
   if (window.location.pathname === path) {

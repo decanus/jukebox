@@ -7,12 +7,12 @@ export class JukeboxLink extends HTMLAnchorElement {
    * @internal
    */
   createdCallback () {
-    this.addEventListener('click', (e) => {
-      if (e.ctrlKey || e.metaKey) {
+    this.addEventListener('click', (event) => {
+      if (event.ctrlKey || event.metaKey) {
         return
       }
-      
-      e.preventDefault()
+
+      event.preventDefault()
 
       let $app = this.ownerDocument.querySelector('jukebox-app')
       

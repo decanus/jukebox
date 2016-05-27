@@ -4,22 +4,33 @@
 
 import 'babel-polyfill'
 import 'es6-symbol/implement'
-import './_SUPER_SECRET/SECRET'
 
-import { JukeboxApp } from './elements/jukebox-app'
-import { JukeboxLink } from './elements/link/jukebox-link'
-import { PlaylistPlayer } from './elements/playlist-player'
-import { TrackLink } from './elements/link/track-link'
-import { PlayerTitle } from './elements/player-title'
+import Application from './application'
+import { PlayerDelegate } from './players/player-delegate'
+import { Track } from './track/track'
 
-// register custom elements
-document.registerElement('jukebox-app', JukeboxApp)
-document.registerElement('playlist-player', PlaylistPlayer)
+import { createJukeboxApp } from './elements/jukebox-app'
+import { createPlayerTitle } from './elements/player-title'
+import { createPlaylistPlayer } from './elements/playlist-player'
 
-document.registerElement('track-link', TrackLink)
-document.registerElement('jukebox-link', {
-  prototype: JukeboxLink.prototype,
-  'extends': 'a'
+const player = new PlayerDelegate()
+const app = new Application(document, window, player)
+
+app.registerElement('jukebox-app', createJukeboxApp)
+app.registerElement('player-title', createPlayerTitle)
+app.registerElement('playlist-player', createPlaylistPlayer)
+
+window.addEventListener('popstate', () => {
+  app.setRoute(window.location.pathname)
 })
 
-document.registerElement('player-title', PlayerTitle)
+document.addEventListener('DOMContentLoaded', () => {
+  app.setRoute(window.location.pathname)
+})
+
+// todo: remove this after everything is working again
+if (process.env['JUKEBOX_ENV'] !== 'production') {
+  window.app = app
+  window.Track = Track
+}
+

@@ -22,12 +22,15 @@ function createControlElement (doc, icon) {
   return $control
 }
 
-// TODO: rename this and the custom tag to player-controls
-export class PlaylistPlayer extends HTMLElement {
-  /**
-   * @internal
-   */
-  createdCallback () {
+/**
+ *
+ * @param {Application} app
+ * @TODO rename this and the custom tag to player-controls
+ */
+export function createPlaylistPlayer(app) {
+  const PlaylistPlayer = Object.create(HTMLElement.prototype)
+
+  PlaylistPlayer.createdCallback = function () {
     this.classList.add('player-controls')
 
     let playerState = PlayerState.STOPPED
@@ -72,7 +75,7 @@ export class PlaylistPlayer extends HTMLElement {
 
     $position.appendChild($inner)
     $position.appendChild($handle)
-    
+
     let $controls = createElement(this.ownerDocument, 'div', '', {
       'class': 'controls'
     })
@@ -114,7 +117,7 @@ export class PlaylistPlayer extends HTMLElement {
 
     this.appendChild($time)
 
-    
+
 
     let $duration = createElement(this.ownerDocument, 'div', '0:00', {
       'class': 'time'
@@ -127,7 +130,7 @@ export class PlaylistPlayer extends HTMLElement {
     })
 
     this.appendChild($duration)
-    
+
     let $track = createElement(this.ownerDocument, 'div', '', {
       'class': 'track'
     })
