@@ -7,3 +7,4 @@ service php-fpm start
 service redis start
 service mongod start
 service postgresql start
+systemctl start elasticsearch.service
