@@ -45,10 +45,26 @@ namespace Jukebox\Backend\EventHandlers\Push
 
         public function execute()
         {
+            $dataVersion = $this->event->getDataVersion();
+
             $this->client->indices()->create(
-                ['index' => $this->event->getDataVersion()]
+                ['index' => $dataVersion]
             );
-            $this->client->indices()->putMapping([]);
+            
+            $files = $this->fileBackend->scanDirectory($this->mappingsPath, ['*.json']);
+
+            /**
+             * @var $file \SplFileInfo
+             */
+            foreach ($files as $file) {
+                $mapping = json_decode($this->fileBackend->load($file->getRealPath()), true);
+
+                $params['index'] = $dataVersion;
+                $params['type'] = array_keys($mapping)[0];
+                $params['body'] = $mapping;
+
+                $this->client->indices()->putMapping($mapping);
+            }
         }
     }
 }

@@ -2,6 +2,9 @@
 
 namespace Jukebox\Framework\Backends
 {
+
+    use TheSeer\DirectoryScanner\DirectoryScanner;
+
     class FileBackend
     {
         /**
@@ -76,6 +79,16 @@ namespace Jukebox\Framework\Backends
             mkdir($dirName, $chmod, true);
         }
         // @codeCoverageIgnoreEnd
+
+        public function scanDirectory($path, $queries): DirectoryScanner
+        {
+            $scanner = new DirectoryScanner;
+            foreach ($queries as $query) {
+                $scanner->addInclude($query);
+            }
+            return $scanner($path);
+        }
+
 
     }
 }
