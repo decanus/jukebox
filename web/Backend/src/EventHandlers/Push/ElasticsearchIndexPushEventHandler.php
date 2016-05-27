@@ -53,9 +53,7 @@ namespace Jukebox\Backend\EventHandlers\Push
             
             $files = $this->fileBackend->scanDirectory($this->mappingsPath, ['*.json']);
 
-            /**
-             * @var $file \SplFileInfo
-             */
+            /*** @var $file \SplFileInfo */
             foreach ($files as $file) {
                 $mapping = json_decode($this->fileBackend->load($file->getRealPath()), true);
 
