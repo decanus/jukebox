@@ -34,6 +34,15 @@ sudo su - postgres -c "psql -t jukebox -a -w -f /var/www/packages/tables.sql"
 rm /var/lib/pgsql/data/pg_hba.conf
 ln -s /vagrant/conf/postgres.conf /var/lib/pgsql/data/pg_hba.conf
 
+# Elasticsearch
+yum install -y java-1.8.0-openjdk.x86_64
+wget https://download.elasticsearch.org/elasticsearch/release/org/elasticsearch/distribution/rpm/elasticsearch/5.0.0-alpha2/elasticsearch-5.0.0-alpha2.rpm
+rpm -ivh elasticsearch*.rpm
+
+rm -rf /etc/elasticsearch
+ln -s /vagrant/conf/elasticsearch /etc/elasticsearch
+
+systemctl enable elasticsearch.service
 
 sudo ln -s /var/www/packages/configs/dev/api.jukebox.ninja.conf /etc/nginx/conf.d/api.jukebox.ninja.conf
 sudo ln -s /var/www/packages/configs/dev/jukebox.ninja.conf /etc/nginx/conf.d/jukebox.ninja.conf
