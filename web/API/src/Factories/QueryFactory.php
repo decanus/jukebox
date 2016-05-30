@@ -10,7 +10,7 @@ namespace Jukebox\API\Factories
         public function createFetchArtistQuery(): \Jukebox\API\Queries\FetchArtistQuery
         {
             return new \Jukebox\API\Queries\FetchArtistQuery(
-                $this->getMasterFactory()->createPostgreDatabaseBackend()
+                $this->getMasterFactory()->createElasticsearchClient()
             );
         }
 
@@ -24,7 +24,7 @@ namespace Jukebox\API\Factories
         public function createFetchTrackByIdQuery(): \Jukebox\API\Queries\FetchTrackByIdQuery
         {
             return new \Jukebox\API\Queries\FetchTrackByIdQuery(
-                $this->getMasterFactory()->createPostgreDatabaseBackend()
+                $this->getMasterFactory()->createElasticsearchClient()
             );
         }
     }

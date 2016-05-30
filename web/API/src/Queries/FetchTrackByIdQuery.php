@@ -3,23 +3,23 @@
 namespace Jukebox\API\Queries
 {
 
-    use Jukebox\Framework\Backends\PostgreDatabaseBackend;
+    use Elasticsearch\Client;
 
     class FetchTrackByIdQuery
     {
         /**
-         * @var PostgreDatabaseBackend
+         * @var Client
          */
-        private $databaseBackend;
+        private $client;
 
-        public function __construct(PostgreDatabaseBackend $databaseBackend)
+        public function __construct(Client $client)
         {
-            $this->databaseBackend = $databaseBackend;
+            $this->client = $client;
         }
 
         public function execute(string $id)
         {
-            return $this->databaseBackend->fetch('SELECT * FROM tracks WHERE id = :id', [':id' => $id]);
+            return $this->client->get(['index' => '20160530-2130', 'type' => 'tracks', 'id' => $id]);
         }
     }
 }
