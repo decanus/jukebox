@@ -55,5 +55,12 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createPostgreDatabaseBackend()
             );
         }
+
+        public function createFetchTrackGenresQuery(): \Jukebox\Backend\Queries\FetchTrackGenresQuery
+        {
+            return new \Jukebox\Backend\Queries\FetchTrackGenresQuery(
+                $this->getMasterFactory()->createPostgreDatabaseBackend()
+            );
+        }
     }
 }

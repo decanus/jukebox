@@ -80,7 +80,8 @@ namespace Jukebox\Backend\Factories
                 $event,
                 $this->getMasterFactory()->createElasticsearchClient(),
                 $this->getMasterFactory()->createFetchTracksQuery(),
-                $this->getMasterFactory()->createFetchTrackArtistsQuery()
+                $this->getMasterFactory()->createFetchTrackArtistsQuery(),
+                $this->getMasterFactory()->createFetchTrackGenresQuery()
             );
         }
     }

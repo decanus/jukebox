@@ -12,14 +12,31 @@
       "is_live": {"type": "boolean", "index": "not_analyzed"},
       "genres": {
         "properties": {
-          "id": {"type": "string", "index": "not_analyzed"},
-          "name": {"type": "string", "index": "not_analyzed"}
+          "id": {
+            "type": "string",
+            "index": "not_analyzed"
+          },
+          "name": {
+            "type": "string",
+            "index": "not_analyzed"
+          }
         }
       },
       "artists": {
-        "id": {"type": "string", "index": "not_analyzed"},
-        "name": {"type": "string", "index": "not_analyzed"},
-        "role": {"type": "string", "index": "not_analyzed"}
+        "properties": {
+          "id": {
+            "type": "string",
+            "index": "not_analyzed"
+          },
+          "name": {
+            "type": "string",
+            "index": "not_analyzed"
+          },
+          "role": {
+            "type": "string",
+            "index": "not_analyzed"
+          }
+        }
       }
     }
   }
