@@ -73,5 +73,15 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createFetchArtistsQuery()
             );
         }
+
+        public function createTracksToElasticsearchPushEventHandler(\Jukebox\Backend\Events\TracksToElasticsearchPushEvent $event): \Jukebox\Backend\EventHandlers\Push\TracksToElasticsearchPushEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\Push\TracksToElasticsearchPushEventHandler(
+                $event,
+                $this->getMasterFactory()->createElasticsearchClient(),
+                $this->getMasterFactory()->createFetchTracksQuery(),
+                $this->getMasterFactory()->createFetchTrackArtistsQuery()
+            );
+        }
     }
 }

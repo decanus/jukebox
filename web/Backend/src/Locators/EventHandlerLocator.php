@@ -40,6 +40,8 @@ namespace Jukebox\Backend\Locators
                     return $this->factory->createElasticsearchIndexPushEventHandler($event);
                 case 'ArtistsToElasticsearchPush':
                     return $this->factory->createArtistsToElasticsearchPushEventHandler($event);
+                case 'TracksToElasticsearchPush':
+                    return $this->factory->createTracksToElasticsearchPushEventHandler($event);
             }
         }
     }
