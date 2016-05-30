@@ -33,5 +33,10 @@ namespace Jukebox\API\Search
 
             return $this->response['hits']['total'];
         }
+
+        public function getPagination(): array
+        {
+
+        }
     }
 }
