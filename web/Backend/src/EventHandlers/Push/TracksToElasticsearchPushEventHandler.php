@@ -57,6 +57,7 @@ namespace Jukebox\Backend\EventHandlers\Push
             $tracks = $this->fetchTracksQuery->execute();
 
             foreach ($tracks as $track) {
+
                 $artists = $this->fetchTrackArtistsQuery->execute($track['id']);
                 $genres = $this->fetchTrackGenresQuery->execute($track['id']);
                 
