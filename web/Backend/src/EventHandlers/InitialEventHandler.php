@@ -32,8 +32,6 @@ namespace Jukebox\Backend\EventHandlers
             $this->eventQueueWriter->add(new ElasticsearchIndexPushEvent($dataVersion));
             $this->eventQueueWriter->add(new ArtistsToElasticsearchPushEvent($dataVersion));
             $this->eventQueueWriter->add(new TracksToElasticsearchPushEvent($dataVersion));
-
-            // TODO: Implement execute() method.
         }
     }
 }
