@@ -69,7 +69,7 @@ namespace Jukebox\Backend\EventHandlers\Push
                     $params['type'] = array_keys($mapping)[0];
                     $params['body'] = $mapping;
 
-                    $this->client->indices()->putMapping($mapping);
+                    $this->client->indices()->putMapping($params);
                 }
             } catch (\Throwable $e) {
                 $this->getLogger()->emergency($e);

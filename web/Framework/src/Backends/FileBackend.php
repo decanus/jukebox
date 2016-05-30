@@ -4,6 +4,7 @@ namespace Jukebox\Framework\Backends
 {
 
     use TheSeer\DirectoryScanner\DirectoryScanner;
+    use TheSeer\DirectoryScanner\IncludeExcludeFilterIterator;
 
     class FileBackend
     {
@@ -80,7 +81,7 @@ namespace Jukebox\Framework\Backends
         }
         // @codeCoverageIgnoreEnd
 
-        public function scanDirectory($path, $queries): DirectoryScanner
+        public function scanDirectory($path, $queries): IncludeExcludeFilterIterator
         {
             $scanner = new DirectoryScanner;
             foreach ($queries as $query) {
