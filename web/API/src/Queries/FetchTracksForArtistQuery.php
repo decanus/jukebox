@@ -3,18 +3,21 @@
 namespace Jukebox\API\Queries
 {
 
-    use Jukebox\Framework\Backends\PostgreDatabaseBackend;
+    use Elasticsearch\Client;
 
     class FetchTracksForArtistQuery
     {
         /**
-         * @var PostgreDatabaseBackend
+         * @var Client
          */
-        private $databaseBackend;
+        private $client;
 
-        public function __construct(PostgreDatabaseBackend $databaseBackend)
+        /**
+         * @param Client $client
+         */
+        public function __construct(Client $client)
         {
-            $this->databaseBackend = $databaseBackend;
+            $this->client = $client;
         }
 
         /**
@@ -23,13 +26,20 @@ namespace Jukebox\API\Queries
          */
         public function execute(string $artist)
         {
-            return $this->databaseBackend->fetchAll(
-                'SELECT tracks.*
-                  FROM tracks 
-                  LEFT JOIN track_artists ON track_artists.track = tracks.id
-                  WHERE track_artists.artist = :artist GROUP BY tracks.id',
-                [':artist' => $artist]
-            );
+            $params = [
+                'index' => '20160530-2130',
+                'type' => 'tracks',
+                'size' => 5,
+                'body' => [
+                    'query' => [
+                        'bool' => [
+                            'must' => ['match' => ['artists.id' => $artist]]
+                        ]
+                    ]
+                ]
+            ];
+
+            return $this->client->search($params);
         }
     }
 }

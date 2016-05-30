@@ -17,7 +17,7 @@ namespace Jukebox\API\Factories
         public function createFetchTracksForArtistQuery(): \Jukebox\API\Queries\FetchTracksForArtistQuery
         {
             return new \Jukebox\API\Queries\FetchTracksForArtistQuery(
-                $this->getMasterFactory()->createPostgreDatabaseBackend()
+                $this->getMasterFactory()->createElasticsearchClient()
             );
         }
 
