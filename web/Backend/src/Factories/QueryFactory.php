@@ -34,5 +34,12 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createPostgreDatabaseBackend()
             );
         }
+
+        public function createFetchArtistsQuery(): \Jukebox\Backend\Queries\FetchArtistsQuery
+        {
+            return new \Jukebox\Backend\Queries\FetchArtistsQuery(
+                $this->getMasterFactory()->createPostgreDatabaseBackend()
+            );
+        }
     }
 }

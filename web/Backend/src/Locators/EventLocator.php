@@ -24,6 +24,8 @@ namespace Jukebox\Backend\Locators
                     return new \Jukebox\Backend\Events\InitialVevoArtistsVideosImportEvent;
                 case 'ElasticsearchIndexPushEvent':
                     return new \Jukebox\Backend\Events\ElasticsearchIndexPushEvent(new DataVersion($request->getParam('dataVersion')));
+                case 'ArtistsToElasticsearchPush':
+                    return new \Jukebox\Backend\Events\ArtistsToElasticsearchPushEvent(new DataVersion($request->getParam('dataVersion')));
                 default:
                     throw new \InvalidArgumentException('Event "' . $request->getAction() . '" does not exist');
             }

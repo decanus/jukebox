@@ -64,5 +64,14 @@ namespace Jukebox\Backend\Factories
                 __DIR__ . '/../../data/mappings/'
             );
         }
+
+        public function createArtistsToElasticsearchPushEventHandler(\Jukebox\Backend\Events\ArtistsToElasticsearchPushEvent $event): \Jukebox\Backend\EventHandlers\Push\ArtistsToElasticsearchPushEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\Push\ArtistsToElasticsearchPushEventHandler(
+                $event,
+                $this->getMasterFactory()->createElasticsearchClient(),
+                $this->getMasterFactory()->createFetchArtistsQuery()
+            );
+        }
     }
 }
