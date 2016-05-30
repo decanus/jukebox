@@ -5,6 +5,7 @@ namespace Jukebox\Backend\Locators
 
     use Jukebox\Backend\CLI\Request;
     use Jukebox\Framework\Events\EventInterface;
+    use Jukebox\Framework\ValueObjects\DataVersion;
 
     class EventLocator
     {
@@ -21,6 +22,8 @@ namespace Jukebox\Backend\Locators
                     return new \Jukebox\Backend\Events\VevoArtistVideosImportEvent($request->getParam('artist'));
                 case 'InitialVevoArtistsVideosImport':
                     return new \Jukebox\Backend\Events\InitialVevoArtistsVideosImportEvent;
+                case 'ElasticsearchIndexPushEvent':
+                    return new \Jukebox\Backend\Events\ElasticsearchIndexPushEvent(new DataVersion($request->getParam('dataVersion')));
                 default:
                     throw new \InvalidArgumentException('Event "' . $request->getAction() . '" does not exist');
             }

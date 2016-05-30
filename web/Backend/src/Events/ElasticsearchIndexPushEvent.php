@@ -18,7 +18,7 @@ namespace Jukebox\Backend\Events
 
         public function getName(): string
         {
-            // TODO: Implement getName() method.
+            return 'ElasticsearchIndexPush';
         }
         
         public function getDataVersion(): DataVersion

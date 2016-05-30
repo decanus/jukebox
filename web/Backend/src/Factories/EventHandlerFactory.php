@@ -54,5 +54,15 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createEventQueueWriter()
             );
         }
+
+        public function createElasticsearchIndexPushEventHandler(\Jukebox\Backend\Events\ElasticsearchIndexPushEvent $event): \Jukebox\Backend\EventHandlers\Push\ElasticsearchIndexPushEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\Push\ElasticsearchIndexPushEventHandler(
+                $event,
+                $this->getMasterFactory()->createElasticsearchClient(),
+                $this->getMasterFactory()->createFileBackend(),
+                __DIR__ . '/../../data/mappings/'
+            );
+        }
     }
 }
