@@ -5,8 +5,20 @@
 import { PlayerState } from '../players/player-state'
 import { createElement } from '../dom/create-element'
 import { formatSeconds } from '../time/format-seconds'
-import { player } from '../player'
+import { app } from '../app'
 
+/**
+ * 
+ * @type {PlayerDelegate}
+ */
+const player = app.getPlayer()
+
+/**
+ * 
+ * @param {Document} doc
+ * @param {string} icon
+ * @returns {Element}
+ */
 function createControlElement (doc, icon) {
   let $control = createElement(doc, 'div', '', {
     'class': 'control',
@@ -22,75 +34,28 @@ function createControlElement (doc, icon) {
   return $control
 }
 
-/**
- *
- * @param {Application} app
- * @TODO rename this and the custom tag to player-controls
- */
-export function createPlaylistPlayer(app) {
-  const PlaylistPlayer = Object.create(HTMLElement.prototype)
-
-  PlaylistPlayer.createdCallback = function () {
+export class PlaylistPlayer extends HTMLElement {
+  createdCallback() {
     this.classList.add('player-controls')
 
     let playerState = PlayerState.STOPPED
-    
+
+    /**
+     * 
+     * @type {Element}
+     */
     let $position = createElement(this.ownerDocument, 'scrobble-bar')
 
-    player.getTrack().forEach((track) => {
-      //noinspection JSUnresolvedFunction
-      $position.setTotal(track.duration)
-    })
+    player.getTrack().forEach((track) => ($position.total = track.duration))
+    player.getPosition().forEach((value) => ($position.value = value))
 
-    player.getPosition().forEach((value) => $position.setValue(value))
-    
     $position.addEventListener('change', (event) => {
       if (playerState !== PlayerState.PLAYING) {
         return
       }
-      
+
       player.setPosition(event.detail.value)
     })
-    
-    this.appendChild($position)
-
-    /*
-    let $position = createElement(this.ownerDocument, 'div', '', {
-      'class': 'position'
-    })
-
-    $position.addEventListener('click', (e) => {
-      if (playerState !== PlayerState.PLAYING) {
-        return
-      }
-
-      let box = $position.getBoundingClientRect()
-      let position = e.clientX - box.left
-
-      player.setPosition(position / box.width * trackDuration)
-    })
-
-    this.appendChild($position)
-
-    let $inner = createElement(this.ownerDocument, 'div', '', {
-      'class': 'inner'
-    })
-    
-    let $handle = createElement(this.ownerDocument, 'div', '', {
-      'class': 'handle'
-    })
-
-    player.getPosition().forEach((value) => {
-      let pos = (100 / trackDuration * value) + '%'
-
-      $inner.style.width = pos
-      $handle.style.left = pos
-    })
-
-    $position.appendChild($inner)
-    $position.appendChild($handle)
-    
-    */
 
     let $controls = createElement(this.ownerDocument, 'div', '', {
       'class': 'controls'
@@ -186,6 +151,4 @@ export function createPlaylistPlayer(app) {
 
     player.preload()
   }
-  
-  return PlaylistPlayer
 }

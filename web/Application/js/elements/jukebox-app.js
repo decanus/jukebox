@@ -4,7 +4,8 @@
 
 import { resolveRoute } from '../routing/routes'
 import { renderTemplate } from '../templates'
-import { CustomElement } from '../dom/custom-element'
+
+import { app } from '../app'
 
 /**
  *
@@ -26,13 +27,9 @@ function render($element, route) {
     })
 }
 
-/**
- *
- * @param {Application} app
- * @returns {HTMLElement}
- */
-export function createJukeboxApp(app) {
-  return CustomElement(($) => {
-    app.getRoute().forEach((route) => render($.dom, route))
-  })
+export class JukeboxApp extends HTMLElement {
+  createdCallback() {
+    app.getRoute()
+      .forEach((route) => render(this, route))
+  }
 }

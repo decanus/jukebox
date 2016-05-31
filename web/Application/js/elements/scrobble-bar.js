@@ -3,47 +3,35 @@
  */
 
 import { createElement as _createElement } from '../dom/create-element'
-import { Emitter } from '../event/emitter'
 
 /**
  * @todo implement drag & drop
  */
-export class ScrobbleBar {
-  /**
-   * 
-   * @param {HTMLElement} $element
-   */
-  constructor($element) {
+export class ScrobbleBar extends HTMLElement {
+  createdCallback() {
+    this.init()
+    this.initDom()
+    this.updateDom()
+  }
+
+  init() {
     /**
-     * 
-     * @type {Emitter}
-     * @private
-     */
-    this._emitter = new Emitter()
-    
-    /**
-     * 
+     *
      * @type {number}
      * @private
      */
     this._total = 0
 
     /**
-     * 
+     *
      * @type {number}
      * @private
      */
     this._value = 0
-
-    /**
-     * 
-     * @type {HTMLElement}
-     */
-    this.$element = $element
   }
-  
+
   initDom() {
-    const createElement = (...args) => _createElement(this.$element.ownerDocument, ...args)
+    const createElement = (...args) => _createElement(this.ownerDocument, ...args)
 
     this.$bar = createElement('div', '', { 'class': 'scrobble-bar' })
     this.$inner = createElement('div', '', { 'class': 'inner' })
@@ -54,14 +42,14 @@ export class ScrobbleBar {
       const position = event.clientX - box.left
       this._value = position / box.width * this._total
       
-      this._emitter.emit('change', this._value)
+      this.dispatchEvent(new CustomEvent('change', { detail: { value: this._value } }))
       this.updateDom()
     })
 
     this.$bar.appendChild(this.$inner)
     this.$bar.appendChild(this.$handle)
     
-    this.$element.appendChild(this.$bar)
+    this.appendChild(this.$bar)
   }
   
   updateDom() {

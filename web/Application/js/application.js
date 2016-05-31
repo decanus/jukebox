@@ -5,7 +5,7 @@
 import { Emitter } from './event/emitter'
 import { updatePath } from './history/update-path'
 
-export default class Application {
+export class Application {
   /**
    *
    * @param {Document} document
@@ -43,44 +43,9 @@ export default class Application {
   }
 
   /**
-   *
-   * @param {string} tagName
-   * @param {Function} createPrototype
-   */
-  registerElement(tagName, createPrototype) {
-    const Element = createPrototype(this)
-
-    this._document.registerElement(tagName, {
-      prototype: Element
-    })
-  }
-
-  /**
    * 
-   * @param {string} tagName
-   * @param {HTMLElement} proto
+   * @returns {PlayerDelegate}
    */
-  newRegisterElement(tagName, proto) {
-    this._document.registerElement(tagName, {
-      prototype: proto
-    })
-  }
-
-  /**
-   * 
-   * @param {string} extendsTag
-   * @param {string} tagName
-   * @param {Function} createPrototype
-   */
-  extendElement(extendsTag, tagName, createPrototype) {
-    const Element = createPrototype(this)
-
-    this._document.registerElement(tagName, {
-      prototype: Element,
-      'extends': extendsTag
-    })
-  }
-
   getPlayer() {
     return this._player
   }

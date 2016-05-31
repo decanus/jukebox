@@ -3,34 +3,26 @@
  */
 
 import { createElement } from '../dom/create-element'
-import { CustomElement } from '../dom/custom-element'
+import { app } from '../app'
 
-/**
- *
- * @param {Application} app
- */
-export function createPlayerTitle(app) {
-  return CustomElement(($) => {
+export class PlayerTitle extends HTMLElement {
+  createdCallback() {
+    this.classList.add('player-title')
 
-    $.dom.classList.add('player-title')
-
-    let $title = createElement($.document, 'div', '')
+    let $title = createElement(this.ownerDocument, 'div', '')
     $title.classList.add('track')
 
-    let $artist = createElement($.document, 'div', '')
+    let $artist = createElement(this.ownerDocument, 'div', '')
     $artist.classList.add('artist')
 
     app.getPlayer()
       .getTrack()
       .forEach((track) => {
-        console.log(track)
-
         $title.innerText = track.title
         $artist.innerText = track.artist
       })
 
-    $.append($title)
-    $.append($artist)
-    
-  })
+    this.appendChild($title)
+    this.appendChild($artist)
+  }
 }

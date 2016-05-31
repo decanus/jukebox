@@ -5,28 +5,25 @@
 import 'babel-polyfill'
 import 'es6-symbol/implement'
 
-import Application from './application'
-import { PlayerDelegate } from './players/player-delegate'
 import { Track } from './track/track'
-import { CustomElementFactory  } from './factories/custom-element-factory'
-import { CustomElementProtoFactory  } from './factories/custom-element-proto-factory'
+import { app } from './app'
 
-import { createJukeboxApp } from './elements/jukebox-app'
-import { createPlayerTitle } from './elements/player-title'
-import { createPlaylistPlayer } from './elements/playlist-player'
-import { createJukeboxLink } from './elements/link/jukebox-link'
+import { JukeboxApp } from './elements/jukebox-app'
+import { PlayerTitle } from './elements/player-title'
+import { PlaylistPlayer } from './elements/playlist-player'
+import { JukeboxLink } from './elements/link/jukebox-link'
+import { ScrobbleBar } from './elements/scrobble-bar'
+import { TrackLink } from './elements/link/track-link'
 
-const player = new PlayerDelegate()
-const app = new Application(document, window, player)
-
-const customElementFactory = new CustomElementFactory(app)
-const customElementProtoFactory = new CustomElementProtoFactory(customElementFactory)
-
-app.registerElement('jukebox-app', createJukeboxApp)
-app.registerElement('player-title', createPlayerTitle)
-app.registerElement('playlist-player', createPlaylistPlayer)
-app.newRegisterElement('scrobble-bar', customElementProtoFactory.createScrobbleBar())
-app.extendElement('a', 'jukebox-link', createJukeboxLink)
+document.registerElement('jukebox-app', JukeboxApp)
+document.registerElement('player-title', PlayerTitle)
+document.registerElement('playlist-player', PlaylistPlayer)
+document.registerElement('scrobble-bar', ScrobbleBar)
+document.registerElement('track-link', TrackLink)
+document.registerElement('jukebox-link', {
+  'extends': 'a',
+  prototype: JukeboxLink.prototype
+})
 
 window.addEventListener('popstate', () => {
   app.setRoute(window.location.pathname)
@@ -41,13 +38,3 @@ if (process.env['JUKEBOX_ENV'] !== 'production') {
   window.app = app
   window.Track = Track
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-
-  const $scrobbleBar = document.createElement('scrobble-bar')
-
-  document.body.appendChild($scrobbleBar)
-
-  console.log(customElementProtoFactory.unwrap($scrobbleBar))
-
-})
