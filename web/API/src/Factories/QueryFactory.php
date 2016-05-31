@@ -17,14 +17,14 @@ namespace Jukebox\API\Factories
         public function createFetchTracksForArtistQuery(): \Jukebox\API\Queries\FetchTracksForArtistQuery
         {
             return new \Jukebox\API\Queries\FetchTracksForArtistQuery(
-                $this->getMasterFactory()->createElasticsearchClient()
+                $this->getMasterFactory()->createSearchBackend()
             );
         }
 
         public function createFetchTrackByIdQuery(): \Jukebox\API\Queries\FetchTrackByIdQuery
         {
             return new \Jukebox\API\Queries\FetchTrackByIdQuery(
-                $this->getMasterFactory()->createElasticsearchClient()
+                $this->getMasterFactory()->createSearchBackend()
             );
         }
     }

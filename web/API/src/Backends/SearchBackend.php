@@ -35,9 +35,9 @@ namespace Jukebox\API\Backends
             return $this->getDocument('tracks', $id);
         }
 
-        public function search(string $type, array $query): SearchResult
+        public function search(string $type, array $query, $size = 10000): SearchResult
         {
-            return new SearchResult($this->client->search(['index' => $this->dataVersion, 'type' => $type, 'body' => $query]));
+            return new SearchResult($this->client->search(['index' => $this->dataVersion, 'type' => $type, 'body' => $query, 'size' => $size]));
         }
 
         private function getDocument(string $type, string $id): SearchResult

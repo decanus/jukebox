@@ -3,21 +3,18 @@
 namespace Jukebox\API\Queries
 {
 
-    use Elasticsearch\Client;
+    use Jukebox\API\Backends\SearchBackend;
 
     class FetchTracksForArtistQuery
     {
         /**
-         * @var Client
+         * @var SearchBackend
          */
-        private $client;
+        private $searchBackend;
 
-        /**
-         * @param Client $client
-         */
-        public function __construct(Client $client)
+        public function __construct(SearchBackend $searchBackend)
         {
-            $this->client = $client;
+            $this->searchBackend = $searchBackend;
         }
 
         /**
@@ -27,19 +24,14 @@ namespace Jukebox\API\Queries
         public function execute(string $artist)
         {
             $params = [
-                'index' => '20160530-2130',
-                'type' => 'tracks',
-                'size' => 5,
-                'body' => [
-                    'query' => [
-                        'bool' => [
-                            'must' => ['match' => ['artists.id' => $artist]]
-                        ]
+                'query' => [
+                    'bool' => [
+                        'must' => ['match' => ['artists.id' => $artist]]
                     ]
                 ]
             ];
 
-            return $this->client->search($params);
+            return $this->searchBackend->search('tracks', $params)->getResponse();
         }
     }
 }
