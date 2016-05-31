@@ -38,5 +38,10 @@ namespace Jukebox\API\Search
         {
 
         }
+
+        public function getResponse(): array
+        {
+            return $this->response;
+        }
     }
 }

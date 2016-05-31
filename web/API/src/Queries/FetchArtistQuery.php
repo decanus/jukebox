@@ -3,23 +3,23 @@
 namespace Jukebox\API\Queries
 {
 
-    use Elasticsearch\Client;
+    use Jukebox\API\Backends\SearchBackend;
 
     class FetchArtistQuery
     {
         /**
-         * @var Client
+         * @var SearchBackend
          */
-        private $client;
+        private $searchBackend;
 
-        public function __construct(Client $client)
+        public function __construct(SearchBackend $searchBackend)
         {
-            $this->client = $client;
+            $this->searchBackend = $searchBackend;
         }
 
         public function execute(string $id)
         {
-            return $this->client->get(['index' => '20160530-2130', 'type' => 'artists', 'id' => $id]);
+            return $this->searchBackend->getArtist($id)->getResponse();
         }
     }
 }
