@@ -4,15 +4,23 @@
 
 import { Emitter } from '../event/emitter'
 
-class ElementWrapper {
+class CustomElementWrapper {
   /**
-   *
-   * @param {T} dom
    * @template T
+   * @param {T} dom
    * @param {Observable} attributes
    */
   constructor(dom, attributes) {
+    /**
+     *
+     * @type {T}
+     */
     this.dom = dom
+
+    /**
+     *
+     * @type {Observable}
+     */
     this.attributes = attributes
 
     Object.freeze(this)
@@ -35,49 +43,58 @@ class ElementWrapper {
   append(node) {
     return this.dom.appendChild(node)
   }
-}
 
-/**
- * @callback initializeFn
- * @param {ElementWrapper} $
- */
+  /**
+   *
+   * @param {string} eventName
+   * @param {{}} detail
+   */
+  emit(eventName, detail) {
+    this.dom.dispatchEvent(new CustomEvent(eventName, detail))
+  }
+}
 
 /**
  *
  * @template T
  * @param {T} Base
- * @param {(function(ElementWrapper<T>))} initializeFn
+ * @param {(function(CustomElementWrapper<T>))} initFn
+ * @param {Array<String>} exposedMethods
  * @returns {T}
  */
-function makeCustomElement(Base, initializeFn) {
+function makeCustomElement(Base, initFn, exposedMethods) {
   const Element = Object.create(Base.prototype)
   const emitter = new Emitter()
 
   Element.createdCallback = function () {
-    initializeFn(new ElementWrapper(this, emitter.toObservable('attributeChanged')))
+    initFn(new CustomElementWrapper(this, emitter.toObservable('attributeChanged')))
   }
 
   Element.attributeChangedCallback = function (name, oldValue, newValue) {
+    // todo: this is not instance specific
     emitter.emit('attributeChanged', { name, oldValue, newValue })
   }
+  
 
   return Element
 }
 
 /**
  *
- * @param {(function(ElementWrapper<HTMLElement>))} initializeFn
+ * @param {(function(CustomElementWrapper<HTMLElement>))} initializeFn
+ * @param {Array<String>} exposedMethods
  * @returns {HTMLElement}
  */
-export function CustomElement(initializeFn) {
-  return makeCustomElement(HTMLElement, initializeFn)
+export function CustomElement(initializeFn, exposedMethods) {
+  return makeCustomElement(HTMLElement, initializeFn, exposedMethods)
 }
 
 /**
- * 
- * @param {(function(ElementWrapper<HTMLAnchorElement>))} initializeFn
+ *
+ * @param {(function(CustomElementWrapper<HTMLAnchorElement>))} initializeFn
+ * @param {Array<String>} exposedMethods
  * @returns {HTMLAnchorElement}
  */
-export function CustomAnchorElement(initializeFn) {
-  return makeCustomElement(HTMLAnchorElement, initializeFn)
+export function CustomAnchorElement(initializeFn, exposedMethods) {
+  return makeCustomElement(HTMLAnchorElement, initializeFn, exposedMethods)
 }

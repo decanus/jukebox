@@ -34,13 +34,27 @@ export function createPlaylistPlayer(app) {
     this.classList.add('player-controls')
 
     let playerState = PlayerState.STOPPED
-
-    let trackDuration = 0
+    
+    let $position = createElement(this.ownerDocument, 'scrobble-bar')
 
     player.getTrack().forEach((track) => {
-      trackDuration = track.duration
+      //noinspection JSUnresolvedFunction
+      $position.setTotal(track.duration)
     })
 
+    player.getPosition().forEach((value) => $position.setValue(value))
+    
+    $position.addEventListener('change', (event) => {
+      if (playerState !== PlayerState.PLAYING) {
+        return
+      }
+      
+      player.setPosition(event.detail.value)
+    })
+    
+    this.appendChild($position)
+
+    /*
     let $position = createElement(this.ownerDocument, 'div', '', {
       'class': 'position'
     })
@@ -61,7 +75,7 @@ export function createPlaylistPlayer(app) {
     let $inner = createElement(this.ownerDocument, 'div', '', {
       'class': 'inner'
     })
-
+    
     let $handle = createElement(this.ownerDocument, 'div', '', {
       'class': 'handle'
     })
@@ -75,6 +89,8 @@ export function createPlaylistPlayer(app) {
 
     $position.appendChild($inner)
     $position.appendChild($handle)
+    
+    */
 
     let $controls = createElement(this.ownerDocument, 'div', '', {
       'class': 'controls'
@@ -170,4 +186,6 @@ export function createPlaylistPlayer(app) {
 
     player.preload()
   }
+  
+  return PlaylistPlayer
 }

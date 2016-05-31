@@ -1,0 +1,34 @@
+.scrobble-bar {
+  flex-grow: 1;
+  color: #fff;
+  background: linear-gradient(rgba(255,255,255,.08), rgba(255,255,255,.08)) no-repeat center center;
+  background-size: 100% 3px;
+  cursor: pointer;
+  display: flex;
+  align-items: stretch;
+  height: 13px;
+  margin-bottom: 1.5rem;
+
+  > .inner {
+    width: 0;
+    background: linear-gradient(@brand-color, @brand-color) no-repeat center center;
+    background-size: 100% 3px;
+    transition: width 125ms;
+  }
+
+  > .handle {
+    width: 13px;
+    margin: 0 -7.5px;
+    border-radius: 100%;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .39);
+    background-color: @brand-color;
+    pointer-events: none;
+    opacity: 0;
+    transition: all .125s;
+  }
+
+  &:hover > .handle {
+    pointer-events: initial;
+    opacity: 1;
+  }
+}

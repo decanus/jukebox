@@ -57,6 +57,17 @@ export default class Application {
 
   /**
    * 
+   * @param {string} tagName
+   * @param {HTMLElement} proto
+   */
+  newRegisterElement(tagName, proto) {
+    this._document.registerElement(tagName, {
+      prototype: proto
+    })
+  }
+
+  /**
+   * 
    * @param {string} extendsTag
    * @param {string} tagName
    * @param {Function} createPrototype
