@@ -32,6 +32,10 @@ namespace Jukebox\API\Mappers
             $data['id'] = (int) $object['_id'];
             $data['type'] = $object['_type'];
 
+            if (isset($object['_score'])) {
+                $data['score'] = $object['_score'];
+            }
+
             return $data;
         }
     }

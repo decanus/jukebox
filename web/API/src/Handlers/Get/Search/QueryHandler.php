@@ -30,13 +30,15 @@ namespace Jukebox\API\Handlers\Get\Search
 
             $params = [
                 'query' => [
-                    'match' => [
-                        'title' => $request->getParameter('query')
+                    'multi_match' => [
+                        'query' => $request->getParameter('query'),
+                        'fields' => ['name', 'title'],
+                        'type' => 'phrase_prefix'
                     ]
                 ]
             ];
 
-            $model->setData($this->searchBackend->search('tracks', $params));
+            $model->setData($this->searchBackend->search('tracks,artists', $params));
         }
     }
 }
