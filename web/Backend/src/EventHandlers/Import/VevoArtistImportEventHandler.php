@@ -6,7 +6,7 @@ namespace Jukebox\Backend\EventHandlers\Import
     use Jukebox\Backend\Commands\InsertArtistCommand;
     use Jukebox\Backend\EventHandlers\EventHandlerInterface;
     use Jukebox\Backend\Events\VevoArtistImportEvent;
-    use Jukebox\Backend\Queries\FetchArtistByVevoIdQuery;
+    use Jukebox\Backend\Queries\FetchArtistByVevoIdBackendQuery;
     use Jukebox\Backend\Services\Vevo;
     use Jukebox\Framework\Logging\LoggerAware;
     use Jukebox\Framework\Logging\LoggerAwareTrait;
@@ -35,7 +35,7 @@ namespace Jukebox\Backend\EventHandlers\Import
         private $insertArtistCommand;
 
         /**
-         * @var FetchArtistByVevoIdQuery
+         * @var FetchArtistByVevoIdBackendQuery
          */
         private $fetchArtistByVevoIdQuery;
 
@@ -43,7 +43,7 @@ namespace Jukebox\Backend\EventHandlers\Import
             VevoArtistImportEvent $event,
             Vevo $vevo,
             InsertArtistCommand $insertArtistCommand,
-            FetchArtistByVevoIdQuery $fetchArtistByVevoIdQuery
+            FetchArtistByVevoIdBackendQuery $fetchArtistByVevoIdQuery
         )
         {
             $this->event = $event;

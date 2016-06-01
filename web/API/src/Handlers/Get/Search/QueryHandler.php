@@ -3,25 +3,23 @@
 namespace Jukebox\API\Handlers\Get\Search
 {
 
+    use Elasticsearch\Client;
+    use Jukebox\API\Backends\SearchBackend;
     use Jukebox\Framework\Handlers\QueryHandlerInterface;
     use Jukebox\Framework\Http\Request\RequestInterface;
     use Jukebox\Framework\Http\StatusCodes\BadRequest;
     use Jukebox\Framework\Models\AbstractModel;
-    use Jukebox\Search\YoutubeSearch;
 
     class QueryHandler implements QueryHandlerInterface
     {
         /**
-         * @var YoutubeSearch
+         * @var SearchBackend
          */
-        private $search;
+        private $searchBackend;
 
-        /**
-         * @param YoutubeSearch $search
-         */
-        public function __construct(YoutubeSearch $search)
+        public function __construct(SearchBackend $searchBackend)
         {
-            $this->search = $search;
+            $this->searchBackend = $searchBackend;
         }
 
         public function execute(RequestInterface $request, AbstractModel $model)
@@ -32,7 +30,15 @@ namespace Jukebox\API\Handlers\Get\Search
                 return;
             }
 
-            $model->setData($this->search->search($request->getParameter('query')));
+            $params = [
+                'query' => [
+                    'match' => [
+                        'title' => $request->getParameter('query')
+                    ]
+                ]
+            ];
+
+            $model->setData($this->searchBackend->search('tracks', $params));
         }
     }
 }

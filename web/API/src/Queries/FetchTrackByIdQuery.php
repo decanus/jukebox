@@ -3,23 +3,23 @@
 namespace Jukebox\API\Queries
 {
 
-    use Jukebox\Framework\Backends\PostgreDatabaseBackend;
+    use Jukebox\API\Backends\SearchBackend;
 
     class FetchTrackByIdQuery
     {
         /**
-         * @var PostgreDatabaseBackend
+         * @var SearchBackend
          */
-        private $databaseBackend;
+        private $searchBackend;
 
-        public function __construct(PostgreDatabaseBackend $databaseBackend)
+        public function __construct(SearchBackend $searchBackend)
         {
-            $this->databaseBackend = $databaseBackend;
+            $this->searchBackend = $searchBackend;
         }
 
         public function execute(string $id)
         {
-            return $this->databaseBackend->fetch('SELECT * FROM tracks WHERE id = :id', [':id' => $id]);
+            return $this->searchBackend->getTrack($id);
         }
     }
 }
