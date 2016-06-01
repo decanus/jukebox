@@ -91,5 +91,13 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createEventQueueWriter()
             );
         }
+
+        public function createDataVersionPushEventHandler(\Jukebox\Backend\Events\DataVersionPushEvent $event): \Jukebox\Backend\EventHandlers\Push\DataVersionPushEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\Push\DataVersionPushEventHandler(
+                $event,
+                $this->getMasterFactory()->createRedisBackend()
+            );
+        }
     }
 }

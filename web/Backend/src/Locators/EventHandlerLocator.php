@@ -43,7 +43,9 @@ namespace Jukebox\Backend\Locators
                 case 'TracksToElasticsearchPush':
                     return $this->factory->createTracksToElasticsearchPushEventHandler($event);
                 case 'Initial':
-                    return $this->factory->createInitialEventHandler($event);
+                    return $this->factory->createInitialEventHandler();
+                case 'DataVersionPush':
+                    return $this->factory->createDataVersionPushEventHandler($event);
             }
         }
     }
