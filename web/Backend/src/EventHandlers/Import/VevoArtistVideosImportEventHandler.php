@@ -126,6 +126,10 @@ namespace Jukebox\Backend\EventHandlers\Import
             try {
                 $video = $response->getDecodedJsonResponse();
 
+                if (isset($video['categories']) && in_array('Shows and Interviews', $video['categories'])) {
+                    return;
+                }
+
                 if (is_array($this->fetchTrackByVevoIdQuery->execute($video['isrc']))) {
                     return;
                 }
