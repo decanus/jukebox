@@ -2,8 +2,6 @@
 
 namespace Jukebox\API\Handlers\Get\Search
 {
-
-    use Elasticsearch\Client;
     use Jukebox\API\Backends\SearchBackend;
     use Jukebox\Framework\Handlers\QueryHandlerInterface;
     use Jukebox\Framework\Http\Request\RequestInterface;
