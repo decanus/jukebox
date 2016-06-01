@@ -34,6 +34,11 @@ namespace Jukebox\Framework
             unset($this->data[$key]);
         }
 
+        public function isEmpty(): bool
+        {
+            return empty($this->data);
+        }
+
         public function getIterator(): \ArrayIterator
         {
             return new \ArrayIterator($this->data);

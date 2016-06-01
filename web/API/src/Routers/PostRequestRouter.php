@@ -35,8 +35,8 @@ namespace Jukebox\API\Routers
             $uri = $request->getUri();
 
             switch ($uri->getPath()) {
-                case '/v1/auth':
-                    return $this->factory->createAuthorizationController(new ControllerParameterObject($uri));
+                case '/v1/authentication':
+                    return $this->factory->createAuthenticationController(new ControllerParameterObject($uri));
                 case '/v1/register':
                     return $this->factory->createRegistrationController(new ControllerParameterObject($uri));
             }
