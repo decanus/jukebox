@@ -3,7 +3,7 @@
 namespace Jukebox\Backend\Queries
 {
 
-    use Jukebox\Framework\Backends\PostgreDatabaseBackend;
+    use Jukebox\Backend\Backends\PostgreDatabaseBackend;
 
     abstract class AbstractDatabaseBackendQuery
     {

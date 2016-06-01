@@ -84,5 +84,12 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createFetchTrackGenresQuery()
             );
         }
+
+        public function createInitialEventHandler(): \Jukebox\Backend\EventHandlers\InitialEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\InitialEventHandler(
+                $this->getMasterFactory()->createEventQueueWriter()
+            );
+        }
     }
 }

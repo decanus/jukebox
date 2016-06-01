@@ -28,6 +28,8 @@ namespace Jukebox\Backend\Locators
                     return new \Jukebox\Backend\Events\ArtistsToElasticsearchPushEvent(new DataVersion($request->getParam('dataVersion')));
                 case 'TracksToElasticsearchPush':
                     return new \Jukebox\Backend\Events\TracksToElasticsearchPushEvent(new DataVersion($request->getParam('dataVersion')));
+                case 'Initial':
+                    return new \Jukebox\Backend\Events\InitialEvent;
                 default:
                     throw new \InvalidArgumentException('Event "' . $request->getAction() . '" does not exist');
             }
