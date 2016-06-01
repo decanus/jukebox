@@ -85,6 +85,18 @@ export class PlayerDelegate extends Emitter {
   }
 
   /**
+   * 
+   * @param  {Track} track
+   * @returns {Promise}
+   */
+  playTrack(track) {
+    return this
+      .removeAllTracks()
+      .then(() => this.addTrack(track))
+      .then(() => this.play())
+  }
+
+  /**
    *
    * @returns {Promise<void>}
    */
@@ -122,19 +134,17 @@ export class PlayerDelegate extends Emitter {
     let pause = this.pause()
 
     if (index < 0 || index > this._tracks.length - 1) {
-      this.stop()
       return Promise.resolve()
     }
 
     this._current = index
 
     return pause
-    // wait for the api to be ready
+      // wait for the api to be ready
       .then(() => this.currentPlayer.ready())
       .then(() => this.emit('trackUpdate', this._current))
       .then(() => this.emit('playerState', PlayerState.LOADING))
-      // todo: make this non-youtube specific
-      .then(() => this.currentPlayer.playTrack(this.currentTrack.youtubeId))
+      .then(() => this.currentPlayer.playTrack(this.currentTrack))
       // wait for end
       .then(() => {
         let cancelled = false
@@ -151,6 +161,7 @@ export class PlayerDelegate extends Emitter {
               return
             }
 
+            this.emit('playerState', PlayerState.PAUSED)
             this.next()
           })
       })
@@ -184,7 +195,10 @@ export class PlayerDelegate extends Emitter {
     return this.currentPlayer
       .ready()
       .then((player) => player.stop())
-      .then(() => (this._current = null))
+      .then(() => {
+        this._current = null
+        this.emit('playerState', PlayerState.LOADING)
+      })
   }
 
   /**
@@ -231,15 +245,10 @@ export class PlayerDelegate extends Emitter {
 
   /**
    *
-   * @returns {Observable}
+   * @returns {Observable<Track>}
    */
   getTrack () {
     return delegateToCurrentPlayer.call(this, 'getTrack')
-      .map((track) => {
-        track.service = this.currentTrack.service
-
-        return track
-      })
   }
 
   /**

@@ -8,15 +8,14 @@ export class JukeboxLink extends HTMLAnchorElement {
    */
   createdCallback () {
     this.addEventListener('click', (e) => {
+      if (e.ctrlKey || e.metaKey) {
+        return
+      }
+      
       e.preventDefault()
 
       let $app = this.ownerDocument.querySelector('jukebox-app')
       
-      if ($app == null) {
-        window.location = this.pathname
-        return
-      }
-
       $app.route = this.pathname
     })
   }

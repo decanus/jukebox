@@ -3,18 +3,18 @@
 namespace Jukebox\API\Queries
 {
 
-    use Jukebox\Framework\Backends\PostgreDatabaseBackend;
+    use Jukebox\API\Backends\SearchBackend;
 
     class FetchTracksForArtistQuery
     {
         /**
-         * @var PostgreDatabaseBackend
+         * @var SearchBackend
          */
-        private $databaseBackend;
+        private $searchBackend;
 
-        public function __construct(PostgreDatabaseBackend $databaseBackend)
+        public function __construct(SearchBackend $searchBackend)
         {
-            $this->databaseBackend = $databaseBackend;
+            $this->searchBackend = $searchBackend;
         }
 
         /**
@@ -23,13 +23,15 @@ namespace Jukebox\API\Queries
          */
         public function execute(string $artist)
         {
-            return $this->databaseBackend->fetchAll(
-                'SELECT tracks.*
-                  FROM tracks 
-                  LEFT JOIN track_artists ON track_artists.track = tracks.id
-                  WHERE track_artists.artist = :artist GROUP BY tracks.id',
-                [':artist' => $artist]
-            );
+            $params = [
+                'query' => [
+                    'bool' => [
+                        'must' => ['match' => ['artists.id' => $artist]]
+                    ]
+                ]
+            ];
+
+            return $this->searchBackend->search('tracks', $params);
         }
     }
 }

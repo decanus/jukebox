@@ -47,7 +47,7 @@ namespace Jukebox\Backend\Bootstrapper
             $factory = new MasterFactory($this->getConfiguration());
 
             $factory->addFactory(new \Jukebox\Backend\Factories\ApplicationFactory);
-            $factory->addFactory(new \Jukebox\Framework\Factories\BackendFactory);
+            $factory->addFactory(new \Jukebox\Backend\Factories\BackendFactory);
             $factory->addFactory(new \Jukebox\Backend\Factories\EventHandlerFactory);
             $factory->addFactory(new \Jukebox\Backend\Factories\LocatorFactory);
             $factory->addFactory(new \Jukebox\Backend\Factories\WriterFactory);

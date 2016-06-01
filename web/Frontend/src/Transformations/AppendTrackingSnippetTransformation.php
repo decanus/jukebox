@@ -31,7 +31,7 @@ namespace Jukebox\Frontend\Transformations
             }
 
             $tracking = new fDOMDocument;
-            $tracking->loadXML($this->fileBackend->load(__DIR__ . '/../../data/templates/tracking/googleAnalytics.xml'));
+            $tracking->loadXML($this->fileBackend->load('templates://content/tracking/googleAnalytics.xml'));
             $template->queryOne('//html:body')->appendChild($template->importNode($tracking->documentElement, true));
         }
     }

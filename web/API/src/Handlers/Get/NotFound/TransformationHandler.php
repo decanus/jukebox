@@ -13,11 +13,7 @@ namespace Jukebox\API\Handlers\Get\NotFound
         public function execute(AbstractModel $model): string
         {
             $model->setStatusCode(new NotFound);
-
-            return json_encode([
-                'status' => 404,
-                'message' => 'Not found',
-            ]);
+            return '';
         }
     }
 }

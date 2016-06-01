@@ -4,8 +4,6 @@ namespace Jukebox\API\Factories
 {
 
     use Jukebox\Framework\Factories\AbstractFactory;
-    use Jukebox\Framework\ValueObjects\Uri;
-    use Jukebox\Search\YoutubeSearch;
 
     class HandlerFactory extends AbstractFactory
     {
@@ -52,11 +50,7 @@ namespace Jukebox\API\Factories
         public function createSearchQueryHandler(): \Jukebox\API\Handlers\Get\Search\QueryHandler
         {
             return new \Jukebox\API\Handlers\Get\Search\QueryHandler(
-                new YoutubeSearch(
-                    $this->getMasterFactory()->createCurl(),
-                    $this->getMasterFactory()->getConfiguration()->get('youtubeDataApiKey'),
-                    new Uri('https://www.googleapis.com/youtube/v3/search')
-                )
+                $this->getMasterFactory()->createSearchBackend()
             );
         }
         

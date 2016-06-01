@@ -16,5 +16,10 @@ namespace Jukebox\Framework\Factories
         {
             return new \Jukebox\Framework\Curl\RollingCurl;
         }
+
+        public function createElasticsearchClient(): \Elasticsearch\Client
+        {
+            return (new \Elasticsearch\ClientBuilder())->build();
+        }
     }
 }

@@ -5,9 +5,16 @@ namespace Jukebox\Backend
 
     use Jukebox\Backend\Locators\EventHandlerLocator;
     use Jukebox\Backend\Readers\EventQueueReader;
+    use Jukebox\Framework\Logging\LoggerAware;
+    use Jukebox\Framework\Logging\LoggerAwareTrait;
 
-    class Worker
+    class Worker implements LoggerAware
     {
+        /**
+         * @trait
+         */
+        use LoggerAwareTrait;
+
         /**
          * @var EventQueueReader
          */
@@ -55,6 +62,7 @@ namespace Jukebox\Backend
                     $handler->execute();
 
                 } catch (\Throwable $e) {
+                    $this->getLogger()->emergency($e);
                     exit(1);
                 }
             }

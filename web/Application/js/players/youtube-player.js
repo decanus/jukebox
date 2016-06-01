@@ -5,6 +5,7 @@
 import { Emitter } from '../event/emitter'
 import { createObservable } from '../dom/events/create-observable'
 import { getInterval } from '../time/get-interval'
+import { Track } from '../track/track'
 
 /**
  *
@@ -77,20 +78,15 @@ export class YoutubePlayer extends Emitter {
 
   /**
    *
-   * @param {string} trackId
+   * @param {Track} track
    * @returns {Promise}
    */
-  playTrack (trackId) {
-    this._player.loadVideoById(trackId)
+  playTrack (track) {
+    this._player.loadVideoById(track.youtubeId)
 
     return this.play()
       .then(() => {
-        this.emit('track', {
-          duration: this._player.getDuration(),
-          title: this._player.getVideoData().title,
-          artwork: `https://img.youtube.com/vi/${trackId}/mqdefault.jpg`,
-          video: true
-        })
+        this.emit('track', track.withDuration(this._player.getDuration()))
       })
   }
 
@@ -140,7 +136,6 @@ export class YoutubePlayer extends Emitter {
     let stopped = this._getStateChange()
       .filter((e) => e.data !== YT.PlayerState.PLAYING)
       .once()
-      .then(() => console.log('stopped'))
     
     this._player.stopVideo()
     
@@ -176,19 +171,10 @@ export class YoutubePlayer extends Emitter {
 
   /**
    *
-   * @returns {Observable}
-   */
-  getPause () {
-    return this._getStateChange()
-      .filter((e) => e.data === YT.PlayerState.PAUSED)
-  }
-
-  /**
-   *
    * @returns {Observable<number>}
    */
   getPosition () {
-    return getInterval(1000)
+    return getInterval(100)
       .map(() => this._player.getCurrentTime())
   }
 
