@@ -26,12 +26,6 @@ namespace Jukebox\Backend\EventHandlers
         public function execute()
         {
             $dataVersion = new DataVersion('now');
-
-            // @todo into cron file
-            // $this->eventQueueWriter->add(new InitialVevoArtistsImportEvent);
-            // $this->eventQueueWriter->add(new InitialVevoArtistsVideosImportEvent);
-
-            // @todo this wont work
             $this->eventQueueWriter->add(new ElasticsearchIndexPushEvent($dataVersion));
             $this->eventQueueWriter->add(new ArtistsToElasticsearchPushEvent($dataVersion));
             $this->eventQueueWriter->add(new TracksToElasticsearchPushEvent($dataVersion));
