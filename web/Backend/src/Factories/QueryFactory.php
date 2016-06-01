@@ -7,9 +7,9 @@ namespace Jukebox\Backend\Factories
 
     class QueryFactory extends AbstractFactory
     {
-        public function createFetchArtistByVevoIdQuery(): \Jukebox\Backend\Queries\FetchArtistByVevoIdQuery
+        public function createFetchArtistByVevoIdQuery(): \Jukebox\Backend\Queries\FetchArtistByVevoIdBackendQuery
         {
-            return new \Jukebox\Backend\Queries\FetchArtistByVevoIdQuery(
+            return new \Jukebox\Backend\Queries\FetchArtistByVevoIdBackendQuery(
                 $this->getMasterFactory()->createPostgreDatabaseBackend()
             );
         }
@@ -31,6 +31,34 @@ namespace Jukebox\Backend\Factories
         public function createFetchVevoArtistsQuery(): \Jukebox\Backend\Queries\FetchVevoArtistsQuery
         {
             return new \Jukebox\Backend\Queries\FetchVevoArtistsQuery(
+                $this->getMasterFactory()->createPostgreDatabaseBackend()
+            );
+        }
+
+        public function createFetchArtistsQuery(): \Jukebox\Backend\Queries\FetchArtistsQuery
+        {
+            return new \Jukebox\Backend\Queries\FetchArtistsQuery(
+                $this->getMasterFactory()->createPostgreDatabaseBackend()
+            );
+        }
+
+        public function createFetchTracksQuery(): \Jukebox\Backend\Queries\FetchTracksQuery
+        {
+            return new \Jukebox\Backend\Queries\FetchTracksQuery(
+                $this->getMasterFactory()->createPostgreDatabaseBackend()
+            );
+        }
+
+        public function createFetchTrackArtistsQuery(): \Jukebox\Backend\Queries\FetchTrackArtistsQuery
+        {
+            return new \Jukebox\Backend\Queries\FetchTrackArtistsQuery(
+                $this->getMasterFactory()->createPostgreDatabaseBackend()
+            );
+        }
+
+        public function createFetchTrackGenresQuery(): \Jukebox\Backend\Queries\FetchTrackGenresQuery
+        {
+            return new \Jukebox\Backend\Queries\FetchTrackGenresQuery(
                 $this->getMasterFactory()->createPostgreDatabaseBackend()
             );
         }

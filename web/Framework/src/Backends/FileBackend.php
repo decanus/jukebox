@@ -2,6 +2,10 @@
 
 namespace Jukebox\Framework\Backends
 {
+
+    use TheSeer\DirectoryScanner\DirectoryScanner;
+    use TheSeer\DirectoryScanner\IncludeExcludeFilterIterator;
+
     class FileBackend
     {
         /**
@@ -76,6 +80,16 @@ namespace Jukebox\Framework\Backends
             mkdir($dirName, $chmod, true);
         }
         // @codeCoverageIgnoreEnd
+
+        public function scanDirectory($path, $queries): IncludeExcludeFilterIterator
+        {
+            $scanner = new DirectoryScanner;
+            foreach ($queries as $query) {
+                $scanner->addInclude($query);
+            }
+            return $scanner($path);
+        }
+
 
     }
 }

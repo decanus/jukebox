@@ -3,6 +3,7 @@
 namespace Jukebox\API\Handlers\Get\Artist
 {
 
+    use Elasticsearch\Common\Exceptions\Missing404Exception;
     use Jukebox\API\Queries\FetchArtistQuery;
     use Jukebox\Framework\Handlers\QueryHandlerInterface;
     use Jukebox\Framework\Http\Request\RequestInterface;
@@ -23,18 +24,15 @@ namespace Jukebox\API\Handlers\Get\Artist
         
         public function execute(RequestInterface $request, AbstractModel $model)
         {
-            $artist = $this->fetchArtistQuery->execute($request->getUri()->getExplodedPath()[2]);
-
-            if (is_array($artist)) {
-                $model->setData($artist);
-                return;
+            try {
+                $model->setData($this->fetchArtistQuery->execute($request->getUri()->getExplodedPath()[2]));
+            } catch (Missing404Exception $e) {
+                $model->setStatusCode(new NotFound);
+                $model->setData([
+                    'status' => 404,
+                    'message' => 'Not found',
+                ]);
             }
-
-            $model->setStatusCode(new NotFound);
-            $model->setData([
-                'status' => 404,
-                'message' => 'Not found',
-            ]);
         }
     }
 }

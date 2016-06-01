@@ -9,6 +9,7 @@ namespace Jukebox\API
     use Jukebox\API\ErrorHandlers\ProductionErrorHandler;
     use Jukebox\Framework\Factories\MasterFactory;
     use Jukebox\API\Routers\Router;
+    use Jukebox\Framework\ValueObjects\DataVersion;
 
     class LiveBootstrapper extends AbstractBootstrapper
     {
@@ -24,13 +25,15 @@ namespace Jukebox\API
 
         protected function buildFactory(): MasterFactory
         {
+            $dataVersion = $this->getDataVersion();
+
             $factory = new MasterFactory($this->getConfiguration());
 
             $factory->addFactory(new \Jukebox\API\Factories\RouterFactory);
             $factory->addFactory(new \Jukebox\API\Factories\ControllerFactory);
             $factory->addFactory(new \Jukebox\API\Factories\HandlerFactory);
             $factory->addFactory(new \Jukebox\Framework\Factories\LoggerFactory);
-            $factory->addFactory(new \Jukebox\Framework\Factories\BackendFactory);
+            $factory->addFactory(new \Jukebox\API\Factories\BackendFactory($dataVersion));
             $factory->addFactory(new \Jukebox\API\Factories\ApplicationFactory);
             $factory->addFactory(new \Jukebox\API\Factories\QueryFactory);
 
@@ -66,6 +69,17 @@ namespace Jukebox\API
             }
 
             $errorHandler->register();
+        }
+
+        private function getDataVersion(): DataVersion
+        {
+            $configuration = $this->getConfiguration();
+
+            return new DataVersion((new \Jukebox\Framework\DataPool\RedisBackend(
+                new \Redis,
+                $configuration->get('redisHost'),
+                $configuration->get('redisPort')
+            ))->get('currentDataVersion'));
         }
 
         /**
