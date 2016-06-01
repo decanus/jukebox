@@ -8,17 +8,18 @@ namespace Jukebox\Framework\Backends\Streams
         private $file_handle = null;
         private $dir_handle = null;
 
-        private static $basedir;
+        static $basedir;
+        static $protocol;
 
         public static function setUp($dir)
         {
             static::$basedir = $dir;
-            stream_wrapper_register(static::getProtocol(), get_called_class());
+            stream_wrapper_register(static::$protocol, get_called_class());
         }
 
         public static function tearDown()
         {
-            stream_wrapper_unregister(static::getProtocol());
+            stream_wrapper_unregister(static::$protocol);
         }
 
         public function dir_closedir(): bool
@@ -106,7 +107,7 @@ namespace Jukebox\Framework\Backends\Streams
             return false;
         }
 
-        public function stream_open(string $path, string $mode, int $options, string &$opened_path): bool
+        public function stream_open(string $path, string $mode, int $options, string &$opened_path = null): bool
         {
             $this->file_handle = fopen($this->translate($path), $mode, $options);
             return $this->file_handle !== false;
@@ -162,9 +163,7 @@ namespace Jukebox\Framework\Backends\Streams
 
             return stat($filename);
         }
-
-        abstract protected function getProtocol(): string;
-
+        
         private function translate(string $path): string
         {
             return static::$basedir . '/' . explode('://', $path)[1];
