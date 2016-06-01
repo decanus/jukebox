@@ -4,6 +4,7 @@ namespace Jukebox\API\Backends
 {
 
     use Elasticsearch\Client;
+    use Jukebox\API\Mappers\SearchResultMapper;
     use Jukebox\API\Search\SearchResult;
     use Jukebox\Framework\ValueObjects\DataVersion;
 
@@ -19,30 +20,40 @@ namespace Jukebox\API\Backends
          */
         private $client;
 
-        public function __construct(DataVersion $dataVersion, Client $client)
+        /**
+         * @var SearchResultMapper
+         */
+        private $searchResultMapper;
+
+        public function __construct(
+            DataVersion $dataVersion,
+            Client $client,
+            SearchResultMapper $searchResultMapper
+        )
         {
             $this->dataVersion = $dataVersion;
             $this->client = $client;
+            $this->searchResultMapper = $searchResultMapper;
         }
 
-        public function getArtist(string $id): SearchResult
+        public function getArtist(string $id): array
         {
             return $this->getDocument('artists', $id);
         }
 
-        public function getTrack(string $id): SearchResult
+        public function getTrack(string $id): array
         {
             return $this->getDocument('tracks', $id);
         }
 
-        public function search(string $type, array $query, $size = 10000): SearchResult
+        public function search(string $type, array $query, $size = 10000): array
         {
-            return new SearchResult($this->client->search(['index' => $this->dataVersion, 'type' => $type, 'body' => $query, 'size' => $size]));
+            return $this->searchResultMapper->map(new SearchResult($this->client->search(['index' => $this->dataVersion, 'type' => $type, 'body' => $query, 'size' => $size])));
         }
 
-        private function getDocument(string $type, string $id): SearchResult
+        private function getDocument(string $type, string $id): array
         {
-            return new SearchResult($this->client->get(['index' => $this->dataVersion, 'type' => $type, 'id' => $id]));
+            return $this->searchResultMapper->map(new SearchResult($this->client->get(['index' => $this->dataVersion, 'type' => $type, 'id' => $id])));
         }
     }
 }

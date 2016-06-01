@@ -36,6 +36,7 @@ namespace Jukebox\API
             $factory->addFactory(new \Jukebox\API\Factories\BackendFactory($dataVersion));
             $factory->addFactory(new \Jukebox\API\Factories\ApplicationFactory);
             $factory->addFactory(new \Jukebox\API\Factories\QueryFactory);
+            $factory->addFactory(new \Jukebox\API\Factories\MapperFactory);
 
             return $factory;
         }

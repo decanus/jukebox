@@ -21,7 +21,8 @@ namespace Jukebox\API\Factories
         {
             return new \Jukebox\API\Backends\SearchBackend(
                 $this->dataVersion,
-                $this->getMasterFactory()->createElasticsearchClient()
+                $this->getMasterFactory()->createElasticsearchClient(),
+                $this->getMasterFactory()->createSearchResultMapper()
             );
         }
     }

@@ -43,5 +43,10 @@ namespace Jukebox\API\Search
         {
             return $this->response;
         }
+
+        public function getHits(): array
+        {
+            return $this->response['hits']['hits'];
+        }
     }
 }

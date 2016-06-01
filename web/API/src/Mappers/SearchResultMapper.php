@@ -13,7 +13,16 @@ namespace Jukebox\API\Mappers
                 return $this->normalize($searchResult->getResponse());
             }
 
-            return [];
+            if (!$searchResult->hasHits()) {
+                return [];
+            }
+
+            $result = [];
+            foreach ($searchResult->getHits() as $hit) {
+                $result[] = $this->normalize($hit);
+            }
+
+            return $result;
         }
 
         private function normalize(array $object)
