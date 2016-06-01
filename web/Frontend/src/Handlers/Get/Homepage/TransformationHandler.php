@@ -32,7 +32,7 @@ namespace Jukebox\Frontend\Handlers\Get\Homepage
             $template->queryOne('/html:html/html:head/html:title')->nodeValue = 'Jukebox Ninja';
 
             $content = new fDOMDocument;
-            $content->loadXML($this->fileBackend->load(__DIR__ . '/../../../../data/templates/content/homepage.xml'));
+            $content->loadXML($this->fileBackend->load('templates://content/homepage.xml'));
 
             $main = $template->queryOne('//html:main');
 
