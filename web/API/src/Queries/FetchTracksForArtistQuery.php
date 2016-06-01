@@ -31,7 +31,7 @@ namespace Jukebox\API\Queries
                 ]
             ];
 
-            return $this->searchBackend->search('tracks', $params)->getResponse();
+            return $this->searchBackend->search('tracks', $params);
         }
     }
 }

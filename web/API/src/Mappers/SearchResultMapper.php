@@ -13,6 +13,7 @@ namespace Jukebox\API\Mappers
                 return $this->normalize($searchResult->getResponse());
             }
 
+
             if (!$searchResult->hasHits()) {
                 return [];
             }
@@ -28,7 +29,7 @@ namespace Jukebox\API\Mappers
         private function normalize(array $object)
         {
             $data = $object['_source'];
-            $data['id'] = $object['_id'];
+            $data['id'] = (int) $object['_id'];
             $data['type'] = $object['_type'];
 
             return $data;

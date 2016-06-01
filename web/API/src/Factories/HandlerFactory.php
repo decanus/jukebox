@@ -50,7 +50,7 @@ namespace Jukebox\API\Factories
         public function createSearchQueryHandler(): \Jukebox\API\Handlers\Get\Search\QueryHandler
         {
             return new \Jukebox\API\Handlers\Get\Search\QueryHandler(
-                $this->getMasterFactory()->createElasticsearchClient()
+                $this->getMasterFactory()->createSearchBackend()
             );
         }
         

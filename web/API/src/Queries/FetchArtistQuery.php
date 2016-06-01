@@ -19,7 +19,7 @@ namespace Jukebox\API\Queries
 
         public function execute(string $id)
         {
-            return $this->searchBackend->getArtist($id)->getResponse();
+            return $this->searchBackend->getArtist($id);
         }
     }
 }
