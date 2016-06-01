@@ -32,7 +32,7 @@ namespace Jukebox\Frontend\Handlers\Get\NotFound
             $template->queryOne('/html:html/html:head/html:title')->nodeValue = 'Not Found - Jukebox Ninja';
 
             $content = new fDOMDocument;
-            $content->loadXML($this->fileBackend->load(__DIR__ . '/../../../../data/templates/404.xml'));
+            $content->loadXML($this->fileBackend->load(__DIR__ . '/../../../../data/templates/content/404.xml'));
 
             $main = $template->queryOne('//html:main');
 
