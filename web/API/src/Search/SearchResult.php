@@ -11,7 +11,7 @@ namespace Jukebox\API\Search
             $this->response = $response;
         }
         
-        public function wasFound(): bool
+        public function found(): bool
         {
             if (!isset($this->response['found'])) {
                 return false;
