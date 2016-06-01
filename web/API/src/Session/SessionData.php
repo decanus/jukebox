@@ -22,6 +22,7 @@ namespace Jukebox\API\Session
             if ($this->map->has('account')) {
                 return unserialize($this->getMap()->get('account'));
             }
+
             return new AnonymousAccount;
         }
         
