@@ -31,10 +31,6 @@ namespace Jukebox\API\Handlers\Get\ArtistTracks
             }
 
             $model->setStatusCode(new NotFound);
-            $model->setData([
-                'status' => 404,
-                'message' => 'Not found',
-            ]);
         }
     }
 }

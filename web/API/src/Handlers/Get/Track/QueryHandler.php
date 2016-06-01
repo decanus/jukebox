@@ -28,10 +28,6 @@ namespace Jukebox\API\Handlers\Get\Track
                 $model->setData($this->fetchTrackByIdQuery->execute($request->getUri()->getExplodedPath()[2]));
             } catch (Missing404Exception $e) {
                 $model->setStatusCode(new NotFound);
-                $model->setData([
-                    'status' => 404,
-                    'message' => 'Not found',
-                ]);
             }
         }
     }
