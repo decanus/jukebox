@@ -77,4 +77,13 @@ export class Emitter {
       return () => emitter.off(eventName, handler)
     })
   }
+
+  /**
+   * 
+   * @param {string} eventName
+   * @returns {Observable}
+   */
+  toObservable(eventName) {
+    return Emitter.toObservable(this, eventName)
+  }
 }
