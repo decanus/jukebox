@@ -46,7 +46,11 @@ export class PlaylistPlayer extends HTMLElement {
      */
     let $position = createElement(this.ownerDocument, 'scrobble-bar')
 
-    player.getTrack().forEach((track) => ($position.total = track.duration))
+    player.getTrack().forEach((track) => {
+      $position.reset()
+      $position.total = track.duration
+    })
+    
     player.getPosition().forEach((value) => ($position.value = value))
 
     $position.addEventListener('change', (event) => {
@@ -56,6 +60,8 @@ export class PlaylistPlayer extends HTMLElement {
 
       player.setPosition(event.detail.value)
     })
+    
+    this.appendChild($position)
 
     let $controls = createElement(this.ownerDocument, 'div', '', {
       'class': 'controls'
@@ -117,16 +123,6 @@ export class PlaylistPlayer extends HTMLElement {
     })
 
     this.appendChild($track)
-
-    let $service = createElement(this.ownerDocument, 'div', '', {
-      'class': 'service'
-    })
-
-    player.getTrack().forEach((track) => {
-      $service.innerText = `playing from ${track.service}`
-    })
-
-    $track.appendChild($service)
 
     let $name = createElement(this.ownerDocument, 'div', '', {
       'class': 'name'

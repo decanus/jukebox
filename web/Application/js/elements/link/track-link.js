@@ -18,12 +18,9 @@ export class TrackLink extends HTMLElement {
         promise = player.removeAllTracks()
       }
       
-      console.log('clicked')
-
       promise
         .then(() => fetchTrack(this.trackId))
         .then((track) => {
-          console.log(track)
           player.addTrack(track)
           player.play()
         })

@@ -27,8 +27,14 @@
     transition: all .125s;
   }
 
-  &:hover > .handle {
+  &:hover > .handle,
+  &.-dragging > .handle {
     pointer-events: initial;
     opacity: 1;
+  }
+
+  &.-dragging > .inner,
+  &.-dragging > .handle {
+    transition: none;
   }
 }

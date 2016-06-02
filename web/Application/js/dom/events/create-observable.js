@@ -19,3 +19,23 @@ export function createObservable (element, eventName) {
     return () => element.removeEventListener(eventName, handler, true)
   })
 }
+
+/**
+ *
+ * @param {EventTarget} element
+ * @param {Array<string>} eventNames
+ * @returns {Observable<Event>}
+ */
+export function createMultiObservable(element, eventNames) {
+  return new Observable((observer) => {
+    let handler = (event) => observer.next(event)
+    
+    eventNames.forEach((eventName) => {
+      element.addEventListener(eventName, handler, true)
+    })
+    
+    return () => eventNames.forEach((eventName) => {
+      element.addEventListener(eventName, handler, true)
+    })
+  })
+}
