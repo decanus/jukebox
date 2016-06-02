@@ -1,6 +1,9 @@
 .app-header {
   background-color: @brand-color;
   padding: .625rem 1.5rem;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .18);
+  display: flex;
+  align-items: center;
 
   > .button {
     padding: 1rem;
@@ -17,5 +20,9 @@
   > .button:active,
   > .button.-active {
     background-color: rgba(0, 0, 0, .12);
+  }
+
+  > .logo {
+    margin-left: 2rem;
   }
 }
