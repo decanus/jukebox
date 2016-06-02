@@ -2,6 +2,9 @@
 
 namespace Jukebox\API\Session
 {
+
+    use Jukebox\API\DataObjects\AccountInterface;
+
     class SessionData
     {
 
