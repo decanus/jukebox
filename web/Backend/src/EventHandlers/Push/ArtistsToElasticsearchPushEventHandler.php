@@ -60,6 +60,7 @@ namespace Jukebox\Backend\EventHandlers\Push
                         'facebook' => $artist['facebook'],
                         'itunes' => $artist['itunes'],
                         'amazon' => $artist['amazon'],
+                        'permalink' => $artist['permalink'],
                     ]
                 ];
 

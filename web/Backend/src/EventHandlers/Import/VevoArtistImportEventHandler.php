@@ -124,7 +124,8 @@ namespace Jukebox\Backend\EventHandlers\Import
                     $twitter,
                     $facebook,
                     $itunes,
-                    $amazon
+                    $amazon,
+                    strtolower('/' . $artist['urlSafeName'])
                 );
                 
                 if (!$result) {
