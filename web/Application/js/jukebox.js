@@ -14,12 +14,19 @@ import { PlaylistPlayer } from './elements/playlist-player'
 import { JukeboxLink } from './elements/link/jukebox-link'
 import { ScrobbleBar } from './elements/scrobble-bar'
 import { TrackLink } from './elements/link/track-link'
+import { ToggleSidebar } from './elements/toggle-sidebar'
 
 document.registerElement('jukebox-app', JukeboxApp)
 document.registerElement('player-title', PlayerTitle)
 document.registerElement('playlist-player', PlaylistPlayer)
 document.registerElement('scrobble-bar', ScrobbleBar)
 document.registerElement('track-link', TrackLink)
+
+document.registerElement('toggle-sidebar', {
+  'extends': 'button',
+  prototype: ToggleSidebar.prototype
+})
+
 document.registerElement('jukebox-link', {
   'extends': 'a',
   prototype: JukeboxLink.prototype

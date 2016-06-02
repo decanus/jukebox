@@ -66,4 +66,25 @@ export class Application {
     this._emitter.emit('route', route)
     updatePath(route)
   }
+
+  showSidebar() {
+    this._getAppLayout().classList.add('-sidebar-visible')
+  }
+
+  hideSidebar() {
+    this._getAppLayout().classList.remove('-sidebar-visible')
+  }
+
+  toggleSidebar() {
+    this._getAppLayout().classList.toggle('-sidebar-visible')
+  }
+
+  /**
+   *
+   * @returns {Element}
+   * @private
+   */
+  _getAppLayout() {
+    return this._document.querySelector('.app-layout')
+  }
 }

@@ -5,33 +5,38 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
-    <link rel="icon" href="/images/favicon-152.png" />
+    <link rel="icon" href="/images/favicon-152.png"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300"/>
     <link rel="stylesheet" href="/css/jukebox.css"/>
 
     <meta name="description" content="Jukebox Ninja turns all your music sources into one amazing service."/>
 
-    <title />
+    <title/>
 </head>
-    <body class="page-layout">
+<body class="app-layout">
 
+<div class="header">
+    <header class="app-header">
+        <button class="button" is="toggle-sidebar"><img src="/images/icons/menu.svg" alt="menu"/></button>
+    </header>
+</div>
+
+<div class="columns">
     <aside class="sidebar">
-        <a href="/" class="logo _margin-bottom-20" is="jukebox-link">
-            <img src="/images/logo-white.svg" alt="Jukebox Ninja"/>
-        </a>
-
         <div id="youtube-player-wrap" class="youtube-player _margin-bottom-20">
-            <div id="youtube-player" />
+            <div id="youtube-player"/>
         </div>
 
-        <player-title />
+        <player-title/>
         <playlist-player/>
     </aside>
 
     <main class="content"/>
+</div>
 
-    <script type="application/javascript" src="/js/polyfills.js"></script>
-    <script type="application/javascript" src="/js/jukebox.js"></script>
 
-    </body>
+<script type="application/javascript" src="/js/polyfills.js"></script>
+<script type="application/javascript" src="/js/jukebox.js"></script>
+
+</body>
 </html>
