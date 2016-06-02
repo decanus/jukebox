@@ -8,29 +8,7 @@ import 'es6-symbol/implement'
 import { Track } from './track/track'
 import { app } from './app'
 
-import { JukeboxApp } from './elements/jukebox-app'
-import { PlayerTitle } from './elements/player-title'
-import { PlaylistPlayer } from './elements/playlist-player'
-import { JukeboxLink } from './elements/link/jukebox-link'
-import { ScrobbleBar } from './elements/scrobble-bar'
-import { TrackLink } from './elements/link/track-link'
-import { ToggleSidebar } from './elements/toggle-sidebar'
-
-document.registerElement('jukebox-app', JukeboxApp)
-document.registerElement('player-title', PlayerTitle)
-document.registerElement('playlist-player', PlaylistPlayer)
-document.registerElement('scrobble-bar', ScrobbleBar)
-document.registerElement('track-link', TrackLink)
-
-document.registerElement('toggle-sidebar', {
-  'extends': 'button',
-  prototype: ToggleSidebar.prototype
-})
-
-document.registerElement('jukebox-link', {
-  'extends': 'a',
-  prototype: JukeboxLink.prototype
-})
+import './elements'
 
 window.addEventListener('popstate', () => {
   app.setRoute(window.location.pathname)

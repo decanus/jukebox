@@ -6,6 +6,7 @@ import { PlayerState } from '../players/player-state'
 import { createElement } from '../dom/create-element'
 import { formatSeconds } from '../time/format-seconds'
 import { app } from '../app'
+import { ScrobbleBar } from '../elements'
 
 /**
  * 
@@ -44,14 +45,14 @@ export class PlaylistPlayer extends HTMLElement {
      * 
      * @type {Element}
      */
-    let $position = createElement(this.ownerDocument, 'scrobble-bar')
+    let $position = new ScrobbleBar()
 
     player.getTrack().forEach((track) => {
       $position.reset()
-      $position.total = track.duration
+      $position.setTotal(track.duration)
     })
     
-    player.getPosition().forEach((value) => ($position.value = value))
+    player.getPosition().forEach((value) => ($position.setValue(value)))
 
     $position.addEventListener('change', (event) => {
       if (playerState !== PlayerState.PLAYING) {

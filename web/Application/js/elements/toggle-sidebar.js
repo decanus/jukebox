@@ -6,10 +6,7 @@ import { app } from '../app'
 
 export class ToggleSidebar extends HTMLButtonElement {
   createdCallback() {
-    console.log('created')
-    
     this.addEventListener('click', () => {
-      console.log('toggle')
       app.toggleSidebar()
     })
   }

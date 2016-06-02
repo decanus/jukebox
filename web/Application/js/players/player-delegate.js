@@ -347,4 +347,12 @@ export class PlayerDelegate extends Emitter {
   getVolume() {
     return this.toObservable('volume')
   }
+
+  /**
+   * 
+   * @returns {number}
+   */
+  getCurrentVolume () {
+    return this._volume
+  }
 }
