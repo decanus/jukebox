@@ -17,15 +17,17 @@
 
 <div class="header">
     <header class="app-header">
-        <button class="button" is="toggle-sidebar"><img src="/images/icons/menu.svg" alt="menu"/></button>
-
         <a href="/" is="jukebox-link" class="logo">
             <img src="/images/logo-black.svg" alt="Jukebox Ninja" />
         </a>
+
+        <button class="button" is="toggle-sidebar"><img src="/images/icons/menu.svg" alt="menu"/></button>
     </header>
 </div>
 
 <div class="columns">
+    <main class="content"/>
+
     <aside class="sidebar">
         <div id="youtube-player-wrap" class="youtube-player _margin-bottom-20">
             <div id="youtube-player"/>
@@ -34,8 +36,6 @@
         <player-title/>
         <playlist-player/>
     </aside>
-
-    <main class="content"/>
 </div>
 
 <script type="application/javascript" src="/js/polyfills.js"></script>
