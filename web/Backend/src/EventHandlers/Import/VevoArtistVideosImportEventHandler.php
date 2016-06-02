@@ -142,6 +142,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                 foreach ($video['artists'] as $artist) {
                     if ($artist['role'] === 'Main') {
                         $permalink = preg_replace('/[^A-Za-z0-9 \- \/ ]/', '', strtolower('/' . $artist['urlSafeName'] . '/' . $video['urlSafeTitle']));
+                        $permalink = str_replace(' ', '', $permalink);
                         break;
                     }
                 }
