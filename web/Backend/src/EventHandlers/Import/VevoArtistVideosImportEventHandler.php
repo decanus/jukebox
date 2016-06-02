@@ -8,7 +8,7 @@ namespace Jukebox\Backend\EventHandlers\Import
     use Jukebox\Backend\Commands\InsertTrackGenreCommand;
     use Jukebox\Backend\EventHandlers\EventHandlerInterface;
     use Jukebox\Backend\Events\VevoArtistVideosImportEvent;
-    use Jukebox\Backend\Queries\FetchArtistByVevoIdQuery;
+    use Jukebox\Backend\Queries\FetchArtistByVevoIdBackendQuery;
     use Jukebox\Backend\Queries\FetchGenreByNameQuery;
     use Jukebox\Backend\Queries\FetchTrackByVevoIdQuery;
     use Jukebox\Backend\Services\Vevo;
@@ -36,7 +36,7 @@ namespace Jukebox\Backend\EventHandlers\Import
         private $vevo;
 
         /**
-         * @var FetchArtistByVevoIdQuery
+         * @var FetchArtistByVevoIdBackendQuery
          */
         private $fetchArtistByVevoIdQuery;
 
@@ -75,7 +75,7 @@ namespace Jukebox\Backend\EventHandlers\Import
         public function __construct(
             VevoArtistVideosImportEvent $event,
             Vevo $vevo,
-            FetchArtistByVevoIdQuery $fetchArtistByVevoIdQuery,
+            FetchArtistByVevoIdBackendQuery $fetchArtistByVevoIdQuery,
             InsertTrackCommand $insertTrackCommand,
             InsertTrackArtistCommand $insertTrackArtistsCommand,
             InsertTrackGenreCommand $insertTrackGenreCommand,
@@ -125,6 +125,10 @@ namespace Jukebox\Backend\EventHandlers\Import
 
             try {
                 $video = $response->getDecodedJsonResponse();
+
+                if (isset($video['categories']) && in_array('Shows and Interviews', $video['categories'])) {
+                    return;
+                }
 
                 if (is_array($this->fetchTrackByVevoIdQuery->execute($video['isrc']))) {
                     return;

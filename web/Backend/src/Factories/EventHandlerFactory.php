@@ -54,5 +54,50 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createEventQueueWriter()
             );
         }
+
+        public function createElasticsearchIndexPushEventHandler(\Jukebox\Backend\Events\ElasticsearchIndexPushEvent $event): \Jukebox\Backend\EventHandlers\Push\ElasticsearchIndexPushEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\Push\ElasticsearchIndexPushEventHandler(
+                $event,
+                $this->getMasterFactory()->createElasticsearchClient(),
+                $this->getMasterFactory()->createFileBackend(),
+                __DIR__ . '/../../data/mappings/'
+            );
+        }
+
+        public function createArtistsToElasticsearchPushEventHandler(\Jukebox\Backend\Events\ArtistsToElasticsearchPushEvent $event): \Jukebox\Backend\EventHandlers\Push\ArtistsToElasticsearchPushEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\Push\ArtistsToElasticsearchPushEventHandler(
+                $event,
+                $this->getMasterFactory()->createElasticsearchClient(),
+                $this->getMasterFactory()->createFetchArtistsQuery()
+            );
+        }
+
+        public function createTracksToElasticsearchPushEventHandler(\Jukebox\Backend\Events\TracksToElasticsearchPushEvent $event): \Jukebox\Backend\EventHandlers\Push\TracksToElasticsearchPushEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\Push\TracksToElasticsearchPushEventHandler(
+                $event,
+                $this->getMasterFactory()->createElasticsearchClient(),
+                $this->getMasterFactory()->createFetchTracksQuery(),
+                $this->getMasterFactory()->createFetchTrackArtistsQuery(),
+                $this->getMasterFactory()->createFetchTrackGenresQuery()
+            );
+        }
+
+        public function createInitialEventHandler(): \Jukebox\Backend\EventHandlers\InitialEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\InitialEventHandler(
+                $this->getMasterFactory()->createEventQueueWriter()
+            );
+        }
+
+        public function createDataVersionPushEventHandler(\Jukebox\Backend\Events\DataVersionPushEvent $event): \Jukebox\Backend\EventHandlers\Push\DataVersionPushEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\Push\DataVersionPushEventHandler(
+                $event,
+                $this->getMasterFactory()->createRedisBackend()
+            );
+        }
     }
 }

@@ -10,21 +10,21 @@ namespace Jukebox\API\Factories
         public function createFetchArtistQuery(): \Jukebox\API\Queries\FetchArtistQuery
         {
             return new \Jukebox\API\Queries\FetchArtistQuery(
-                $this->getMasterFactory()->createPostgreDatabaseBackend()
+                $this->getMasterFactory()->createSearchBackend()
             );
         }
 
         public function createFetchTracksForArtistQuery(): \Jukebox\API\Queries\FetchTracksForArtistQuery
         {
             return new \Jukebox\API\Queries\FetchTracksForArtistQuery(
-                $this->getMasterFactory()->createPostgreDatabaseBackend()
+                $this->getMasterFactory()->createSearchBackend()
             );
         }
 
         public function createFetchTrackByIdQuery(): \Jukebox\API\Queries\FetchTrackByIdQuery
         {
             return new \Jukebox\API\Queries\FetchTrackByIdQuery(
-                $this->getMasterFactory()->createPostgreDatabaseBackend()
+                $this->getMasterFactory()->createSearchBackend()
             );
         }
     }

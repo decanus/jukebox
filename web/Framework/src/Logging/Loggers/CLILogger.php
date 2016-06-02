@@ -17,7 +17,7 @@ namespace Jukebox\Framework\Logging\Loggers
 
         public function log(LogInterface $log)
         {
-            echo $log->getMessage();
+            echo $log->getMessage() . PHP_EOL;
         }
     }
 }

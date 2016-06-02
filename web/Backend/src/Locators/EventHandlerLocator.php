@@ -36,6 +36,16 @@ namespace Jukebox\Backend\Locators
                     return $this->factory->createVevoArtistVideosImportEventHandler($event);
                 case 'InitialVevoArtistsVideosImport':
                     return $this->factory->createInitialVevoArtistsVideosImportEventHandler();
+                case 'ElasticsearchIndexPush':
+                    return $this->factory->createElasticsearchIndexPushEventHandler($event);
+                case 'ArtistsToElasticsearchPush':
+                    return $this->factory->createArtistsToElasticsearchPushEventHandler($event);
+                case 'TracksToElasticsearchPush':
+                    return $this->factory->createTracksToElasticsearchPushEventHandler($event);
+                case 'Initial':
+                    return $this->factory->createInitialEventHandler();
+                case 'DataVersionPush':
+                    return $this->factory->createDataVersionPushEventHandler($event);
             }
         }
     }

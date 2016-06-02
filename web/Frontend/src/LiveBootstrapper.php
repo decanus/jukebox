@@ -3,6 +3,7 @@
 namespace Jukebox\Frontend
 {
 
+    use Jukebox\Framework\Backends\Streams\TemplatesStreamWrapper;
     use Jukebox\Framework\Bootstrap\AbstractBootstrapper;
     use Jukebox\Framework\Configuration;
     use Jukebox\Framework\ErrorHandlers\DevelopmentErrorHandler;
@@ -16,7 +17,7 @@ namespace Jukebox\Frontend
 
         protected function doBootstrap()
         {
-            // TODO: Implement doBootstrap() method.
+            $this->registerStreams();
         }
 
         protected function buildFactory(): MasterFactory
@@ -31,6 +32,11 @@ namespace Jukebox\Frontend
             $factory->addFactory(new \Jukebox\Frontend\Factories\TransformationFactory);
 
             return $factory;
+        }
+
+        private function registerStreams()
+        {
+            TemplatesStreamWrapper::setUp(__DIR__ . '/../data/templates');
         }
 
         protected function buildRouter()

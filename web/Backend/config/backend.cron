@@ -2,3 +2,7 @@ SHELL=/bin/bash
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
 MAILTO=root
 HOME=/
+
+0 18 * * * root php /var/www/Backend/writer.php InitialVevoArtistsImport
+0 21 * * * root php /var/www/Backend/writer.php InitialVevoArtistsVideosImport
+0 0 * * * root php /var/www/Backend/writer.php Initial
