@@ -14,11 +14,12 @@ namespace Jukebox\Backend\Commands
             string $twitter = null,
             Uri $facebook = null,
             Uri $itunes = null,
-            Uri $amazon = null
+            Uri $amazon = null,
+            string $permalink
         ): bool
         {
             return $this->getDatabaseBackend()->insert(
-                'INSERT INTO artists (name, vevo_id, official_website, twitter, facebook, itunes, amazon) VALUES (:name, :vevo_id, :official_website, :twitter, :facebook, :itunes, :amazon)',
+                'INSERT INTO artists (name, vevo_id, official_website, twitter, facebook, itunes, amazon, permalink) VALUES (:name, :vevo_id, :official_website, :twitter, :facebook, :itunes, :amazon, :permalink)',
                 [
                     ':name' => $artist,
                     ':vevo_id' => $vevoId,
@@ -26,7 +27,8 @@ namespace Jukebox\Backend\Commands
                     ':twitter' => $twitter,
                     ':facebook' => $facebook,
                     ':itunes' => $itunes,
-                    ':amazon' => $amazon
+                    ':amazon' => $amazon,
+                    ':permalink' => $permalink
                 ]
             );
         }

@@ -71,6 +71,7 @@ namespace Jukebox\Backend\EventHandlers\Push
                         'youtube_id' => $track['youtube_id'],
                         'vevo_id' => $track['vevo_id'],
                         'is_live' => $track['is_live'],
+                        'permalink' => $track['permalink'],
                         'artists' => $artists,
                         'genres' => $genres
                     ]

@@ -137,13 +137,22 @@ namespace Jukebox\Backend\EventHandlers\Import
                 if (!isset($video['youTubeId'])) {
                     return;
                 }
-                
+
+                $permalink = '';
+                foreach ($video['artists'] as $artist) {
+                    if ($artist['role'] === 'Main') {
+                        $permalink = strtolower('/' . $artist['urlSafeName'] . '/' . $video['urlSafeName']);
+                        break;
+                    }
+                }
+
                 $id = $this->insertTrackCommand->execute(
                     $video['duration'] * 1000,
                     $video['title'],
                     $video['youTubeId'],
                     $video['isrc'],
-                    $video['isLive']
+                    $video['isLive'],
+                    $permalink
                 );
 
                 foreach ($video['artists'] as $artist) {
