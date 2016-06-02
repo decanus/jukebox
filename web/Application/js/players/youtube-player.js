@@ -189,6 +189,22 @@ export class YoutubePlayer extends Emitter {
 
   /**
    *
+   * @returns {number}
+   */
+  getVolume () {
+    return this._player.getVolume()
+  }
+
+  /**
+   *
+   * @param {number} volume
+   */
+  setVolume (volume) {
+    this._player.setVolume(volume)
+  }
+
+  /**
+   *
    * @param {number} value
    */
   setPosition (value) {

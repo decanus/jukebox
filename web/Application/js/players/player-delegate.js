@@ -63,6 +63,14 @@ export class PlayerDelegate extends Emitter {
      */
     this._current = null
 
+    /**
+     *
+     * @type {number}
+     * @private
+     * @todo: maybe persist this in the localstorage or idk
+     */
+    this._volume = 100
+
     tracks.forEach((track) => {
       this.addTrack(track)
     })
@@ -144,6 +152,7 @@ export class PlayerDelegate extends Emitter {
       .then(() => this.currentPlayer.ready())
       .then(() => this.emit('trackUpdate', this._current))
       .then(() => this.emit('playerState', PlayerState.LOADING))
+      .then(() => this.currentPlayer.setVolume(this._volume))
       .then(() => this.currentPlayer.playTrack(this.currentTrack))
       // wait for end
       .then(() => {
@@ -319,5 +328,23 @@ export class PlayerDelegate extends Emitter {
   get currentPlayer () {
     //return factory.getPlayer(this.currentTrack.service)
     return this._youtubePlayer
+  }
+
+  /**
+   *
+   * @param {number} volume
+   */
+  setVolume(volume) {
+    this._volume = volume
+    this.currentPlayer.setVolume(this._volume)
+    this.emit('volume', volume)
+  }
+
+  /**
+   *
+   * @returns {Observable<number>}
+   */
+  getVolume() {
+    return this.toObservable('volume')
   }
 }
