@@ -29,6 +29,11 @@ namespace Jukebox\Frontend\Handlers\Get\Track
                 $link->setAttribute('href', $track['permalink']);
                 $link->appendTextNode($track['title']);
 
+                $artist = $recording->appendElement('div');
+                $artist->setAttribute('itemtype', 'http://schema.org/MusicGroup');
+                $artist->setAttribute('itemprop', 'byArtist');
+                $artist->setAttribute('itemscope', '');
+
             } catch (\Throwable $e) {
                 // @todo
             }
