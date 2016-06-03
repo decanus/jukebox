@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="Jukebox" default="build">
+    <target name="phpab" description="Generate autoloader scripts">
+        <parallel>
+            <exec executable="ant">
+                <arg value="-f" />
+                <arg path="${basedir}/API/build.xml" />
+                <arg value="phpab" />
+            </exec>
+            <exec executable="ant">
+                <arg value="-f" />
+                <arg path="${basedir}/Backend/build.xml" />
+                <arg value="phpab" />
+            </exec>
+            <exec executable="ant">
+                <arg value="-f" />
+                <arg path="${basedir}/Framework/build.xml" />
+                <arg value="phpab" />
+            </exec>
+            <exec executable="ant">
+                <arg value="-f" />
+                <arg path="${basedir}/Frontend/build.xml" />
+                <arg value="phpab" />
+            </exec>
+        </parallel>
+    </target>
+</project>
