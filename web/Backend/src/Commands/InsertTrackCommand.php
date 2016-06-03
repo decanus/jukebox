@@ -9,6 +9,7 @@ namespace Jukebox\Backend\Commands
             string $title,
             string $youtubeId = null,
             string $vevoId = null,
+            string $isrc = null,
             bool $isLive = false,
             string $permalink
         ): string
@@ -19,8 +20,16 @@ namespace Jukebox\Backend\Commands
             }
 
             $result = $this->getDatabaseBackend()->insert(
-                'INSERT INTO tracks (duration, title, youtube_id, vevo_id, is_live, permalink) VALUES (:duration, :title, :youtube_id, :vevo_id, :is_live, :permalink)',
-                [':duration' => $duration, ':title' => $title, ':youtube_id' => $youtubeId, ':vevo_id' => $vevoId, ':is_live' => $live, ':permalink' => $permalink]
+                'INSERT INTO tracks (duration, title, youtube_id, vevo_id, isrc, is_live, permalink) VALUES (:duration, :title, :youtube_id, :vevo_id, :isrc, :is_live, :permalink)',
+                [
+                    ':duration' => $duration,
+                    ':title' => $title,
+                    ':youtube_id' => $youtubeId,
+                    ':vevo_id' => $vevoId,
+                    ':isrc' => $isrc,
+                    ':is_live' => $live,
+                    ':permalink' => $permalink
+                ]
             );
             
             if (!$result) {
