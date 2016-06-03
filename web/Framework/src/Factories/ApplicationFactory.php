@@ -2,6 +2,9 @@
 
 namespace Jukebox\Framework\Factories
 {
+
+    use Jukebox\Framework\DataPool\DataPoolKeyGenerator;
+
     class ApplicationFactory extends AbstractFactory
     {
         public function createCurl(): \Jukebox\Framework\Curl\Curl
@@ -20,6 +23,14 @@ namespace Jukebox\Framework\Factories
         public function createElasticsearchClient(): \Elasticsearch\Client
         {
             return (new \Elasticsearch\ClientBuilder())->build();
+        }
+
+        public function createDataPoolWriter(): \Jukebox\Framework\DataPool\DataPoolWriter
+        {
+            return new \Jukebox\Framework\DataPool\DataPoolWriter(
+                new DataPoolKeyGenerator,
+                $this->getMasterFactory()->createRedisBackend()
+            );
         }
     }
 }

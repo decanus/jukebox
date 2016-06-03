@@ -12,5 +12,6 @@ namespace Jukebox\Framework\DataPool
         public function hhas(string $key, string $hashKey): bool;
         public function hset(string $key, string $hashKey, string $value);
         public function hget(string $key, string $hashKey): string;
+        public function hmset(string $key, array $hashKeys);
     }
 }

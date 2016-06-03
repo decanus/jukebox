@@ -53,6 +53,11 @@ namespace Jukebox\Framework\DataPool
             return $this->getBackend()->hset($key, $hashKey, $value);
         }
 
+        protected function hmset(string $key, array $hashKeys)
+        {
+            return $this->getBackend()->hmset($key, $hashKeys);
+        }
+
         protected function hget(string $key, string $hashKey): string
         {
             return $this->getBackend()->hget($key, $hashKey);
@@ -65,7 +70,7 @@ namespace Jukebox\Framework\DataPool
 
         protected function getBackend(): StorageBackendInterface
         {
-            return $this->getBackend();
+            return $this->storageBackend;
         }
 
         protected function getVersion(): DataVersion

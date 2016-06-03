@@ -6,7 +6,7 @@ namespace Jukebox\Framework\DataPool
     {
         public function setTrackIdForPath(string $path, string $id)
         {
-            return $this->hset($this->getVersion(), $this->getKeyGenerator()->generateTrackIdFromPathKey($path), $id);
+            $this->hset((string) $this->getVersion(), $this->getKeyGenerator()->generateTrackIdFromPathKey($path), $id);
         }
     }
 }

@@ -136,5 +136,11 @@ namespace Jukebox\Framework\DataPool
 
             return $result;
         }
+
+        public function hmset(string $key, array $hashKeys)
+        {
+            $this->connect();
+            $this->redis->hMset($key, $hashKeys);
+        }
     }
 }
