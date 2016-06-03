@@ -70,6 +70,7 @@ namespace Jukebox\Backend\EventHandlers\Push
                         'duration' => $track['duration'],
                         'youtube_id' => $track['youtube_id'],
                         'vevo_id' => $track['vevo_id'],
+                        'isrc' => $track['isrc'],
                         'is_live' => $track['is_live'],
                         'permalink' => $track['permalink'],
                         'artists' => $artists,
