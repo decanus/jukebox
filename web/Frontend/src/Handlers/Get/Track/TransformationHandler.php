@@ -34,6 +34,19 @@ namespace Jukebox\Frontend\Handlers\Get\Track
                 $artist->setAttribute('itemprop', 'byArtist');
                 $artist->setAttribute('itemscope', '');
 
+                $duration = $recording->appendElement('meta');
+                $duration->setAttribute('itemprop', 'duration');
+                $duration->setAttribute('content',  'P' . floor($track['duration'] / 1000) . 'S');
+
+                foreach ($track['artists'] as $item) {
+                    if ($item['role'] === 'main') {
+                        $name = $artist->appendElement('meta');
+                        $name->setAttribute('itemprop', 'name');
+                        $name->setAttribute('content', $item['name']);
+                        break;
+                    }
+                }
+
             } catch (\Throwable $e) {
                 // @todo
             }
