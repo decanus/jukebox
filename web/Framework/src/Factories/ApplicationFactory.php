@@ -4,6 +4,7 @@ namespace Jukebox\Framework\Factories
 {
 
     use Jukebox\Framework\DataPool\DataPoolKeyGenerator;
+    use Jukebox\Framework\ValueObjects\Uri;
 
     class ApplicationFactory extends AbstractFactory
     {
@@ -38,6 +39,15 @@ namespace Jukebox\Framework\Factories
             return new \Jukebox\Framework\DataPool\DataPoolReader(
                 new DataPoolKeyGenerator,
                 $this->getMasterFactory()->createRedisBackend()
+            );
+        }
+        
+        public function createJukeboxRestManager(): \Jukebox\Framework\Rest\JukeboxRestManager
+        {
+            return new \Jukebox\Framework\Rest\JukeboxRestManager(
+                $this->getMasterFactory()->createCurl(),
+                new Uri($this->getMasterFactory()->getConfiguration()->get('apiEndpoint')),
+                $this->getMasterFactory()->getConfiguration()->get('apiKey')
             );
         }
     }

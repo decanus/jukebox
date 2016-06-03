@@ -11,8 +11,28 @@ namespace Jukebox\Frontend\Handlers\Get\Track
         protected function doExecute()
         {
             $main = $this->getTemplate()->queryOne('//html:main');
-            $noscript = $main->appendElement('noscript');
-            $noscript->appendElement('div', 'foo');
+
+            try {
+
+                $track = $this->getModel()->getTrack();
+
+                $noscript = $main->appendElement('noscript');
+                $recording = $noscript->appendElement('article');
+                $recording->setAttribute('itemscope', '');
+                $recording->setAttribute('itemtype', 'http://schema.org/MusicRecording');
+
+                $name = $recording->appendElement('h1');
+                $name->setAttribute('itemprop', 'name');
+
+                $link = $name->appendElement('a');
+                $link->setAttribute('itemprop', 'url');
+                $link->setAttribute('href', $track['permalink']);
+                $link->appendTextNode($track['title']);
+
+            } catch (\Throwable $e) {
+                // @todo
+            }
+
         }
     }
 }

@@ -28,10 +28,10 @@ namespace Jukebox\Frontend\Factories
         public function createTrackPageController(ControllerParameterObject $parameterObject): GetController
         {
             return new GetController(
-                new PageModel($parameterObject->getUri()),
+                new \Jukebox\Frontend\Models\TrackPageModel($parameterObject->getUri()),
                 $this->getMasterFactory()->createPreHandler(),
                 $this->getMasterFactory()->createCommandHandler(),
-                $this->getMasterFactory()->createQueryHandler(),
+                $this->getMasterFactory()->createTrackPageQueryHandler(),
                 $this->getMasterFactory()->createTrackPageTransformationHandler(),
                 $this->getMasterFactory()->createResponseHandler(),
                 $this->getMasterFactory()->createPostHandler(),
