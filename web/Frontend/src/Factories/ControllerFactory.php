@@ -32,7 +32,7 @@ namespace Jukebox\Frontend\Factories
                 $this->getMasterFactory()->createPreHandler(),
                 $this->getMasterFactory()->createCommandHandler(),
                 $this->getMasterFactory()->createQueryHandler(),
-                $this->getMasterFactory()->createHomepageTransformationHandler(),
+                $this->getMasterFactory()->createTrackPageTransformationHandler(),
                 $this->getMasterFactory()->createResponseHandler(),
                 $this->getMasterFactory()->createPostHandler(),
                 new HtmlResponse
