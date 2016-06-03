@@ -16,5 +16,10 @@ namespace Jukebox\Frontend\Factories
         {
             return new \Jukebox\Frontend\Routers\ErrorPageRouter($this->getMasterFactory());
         }
+
+        public function createTrackPageRouter(): \Jukebox\Frontend\Routers\TrackPageRouter
+        {
+            return new \Jukebox\Frontend\Routers\TrackPageRouter($this->getMasterFactory(), $this->getMasterFactory()->createDataPoolReader());
+        }
     }
 }

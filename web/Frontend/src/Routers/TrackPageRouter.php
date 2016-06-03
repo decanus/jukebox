@@ -36,7 +36,7 @@ namespace Jukebox\Frontend\Routers
         public function route(RequestInterface $request)
         {
             $uri = $request->getUri();
-
+            
             if (!$this->dataPoolReader->hasTrackIdForPath($uri->getPath())) {
                 return;
             }

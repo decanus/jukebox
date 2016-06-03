@@ -32,5 +32,13 @@ namespace Jukebox\Framework\Factories
                 $this->getMasterFactory()->createRedisBackend()
             );
         }
+
+        public function createDataPoolReader(): \Jukebox\Framework\DataPool\DataPoolReader
+        {
+            return new \Jukebox\Framework\DataPool\DataPoolReader(
+                new DataPoolKeyGenerator,
+                $this->getMasterFactory()->createRedisBackend()
+            );
+        }
     }
 }
