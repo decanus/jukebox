@@ -72,6 +72,7 @@ namespace Jukebox\Backend\EventHandlers\Push
                         'vevo_id' => $track['vevo_id'],
                         'isrc' => $track['isrc'],
                         'is_live' => $track['is_live'],
+                        'is_explicit' => $track['is_explicit'],
                         'permalink' => $track['permalink'],
                         'artists' => $artists,
                         'genres' => $genres

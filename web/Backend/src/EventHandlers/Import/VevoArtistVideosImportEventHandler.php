@@ -154,6 +154,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                     $video['isrc'],
                     $video['isrc'],
                     $video['isLive'],
+                    $video['isExplicit'],
                     $permalink
                 );
 
