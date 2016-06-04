@@ -21,5 +21,10 @@ namespace Jukebox\Frontend\Factories
         {
             return new \Jukebox\Frontend\Routers\TrackPageRouter($this->getMasterFactory(), $this->getMasterFactory()->createDataPoolReader());
         }
+
+        public function createArtistPageRouter(): \Jukebox\Frontend\Routers\ArtistPageRouter
+        {
+            return new \Jukebox\Frontend\Routers\ArtistPageRouter($this->getMasterFactory(), $this->getMasterFactory()->createDataPoolReader());
+        }
     }
 }

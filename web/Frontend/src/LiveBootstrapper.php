@@ -45,6 +45,7 @@ namespace Jukebox\Frontend
             $router = new Router;
 
             $router->addRouter($this->getFactory()->createTrackPageRouter());
+            $router->addRouter($this->getFactory()->createArtistPageRouter());
             $router->addRouter($this->getFactory()->createStaticPageRouter());
             $router->addRouter($this->getFactory()->createErrorPageRouter());
 

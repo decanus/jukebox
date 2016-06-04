@@ -36,6 +36,16 @@ namespace Jukebox\Framework\Rest
             return $this->curl->get($this->buildUri('/v1/tracks/' . $id), ['key' => $this->key]);
         }
 
+        public function getArtistById(string $id): Response
+        {
+            return $this->curl->get($this->buildUri('/v1/artists/' . $id), ['key' => $this->key]);
+        }
+
+        public function getTracksByArtistId(string $id): Response
+        {
+            return $this->curl->get($this->buildUri('/v1/artists/' . $id . '/tracks'), ['key' => $this->key]);
+        }
+
         private function buildUri(string $path): Uri
         {
             return new Uri($this->uri . $path);

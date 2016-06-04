@@ -8,5 +8,10 @@ namespace Jukebox\Framework\DataPool
         {
             $this->hset((string) $this->getVersion(), $this->getKeyGenerator()->generateTrackIdFromPathKey($path), $id);
         }
+
+        public function setArtistIdForPath(string $path, string $id)
+        {
+            $this->hset((string) $this->getVersion(), $this->getKeyGenerator()->generateArtistIdFromPathKey($path), $id);
+        }
     }
 }
