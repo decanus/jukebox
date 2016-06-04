@@ -152,7 +152,9 @@ namespace Jukebox\Backend\EventHandlers\Import
                     $video['title'],
                     $video['youTubeId'],
                     $video['isrc'],
+                    $video['isrc'],
                     $video['isLive'],
+                    $video['isExplicit'],
                     $permalink
                 );
 

@@ -59,7 +59,42 @@ namespace Jukebox\Frontend\Factories
                 $this->getMasterFactory()->createFileBackend()
             );
         }
+
+        public function createTrackPageTransformationHandler(): \Jukebox\Frontend\Handlers\Get\Track\TransformationHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Get\Track\TransformationHandler(
+                $this->getTemplate(),
+                $this->getMasterFactory()->createGenericPageTransformationHandler(),
+                $this->getMasterFactory()->createFileBackend()
+            );
+        }
         
+        public function createTrackPageQueryHandler(): \Jukebox\Frontend\Handlers\Get\Track\QueryHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Get\Track\QueryHandler(
+                $this->getMasterFactory()->createDataPoolReader(),
+                $this->getMasterFactory()->createJukeboxRestManager()
+            );
+        }
+
+        public function createArtistPageQueryHandler(): \Jukebox\Frontend\Handlers\Get\Artist\QueryHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Get\Artist\QueryHandler(
+                $this->getMasterFactory()->createDataPoolReader(),
+                $this->getMasterFactory()->createJukeboxRestManager()
+            );
+        }
+
+        public function createArtistPageTransformationHandler(): \Jukebox\Frontend\Handlers\Get\Artist\TransformationHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Get\Artist\TransformationHandler(
+                $this->getTemplate(),
+                $this->getMasterFactory()->createGenericPageTransformationHandler(),
+                $this->getMasterFactory()->createFileBackend()
+            );
+        }
+
+
         public function createNotFoundTransformationHandler(): \Jukebox\Frontend\Handlers\Get\NotFound\TransformationHandler
         {
             return new \Jukebox\Frontend\Handlers\Get\NotFound\TransformationHandler(

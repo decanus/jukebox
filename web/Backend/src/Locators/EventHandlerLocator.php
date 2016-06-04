@@ -46,6 +46,10 @@ namespace Jukebox\Backend\Locators
                     return $this->factory->createInitialEventHandler();
                 case 'DataVersionPush':
                     return $this->factory->createDataVersionPushEventHandler($event);
+                case 'TrackPathsPush':
+                    return $this->factory->createTrackPathsPushEventHandler();
+                case 'ArtistPathsPush':
+                    return $this->factory->createArtistPathsPushEventHandler();
             }
         }
     }
