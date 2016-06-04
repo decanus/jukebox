@@ -24,6 +24,20 @@ namespace Jukebox\Frontend\Factories
                 new HtmlResponse
             );
         }
+
+        public function createTrackPageController(ControllerParameterObject $parameterObject): GetController
+        {
+            return new GetController(
+                new \Jukebox\Frontend\Models\TrackPageModel($parameterObject->getUri()),
+                $this->getMasterFactory()->createPreHandler(),
+                $this->getMasterFactory()->createCommandHandler(),
+                $this->getMasterFactory()->createTrackPageQueryHandler(),
+                $this->getMasterFactory()->createTrackPageTransformationHandler(),
+                $this->getMasterFactory()->createResponseHandler(),
+                $this->getMasterFactory()->createPostHandler(),
+                new HtmlResponse
+            );
+        }
         
         public function createNotFoundPageController(ControllerParameterObject $parameterObject): GetController
         {

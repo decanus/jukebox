@@ -30,13 +30,6 @@ namespace Jukebox\Frontend\Handlers\Get\Homepage
             $template = $this->getTemplate();
 
             $template->queryOne('/html:html/html:head/html:title')->nodeValue = 'Jukebox Ninja';
-
-            $content = new fDOMDocument;
-            $content->loadXML($this->fileBackend->load('templates://content/homepage.xml'));
-
-            $main = $template->queryOne('//html:main');
-
-            $main->parentNode->replaceChild($template->importNode($content->documentElement, true), $main);
         }
     }
 }
