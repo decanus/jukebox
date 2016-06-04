@@ -10,11 +10,14 @@ namespace Jukebox\Frontend\Handlers\Get\Artist
 
         protected function doExecute()
         {
-            $main = $this->getTemplate()->queryOne('//html:main');
+            $template = $this->getTemplate();
+            $main = $template->queryOne('//html:main');
 
             try {
 
                 $artist = $this->getModel()->getArtist();
+
+                $template->queryOne('/html:html/html:head/html:title')->appendTextNode('Jukebox Ninja - ' . $artist['name']);
 
                 $noscript = $main->appendElement('noscript');
 

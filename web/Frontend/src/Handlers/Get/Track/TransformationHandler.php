@@ -10,11 +10,14 @@ namespace Jukebox\Frontend\Handlers\Get\Track
 
         protected function doExecute()
         {
-            $main = $this->getTemplate()->queryOne('//html:main');
+            $template = $this->getTemplate();
+            $main = $template->queryOne('//html:main');
 
             try {
 
                 $track = $this->getModel()->getTrack();
+
+                $template->queryOne('/html:html/html:head/html:title')->appendTextNode('Jukebox Ninja - ' . $track['title']);
 
                 $noscript = $main->appendElement('noscript');
                 $recording = $noscript->appendElement('article');
