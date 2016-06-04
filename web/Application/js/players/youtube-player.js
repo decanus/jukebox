@@ -79,8 +79,17 @@ export class YoutubePlayer extends Emitter {
 
   /**
    *
+   * @param track
+   */
+  setTrack (track) {
+    this._player.loadVideoById(track.youtubeId)
+  }
+
+  /**
+   *
    * @param {Track} track
    * @returns {Promise}
+   * @deprecated
    */
   playTrack (track) {
     this._player.loadVideoById(track.youtubeId)
@@ -95,6 +104,7 @@ export class YoutubePlayer extends Emitter {
    *
    * @param {string} trackId
    * @returns {Promise}
+   * @deprecated
    */
   preloadTrack (trackId) {
     return this.playTrack(trackId)

@@ -2,11 +2,10 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { Emitter } from '../event/emitter'
 import { removeElement } from '../std/array'
 import { REPEAT_MODE } from './repeat-mode'
 
-class PlayerQueue {
+export class PlayerQueue {
   constructor () {
     /**
      *
@@ -28,13 +27,6 @@ class PlayerQueue {
      * @private
      */
     this._repeatMode = REPEAT_MODE.NONE
-
-    /**
-     *
-     * @type {Emitter}
-     * @private
-     */
-    this._emitter = new Emitter()
   }
 
   /**
@@ -43,6 +35,14 @@ class PlayerQueue {
    */
   setRepeatMode(repeatMode) {
     this._repeatMode = repeatMode
+  }
+
+  /**
+   * 
+   * @returns {number}
+   */
+  getRepeatMode () {
+    return this._repeatMode
   }
 
   /**
@@ -61,6 +61,18 @@ class PlayerQueue {
     this._tracks = removeElement(this._tracks, track)
   }
 
+  empty () {
+    this._tracks = []
+  }
+
+  /**
+   * 
+   * @returns {boolean}
+   */
+  isEmpty () {
+    return this._tracks.length === 0
+  }
+
   /**
    *
    * @param {number} trackId
@@ -72,11 +84,19 @@ class PlayerQueue {
   }
 
   /**
+   * 
+   * @param {number} current
+   */
+  setCurrent (current) {
+    this._current = current
+  }
+
+  /**
    *
    * @returns {Track}
    */
-  get currentTrack () {
-    if (this._current == -1) {
+  getCurrentTrack () {
+    if (!this.hasCurrentTrack()) {
       return null
     }
 
@@ -84,38 +104,53 @@ class PlayerQueue {
   }
 
   /**
-   *
-   * @returns {Observable<Track>}
+   * 
+   * @returns {boolean}
    */
-  getCurrentTrack () {
-    return this._emitter
-      .toObservable('currentTrackUpdate')
-      .map(() => this.currentTrack)
-  }
+  hasCurrentTrack () {
+    return this._current !== -1
+  } 
 
   /**
    * 
    * @returns {Array<Track>}
    */
-  get tracks () {
+  getTracks () {
     return this._tracks
   }
 
   /**
    *
-   * @returns {Observable<Array<Track>>}
+   * @returns {boolean}
    */
-  getTracks () {
-    return this._emitter
-      .toObservable('queueUpdate')
-      .map(() => this._tracks)
+  isLast () {
+    return this._current === this._tracks.length - 1
   }
 
-  next () {
-    // todo
+  /**
+   *
+   * @returns {number}
+   */
+  getNext () {
+    const isLast = this.isLast()
+    const current = this._current
+
+    if (this._repeatMode === REPEAT_MODE.TRACK) {
+      return current
+    }
+
+    if (!isLast) {
+      return current + 1
+    }
+
+    if (this._repeatMode === REPEAT_MODE.QUEUE) {
+      return 0
+    }
+
+    return -1
   }
 
-  prev () {
+  getPrev () {
     // todo
   }
 }

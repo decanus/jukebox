@@ -8,6 +8,6 @@
  */
 export const REPEAT_MODE = {
   NONE: 0,
-  REPEAT_ONCE: 1,
-  REPEAT_FOREVER: 2
+  TRACK: 1,
+  QUEUE: 2
 }
