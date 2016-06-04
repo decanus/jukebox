@@ -6,8 +6,9 @@ namespace Jukebox\API\Factories
     use Jukebox\API\Session\Session;
     use Jukebox\API\Session\SessionDataFactory;
     use Jukebox\API\Session\SessionStore;
+    use Jukebox\Framework\Factories\AbstractFactory;
 
-    class SessionFactory
+    class SessionFactory extends AbstractFactory
     {
         /**
          * @var Session

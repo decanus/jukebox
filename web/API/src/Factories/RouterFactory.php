@@ -11,6 +11,11 @@ namespace Jukebox\API\Factories
         {
             return new \Jukebox\API\Routers\GetRequestRouter($this->getMasterFactory());
         }
+        
+        public function createPostRequestRouter(): \Jukebox\API\Routers\PostRequestRouter
+        {
+            return new \Jukebox\API\Routers\PostRequestRouter($this->getMasterFactory());
+        }
 
         public function createIndexRouter(): \Jukebox\API\Routers\IndexRouter
         {

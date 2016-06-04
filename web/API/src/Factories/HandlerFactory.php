@@ -3,10 +3,21 @@
 namespace Jukebox\API\Factories
 {
 
+    use Jukebox\API\Session\Session;
     use Jukebox\Framework\Factories\AbstractFactory;
 
     class HandlerFactory extends AbstractFactory
     {
+        /**
+         * @var Session
+         */
+        private $session;
+
+        public function __construct(Session $session)
+        {
+            $this->session = $session;
+        }
+
         public function createCommandHandler(): \Jukebox\API\Handlers\CommandHandler
         {
             return new \Jukebox\API\Handlers\CommandHandler;
@@ -74,5 +85,14 @@ namespace Jukebox\API\Factories
                 $this->getMasterFactory()->createFetchTrackByIdQuery()
             );
         }
+
+        public function createAuthenticationCommandHandler(): \Jukebox\API\Handlers\Post\Authentication\CommandHandler
+        {
+            return new \Jukebox\API\Handlers\Post\Authentication\CommandHandler(
+                $this->getMasterFactory()->createAuthenticationCommand(),
+                $this->session->getSessionData()
+            );
+        }
+
     }
 }

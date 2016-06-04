@@ -3,6 +3,7 @@
 namespace Jukebox\API
 {
 
+    use Jukebox\API\Factories\SessionFactory;
     use Jukebox\API\Session\Session;
     use Jukebox\API\Session\SessionStore;
     use Jukebox\Framework\Bootstrap\AbstractBootstrapper;
@@ -40,8 +41,9 @@ namespace Jukebox\API
             $factory = new MasterFactory($this->getConfiguration());
 
             $factory->addFactory(new \Jukebox\API\Factories\RouterFactory);
+            $factory->addFactory(new \Jukebox\API\Factories\CommandFactory);
             $factory->addFactory(new \Jukebox\API\Factories\ControllerFactory);
-            $factory->addFactory(new \Jukebox\API\Factories\HandlerFactory);
+            $factory->addFactory(new \Jukebox\API\Factories\HandlerFactory($this->session));
             $factory->addFactory(new \Jukebox\Framework\Factories\LoggerFactory);
             $factory->addFactory(new \Jukebox\API\Factories\BackendFactory($dataVersion));
             $factory->addFactory(new \Jukebox\API\Factories\ApplicationFactory);
@@ -58,6 +60,7 @@ namespace Jukebox\API
 
             $router->addRouter($this->getFactory()->createIndexRouter());
             $router->addRouter($this->getFactory()->createGetRequestRouter());
+            $router->addRouter($this->getFactory()->createPostRequestRouter());
             $router->addRouter($this->getFactory()->createErrorRouter());
 
             return $router;
