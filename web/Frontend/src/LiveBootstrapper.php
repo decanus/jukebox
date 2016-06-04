@@ -24,6 +24,7 @@ namespace Jukebox\Frontend
         {
             $factory = new MasterFactory($this->getConfiguration());
             
+            $factory->addFactory(new \Jukebox\Framework\Factories\ApplicationFactory);
             $factory->addFactory(new \Jukebox\Framework\Factories\LoggerFactory);
             $factory->addFactory(new \Jukebox\Framework\Factories\BackendFactory);
             $factory->addFactory(new \Jukebox\Frontend\Factories\RouterFactory);
@@ -43,6 +44,8 @@ namespace Jukebox\Frontend
         {
             $router = new Router;
 
+            $router->addRouter($this->getFactory()->createTrackPageRouter());
+            $router->addRouter($this->getFactory()->createArtistPageRouter());
             $router->addRouter($this->getFactory()->createStaticPageRouter());
             $router->addRouter($this->getFactory()->createErrorPageRouter());
 

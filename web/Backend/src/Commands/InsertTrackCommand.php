@@ -9,7 +9,10 @@ namespace Jukebox\Backend\Commands
             string $title,
             string $youtubeId = null,
             string $vevoId = null,
-            bool $isLive = false
+            string $isrc = null,
+            bool $isLive = false,
+            bool $isExplicit = false,
+            string $permalink
         ): string
         {
             $live = 'f';
@@ -17,9 +20,23 @@ namespace Jukebox\Backend\Commands
                 $live = 't';
             }
 
+            $explicit = 'f';
+            if ($isExplicit) {
+                $explicit = 't';
+            }
+
             $result = $this->getDatabaseBackend()->insert(
-                'INSERT INTO tracks (duration, title, youtube_id, vevo_id, is_live) VALUES (:duration, :title, :youtube_id, :vevo_id, :is_live)',
-                [':duration' => $duration, ':title' => $title, ':youtube_id' => $youtubeId, ':vevo_id' => $vevoId, ':is_live' => $live]
+                'INSERT INTO tracks (duration, title, youtube_id, vevo_id, isrc, is_live, is_explicit, permalink) VALUES (:duration, :title, :youtube_id, :vevo_id, :isrc, :is_live, :is_explicit, :permalink)',
+                [
+                    ':duration' => $duration,
+                    ':title' => $title,
+                    ':youtube_id' => $youtubeId,
+                    ':vevo_id' => $vevoId,
+                    ':isrc' => $isrc,
+                    ':is_live' => $live,
+                    ':is_explicit' => $explicit,
+                    ':permalink' => $permalink
+                ]
             );
             
             if (!$result) {

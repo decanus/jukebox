@@ -3,13 +3,10 @@
  */
 
 import { createElement } from '../dom/create-element'
-import { player } from '../player'
+import { app } from '../app'
 
 export class PlayerTitle extends HTMLElement {
-  /**
-   * @internal
-   */
-  createdCallback () {
+  createdCallback() {
     this.classList.add('player-title')
 
     let $title = createElement(this.ownerDocument, 'div', '')
@@ -18,11 +15,13 @@ export class PlayerTitle extends HTMLElement {
     let $artist = createElement(this.ownerDocument, 'div', '')
     $artist.classList.add('artist')
 
-    player.getTrack().forEach((track) => {
-      $title.innerText = track.title
-      $artist.innerText = track.artist
-    })
-    
+    app.getPlayer()
+      .getTrack()
+      .forEach((track) => {
+        $title.innerText = track.title
+        $artist.innerText = track.artist
+      })
+
     this.appendChild($title)
     this.appendChild($artist)
   }

@@ -1,0 +1,25 @@
+.app-header {
+  background-color: #fff;
+  padding: .625rem 1.5rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .18);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  > .button {
+    padding: 1rem;
+    border-radius: 100%;
+    background-color: transparent;
+    transition: background-color .125s;
+    cursor: pointer;
+  }
+
+  > .button:hover {
+    background-color: rgba(0, 0, 0, .05);
+  }
+
+  > .button:active,
+  > .button.-active {
+    background-color: rgba(0, 0, 0, .12);
+  }
+}

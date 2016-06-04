@@ -67,6 +67,7 @@ export class Emitter {
    * @param {string} eventName
    *
    * @returns {Observable}
+   * @deprecated
    */
   static toObservable (emitter, eventName) {
     return new Observable((observer) => {
@@ -76,5 +77,14 @@ export class Emitter {
 
       return () => emitter.off(eventName, handler)
     })
+  }
+
+  /**
+   * 
+   * @param {string} eventName
+   * @returns {Observable}
+   */
+  toObservable(eventName) {
+    return Emitter.toObservable(this, eventName)
   }
 }

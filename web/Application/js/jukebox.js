@@ -4,22 +4,23 @@
 
 import 'babel-polyfill'
 import 'es6-symbol/implement'
-import './_SUPER_SECRET/SECRET'
 
-import { JukeboxApp } from './elements/jukebox-app'
-import { JukeboxLink } from './elements/link/jukebox-link'
-import { PlaylistPlayer } from './elements/playlist-player'
-import { TrackLink } from './elements/link/track-link'
-import { PlayerTitle } from './elements/player-title'
+import { Track } from './track/track'
+import { app } from './app'
 
-// register custom elements
-document.registerElement('jukebox-app', JukeboxApp)
-document.registerElement('playlist-player', PlaylistPlayer)
+import './elements'
 
-document.registerElement('track-link', TrackLink)
-document.registerElement('jukebox-link', {
-  prototype: JukeboxLink.prototype,
-  'extends': 'a'
+window.addEventListener('popstate', () => {
+  app.setRoute(window.location.pathname)
 })
 
-document.registerElement('player-title', PlayerTitle)
+document.addEventListener('DOMContentLoaded', () => {
+  app.setRoute(window.location.pathname)
+})
+
+// todo: remove this after everything is working again
+if (process.env['JUKEBOX_ENV'] !== 'production') {
+  window.app = app
+  window.Track = Track
+  window.player = app.getPlayer()
+}

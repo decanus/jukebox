@@ -30,6 +30,10 @@ namespace Jukebox\Backend\Locators
                     return new \Jukebox\Backend\Events\TracksToElasticsearchPushEvent(new DataVersion($request->getParam('dataVersion')));
                 case 'Initial':
                     return new \Jukebox\Backend\Events\InitialEvent;
+                case 'TrackPathsPush':
+                    return new \Jukebox\Backend\Events\TrackPathsPushEvent;
+                case 'ArtistPathsPush':
+                    return new \Jukebox\Backend\Events\ArtistPathsPushEvent;
                 default:
                     throw new \InvalidArgumentException('Event "' . $request->getAction() . '" does not exist');
             }

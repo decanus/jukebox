@@ -5,7 +5,7 @@ namespace Jukebox\Framework\DataPool
 
     use Jukebox\Framework\Events\EventInterface;
 
-    class RedisBackend
+    class RedisBackend implements StorageBackendInterface
     {
         /**
          * @var \Redis
@@ -117,6 +117,36 @@ namespace Jukebox\Framework\DataPool
             }
 
             $this->redis->connect($this->host, $this->port);
+        }
+
+        public function hhas(string $key, string $hashKey): bool
+        {
+            $this->connect();
+            return $this->redis->hGet($key, $hashKey) !== false;
+        }
+
+        public function hset(string $key, string $hashKey, string $value)
+        {
+            $this->connect();
+            $this->redis->hSet($key, $hashKey, $value);
+        }
+
+        public function hget(string $key, string $hashKey): string
+        {
+            $this->connect();
+            $result = $this->redis->hGet($key, $hashKey);
+
+            if ($result === false) {
+                throw new \Exception('Failed to read key "' . $hashKey . '" in hash "' . $key . '" from Redis');
+            }
+
+            return $result;
+        }
+
+        public function hmset(string $key, array $hashKeys)
+        {
+            $this->connect();
+            $this->redis->hMset($key, $hashKeys);
         }
     }
 }
