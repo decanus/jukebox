@@ -27,7 +27,7 @@ namespace Jukebox\Backend\EventHandlers\Push
 
         public function execute()
         {
-                $tracks = $this->fetchTrackPathsQuery->execute();
+            $tracks = $this->fetchTrackPathsQuery->execute();
 
             foreach ($tracks as $track) {
                 $this->writer->setTrackIdForPath($track['permalink'], $track['id']);

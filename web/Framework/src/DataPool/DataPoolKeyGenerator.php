@@ -8,5 +8,10 @@ namespace Jukebox\Framework\DataPool
         {
             return 'tidfp_' . $path;
         }
+
+        public function generateArtistIdFromPathKey(string $path): string
+        {
+            return 'aidfp_' . $path;
+        }
     }
 }
