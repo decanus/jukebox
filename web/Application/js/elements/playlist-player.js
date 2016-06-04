@@ -47,9 +47,12 @@ export class PlaylistPlayer extends HTMLElement {
      */
     let $position = new ScrobbleBar()
 
-    player.getTrack().forEach((track) => {
+    player.getDuration().forEach((duration) => {
+      $position.setTotal(duration)
+    })
+
+    player.getTrack().forEach(() => {
       $position.reset()
-      $position.setTotal(track.duration)
     })
     
     player.getPosition().forEach((value) => ($position.setValue(value)))

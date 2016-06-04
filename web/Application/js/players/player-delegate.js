@@ -252,6 +252,13 @@ export class PlayerDelegate {
   /**
    * @returns {Observable<number>}
    */
+  getDuration () {
+    return delegateToCurrentPlayer.call(this, 'getDuration')
+  }
+
+  /**
+   * @returns {Observable<number>}
+   */
   getState () {
     const play = delegateToCurrentPlayer.call(this, 'getPlay')
       .map(() => PlayerState.PLAYING)
