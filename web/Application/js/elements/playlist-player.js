@@ -47,9 +47,12 @@ export class PlaylistPlayer extends HTMLElement {
      */
     let $position = new ScrobbleBar()
 
-    player.getTrack().forEach((track) => {
+    player.getDuration().forEach((duration) => {
+      $position.setTotal(duration)
+    })
+
+    player.getTrack().forEach(() => {
       $position.reset()
-      $position.setTotal(track.duration)
     })
     
     player.getPosition().forEach((value) => ($position.setValue(value)))
@@ -93,7 +96,7 @@ export class PlaylistPlayer extends HTMLElement {
     $next.addEventListener('click', () => player.next())
     $next.classList.add('-next')
 
-    let $time = createElement(this.ownerDocument, 'div', '0:00', {
+    /*let $time = createElement(this.ownerDocument, 'div', '0:00', {
       'class': 'time'
     })
 
@@ -117,23 +120,7 @@ export class PlaylistPlayer extends HTMLElement {
       $duration.textContent = `${minutes}:${seconds}`
     })
 
-    this.appendChild($duration)
-
-    let $track = createElement(this.ownerDocument, 'div', '', {
-      'class': 'track'
-    })
-
-    this.appendChild($track)
-
-    let $name = createElement(this.ownerDocument, 'div', '', {
-      'class': 'name'
-    })
-
-    player.getTrack().forEach((track) => {
-      $name.innerText = `${track.title}`
-    })
-
-    $track.appendChild($name)
+    this.appendChild($duration)*/
 
     player.getState().forEach((value) => {
       playerState = value
@@ -145,7 +132,5 @@ export class PlaylistPlayer extends HTMLElement {
 
       $playIcon.src =  '/images/icons/play.svg'
     })
-
-    player.preload()
   }
 }

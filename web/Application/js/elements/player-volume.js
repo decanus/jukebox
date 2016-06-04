@@ -5,10 +5,6 @@
 import { app } from '../app'
 import { ScrobbleBar } from '../elements'
 
-/**
- *
- * @type {PlayerDelegate}
- */
 const player = app.getPlayer()
 
 export class PlayerVolume extends HTMLElement {

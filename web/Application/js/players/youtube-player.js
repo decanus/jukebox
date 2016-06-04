@@ -79,26 +79,10 @@ export class YoutubePlayer extends Emitter {
 
   /**
    *
-   * @param {Track} track
-   * @returns {Promise}
+   * @param track
    */
-  playTrack (track) {
+  setTrack (track) {
     this._player.loadVideoById(track.youtubeId)
-
-    return this.play()
-      .then(() => {
-        this.emit('track', track.withDuration(this._player.getDuration()))
-      })
-  }
-
-  /**
-   *
-   * @param {string} trackId
-   * @returns {Promise}
-   */
-  preloadTrack (trackId) {
-    return this.playTrack(trackId)
-      .then(() => this.pause())
   }
 
   /**
@@ -181,10 +165,10 @@ export class YoutubePlayer extends Emitter {
 
   /**
    *
-   * @returns {Observable}
+   * @returns {Observable<number>}
    */
-  getTrack () {
-    return Emitter.toObservable(this, 'track')
+  getDuration () {
+    return this.getPlay().map(() => this._player.getDuration())
   }
 
   /**

@@ -22,4 +22,5 @@ document.addEventListener('DOMContentLoaded', () => {
 if (process.env['JUKEBOX_ENV'] !== 'production') {
   window.app = app
   window.Track = Track
+  window.player = app.getPlayer()
 }
