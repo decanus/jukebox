@@ -269,4 +269,29 @@ export class PlayerDelegate {
     
     return Observable.merge(play, pause, stop)
   }
+
+  /**
+   * 
+   * @param {number} mode
+   */
+  setRepeatMode (mode) {
+    this._queue.setRepeatMode(mode)
+    this._emitter.emit('repeatModeChange', mode)
+  }
+
+  /**
+   * 
+   * @returns {Observable}
+   */
+  getRepeatMode () {
+    return this._emitter.toObservable('repeatModeChange')
+  }
+
+  /**
+   * 
+   * @returns {number}
+   */
+  getCurrentRepeatMode () {
+    return this._queue.getRepeatMode()
+  }
 }
