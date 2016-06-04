@@ -92,6 +92,14 @@ export class PlayerQueue {
   }
 
   /**
+   * 
+   * @returns {number}
+   */
+  getCurrent () {
+    return this._current
+  }
+
+  /**
    *
    * @returns {Track}
    */

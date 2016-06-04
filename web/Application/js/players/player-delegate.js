@@ -176,6 +176,14 @@ export class PlayerDelegate {
   }
 
   /**
+   * 
+   * @returns {number}
+   */
+  getCurrent () {
+    return this._queue.getCurrent()
+  }
+
+  /**
    *
    * @returns {YoutubePlayer}
    */
@@ -189,6 +197,16 @@ export class PlayerDelegate {
    */
   addTrack (track) {
     this._queue.addTrack(track)
+    this._emitter.emit('queueChange')
+  }
+
+  /**
+   *
+   * @param {Track} track
+   */
+  removeTrack (track) {
+    this._queue.removeTrack(track)
+    this._emitter.emit('queueChange')
   }
 
   /**
@@ -196,7 +214,10 @@ export class PlayerDelegate {
    * @returns {Promise}
    */
   removeAllTracks () {
-    return this.stop().then(() => this._queue.empty())
+    return this.stop().then(() => {
+      this._queue.empty()
+      this._emitter.emit('queueChange')
+    })
   }
 
   /**
@@ -206,6 +227,22 @@ export class PlayerDelegate {
   getTrack () {
     return this._emitter.toObservable('trackChange')
       .map(() => this._queue.getCurrentTrack())
+  }
+
+  /**
+   * 
+   * @returns {Track}
+   */
+  getCurrentTrack () {
+    return this._queue.getCurrentTrack()
+  }
+
+  /**
+   * 
+   * @returns {Array<Track>}
+   */
+  getTracks () {
+    return this._queue.getTracks()
   }
 
   /**
@@ -293,5 +330,13 @@ export class PlayerDelegate {
    */
   getCurrentRepeatMode () {
     return this._queue.getRepeatMode()
+  }
+
+  /**
+   *
+   * @returns {Observable}
+   */
+  getQueueChange () {
+    return this._emitter.toObservable('queueChange')
   }
 }

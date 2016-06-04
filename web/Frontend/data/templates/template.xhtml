@@ -13,7 +13,7 @@
 
     <title/>
 </head>
-<body class="app-layout">
+<body class="app-layout -sidebar-visible">
 
 <div class="header">
     <header class="app-header">
@@ -36,7 +36,12 @@
         <player-title/>
         <playlist-player/>
         <player-volume />
-        <player-repeat-button class="general-button" />
+        <player-repeat-button class="player-repeat-button "/>
+
+        <div class="player-queue">
+            <player-queue class="inner" />
+        </div>
+
     </aside>
 </div>
 

@@ -26,21 +26,24 @@ function getNextMode(current) {
  * @param {number} mode
  * @returns {string}
  */
-function getTextRepresentation (mode) {
+function getIcon (mode) {
   switch(mode) {
     case RepeatMode.TRACK:
-      return 'track'
+      return 'repeat-track'
     case RepeatMode.QUEUE:
-      return 'queue'
+      return 'repeat-colored'
   }
 
-  return 'none'
+  return 'repeat-white'
 }
 
 const player = app.getPlayer()
 
 export class PlayerRepeatButton extends HTMLElement {
   createdCallback() {
+    this.$icon = this.ownerDocument.createElement('img')
+    this.appendChild(this.$icon)
+    
     this.addEventListener('click', () => {
       player.setRepeatMode(getNextMode(player.getCurrentRepeatMode()))
       this.updateDom()
@@ -50,6 +53,6 @@ export class PlayerRepeatButton extends HTMLElement {
   }
 
   updateDom () {
-    this.innerText = getTextRepresentation(player.getCurrentRepeatMode())
+    this.$icon.src = `/images/icons/${getIcon(player.getCurrentRepeatMode())}.svg`
   }
 }
