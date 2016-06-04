@@ -145,7 +145,5 @@ export class PlaylistPlayer extends HTMLElement {
 
       $playIcon.src =  '/images/icons/play.svg'
     })
-
-    player.preload()
   }
 }

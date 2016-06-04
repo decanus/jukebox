@@ -3,7 +3,7 @@
  */
 
 import { removeElement } from '../std/array'
-import { REPEAT_MODE } from './repeat-mode'
+import { RepeatMode } from './repeat-mode'
 
 export class PlayerQueue {
   constructor () {
@@ -26,7 +26,7 @@ export class PlayerQueue {
      * @type {number}
      * @private
      */
-    this._repeatMode = REPEAT_MODE.NONE
+    this._repeatMode = RepeatMode.NONE
   }
 
   /**
@@ -128,14 +128,23 @@ export class PlayerQueue {
   }
 
   /**
+   * 
+   * @returns {boolean}
+   */
+  isFirst () {
+    return this._current === 0
+  }
+
+  /**
    *
+   * @param {boolean} automatic
    * @returns {number}
    */
-  getNext () {
+  getNext (automatic) {
     const isLast = this.isLast()
     const current = this._current
 
-    if (this._repeatMode === REPEAT_MODE.TRACK) {
+    if (this._repeatMode === RepeatMode.TRACK && automatic) {
       return current
     }
 
@@ -143,14 +152,22 @@ export class PlayerQueue {
       return current + 1
     }
 
-    if (this._repeatMode === REPEAT_MODE.QUEUE) {
+    if (this._repeatMode === RepeatMode.QUEUE) {
       return 0
     }
 
     return -1
   }
 
+  /**
+   *
+   * @returns {number}
+   */
   getPrev () {
-    // todo
+    if (this._repeatMode === RepeatMode.QUEUE && this.isFirst()) {
+      return this._tracks.length - 1
+    }
+
+    return this._current - 1
   }
 }
