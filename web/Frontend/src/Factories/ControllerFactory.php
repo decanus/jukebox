@@ -38,6 +38,20 @@ namespace Jukebox\Frontend\Factories
                 new HtmlResponse
             );
         }
+
+        public function createArtistPageController(ControllerParameterObject $parameterObject): GetController
+        {
+            return new GetController(
+                new \Jukebox\Frontend\Models\ArtistPageModel($parameterObject->getUri()),
+                $this->getMasterFactory()->createPreHandler(),
+                $this->getMasterFactory()->createCommandHandler(),
+                $this->getMasterFactory()->createArtistPageQueryHandler(),
+                $this->getMasterFactory()->createArtistPageTransformationHandler(),
+                $this->getMasterFactory()->createResponseHandler(),
+                $this->getMasterFactory()->createPostHandler(),
+                new HtmlResponse
+            );
+        }
         
         public function createNotFoundPageController(ControllerParameterObject $parameterObject): GetController
         {

@@ -91,10 +91,19 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createEventQueueWriter()
             );
         }
+        
         public function createTrackPathsPushEventHandler(): \Jukebox\Backend\EventHandlers\Push\TrackPathsPushEventHandler
         {
             return new \Jukebox\Backend\EventHandlers\Push\TrackPathsPushEventHandler(
                 $this->getMasterFactory()->createFetchTrackPathsQuery(),
+                $this->getMasterFactory()->createDataPoolWriter()
+            );
+        }
+        
+        public function createArtistPathsPushEventHandler(): \Jukebox\Backend\EventHandlers\Push\ArtistPathsPushEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\Push\ArtistPathsPushEventHandler(
+                $this->getMasterFactory()->createFetchArtistPathsQuery(),
                 $this->getMasterFactory()->createDataPoolWriter()
             );
         }
