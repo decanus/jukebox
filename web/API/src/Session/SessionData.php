@@ -3,7 +3,8 @@
 namespace Jukebox\API\Session
 {
 
-    use Jukebox\API\DataObjects\AccountInterface;
+    use Jukebox\API\DataObjects\Accounts\AccountInterface;
+    use Jukebox\API\DataObjects\Accounts\AnonymousAccount;
 
     class SessionData
     {

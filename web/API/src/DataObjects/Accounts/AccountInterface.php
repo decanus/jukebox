@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Jukebox\API\DataObjects
+namespace Jukebox\API\DataObjects\Accounts
 {
     interface AccountInterface
     {
