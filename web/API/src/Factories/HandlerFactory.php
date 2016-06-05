@@ -25,7 +25,7 @@ namespace Jukebox\API\Factories
 
         public function createPostHandler(): \Jukebox\API\Handlers\PostHandler
         {
-            return new \Jukebox\API\Handlers\PostHandler;
+            return new \Jukebox\API\Handlers\PostHandler($this->session);
         }
 
         public function createPreHandler(): \Jukebox\API\Handlers\PreHandler
