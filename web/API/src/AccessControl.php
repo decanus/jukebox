@@ -23,7 +23,6 @@ namespace Jukebox\API
                 return true;
             }
 
-
             if (!$request->hasParameter('key')) {
                 return false;
             }

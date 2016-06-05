@@ -52,6 +52,32 @@ namespace Jukebox\API\Routers
             if (count($path) === 3 && $path[0] === 'v1' && $path[1] === 'tracks' && is_numeric($path[2])) {
                 return $this->factory->createGetTrackController(new ControllerParameterObject($uri));
             }
+
+            $controller = $this->routeAuthenticatedPaths($request);
+            if ($controller === null) {
+                return;
+            }
+
+            return $controller;
+        }
+
+        /**
+         * @param RequestInterface $request
+         *
+         * @return \Jukebox\Framework\Controllers\ControllerInterface
+         */
+        private function routeAuthenticatedPaths(RequestInterface $request)
+        {
+            if (!$request->hasParameter('access_token')) {
+                return;
+            }
+
+            $uri = $request->getUri();
+
+            switch ($uri->getPath()) {
+                case '/v1/me/playlists':
+                    return $this->factory->createGetMyPlaylistsController(new ControllerParameterObject($uri));
+            }
         }
     }
 }
