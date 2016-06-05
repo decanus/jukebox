@@ -3,10 +3,21 @@
 namespace Jukebox\API\Factories
 {
 
+    use Jukebox\API\Session\Session;
     use Jukebox\Framework\Factories\AbstractFactory;
 
     class HandlerFactory extends AbstractFactory
     {
+        /**
+         * @var Session
+         */
+        private $session;
+
+        public function __construct(Session $session)
+        {
+            $this->session = $session;
+        }
+
         public function createCommandHandler(): \Jukebox\API\Handlers\CommandHandler
         {
             return new \Jukebox\API\Handlers\CommandHandler;
@@ -14,7 +25,7 @@ namespace Jukebox\API\Factories
 
         public function createPostHandler(): \Jukebox\API\Handlers\PostHandler
         {
-            return new \Jukebox\API\Handlers\PostHandler;
+            return new \Jukebox\API\Handlers\PostHandler($this->session);
         }
 
         public function createPreHandler(): \Jukebox\API\Handlers\PreHandler
@@ -74,5 +85,28 @@ namespace Jukebox\API\Factories
                 $this->getMasterFactory()->createFetchTrackByIdQuery()
             );
         }
+
+        public function createAuthenticationCommandHandler(): \Jukebox\API\Handlers\Post\Authentication\CommandHandler
+        {
+            return new \Jukebox\API\Handlers\Post\Authentication\CommandHandler(
+                $this->getMasterFactory()->createAuthenticationCommand(),
+                $this->session->getSessionData()
+            );
+        }
+
+        public function createRegistrationCommandHandler(): \Jukebox\API\Handlers\Post\Registration\CommandHandler
+        {
+            return new \Jukebox\API\Handlers\Post\Registration\CommandHandler(
+                $this->getMasterFactory()->createRegistrationCommand()
+            );
+        }
+
+        public function createRegistrationQueryHandler(): \Jukebox\API\Handlers\Post\Registration\QueryHandler
+        {
+            return new \Jukebox\API\Handlers\Post\Registration\QueryHandler(
+                $this->getMasterFactory()->createFetchUserByEmailQuery()
+            );
+        }
+
     }
 }

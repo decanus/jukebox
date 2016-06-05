@@ -3,8 +3,12 @@
 namespace Jukebox\API
 {
 
+    use Jukebox\API\Factories\SessionFactory;
+    use Jukebox\API\Session\Session;
+    use Jukebox\API\Session\SessionStore;
     use Jukebox\Framework\Bootstrap\AbstractBootstrapper;
     use Jukebox\Framework\Configuration;
+    use Jukebox\Framework\DataPool\RedisBackend;
     use Jukebox\Framework\ErrorHandlers\DevelopmentErrorHandler;
     use Jukebox\API\ErrorHandlers\ProductionErrorHandler;
     use Jukebox\Framework\Factories\MasterFactory;
@@ -18,9 +22,16 @@ namespace Jukebox\API
          */
         private $configuration;
 
+        /**
+         * @var Session
+         */
+        private $session;
+
+        private $sessionFactory;
+
         protected function doBootstrap()
         {
-            // TODO: Implement doBootstrap() method.
+            $this->buildSession();
         }
 
         protected function buildFactory(): MasterFactory
@@ -30,13 +41,15 @@ namespace Jukebox\API
             $factory = new MasterFactory($this->getConfiguration());
 
             $factory->addFactory(new \Jukebox\API\Factories\RouterFactory);
+            $factory->addFactory(new \Jukebox\API\Factories\CommandFactory);
             $factory->addFactory(new \Jukebox\API\Factories\ControllerFactory);
-            $factory->addFactory(new \Jukebox\API\Factories\HandlerFactory);
+            $factory->addFactory(new \Jukebox\API\Factories\HandlerFactory($this->session));
             $factory->addFactory(new \Jukebox\Framework\Factories\LoggerFactory);
             $factory->addFactory(new \Jukebox\API\Factories\BackendFactory($dataVersion));
             $factory->addFactory(new \Jukebox\API\Factories\ApplicationFactory);
             $factory->addFactory(new \Jukebox\API\Factories\QueryFactory);
             $factory->addFactory(new \Jukebox\API\Factories\MapperFactory);
+            $factory->addFactory($this->sessionFactory);
 
             return $factory;
         }
@@ -47,6 +60,7 @@ namespace Jukebox\API
 
             $router->addRouter($this->getFactory()->createIndexRouter());
             $router->addRouter($this->getFactory()->createGetRequestRouter());
+            $router->addRouter($this->getFactory()->createPostRequestRouter());
             $router->addRouter($this->getFactory()->createErrorRouter());
 
             return $router;
@@ -70,6 +84,21 @@ namespace Jukebox\API
             }
 
             $errorHandler->register();
+        }
+
+        protected function buildSession()
+        {
+            $sessionStore = new SessionStore(
+                new RedisBackend(
+                    new \Redis(),
+                    $this->getConfiguration()->get('redisHost'),
+                    $this->getConfiguration()->get('redisPort')
+                )
+            );
+
+            $this->sessionFactory = new SessionFactory($sessionStore);
+            $this->session = $this->sessionFactory->createSession();
+            $this->session->load($this->getRequest());
         }
 
         private function getDataVersion(): DataVersion

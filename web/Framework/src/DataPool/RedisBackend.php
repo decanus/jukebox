@@ -104,6 +104,12 @@ namespace Jukebox\Framework\DataPool
             $this->redis->expireAt($key, $timestamp);
         }
 
+        public function expire(string $key, int $ttl): bool
+        {
+            $this->connect();
+            return $this->redis->expire($key, $ttl);
+        }
+
         private function connect()
         {
             if ($this->isConnected) {

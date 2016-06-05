@@ -4,6 +4,7 @@ namespace Jukebox\API\Factories
 {
 
     use Jukebox\Framework\Controllers\GetController;
+    use Jukebox\Framework\Controllers\PostController;
     use Jukebox\Framework\Factories\AbstractFactory;
     use Jukebox\Framework\Http\Response\JsonResponse;
     use Jukebox\Framework\ParamterObjects\ControllerParameterObject;
@@ -87,6 +88,34 @@ namespace Jukebox\API\Factories
                 $this->getMasterFactory()->createPreHandler(),
                 $this->getMasterFactory()->createCommandHandler(),
                 $this->getMasterFactory()->createGetTrackQueryHandler(),
+                $this->getMasterFactory()->createTransformationHandler(),
+                $this->getMasterFactory()->createResponseHandler(),
+                $this->getMasterFactory()->createPostHandler(),
+                new JsonResponse
+            );
+        }
+
+        public function createAuthenticationController(ControllerParameterObject $parameterObject): PostController
+        {
+            return new PostController(
+                new \Jukebox\API\Models\APIModel($parameterObject->getUri()),
+                $this->getMasterFactory()->createPreHandler(),
+                $this->getMasterFactory()->createAuthenticationCommandHandler(),
+                $this->getMasterFactory()->createQueryHandler(),
+                $this->getMasterFactory()->createTransformationHandler(),
+                $this->getMasterFactory()->createResponseHandler(),
+                $this->getMasterFactory()->createPostHandler(),
+                new JsonResponse
+            );
+        }
+
+        public function createRegistrationController(ControllerParameterObject $parameterObject): PostController
+        {
+            return new PostController(
+                new \Jukebox\API\Models\APIModel($parameterObject->getUri()),
+                $this->getMasterFactory()->createPreHandler(),
+                $this->getMasterFactory()->createRegistrationCommandHandler(),
+                $this->getMasterFactory()->createRegistrationQueryHandler(),
                 $this->getMasterFactory()->createTransformationHandler(),
                 $this->getMasterFactory()->createResponseHandler(),
                 $this->getMasterFactory()->createPostHandler(),
