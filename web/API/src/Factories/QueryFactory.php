@@ -27,5 +27,12 @@ namespace Jukebox\API\Factories
                 $this->getMasterFactory()->createSearchBackend()
             );
         }
+
+        public function createFetchUserByEmailQuery(): \Jukebox\API\Queries\FetchUserByEmailQuery
+        {
+            return new \Jukebox\API\Queries\FetchUserByEmailQuery(
+                $this->getMasterFactory()->createMongoDatabaseBackend()
+            );
+        }
     }
 }

@@ -108,5 +108,19 @@ namespace Jukebox\API\Factories
                 new JsonResponse
             );
         }
+
+        public function createRegistrationController(ControllerParameterObject $parameterObject): PostController
+        {
+            return new PostController(
+                new \Jukebox\API\Models\APIModel($parameterObject->getUri()),
+                $this->getMasterFactory()->createPreHandler(),
+                $this->getMasterFactory()->createRegistrationCommandHandler(),
+                $this->getMasterFactory()->createRegistrationQueryHandler(),
+                $this->getMasterFactory()->createTransformationHandler(),
+                $this->getMasterFactory()->createResponseHandler(),
+                $this->getMasterFactory()->createPostHandler(),
+                new JsonResponse
+            );
+        }
     }
 }

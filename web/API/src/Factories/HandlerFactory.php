@@ -94,5 +94,19 @@ namespace Jukebox\API\Factories
             );
         }
 
+        public function createRegistrationCommandHandler(): \Jukebox\API\Handlers\Post\Registration\CommandHandler
+        {
+            return new \Jukebox\API\Handlers\Post\Registration\CommandHandler(
+                $this->getMasterFactory()->createRegistrationCommand()
+            );
+        }
+
+        public function createRegistrationQueryHandler(): \Jukebox\API\Handlers\Post\Registration\QueryHandler
+        {
+            return new \Jukebox\API\Handlers\Post\Registration\QueryHandler(
+                $this->getMasterFactory()->createFetchUserByEmailQuery()
+            );
+        }
+
     }
 }

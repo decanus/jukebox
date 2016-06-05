@@ -13,5 +13,12 @@ namespace Jukebox\API\Factories
                 $this->getMasterFactory()->createMongoDatabaseBackend()
             );
         }
+        
+        public function createRegistrationCommand(): \Jukebox\API\Commands\RegistrationCommand
+        {
+            return new \Jukebox\API\Commands\RegistrationCommand(
+                $this->getMasterFactory()->createMongoDatabaseBackend()
+            );
+        }
     }
 }
