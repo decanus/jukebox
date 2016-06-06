@@ -36,7 +36,7 @@ build/js/views.js: $(VIEWS)
 ifeq ($(JUKEBOX_ENV),production)
 	handlebars views/ | uglifyjs --screw-ie8 --mangle -o $@
 else
-	handlebars views/ -f $@
+	handlebars views/ -f $@ -m
 endif
 
 build/js/polyfills.js: $(POLYFILLS)

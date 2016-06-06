@@ -14,7 +14,7 @@ export function resolveRoute (route) {
   return new Promise((resolve) => {
     switch (route) {
       case '/':
-        return resolve(new Page({ title: 'Jukebox Ninja - Home', template: 'home' }))
+        return resolve(new Page({ title: 'Jukebox Ninja - Home', template: 'homepage' }))
       case '/create':
         return resolve(new Page({ title: 'Jukebox Ninja - Create Playlist', template: 'createPlaylist' }))
       case '/lorem':
