@@ -2,6 +2,9 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
+/**
+ * @todo add multiple artists, primary artist
+ */
 export class Track {
   /**
    *

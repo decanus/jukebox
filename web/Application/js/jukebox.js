@@ -20,3 +20,5 @@ document.addEventListener('DOMContentLoaded', () => {
 window.__$loadModel = function (model) {
   app.getModelLoader().load(model)
 }
+
+// todo: periodically cleanup models
