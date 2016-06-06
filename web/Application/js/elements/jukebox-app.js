@@ -16,10 +16,9 @@ import { app } from '../app'
 function render($element, route) {
   return resolveRoute(route)
     .then((page) => {
-
       $element.ownerDocument.title = page.title
       $element.innerHTML = ''
-
+      
       return renderTemplate(page.template, $element.ownerDocument, page.data)
     })
     .then((dom) => {

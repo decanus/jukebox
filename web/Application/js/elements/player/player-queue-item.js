@@ -17,7 +17,7 @@ export class PlayerQueueItem extends HTMLElement {
     const $container = createElement(this.ownerDocument, 'div', '', { 'class': 'player-queue-item' })
 
     const $title = createElement(this.ownerDocument, 'div', track.title, { 'class': 'title' })
-    const $artist = createElement(this.ownerDocument, 'div', track.artist, { 'class': 'artist' })
+    const $artist = createElement(this.ownerDocument, 'div', track.artist.name, { 'class': 'artist' })
 
     $container.appendChild($title)
     $container.appendChild($artist)

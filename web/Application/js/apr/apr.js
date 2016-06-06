@@ -21,11 +21,11 @@ export function fetchSearch (query) {
  * @private
  */
 function _fetch (path, queryParams) {
-  let url = `/apr/${path}`
+  let url = `/apr${path}`
   const query = buildQuery(queryParams)
 
   if (query.length > 0) {
-    url += query
+    url += `?${query}`
   }
 
   return fetch(url).then((resp) => resp.json())

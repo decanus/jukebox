@@ -44,7 +44,6 @@ export class ModelStore {
     const key = `${model.type}-${model.id}`
 
     if (this._store[ key ]) {
-      console.warn('model already loaded ', { type: model.type, id: model.id })
       return
     }
 

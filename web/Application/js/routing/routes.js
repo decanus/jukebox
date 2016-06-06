@@ -3,6 +3,7 @@
  */
 
 import { Page } from './page.js'
+import { searchHandler } from '../handlers/search-handler'
 
 /**
  *
@@ -19,6 +20,12 @@ export function resolveRoute (route) {
         return resolve(new Page({ title: 'Jukebox Ninja - Create Playlist', template: 'createPlaylist' }))
       case '/lorem':
         return resolve(new Page({ title: 'Jukebox Ninja - Lorem', template: 'lorem' }))
+    }
+
+    const parts = route.split('/')
+
+    if (parts[1] === 'search') {
+      return resolve(searchHandler(decodeURIComponent(parts[2])))
     }
 
     resolve(new Page({

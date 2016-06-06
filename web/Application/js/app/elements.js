@@ -1,3 +1,7 @@
+/**
+ * (c) 2016 Jukebox <www.jukebox.ninja>
+ */
+
 import { JukeboxApp } from '../elements/jukebox-app'
 import { PlayerTitle } from '../elements/player/player-title'
 import { JukeboxLink } from '../elements/link/jukebox-link'
@@ -10,6 +14,8 @@ import { PlayerScrobbleBar } from  '../elements/player/player-scrobble-bar'
 import { PlayerQueue } from  '../elements/player/player-queue'
 import { PlayerControls } from  '../elements/player/player-controls'
 import { PlayerQueueItem as _PlayerQueueItem} from  '../elements/player/player-queue-item'
+import { SearchField } from  '../elements/search-field'
+
 
 /**
  * @type {Function}
@@ -38,4 +44,9 @@ document.registerElement('toggle-sidebar', {
 document.registerElement('jukebox-link', {
   'extends': 'a',
   prototype: JukeboxLink.prototype
+})
+
+document.registerElement('search-field', {
+  'extends': 'input',
+  prototype: SearchField.prototype
 })
