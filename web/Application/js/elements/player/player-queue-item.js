@@ -2,8 +2,8 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { app } from '../app'
-import { createElement } from '../dom/create-element'
+import { app } from '../../app'
+import { createElement } from '../../dom/create-element'
 
 const player = app.getPlayer()
 

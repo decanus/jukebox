@@ -2,8 +2,8 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { app } from '../app'
-import { RepeatMode } from './../players/repeat-mode'
+import { app } from '../../app'
+import { RepeatMode } from './../../players/repeat-mode'
 
 /**
  *

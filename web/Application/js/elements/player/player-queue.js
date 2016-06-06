@@ -2,8 +2,8 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { app } from '../app'
-import { PlayerQueueItem } from '../elements'
+import { app } from '../../app'
+import { PlayerQueueItem } from '../../elements'
 
 const player = app.getPlayer()
 

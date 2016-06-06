@@ -1,19 +1,16 @@
 .player-controls {
   margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  > .controls {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  > .controls > .control {
+  > .control {
     padding: 0 2.5rem;
     cursor: pointer;
     user-select: none;
   }
 
-  > .controls > .control.-playpause {
+  > .control.-playpause {
     background-color: @brand-color;
     transition: background-color .125s;
     will-change: background-color;
@@ -21,7 +18,7 @@
     padding: 1.5rem;
   }
 
-  > .controls > .control.-playpause:hover {
+  > .control.-playpause:hover {
     background-color: lighten(@brand-color, 5);
   }
 }

@@ -2,8 +2,8 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { app } from '../app'
-import { ScrobbleBar } from '../elements'
+import { app } from '../../app'
+import { ScrobbleBar } from '../../elements'
 
 const player = app.getPlayer()
 

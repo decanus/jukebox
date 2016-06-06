@@ -1,14 +1,15 @@
 import { JukeboxApp } from './elements/jukebox-app'
-import { PlayerTitle } from './elements/player-title'
-import { PlaylistPlayer } from './elements/playlist-player'
+import { PlayerTitle } from './elements/player/player-title'
 import { JukeboxLink } from './elements/link/jukebox-link'
 import { ScrobbleBar as _ScrobbleBar } from './elements/scrobble-bar'
 import { TrackLink } from './elements/link/track-link'
 import { ToggleSidebar } from './elements/toggle-sidebar'
-import { PlayerVolume } from './elements/player-volume'
-import { PlayerRepeatButton } from  './elements/player-repeat-button'
-import { PlayerQueue } from  './elements/player-queue'
-import { PlayerQueueItem as _PlayerQueueItem} from  './elements/player-queue-item'
+import { PlayerVolume } from './elements/player/player-volume'
+import { PlayerRepeatButton } from  './elements/player/player-repeat-button'
+import { PlayerScrobbleBar } from  './elements/player/player-scrobble-bar'
+import { PlayerQueue } from  './elements/player/player-queue'
+import { PlayerControls } from  './elements/player/player-controls'
+import { PlayerQueueItem as _PlayerQueueItem} from  './elements/player/player-queue-item'
 
 /**
  * @type {Function}
@@ -24,9 +25,10 @@ document.registerElement('jukebox-app', JukeboxApp)
 document.registerElement('player-title', PlayerTitle)
 document.registerElement('player-volume', PlayerVolume)
 document.registerElement('player-repeat-button', PlayerRepeatButton)
-document.registerElement('playlist-player', PlaylistPlayer)
 document.registerElement('track-link', TrackLink)
 document.registerElement('player-queue', PlayerQueue)
+document.registerElement('player-controls', PlayerControls)
+document.registerElement('player-scrobble-bar', PlayerScrobbleBar)
 
 document.registerElement('toggle-sidebar', {
   'extends': 'button',
