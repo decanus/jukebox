@@ -2,8 +2,8 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { Track } from '../track/track'
-import { YoutubeTrack } from '../track/youtube-track'
+import { Track } from '../models/track'
+import { YoutubeTrack } from '../models/youtube-track'
 import { Artist } from '../models/artist'
 
 export class ModelLoader {
