@@ -10,20 +10,20 @@ import { Page } from './page.js'
  * @returns {Promise<Page>}
  * @todo connect to server instead of static routes?
  */
-export function resolveRoute(route) {
+export function resolveRoute (route) {
   return new Promise((resolve) => {
     switch (route) {
       case '/':
-        return resolve(new Page({title: 'Jukebox Ninja - Home', template: 'home', showSidebar: false}))
+        return resolve(new Page({ title: 'Jukebox Ninja - Home', template: 'home' }))
       case '/create':
-        return resolve(new Page({title: 'Jukebox Ninja - Create Playlist', template: 'createPlaylist'}))
+        return resolve(new Page({ title: 'Jukebox Ninja - Create Playlist', template: 'createPlaylist' }))
       case '/lorem':
-        return resolve(new Page({title: 'Jukebox Ninja - Lorem', template: 'lorem'}))
+        return resolve(new Page({ title: 'Jukebox Ninja - Lorem', template: 'lorem' }))
     }
 
     resolve(new Page({
       title: 'Jukebox Ninja - Page Not Found',
-      template: 'pageNotFound',
+      template: '404',
       data: { uri: route }
     }))
   })

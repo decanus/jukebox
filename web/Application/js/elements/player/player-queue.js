@@ -3,7 +3,7 @@
  */
 
 import { app } from '../../app'
-import { PlayerQueueItem } from '../../elements'
+import { PlayerQueueItem } from '../../app/elements'
 
 const player = app.getPlayer()
 

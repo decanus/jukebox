@@ -8,7 +8,7 @@ import 'es6-symbol/implement'
 import { Track } from './track/track'
 import { app } from './app'
 
-import './elements'
+import './app/elements'
 
 window.addEventListener('popstate', () => {
   app.setRoute(window.location.pathname)

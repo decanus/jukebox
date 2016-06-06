@@ -5,9 +5,10 @@
 SHELL := /bin/bash
 PATH  := ./node_modules/.bin:$(PATH)
 
-BUNDLE := build/js/jukebox.js build/js/polyfills.js
+BUNDLE := build/js/jukebox.js build/js/polyfills.js build/js/views.js
 JS_FILES := $(shell find js -name "*.js")
 POLYFILLS := $(wildcard polyfills/*.js)
+VIEWS := $(shell find views -name "*.handlebars")
 
 .PHONY: all clean lint install-deps
 
@@ -29,6 +30,13 @@ ifeq ($(JUKEBOX_ENV),production)
 	browserify -t [ babelify ] -t envify -g [ uglifyify --no-sourcemap ] -p bundle-collapser/plugin js/jukebox.js | uglifyjs --screw-ie8 --mangle -o $@
 else
 	browserify -t [ babelify ] -t envify js/jukebox.js > $@
+endif
+
+build/js/views.js: $(VIEWS)
+ifeq ($(JUKEBOX_ENV),production)
+	handlebars views/ | uglifyjs --screw-ie8 --mangle -o $@
+else
+	handlebars views/ -f $@
 endif
 
 build/js/polyfills.js: $(POLYFILLS)
