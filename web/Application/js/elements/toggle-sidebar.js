@@ -9,6 +9,8 @@ const player = app.getPlayer()
 
 export class ToggleSidebar extends HTMLButtonElement {
   createdCallback () {
+    const $icon = this.querySelector('.audio-icon')
+
     this.addEventListener('click', () => {
       app.toggleSidebar()
     })
@@ -19,6 +21,15 @@ export class ToggleSidebar extends HTMLButtonElement {
       .then(() => {
         app.showSidebar()
         this.hidden = false
+      })
+
+    player.getState()
+      .forEach((state) => {
+        if (state === PlayerState.PLAYING) {
+          $icon.classList.remove('-paused')
+        } else {
+          $icon.classList.add('-paused')
+        }
       })
   }
 

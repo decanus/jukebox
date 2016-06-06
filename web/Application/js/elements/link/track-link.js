@@ -22,7 +22,10 @@ export class TrackLink extends HTMLElement {
         .then(() => fetchTrack(this.trackId))
         .then((track) => {
           player.addTrack(track)
-          player.play()
+          
+          if (player.getQueueSize() === 1) {
+            player.play()
+          }
         })
     })
   }

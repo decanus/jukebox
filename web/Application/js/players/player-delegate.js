@@ -339,4 +339,12 @@ export class PlayerDelegate {
   getQueueChange () {
     return this._emitter.toObservable('queueChange')
   }
+
+  /**
+   * 
+   * @returns {Number}
+   */
+  getQueueSize () {
+    return this._queue.getSize()
+  }
 }
