@@ -14,5 +14,10 @@ namespace Jukebox\Frontend\Factories
                 $this->getMasterFactory()->getConfiguration()->isDevelopmentMode()
             );
         }
+
+        public function createTwitterCardTagsTransformation(): \Jukebox\Frontend\Transformations\TwitterCardTagsTransformation
+        {
+            return new \Jukebox\Frontend\Transformations\TwitterCardTagsTransformation;
+        }
     }
 }
