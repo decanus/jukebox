@@ -4,6 +4,7 @@ namespace Jukebox\API
 {
 
     use Jukebox\API\Factories\SessionFactory;
+    use Jukebox\API\Routers\MasterRouter;
     use Jukebox\API\Session\Session;
     use Jukebox\API\Session\SessionStore;
     use Jukebox\Framework\Bootstrap\AbstractBootstrapper;
@@ -56,12 +57,13 @@ namespace Jukebox\API
 
         protected function buildRouter()
         {
-            $router = new Router($this->getFactory()->createAccessControl());
+            $router = new MasterRouter($this->getFactory());
 
-            $router->addRouter($this->getFactory()->createIndexRouter());
-            $router->addRouter($this->getFactory()->createGetRequestRouter());
-            $router->addRouter($this->getFactory()->createPostRequestRouter());
-            $router->addRouter($this->getFactory()->createErrorRouter());
+            $router->addRouter($this->getFactory()->createArtistsRouter());
+            $router->addRouter($this->getFactory()->createAuthenticationRouter());
+            $router->addRouter($this->getFactory()->createRegistrationRouter());
+            $router->addRouter($this->getFactory()->createSearchRouter());
+            $router->addRouter($this->getFactory()->createTracksRouter());
 
             return $router;
         }
