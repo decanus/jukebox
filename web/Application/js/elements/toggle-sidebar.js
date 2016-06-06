@@ -14,8 +14,11 @@ export class ToggleSidebar extends HTMLButtonElement {
     })
 
     player.getState()
-      .forEach((state) => {
-        this.hidden = (state === PlayerState.STOPPED)
+      .filter((state) => state !== PlayerState.STOPPED)
+      .once()
+      .then(() => {
+        app.showSidebar()
+        this.hidden = false
       })
   }
 
