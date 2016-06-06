@@ -26,5 +26,10 @@ namespace Jukebox\Frontend\Factories
         {
             return new \Jukebox\Frontend\Routers\ArtistPageRouter($this->getMasterFactory(), $this->getMasterFactory()->createDataPoolReader());
         }
+
+        public function createAjaxRequestRouter(): \Jukebox\Frontend\Routers\AjaxRequestRouter
+        {
+            return new \Jukebox\Frontend\Routers\AjaxRequestRouter($this->getMasterFactory());
+        }
     }
 }

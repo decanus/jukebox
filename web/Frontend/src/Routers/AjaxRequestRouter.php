@@ -4,39 +4,33 @@ namespace Jukebox\Frontend\Routers
 {
 
     use Jukebox\Framework\Controllers\ControllerInterface;
-    use Jukebox\Framework\DataPool\DataPoolReader;
     use Jukebox\Framework\Factories\MasterFactory;
     use Jukebox\Framework\Http\Request\RequestInterface;
     use Jukebox\Framework\ParamterObjects\ControllerParameterObject;
     use Jukebox\Framework\Routers\RouterInterface;
 
-    class ArtistPageRouter implements RouterInterface
+    class AjaxRequestRouter implements RouterInterface
     {
         /**
          * @var MasterFactory
          */
         private $factory;
 
-        /**
-         * @var DataPoolReader
-         */
-        private $dataPoolReader;
-
-        public function __construct(MasterFactory $factory, DataPoolReader $dataPoolReader)
+        public function __construct(MasterFactory $factory)
         {
             $this->factory = $factory;
-            $this->dataPoolReader = $dataPoolReader;
         }
 
         public function route(RequestInterface $request): ControllerInterface
         {
             $uri = $request->getUri();
-            
-            if (!$this->dataPoolReader->hasArtistIdForPath($uri->getPath())) {
-                throw new \InvalidArgumentException('Artist not found');
+
+            switch ($uri->getPath()) {
+                case '/apr/search':
+                    return $this->factory->createAjaxSearchController(new ControllerParameterObject($uri));
             }
 
-            return $this->factory->createArtistPageController(new ControllerParameterObject($uri));
+            throw new \InvalidArgumentException('No ajax route found');
         }
     }
 }
