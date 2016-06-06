@@ -4,6 +4,8 @@
 
 import { Emitter } from './event/emitter'
 import { updatePath } from './history/update-path'
+import { ModelStore } from './model/model-store'
+import { ModelLoader } from './model/model-loader'
 
 export class Application {
   /**
@@ -40,6 +42,20 @@ export class Application {
      * @private
      */
     this._emitter = new Emitter()
+
+    /**
+     *
+     * @type {ModelStore}
+     * @private
+     */
+    this._modelStore = new ModelStore()
+
+    /**
+     *
+     * @type {ModelLoader}
+     * @private
+     */
+    this._modelLoader = new ModelLoader(this._modelStore)
   }
 
   /**
@@ -65,6 +81,22 @@ export class Application {
   setRoute(route) {
     this._emitter.emit('route', route)
     updatePath(route)
+  }
+
+  /**
+   * 
+   * @returns {ModelLoader}
+   */
+  getModelLoader () {
+    return this._modelLoader
+  }
+
+  /**
+   *
+   * @returns {ModelStore}
+   */
+  getModelStore () {
+    return this._modelStore
   }
 
   showSidebar() {
