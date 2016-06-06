@@ -22,7 +22,7 @@ namespace Jukebox\Frontend\Handlers\Get\Ajax\Search
 
         public function execute(RequestInterface $request, AbstractModel $model)
         {
-            if (!$request->getParameter('query')) {
+            if (!$request->hasParameter('query')) {
                 return;
             }
 
