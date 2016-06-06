@@ -9,11 +9,6 @@ namespace Jukebox\Framework\Routers
 
     interface RouterInterface
     {
-        /**
-         * @param RequestInterface $request
-         *
-         * @return \Jukebox\Framework\Controllers\ControllerInterface
-         */
-        public function route(RequestInterface $request);
+        public function route(RequestInterface $request): ControllerInterface;
     }
 }

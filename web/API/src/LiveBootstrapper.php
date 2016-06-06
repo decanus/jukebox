@@ -4,15 +4,14 @@ namespace Jukebox\API
 {
 
     use Jukebox\API\Factories\SessionFactory;
+    use Jukebox\API\Routers\MasterRouter;
     use Jukebox\API\Session\Session;
     use Jukebox\API\Session\SessionStore;
     use Jukebox\Framework\Bootstrap\AbstractBootstrapper;
     use Jukebox\Framework\Configuration;
     use Jukebox\Framework\DataPool\RedisBackend;
-    use Jukebox\Framework\ErrorHandlers\DevelopmentErrorHandler;
     use Jukebox\API\ErrorHandlers\ProductionErrorHandler;
     use Jukebox\Framework\Factories\MasterFactory;
-    use Jukebox\API\Routers\Router;
     use Jukebox\Framework\ValueObjects\DataVersion;
 
     class LiveBootstrapper extends AbstractBootstrapper
@@ -56,12 +55,13 @@ namespace Jukebox\API
 
         protected function buildRouter()
         {
-            $router = new Router($this->getFactory()->createAccessControl());
+            $router = new MasterRouter($this->getFactory());
 
-            $router->addRouter($this->getFactory()->createIndexRouter());
-            $router->addRouter($this->getFactory()->createGetRequestRouter());
-            $router->addRouter($this->getFactory()->createPostRequestRouter());
-            $router->addRouter($this->getFactory()->createErrorRouter());
+            $router->addRouter($this->getFactory()->createArtistsRouter());
+            $router->addRouter($this->getFactory()->createAuthenticationRouter());
+            $router->addRouter($this->getFactory()->createRegistrationRouter());
+            $router->addRouter($this->getFactory()->createSearchRouter());
+            $router->addRouter($this->getFactory()->createTracksRouter());
 
             return $router;
         }
@@ -77,12 +77,7 @@ namespace Jukebox\API
 
         protected function registerErrorHandler()
         {
-            if ($this->isDevelopmentMode()) {
-                $errorHandler = new DevelopmentErrorHandler;
-            } else {
-                $errorHandler = new ProductionErrorHandler;
-            }
-
+            $errorHandler = new ProductionErrorHandler;
             $errorHandler->register();
         }
 
