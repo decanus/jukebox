@@ -10,10 +10,8 @@ namespace Jukebox\API
     use Jukebox\Framework\Bootstrap\AbstractBootstrapper;
     use Jukebox\Framework\Configuration;
     use Jukebox\Framework\DataPool\RedisBackend;
-    use Jukebox\Framework\ErrorHandlers\DevelopmentErrorHandler;
     use Jukebox\API\ErrorHandlers\ProductionErrorHandler;
     use Jukebox\Framework\Factories\MasterFactory;
-    use Jukebox\API\Routers\Router;
     use Jukebox\Framework\ValueObjects\DataVersion;
 
     class LiveBootstrapper extends AbstractBootstrapper
@@ -79,12 +77,7 @@ namespace Jukebox\API
 
         protected function registerErrorHandler()
         {
-            if ($this->isDevelopmentMode()) {
-                $errorHandler = new DevelopmentErrorHandler;
-            } else {
-                $errorHandler = new ProductionErrorHandler;
-            }
-
+            $errorHandler = new ProductionErrorHandler;
             $errorHandler->register();
         }
 
