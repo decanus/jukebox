@@ -6,13 +6,15 @@ import { app } from '../app'
 
 export class SearchField extends HTMLInputElement {
   createdCallback () {
-    this.addEventListener('input', () => {
+    this.addEventListener('keyup', (e) => {
+      if (e.keyCode !== 13) {
+        return
+      }
+
       const route = app.getCurrentRoute()
       const parts = route.split('/')
       let replace = (parts[1] === 'search')
-      
-      console.log(route)
-      
+
       app.setRoute(`/search/${encodeURIComponent(this.value)}`, { replace })
     })
   }

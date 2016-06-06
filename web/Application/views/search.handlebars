@@ -1,18 +1,13 @@
-<section class="page-content">
+<section class="page-content -fit">
+    <div class="container">
+        <h2>Search for "{{query}}"</h2>
 
-    <h1>Search for "{{query}}"</h1>
-
-    {{#each results}}
-
-        <div>
-
-            <track-link track-id="{{id}}">
-                <a>{{title}}</a>
-            </track-link>
-
-
-
-        </div>
-
-    {{/each}}
+        {{#each results}}
+            <div class="search-track">
+                <track-link track-id="{{id}}">
+                    <a>{{title}}</a>
+                </track-link>
+            </div>
+        {{/each}}
+    </div>
 </section>
