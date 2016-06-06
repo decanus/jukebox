@@ -41,6 +41,8 @@ install -m 755 -d $RPM_BUILD_ROOT%{_wwwDir}API/{config,src}
 install -m 755 -d $RPM_BUILD_ROOT%{_wwwDir}Backend
 install -m 755 -d $RPM_BUILD_ROOT%{_wwwDir}Backend/{config,src,data}
 
+install -m 644 %{_sourcedir}Backend/config/backend.cron $RPM_BUILD_ROOT/etc/cron.d/backend.cron
+
 cp -R %{_sourcedir}Frontend/html/images/* $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/images/
 cp -R %{_sourcedir}Frontend/html/html/* $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/html/
 cp -R %{_sourcedir}Frontend/html/favicon.ico $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/favicon.ico
@@ -73,7 +75,17 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-
+/etc/cron.d/backend.cron
+%dir %{_wwwDir}Backend
+%dir %{_wwwDir}API
 %dir %{_wwwDir}Frontend
+%dir %{_wwwDir}Framework
 
+%{_wwwDir}Backend/*
+%{_wwwDir}API/*
+%{_wwwDir}Framework/*
 %{_wwwDir}Frontend/*
+
+%post
+service crond restart
+service supervisord restart
