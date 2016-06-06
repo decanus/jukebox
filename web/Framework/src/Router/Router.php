@@ -21,9 +21,10 @@ namespace Jukebox\Framework\Routers
         public function route(RequestInterface $request): ControllerInterface
         {
             foreach ($this->routers as $router) {
-                $result = $router->route($request);
-                if ($result !== null) {
-                    return $result;
+                try {
+                    return $router->route($request);
+                } catch (\Exception $e) {
+                    continue;
                 }
             }
 

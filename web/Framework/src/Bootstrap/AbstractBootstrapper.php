@@ -8,7 +8,7 @@ namespace Jukebox\Framework\Bootstrap
     use Jukebox\Framework\Http\Request\AbstractRequest;
     use Jukebox\Framework\Http\Request\GetRequest;
     use Jukebox\Framework\Http\Request\PostRequest;
-    use Jukebox\Framework\Routers\Router;
+    use Jukebox\Framework\Routers\RouterInterface;
 
     abstract class AbstractBootstrapper
     {
@@ -23,7 +23,7 @@ namespace Jukebox\Framework\Bootstrap
         private $factory;
 
         /**
-         * @var Router
+         * @var RouterInterface
          */
         private $router;
 
@@ -40,7 +40,7 @@ namespace Jukebox\Framework\Bootstrap
             return $this->request;
         }
 
-        public function getRouter(): Router
+        public function getRouter(): RouterInterface
         {
             return $this->router;
         }

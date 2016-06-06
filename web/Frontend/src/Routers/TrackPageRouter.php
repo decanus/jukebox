@@ -3,6 +3,7 @@
 namespace Jukebox\Frontend\Routers
 {
 
+    use Jukebox\Framework\Controllers\ControllerInterface;
     use Jukebox\Framework\DataPool\DataPoolReader;
     use Jukebox\Framework\Factories\MasterFactory;
     use Jukebox\Framework\Http\Request\RequestInterface;
@@ -28,17 +29,12 @@ namespace Jukebox\Frontend\Routers
             $this->dataPoolReader = $dataPoolReader;
         }
 
-        /**
-         * @param RequestInterface $request
-         *
-         * @return \Jukebox\Framework\Controllers\ControllerInterface
-         */
-        public function route(RequestInterface $request)
+        public function route(RequestInterface $request): ControllerInterface
         {
             $uri = $request->getUri();
             
             if (!$this->dataPoolReader->hasTrackIdForPath($uri->getPath())) {
-                return;
+                throw new \InvalidArgumentException('Track not found');
             }
 
             return $this->factory->createTrackPageController(new ControllerParameterObject($uri));

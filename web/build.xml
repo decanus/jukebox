@@ -4,24 +4,40 @@
     <target name="phpab" description="Generate autoloader scripts">
         <parallel>
             <exec executable="ant">
-                <arg value="-f" />
-                <arg path="${basedir}/API/build.xml" />
-                <arg value="phpab" />
+                <arg value="-f"/>
+                <arg path="${basedir}/API/build.xml"/>
+                <arg value="phpab"/>
             </exec>
             <exec executable="ant">
-                <arg value="-f" />
-                <arg path="${basedir}/Backend/build.xml" />
-                <arg value="phpab" />
+                <arg value="-f"/>
+                <arg path="${basedir}/Backend/build.xml"/>
+                <arg value="phpab"/>
             </exec>
             <exec executable="ant">
-                <arg value="-f" />
-                <arg path="${basedir}/Framework/build.xml" />
-                <arg value="phpab" />
+                <arg value="-f"/>
+                <arg path="${basedir}/Framework/build.xml"/>
+                <arg value="phpab"/>
             </exec>
             <exec executable="ant">
-                <arg value="-f" />
-                <arg path="${basedir}/Frontend/build.xml" />
-                <arg value="phpab" />
+                <arg value="-f"/>
+                <arg path="${basedir}/Frontend/build.xml"/>
+                <arg value="phpab"/>
+            </exec>
+        </parallel>
+    </target>
+    <target name="make">
+        <parallel>
+            <exec executable="make">
+                <arg value="-j8"/>
+                <arg value="-B"/>
+                <arg value="-C"/>
+                <arg path="${basedir}/Styles"/>
+            </exec>
+            <exec executable="make">
+                <arg value="-j8"/>
+                <arg value="-B"/>
+                <arg value="-C"/>
+                <arg path="${basedir}/Application"/>
             </exec>
         </parallel>
     </target>
