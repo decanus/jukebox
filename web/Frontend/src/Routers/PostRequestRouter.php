@@ -3,6 +3,7 @@
 namespace Jukebox\Frontend\Routers
 {
 
+    use Jukebox\Framework\Controllers\ControllerInterface;
     use Jukebox\Framework\Factories\MasterFactory;
     use Jukebox\Framework\Http\Request\PostRequest;
     use Jukebox\Framework\Http\Request\RequestInterface;
@@ -20,12 +21,7 @@ namespace Jukebox\Frontend\Routers
             $this->factory = $factory;
         }
 
-        /**
-         * @param RequestInterface $request
-         *
-         * @return \Jukebox\Framework\Controllers\ControllerInterface
-         */
-        public function route(RequestInterface $request)
+        public function route(RequestInterface $request): ControllerInterface
         {
             if (!$request instanceof PostRequest) {
                 return;
@@ -39,6 +35,8 @@ namespace Jukebox\Frontend\Routers
                 case '/action/register':
                     // @todo
             }
+
+            throw new \InvalidArgumentException('No route found');
         }
     }
 }
