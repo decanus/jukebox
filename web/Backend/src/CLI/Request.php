@@ -2,6 +2,9 @@
 
 namespace Jukebox\Backend\CLI
 {
+
+    use Jukebox\Framework\ValueObjects\DataVersion;
+
     class Request
     {
         /**
@@ -43,6 +46,11 @@ namespace Jukebox\Backend\CLI
         public function hasParam(string $key): bool
         {
             return isset($this->params[$key]) && !empty($this->params[$key]);
+        }
+        
+        public function getDataVersion(): DataVersion
+        {
+            return new DataVersion($this->getParam('dataVersion'));
         }
     }
 }

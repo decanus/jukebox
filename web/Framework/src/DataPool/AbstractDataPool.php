@@ -22,10 +22,15 @@ namespace Jukebox\Framework\DataPool
          */
         private $dataVersion = null;
 
-        public function __construct(DataPoolKeyGenerator $dataPoolKeyGenerator, StorageBackendInterface $storageBackend)
+        public function __construct(
+            DataPoolKeyGenerator $dataPoolKeyGenerator,
+            StorageBackendInterface $storageBackend,
+            DataVersion $dataVersion = null
+        )
         {
             $this->dataPoolKeyGenerator = $dataPoolKeyGenerator;
             $this->storageBackend = $storageBackend;
+            $this->dataVersion = $dataVersion;
         }
 
         protected function has(string $key): bool
