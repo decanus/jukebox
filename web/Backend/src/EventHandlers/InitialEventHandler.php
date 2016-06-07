@@ -29,7 +29,18 @@ namespace Jukebox\Backend\EventHandlers
             $this->eventQueueWriter->add(new ElasticsearchIndexPushEvent($dataVersion));
             $this->eventQueueWriter->add(new ArtistsToElasticsearchPushEvent($dataVersion));
             $this->eventQueueWriter->add(new TracksToElasticsearchPushEvent($dataVersion));
+
+            $this->wait();
+
+            // @todo remove old elasticsearch index
             $this->eventQueueWriter->add(new DataVersionPushEvent($dataVersion));
+        }
+
+        private function wait()
+        {
+            while ($this->eventQueueWriter->count() > 0) {
+                sleep(15);
+            }
         }
     }
 }
