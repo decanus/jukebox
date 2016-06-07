@@ -2,7 +2,6 @@ CREATE TABLE IF NOT EXISTS tracks (
   id SERIAL PRIMARY KEY,
   duration INT NOT NULL,
   title VARCHAR(255) NOT NULL,
-  youtube_id VARCHAR(20) NULL DEFAULT NULL,
   vevo_id VARCHAR(255) NULL DEFAULT NULL,
   isrc VARCHAR(255) NULL DEFAULT NULL,
   is_live BOOL NOT NULL DEFAULT FALSE,
@@ -43,4 +42,14 @@ CREATE TABLE IF NOT EXISTS track_genres (
   genre INT NOT NULL,
   FOREIGN KEY (track) REFERENCES tracks(id),
   FOREIGN KEY (genre) REFERENCES genres(id)
+);
+
+CREATE TABLE IF NOT EXISTS track_sources (
+  id SERIAL PRIMARY KEY,
+  track INT NOT NULL,
+  duration INT NULL DEFAULT NULL,
+  source VARCHAR(20) NOT NULL,
+  source_data VARCHAR(255) NOT NULL
+  CHECK (source IN ('youtube', 'soundcloud')),
+  FOREIGN KEY (track) REFERENCES tracks(id)
 );
