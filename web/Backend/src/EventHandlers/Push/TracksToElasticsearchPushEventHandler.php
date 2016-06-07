@@ -8,6 +8,7 @@ namespace Jukebox\Backend\EventHandlers\Push
     use Jukebox\Backend\Events\TracksToElasticsearchPushEvent;
     use Jukebox\Backend\Queries\FetchTrackArtistsQuery;
     use Jukebox\Backend\Queries\FetchTrackGenresQuery;
+    use Jukebox\Backend\Queries\FetchTrackServicesQuery;
     use Jukebox\Backend\Queries\FetchTracksQuery;
 
     class TracksToElasticsearchPushEventHandler implements EventHandlerInterface
@@ -37,12 +38,18 @@ namespace Jukebox\Backend\EventHandlers\Push
          */
         private $fetchTrackGenresQuery;
 
+        /**
+         * @var FetchTrackServicesQuery
+         */
+        private $fetchTrackServicesQuery;
+
         public function __construct(
             TracksToElasticsearchPushEvent $event,
             Client $client,
             FetchTracksQuery $fetchTracksQuery,
             FetchTrackArtistsQuery $fetchTrackArtistsQuery,
-            FetchTrackGenresQuery $fetchTrackGenresQuery
+            FetchTrackGenresQuery $fetchTrackGenresQuery,
+            FetchTrackServicesQuery $fetchTrackServicesQuery
         )
         {
             $this->event = $event;
@@ -50,6 +57,7 @@ namespace Jukebox\Backend\EventHandlers\Push
             $this->fetchTracksQuery = $fetchTracksQuery;
             $this->fetchTrackArtistsQuery = $fetchTrackArtistsQuery;
             $this->fetchTrackGenresQuery = $fetchTrackGenresQuery;
+            $this->fetchTrackServicesQuery = $fetchTrackServicesQuery;
         }
 
         public function execute()
@@ -60,7 +68,8 @@ namespace Jukebox\Backend\EventHandlers\Push
 
                 $artists = $this->fetchTrackArtistsQuery->execute($track['id']);
                 $genres = $this->fetchTrackGenresQuery->execute($track['id']);
-                
+                $services = $this->fetchTrackServicesQuery->execute($track['id']);
+
                 $params = [
                     'index' => $this->event->getDataVersion(),
                     'type' => 'tracks',
@@ -75,7 +84,8 @@ namespace Jukebox\Backend\EventHandlers\Push
                         'is_explicit' => $track['is_explicit'],
                         'permalink' => $track['permalink'],
                         'artists' => $artists,
-                        'genres' => $genres
+                        'genres' => $genres,
+                        'services' => $services
                     ]
                 ];
 
