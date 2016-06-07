@@ -43,7 +43,8 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createInsertTrackArtistCommand(),
                 $this->getMasterFactory()->createInsertTrackGenreCommand(),
                 $this->getMasterFactory()->createFetchGenreByNameQuery(),
-                $this->getMasterFactory()->createFetchTrackByVevoIdQuery()
+                $this->getMasterFactory()->createFetchTrackByVevoIdQuery(),
+                $this->getMasterFactory()->createInsertTrackSourceCommand()
             );
         }
 
@@ -81,36 +82,54 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createElasticsearchClient(),
                 $this->getMasterFactory()->createFetchTracksQuery(),
                 $this->getMasterFactory()->createFetchTrackArtistsQuery(),
-                $this->getMasterFactory()->createFetchTrackGenresQuery()
+                $this->getMasterFactory()->createFetchTrackGenresQuery(),
+                $this->getMasterFactory()->createFetchTrackSourcesQuery()
             );
         }
 
         public function createInitialEventHandler(): \Jukebox\Backend\EventHandlers\InitialEventHandler
         {
             return new \Jukebox\Backend\EventHandlers\InitialEventHandler(
-                $this->getMasterFactory()->createEventQueueWriter()
+                $this->getMasterFactory()->createEventQueueWriter(),
+                !$this->getMasterFactory()->getConfiguration()->isDevelopmentMode()
             );
         }
         
-        public function createTrackPathsPushEventHandler(): \Jukebox\Backend\EventHandlers\Push\TrackPathsPushEventHandler
+        public function createTrackPathsPushEventHandler(\Jukebox\Backend\Events\TrackPathsPushEvent $event): \Jukebox\Backend\EventHandlers\Push\TrackPathsPushEventHandler
         {
             return new \Jukebox\Backend\EventHandlers\Push\TrackPathsPushEventHandler(
                 $this->getMasterFactory()->createFetchTrackPathsQuery(),
-                $this->getMasterFactory()->createDataPoolWriter()
+                $this->getMasterFactory()->createDataPoolWriter($event->getDataVersion())
             );
         }
         
-        public function createArtistPathsPushEventHandler(): \Jukebox\Backend\EventHandlers\Push\ArtistPathsPushEventHandler
+        public function createArtistPathsPushEventHandler(\Jukebox\Backend\Events\ArtistPathsPushEvent $event): \Jukebox\Backend\EventHandlers\Push\ArtistPathsPushEventHandler
         {
             return new \Jukebox\Backend\EventHandlers\Push\ArtistPathsPushEventHandler(
                 $this->getMasterFactory()->createFetchArtistPathsQuery(),
-                $this->getMasterFactory()->createDataPoolWriter()
+                $this->getMasterFactory()->createDataPoolWriter($event->getDataVersion())
             );
         }
 
         public function createDataVersionPushEventHandler(\Jukebox\Backend\Events\DataVersionPushEvent $event): \Jukebox\Backend\EventHandlers\Push\DataVersionPushEventHandler
         {
             return new \Jukebox\Backend\EventHandlers\Push\DataVersionPushEventHandler(
+                $event,
+                $this->getMasterFactory()->createRedisBackend()
+            );
+        }
+
+        public function createElasticsearchIndexDeleteEventHandler(\Jukebox\Backend\Events\ElasticsearchIndexDeleteEvent $event): \Jukebox\Backend\EventHandlers\ElasticsearchIndexDeleteEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\ElasticsearchIndexDeleteEventHandler(
+                $event,
+                $this->getMasterFactory()->createElasticsearchClient()
+            );
+        }
+
+        public function createOldDataVersionDeleteEventHandler(\Jukebox\Backend\Events\OldDataVersionDeleteEvent $event): \Jukebox\Backend\EventHandlers\OldDataVersionDeleteEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\OldDataVersionDeleteEventHandler(
                 $event,
                 $this->getMasterFactory()->createRedisBackend()
             );

@@ -8,6 +8,7 @@ namespace Jukebox\Backend\EventHandlers\Push
     use Jukebox\Backend\Events\TracksToElasticsearchPushEvent;
     use Jukebox\Backend\Queries\FetchTrackArtistsQuery;
     use Jukebox\Backend\Queries\FetchTrackGenresQuery;
+    use Jukebox\Backend\Queries\FetchTrackSourcesQuery;
     use Jukebox\Backend\Queries\FetchTracksQuery;
 
     class TracksToElasticsearchPushEventHandler implements EventHandlerInterface
@@ -37,12 +38,18 @@ namespace Jukebox\Backend\EventHandlers\Push
          */
         private $fetchTrackGenresQuery;
 
+        /**
+         * @var FetchTrackSourcesQuery
+         */
+        private $fetchTrackSourcesQuery;
+
         public function __construct(
             TracksToElasticsearchPushEvent $event,
             Client $client,
             FetchTracksQuery $fetchTracksQuery,
             FetchTrackArtistsQuery $fetchTrackArtistsQuery,
-            FetchTrackGenresQuery $fetchTrackGenresQuery
+            FetchTrackGenresQuery $fetchTrackGenresQuery,
+            FetchTrackSourcesQuery $fetchTrackSourcesQuery
         )
         {
             $this->event = $event;
@@ -50,6 +57,7 @@ namespace Jukebox\Backend\EventHandlers\Push
             $this->fetchTracksQuery = $fetchTracksQuery;
             $this->fetchTrackArtistsQuery = $fetchTrackArtistsQuery;
             $this->fetchTrackGenresQuery = $fetchTrackGenresQuery;
+            $this->fetchTrackSourcesQuery = $fetchTrackSourcesQuery;
         }
 
         public function execute()
@@ -60,7 +68,8 @@ namespace Jukebox\Backend\EventHandlers\Push
 
                 $artists = $this->fetchTrackArtistsQuery->execute($track['id']);
                 $genres = $this->fetchTrackGenresQuery->execute($track['id']);
-                
+                $sources = $this->fetchTrackSourcesQuery->execute($track['id']);
+
                 $params = [
                     'index' => $this->event->getDataVersion(),
                     'type' => 'tracks',
@@ -68,14 +77,14 @@ namespace Jukebox\Backend\EventHandlers\Push
                     'body' => [
                         'title' => $track['title'],
                         'duration' => $track['duration'],
-                        'youtube_id' => $track['youtube_id'],
                         'vevo_id' => $track['vevo_id'],
                         'isrc' => $track['isrc'],
                         'is_live' => $track['is_live'],
                         'is_explicit' => $track['is_explicit'],
                         'permalink' => $track['permalink'],
                         'artists' => $artists,
-                        'genres' => $genres
+                        'genres' => $genres,
+                        'sources' => $sources
                     ]
                 ];
 

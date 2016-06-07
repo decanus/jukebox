@@ -47,12 +47,17 @@ cp -R %{_sourcedir}Frontend/html/images/* $RPM_BUILD_ROOT%{_wwwDir}Frontend/html
 cp -R %{_sourcedir}Frontend/html/html/* $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/html/
 cp -R %{_sourcedir}Frontend/html/favicon.ico $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/favicon.ico
 cp -R %{_sourcedir}Frontend/html/robots.txt $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/robots.txt
-cp -R %{_sourcedir}Styles/css/* $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/css/
-cp -R %{_sourcedir}Application/build/js/* $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/js/
+
+cp -R %{_sourcedir}Styles/css/jukebox.css $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/css/jukebox-%{version}-%{release}.css
+cp -R %{_sourcedir}Application/build/js/polyfills.js $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/js/polyfills-%{version}-%{release}.js
+cp -R %{_sourcedir}Application/build/js/jukebox.js $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/js/jukebox-%{version}-%{release}.js
+
 cp -R %{_sourcedir}Frontend/bootstrap.php $RPM_BUILD_ROOT%{_wwwDir}Frontend/bootstrap.php
 cp -R %{_sourcedir}Frontend/src/* $RPM_BUILD_ROOT%{_wwwDir}Frontend/src/
 cp -R %{_sourcedir}Frontend/data/* $RPM_BUILD_ROOT%{_wwwDir}Frontend/data/
 cp -R %{_sourcedir}Frontend/config/system.live.ini $RPM_BUILD_ROOT%{_wwwDir}Frontend/config/system.ini
+
+php %{_wwwDir}packages/scripts/appendCssAndJsVersion.php $RPM_BUILD_ROOT%{_wwwDir}Frontend/data/templates/template.xhtml %{version}-%{release}
 
 cp -R %{_sourcedir}Framework/lib/* $RPM_BUILD_ROOT%{_wwwDir}Framework/lib/
 cp -R %{_sourcedir}Framework/src/* $RPM_BUILD_ROOT%{_wwwDir}Framework/src/

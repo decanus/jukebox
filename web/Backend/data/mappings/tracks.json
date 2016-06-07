@@ -7,7 +7,6 @@
     "properties": {
       "title": {"type": "string", "index": "analyzed", "analyzer": "standard"},
       "duration": {"type": "integer", "index": "not_analyzed"},
-      "youtube_id": {"type": "string", "index": "not_analyzed"},
       "vevo_id": {"type": "string", "index": "not_analyzed"},
       "isrc": {"type": "string", "index": "not_analyzed"},
       "is_live": {"type": "boolean", "index": "not_analyzed"},
@@ -15,14 +14,8 @@
       "permalink": {"type": "string", "index": "not_analyzed"},
       "genres": {
         "properties": {
-          "id": {
-            "type": "string",
-            "index": "not_analyzed"
-          },
-          "name": {
-            "type": "string",
-            "index": "not_analyzed"
-          }
+          "id": {"type": "string", "index": "not_analyzed"},
+          "name": {"type": "string", "index": "not_analyzed"}
         }
       },
       "artists": {
@@ -31,6 +24,13 @@
           "name": {"type": "string", "index": "not_analyzed"},
           "permalink": {"type": "string", "index": "not_analyzed"},
           "role": {"type": "string", "index": "not_analyzed"}
+        }
+      },
+      "sources": {
+        "properties": {
+          "source": {"type": "string", "index": "not_analyzed"},
+          "source_data": {"type": "string", "index": "not_analyzed"},
+          "duration": {"type": "integer", "index": "not_analyzed"}
         }
       }
     }

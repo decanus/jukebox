@@ -6,7 +6,7 @@ namespace Jukebox\Backend\Events
     use Jukebox\Framework\Events\EventInterface;
     use Jukebox\Framework\ValueObjects\DataVersion;
 
-    class TrackPathsPushEvent implements EventInterface
+    class OldDataVersionDeleteEvent implements EventInterface
     {
         private $dataVersion;
 
@@ -17,7 +17,7 @@ namespace Jukebox\Backend\Events
 
         public function getName(): string
         {
-            return 'TrackPathsPush';
+            return 'OldDataVersionDelete';
         }
 
         public function getDataVersion(): DataVersion
