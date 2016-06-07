@@ -35,7 +35,7 @@ namespace Jukebox\Backend\Writers
         // @todo does not belong here
         public function getDataVersion(): DataVersion
         {
-            return $this->redisBackend->get('currentDataVersion');
+            return new DataVersion($this->redisBackend->get('currentDataVersion'));
         }
     }
 }

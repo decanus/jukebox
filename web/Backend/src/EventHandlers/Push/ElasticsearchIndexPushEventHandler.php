@@ -59,6 +59,28 @@ namespace Jukebox\Backend\EventHandlers\Push
                     ['index' => $dataVersion]
                 );
 
+                $this->client->indices()->close(['index' => $dataVersion]);
+
+                $this->client->indices()->putSettings(
+                    [
+                        'index' => $dataVersion,
+                        'body' => [
+                            'settings' => [
+                                'analysis' => [
+                                    'analyzer' => [
+                                        'case_insensitive_sort' => [
+                                            'tokenizer' => 'keyword',
+                                            'filter' => ['lowercase']
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                );
+
+                $this->client->indices()->open(['index' => $dataVersion]);
+
                 $files = $this->fileBackend->scanDirectory($this->mappingsPath, ['*.json']);
 
                 /*** @var $file \SplFileInfo */
