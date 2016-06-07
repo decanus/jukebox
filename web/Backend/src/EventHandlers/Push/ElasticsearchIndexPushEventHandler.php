@@ -85,17 +85,22 @@ namespace Jukebox\Backend\EventHandlers\Push
 
                 /*** @var $file \SplFileInfo */
                 foreach ($files as $file) {
-                    $mapping = json_decode($this->fileBackend->load($file->getRealPath()), true);
-
-                    $params['index'] = $dataVersion;
-                    $params['type'] = array_keys($mapping)[0];
-                    $params['body'] = $mapping;
-
-                    $this->client->indices()->putMapping($params);
+                    $this->putMapping($file);
                 }
             } catch (\Throwable $e) {
                 $this->getLogger()->emergency($e);
             }
+        }
+
+        private function putMapping(\SplFileInfo $file)
+        {
+            $mapping = json_decode($this->fileBackend->load($file->getRealPath()), true);
+
+            $params['index'] = $this->event->getDataVersion();
+            $params['type'] = array_keys($mapping)[0];
+            $params['body'] = $mapping;
+
+            $this->client->indices()->putMapping($params);
         }
     }
 }
