@@ -25,5 +25,10 @@ namespace Jukebox\Backend\Writers
         {
             $this->redisBackend->addToQueue('eventQueue', $event);
         }
+
+        public function count()
+        {
+            return $this->redisBackend->getQueueLength('eventQueue');
+        }
     }
 }
