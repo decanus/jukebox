@@ -51,5 +51,6 @@ CREATE TABLE IF NOT EXISTS track_sources (
   source VARCHAR(20) NOT NULL,
   source_data VARCHAR(255) NOT NULL
   CHECK (source IN ('youtube', 'soundcloud')),
+  UNIQUE(source, source_data),
   FOREIGN KEY (track) REFERENCES tracks(id)
 );
