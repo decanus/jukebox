@@ -47,11 +47,13 @@ namespace Jukebox\Backend\Locators
                 case 'DataVersionPush':
                     return $this->factory->createDataVersionPushEventHandler($event);
                 case 'TrackPathsPush':
-                    return $this->factory->createTrackPathsPushEventHandler();
+                    return $this->factory->createTrackPathsPushEventHandler($event);
                 case 'ArtistPathsPush':
-                    return $this->factory->createArtistPathsPushEventHandler();
+                    return $this->factory->createArtistPathsPushEventHandler($event);
                 case 'ElasticsearchIndexDelete':
                     return $this->factory->createElasticsearchIndexDeleteEventHandler($event);
+                case 'OldDataVersionDelete':
+                    return $this->factory->createOldDataVersionDeleteEventHandler($event);
             }
         }
     }

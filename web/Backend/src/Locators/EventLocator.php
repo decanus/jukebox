@@ -9,8 +9,12 @@ namespace Jukebox\Backend\Locators
 
     class EventLocator
     {
+        private $request;
+
         public function locate(Request $request): EventInterface
         {
+            $this->request = $request;
+
             switch ($request->getAction()) {
                 case 'InitialVevoArtistsImport':
                     return new \Jukebox\Backend\Events\InitialVevoArtistsImportEvent;
@@ -23,21 +27,21 @@ namespace Jukebox\Backend\Locators
                 case 'InitialVevoArtistsVideosImport':
                     return new \Jukebox\Backend\Events\InitialVevoArtistsVideosImportEvent;
                 case 'ElasticsearchIndexPushEvent':
-                    return new \Jukebox\Backend\Events\ElasticsearchIndexPushEvent(new DataVersion($request->getParam('dataVersion')));
+                    return new \Jukebox\Backend\Events\ElasticsearchIndexPushEvent($request->getDataVersion());
                 case 'ArtistsToElasticsearchPush':
-                    return new \Jukebox\Backend\Events\ArtistsToElasticsearchPushEvent(new DataVersion($request->getParam('dataVersion')));
+                    return new \Jukebox\Backend\Events\ArtistsToElasticsearchPushEvent($request->getDataVersion());
                 case 'TracksToElasticsearchPush':
-                    return new \Jukebox\Backend\Events\TracksToElasticsearchPushEvent(new DataVersion($request->getParam('dataVersion')));
+                    return new \Jukebox\Backend\Events\TracksToElasticsearchPushEvent($request->getDataVersion());
                 case 'Initial':
                     return new \Jukebox\Backend\Events\InitialEvent;
                 case 'TrackPathsPush':
-                    return new \Jukebox\Backend\Events\TrackPathsPushEvent;
-                case 'ArtistPathsPush':
-                    return new \Jukebox\Backend\Events\ArtistPathsPushEvent;
+                    return new \Jukebox\Backend\Events\TrackPathsPushEvent($request->getDataVersion());
                 case 'ElasticsearchIndexDelete':
                     return new \Jukebox\Backend\Events\ElasticsearchIndexDeleteEvent($request->getParam('index'));
+                case 'ArtistPathsPush':
+                    return new \Jukebox\Backend\Events\ArtistPathsPushEvent($request->getDataVersion());
                 case 'OldDataVersionDelete':
-                    return new \Jukebox\Backend\Events\ElasticsearchIndexDeleteEvent($request->getParam('index'));
+                    return new \Jukebox\Backend\Events\OldDataVersionDeleteEvent($request->getDataVersion());
                 default:
                     throw new \InvalidArgumentException('Event "' . $request->getAction() . '" does not exist');
             }
