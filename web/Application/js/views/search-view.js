@@ -7,6 +7,10 @@ import { app } from '../app'
 import { Page } from './page'
 
 export function SearchView(query) {
+  const store = app.getModelStore()
+  
+  query = query.trim()
+
   return {
     /**
      *
@@ -14,13 +18,19 @@ export function SearchView(query) {
      */
     fetch () {
       const loader = app.getModelLoader()
+      const key = { id: query, type: 'results' }
+      let results
 
-      return fetchSearch(query)
-        .then((results) => {
-          return results.map((result) => loader.load(result))
-        })
-        .then((results) => {
-          return new Page({ title: 'Jukebox Ninja - Search', template: 'search', data: { results, query } })
+      if (store.has(key)) {
+        results = Promise.resolve(store.get(key))
+      } else {
+        results = fetchSearch(query)
+          .then((results) => loader.loadResult({ id: query, results }))
+      }
+
+      return results
+        .then((result) => {
+          return new Page({ title: 'Jukebox Ninja - Search', template: 'search', data: result })
         })
     },
     /**

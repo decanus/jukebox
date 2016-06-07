@@ -52,7 +52,6 @@ export class JukeboxApp extends HTMLElement {
           
           cleanup.set(this, view.handle(page))
           render(this, page)
-          store.cleanup()
         })
     })
   }

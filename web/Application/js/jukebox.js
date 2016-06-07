@@ -6,6 +6,7 @@ import 'babel-polyfill'
 import 'es6-symbol/implement'
 
 import { app } from './app'
+import { getInterval } from './dom/time/get-interval'
 
 import './app/elements'
 
@@ -20,5 +21,11 @@ document.addEventListener('DOMContentLoaded', () => {
 window.__$loadModel = function (model) {
   app.getModelLoader().load(model)
 }
+
+getInterval(60000)
+  .forEach(() => {
+    console.info('it\'s time to clean')
+    app.getModelStore().cleanup()
+  })
 
 window.__$modelStore = app.getModelStore()
