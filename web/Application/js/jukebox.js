@@ -5,10 +5,10 @@
 import 'babel-polyfill'
 import 'es6-symbol/implement'
 
-import { Track } from './track/track'
 import { app } from './app'
+import { getInterval } from './dom/time/get-interval'
 
-import './elements'
+import './app/elements'
 
 window.addEventListener('popstate', () => {
   app.setRoute(window.location.pathname)
@@ -18,9 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
   app.setRoute(window.location.pathname)
 })
 
-// todo: remove this after everything is working again
-if (process.env['JUKEBOX_ENV'] !== 'production') {
-  window.app = app
-  window.Track = Track
-  window.player = app.getPlayer()
+window.__$loadModel = function (model) {
+  app.getModelLoader().load(model)
 }
+
+getInterval(60000)
+  .forEach(() => {
+    console.info('it\'s time to clean')
+    app.getModelStore().cleanup()
+  })
+
+window.__$modelStore = app.getModelStore()

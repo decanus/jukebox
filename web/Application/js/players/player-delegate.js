@@ -11,14 +11,13 @@ import { PlayerQueue } from './player-queue'
 /**
  *
  * @param {string} method
+ * @todo search word if currently searching in field
  */
 function delegateToCurrentPlayer (method) {
   return new Observable((observer) => {
     let subscription
 
     this.getTrack().forEach(() => {
-      console.log('track changed')
-      
       if (subscription) {
         subscription.unsubscribe()
       }
@@ -338,5 +337,13 @@ export class PlayerDelegate {
    */
   getQueueChange () {
     return this._emitter.toObservable('queueChange')
+  }
+
+  /**
+   * 
+   * @returns {Number}
+   */
+  getQueueSize () {
+    return this._queue.getSize()
   }
 }

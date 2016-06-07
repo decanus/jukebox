@@ -17,7 +17,8 @@ namespace Jukebox\Frontend\Factories
         {
             return new \Jukebox\Frontend\Handlers\Get\GenericPageTransformationHandler(
                 $this->getTemplate(),
-                $this->getMasterFactory()->createAppendTrackingSnippetTransformation()
+                $this->getMasterFactory()->createAppendTrackingSnippetTransformation(),
+                $this->getMasterFactory()->createTwitterCardTagsTransformation()
             );
         }
 
@@ -101,6 +102,18 @@ namespace Jukebox\Frontend\Factories
                 $this->getTemplate(),
                 $this->getMasterFactory()->createGenericPageTransformationHandler(),
                 $this->getMasterFactory()->createFileBackend()
+            );
+        }
+
+        public function createAjaxTransformationHandler(): \Jukebox\Frontend\Handlers\Get\Ajax\TransformationHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Get\Ajax\TransformationHandler;
+        }
+
+        public function createAjaxSearchQueryHandler(): \Jukebox\Frontend\Handlers\Get\Ajax\Search\QueryHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Get\Ajax\Search\QueryHandler(
+                $this->getMasterFactory()->createJukeboxRestManager()
             );
         }
 

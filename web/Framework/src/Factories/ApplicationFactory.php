@@ -4,6 +4,7 @@ namespace Jukebox\Framework\Factories
 {
 
     use Jukebox\Framework\DataPool\DataPoolKeyGenerator;
+    use Jukebox\Framework\ValueObjects\DataVersion;
     use Jukebox\Framework\ValueObjects\Uri;
 
     class ApplicationFactory extends AbstractFactory
@@ -26,19 +27,21 @@ namespace Jukebox\Framework\Factories
             return (new \Elasticsearch\ClientBuilder())->build();
         }
 
-        public function createDataPoolWriter(): \Jukebox\Framework\DataPool\DataPoolWriter
+        public function createDataPoolWriter(DataVersion $dataVersion = null): \Jukebox\Framework\DataPool\DataPoolWriter
         {
             return new \Jukebox\Framework\DataPool\DataPoolWriter(
                 new DataPoolKeyGenerator,
-                $this->getMasterFactory()->createRedisBackend()
+                $this->getMasterFactory()->createRedisBackend(),
+                $dataVersion
             );
         }
 
-        public function createDataPoolReader(): \Jukebox\Framework\DataPool\DataPoolReader
+        public function createDataPoolReader(DataVersion $dataVersion = null): \Jukebox\Framework\DataPool\DataPoolReader
         {
             return new \Jukebox\Framework\DataPool\DataPoolReader(
                 new DataPoolKeyGenerator,
-                $this->getMasterFactory()->createRedisBackend()
+                $this->getMasterFactory()->createRedisBackend(),
+                $dataVersion
             );
         }
         

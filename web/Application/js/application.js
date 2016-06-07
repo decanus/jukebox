@@ -3,16 +3,17 @@
  */
 
 import { Emitter } from './event/emitter'
-import { updatePath } from './history/update-path'
+import { updatePath, replacePath } from './dom/history'
+import { ModelStore } from './model/model-store'
+import { ModelLoader } from './model/model-loader'
 
 export class Application {
   /**
    *
    * @param {Document} document
-   * @param {Window} view
    * @param {PlayerDelegate} player
    */
-  constructor(document, view, player) {
+  constructor(document, player) {
     /**
      *
      * @type {Document}
@@ -22,10 +23,9 @@ export class Application {
 
     /**
      *
-     * @type {Window}
-     * @private
+     * @type {string} route
      */
-    this._view = view
+    this._route = '/'
 
     /**
      *
@@ -40,6 +40,22 @@ export class Application {
      * @private
      */
     this._emitter = new Emitter()
+
+    /**
+     *
+     * @type {ModelStore}
+     * @private
+     */
+    this._modelStore = new ModelStore()
+
+    /**
+     *
+     * @type {ModelLoader}
+     * @private
+     */
+    this._modelLoader = new ModelLoader(this._modelStore)
+
+    this.getRoute().forEach((route) => (this._route = route))
   }
 
   /**
@@ -55,16 +71,46 @@ export class Application {
    * @returns {Observable<string>}
    */
   getRoute() {
-    return Emitter.toObservable(this._emitter, 'route')
+    return this._emitter.toObservable('route')
+  }
+
+  /**
+   *
+   * @returns {string}
+   */
+  getCurrentRoute () {
+    return this._route
   }
   
   /**
    *
    * @param {string} route
+   * @param {boolean} replace
    */
-  setRoute(route) {
+  setRoute(route, { replace = false } = { replace: false }) {
     this._emitter.emit('route', route)
-    updatePath(route)
+    
+    if (replace) {
+      replacePath(route)
+    } else {
+      updatePath(route)
+    }
+  }
+
+  /**
+   * 
+   * @returns {ModelLoader}
+   */
+  getModelLoader () {
+    return this._modelLoader
+  }
+
+  /**
+   *
+   * @returns {ModelStore}
+   */
+  getModelStore () {
+    return this._modelStore
   }
 
   showSidebar() {

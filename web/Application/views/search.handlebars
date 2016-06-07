@@ -1,0 +1,20 @@
+<section class="page-content -fit">
+    <div class="container">
+        <h2>Search for "{{query}}"</h2>
+
+        {{#each results}}
+            <div class="search-track">
+                <track-link track-id="{{id}}">
+                    <button>Play</button>
+                </track-link>
+
+                <track-link track-id="{{id}}" push-to-queue>
+                    <button>Add to queue</button>
+                </track-link>
+
+                <a is="jukebox-link" href="{{permalink}}" class="title">{{title}}</a>
+                <a is="jukebox-link" href="{{artist.permalink}}" class="artist">{{artist.name}}</a>
+            </div>
+        {{/each}}
+    </div>
+</section>

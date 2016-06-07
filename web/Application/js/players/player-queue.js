@@ -178,4 +178,12 @@ export class PlayerQueue {
 
     return this._current - 1
   }
+
+  /**
+   * 
+   * @returns {Number}
+   */
+  getSize () {
+    return this._tracks.length
+  }
 }

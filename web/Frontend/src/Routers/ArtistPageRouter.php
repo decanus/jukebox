@@ -24,7 +24,6 @@ namespace Jukebox\Frontend\Routers
 
         public function __construct(MasterFactory $factory, DataPoolReader $dataPoolReader)
         {
-
             $this->factory = $factory;
             $this->dataPoolReader = $dataPoolReader;
         }
