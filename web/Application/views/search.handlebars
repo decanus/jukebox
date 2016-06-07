@@ -1,0 +1,13 @@
+<section class="page-content -fit">
+    <div class="container">
+        <h2>Search for "{{query}}"</h2>
+
+        {{#each results}}
+            <div class="search-track">
+                <track-link track-id="{{id}}">
+                    <a>{{title}}</a>
+                </track-link>
+            </div>
+        {{/each}}
+    </div>
+</section>

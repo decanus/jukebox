@@ -14,3 +14,16 @@ export function updatePath (path) {
 
   window.history.pushState(null, '', path)
 }
+
+/**
+ *
+ * @param {string} path
+ * @todo: allow passing in the window instance
+ */
+export function replacePath (path) {
+  if (window.location.pathname === path) {
+    return
+  }
+
+  window.history.replaceState(null, '', path)
+}

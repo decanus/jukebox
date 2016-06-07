@@ -1,4 +1,8 @@
 /**
+ * (c) 2016 Jukebox <www.jukebox.ninja>
+ */
+
+/**
  * @param {Array<Array<string>>} params
  * @returns {string}
  */

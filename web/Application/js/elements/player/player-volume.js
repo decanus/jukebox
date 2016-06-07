@@ -3,7 +3,7 @@
  */
 
 import { app } from '../../app'
-import { ScrobbleBar } from '../../elements'
+import { ScrobbleBar } from '../../app/elements'
 
 const player = app.getPlayer()
 

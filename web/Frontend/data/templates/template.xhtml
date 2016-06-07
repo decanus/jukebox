@@ -27,8 +27,12 @@
             <img src="/images/logo.svg" alt="Jukebox Ninja" />
         </a>
 
+        <div class="search">
+            <input type="text" is="search-field" class="search-field" placeholder="Search ..." />
+        </div>
+
         <button class="button" is="toggle-sidebar" hidden="hidden">
-            <div class="audio-icon">
+            <div class="audio-icon -paused">
                 <div class="bar"></div>
                 <div class="bar"></div>
                 <div class="bar"></div>
@@ -56,7 +60,6 @@
         <player-volume />
         <player-repeat-button class="player-action-button"/>
 
-
         <div class="player-queue">
             <player-queue class="inner" />
         </div>
@@ -65,6 +68,7 @@
 </div>
 
 <script type="application/javascript" src="/js/polyfills.js"></script>
+<script type="application/javascript" src="/js/views.js"></script>
 <script type="application/javascript" src="/js/jukebox.js"></script>
 
 </body>

@@ -4,7 +4,7 @@
 
 import { app } from '../../app'
 import { PlayerState } from '../../players/player-state'
-import { ScrobbleBar } from '../../elements'
+import { ScrobbleBar } from '../../app/elements'
 
 const player = app.getPlayer()
 

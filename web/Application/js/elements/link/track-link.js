@@ -3,7 +3,6 @@
  */
 
 import { app } from '../../app'
-import { fetchTrack } from '../../track/fetch-track'
 
 export class TrackLink extends HTMLElement {
   /**
@@ -17,12 +16,12 @@ export class TrackLink extends HTMLElement {
       if (!this.pushToQueue) {
         promise = player.removeAllTracks()
       }
-      
+
       promise
-        .then(() => fetchTrack(this.trackId))
+        .then(() => app.getModelStore().get({ type: 'tracks', id: this.trackId }))
         .then((track) => {
           player.addTrack(track)
-          
+
           if (player.getQueueSize() === 1) {
             player.play()
           }
