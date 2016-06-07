@@ -1,9 +1,9 @@
 <?php
 
-namespace Jukebox\Framework\ValueObjects\Services
+namespace Jukebox\Framework\ValueObjects\Sources
 {
 
-    class Youtube implements Service
+    class Youtube implements Source
     {
 
         public function __toString(): string

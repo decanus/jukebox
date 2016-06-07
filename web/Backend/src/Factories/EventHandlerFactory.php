@@ -43,7 +43,8 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createInsertTrackArtistCommand(),
                 $this->getMasterFactory()->createInsertTrackGenreCommand(),
                 $this->getMasterFactory()->createFetchGenreByNameQuery(),
-                $this->getMasterFactory()->createFetchTrackByVevoIdQuery()
+                $this->getMasterFactory()->createFetchTrackByVevoIdQuery(),
+                $this->getMasterFactory()->createInsertTrackSourceCommand()
             );
         }
 
@@ -81,7 +82,8 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createElasticsearchClient(),
                 $this->getMasterFactory()->createFetchTracksQuery(),
                 $this->getMasterFactory()->createFetchTrackArtistsQuery(),
-                $this->getMasterFactory()->createFetchTrackGenresQuery()
+                $this->getMasterFactory()->createFetchTrackGenresQuery(),
+                $this->getMasterFactory()->createFetchTrackSourcesQuery()
             );
         }
 
