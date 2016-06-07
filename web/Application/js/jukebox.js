@@ -21,4 +21,4 @@ window.__$loadModel = function (model) {
   app.getModelLoader().load(model)
 }
 
-// todo: periodically cleanup models
+window.__$modelStore = app.getModelStore()

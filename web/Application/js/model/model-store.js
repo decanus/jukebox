@@ -73,6 +73,8 @@ export class ModelStore {
 
       if (refs < 1) {
         //noinspection JSUnfilteredForInLoop
+        console.info(`removing '${key}' from store, doesn't have any active refs`)
+        //noinspection JSUnfilteredForInLoop
         delete this._store[ key ]
       }
     }

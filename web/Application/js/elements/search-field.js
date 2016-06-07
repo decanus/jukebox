@@ -10,12 +10,8 @@ export class SearchField extends HTMLInputElement {
       if (e.keyCode !== 13) {
         return
       }
-
-      const route = app.getCurrentRoute()
-      const parts = route.split('/')
-      let replace = (parts[1] === 'search')
-
-      app.setRoute(`/search/${encodeURIComponent(this.value)}`, { replace })
+      
+      app.setRoute(`/search/${encodeURIComponent(this.value)}`)
     })
   }
 }

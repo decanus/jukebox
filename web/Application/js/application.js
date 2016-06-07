@@ -11,23 +11,15 @@ export class Application {
   /**
    *
    * @param {Document} document
-   * @param {Window} view
    * @param {PlayerDelegate} player
    */
-  constructor(document, view, player) {
+  constructor(document, player) {
     /**
      *
      * @type {Document}
      * @private
      */
     this._document = document
-
-    /**
-     *
-     * @type {Window}
-     * @private
-     */
-    this._view = view
 
     /**
      *

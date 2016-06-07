@@ -9,4 +9,4 @@ import { PlayerDelegate } from './players/player-delegate'
  * 
  * @type {Application}
  */
-export const app = new Application(document, window, new PlayerDelegate())
+export const app = new Application(document, new PlayerDelegate())

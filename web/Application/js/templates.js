@@ -12,6 +12,7 @@ import { createFragmentFromString } from './dom/fragment'
  * @returns {DocumentFragment}
  */
 export function renderTemplate (templateName, document, data) {
+  //noinspection JSUnresolvedVariable
   return createFragmentFromString(
     document,
     Handlebars.templates[templateName](data, {})

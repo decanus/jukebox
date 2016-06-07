@@ -4,7 +4,7 @@
 
 import { Emitter } from '../event/emitter'
 import { createObservable } from '../dom/events/create-observable'
-import { getInterval } from '../time/get-interval'
+import { getInterval } from '../dom/time/get-interval'
 import { Track } from '../models/track'
 
 /**
