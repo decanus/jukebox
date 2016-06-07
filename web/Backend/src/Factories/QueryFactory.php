@@ -76,5 +76,12 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createPostgreDatabaseBackend()
             );
         }
+
+        public function createFetchTrackSourcesQuery(): \Jukebox\Backend\Queries\FetchTrackSourcesQuery
+        {
+            return new \Jukebox\Backend\Queries\FetchTrackSourcesQuery(
+                $this->getMasterFactory()->createPostgreDatabaseBackend()
+            );
+        }
     }
 }

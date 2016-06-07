@@ -6,6 +6,7 @@ namespace Jukebox\Backend\EventHandlers\Import
     use Jukebox\Backend\Commands\InsertTrackArtistCommand;
     use Jukebox\Backend\Commands\InsertTrackCommand;
     use Jukebox\Backend\Commands\InsertTrackGenreCommand;
+    use Jukebox\Backend\Commands\InsertTrackSourceCommand;
     use Jukebox\Backend\EventHandlers\EventHandlerInterface;
     use Jukebox\Backend\Events\VevoArtistVideosImportEvent;
     use Jukebox\Backend\Queries\FetchArtistByVevoIdBackendQuery;
@@ -17,6 +18,7 @@ namespace Jukebox\Backend\EventHandlers\Import
     use Jukebox\Framework\Logging\LoggerAwareTrait;
     use Jukebox\Framework\ValueObjects\Featured;
     use Jukebox\Framework\ValueObjects\Main;
+    use Jukebox\Framework\ValueObjects\Sources\Youtube;
 
     class VevoArtistVideosImportEventHandler implements EventHandlerInterface, LoggerAware
     {
@@ -68,6 +70,11 @@ namespace Jukebox\Backend\EventHandlers\Import
         private $videoIds = [];
 
         /**
+         * @var InsertTrackSourceCommand
+         */
+        private $insertTrackSourceCommand;
+
+        /**
          * @var string
          */
         private $artistId;
@@ -80,7 +87,8 @@ namespace Jukebox\Backend\EventHandlers\Import
             InsertTrackArtistCommand $insertTrackArtistsCommand,
             InsertTrackGenreCommand $insertTrackGenreCommand,
             FetchGenreByNameQuery $fetchGenreByNameQuery,
-            FetchTrackByVevoIdQuery $fetchTrackByVevoIdQuery
+            FetchTrackByVevoIdQuery $fetchTrackByVevoIdQuery,
+            InsertTrackSourceCommand $insertTrackSourceCommand
         )
         {
             $this->event = $event;
@@ -91,6 +99,7 @@ namespace Jukebox\Backend\EventHandlers\Import
             $this->insertTrackGenreCommand = $insertTrackGenreCommand;
             $this->fetchGenreByNameQuery = $fetchGenreByNameQuery;
             $this->fetchTrackByVevoIdQuery = $fetchTrackByVevoIdQuery;
+            $this->insertTrackSourceCommand = $insertTrackSourceCommand;
         }
 
         public function execute()
@@ -150,13 +159,14 @@ namespace Jukebox\Backend\EventHandlers\Import
                 $id = $this->insertTrackCommand->execute(
                     $video['duration'] * 1000,
                     $video['title'],
-                    $video['youTubeId'],
                     $video['isrc'],
                     $video['isrc'],
                     $video['isLive'],
                     $video['isExplicit'],
                     $permalink
                 );
+
+                $this->insertTrackSourceCommand->execute($id, new Youtube, $video['youTubeId'], $video['duration'] * 1000);
 
                 foreach ($video['artists'] as $artist) {
                     try {

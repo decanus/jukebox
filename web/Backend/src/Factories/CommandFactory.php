@@ -40,6 +40,13 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createPostgreDatabaseBackend()
             );
         }
+
+        public function createInsertTrackSourceCommand()
+        {
+            return new \Jukebox\Backend\Commands\InsertTrackSourceCommand(
+                $this->getMasterFactory()->createPostgreDatabaseBackend()
+            );
+        }
     }
 }
 

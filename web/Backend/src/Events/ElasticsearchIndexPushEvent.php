@@ -8,7 +8,6 @@ namespace Jukebox\Backend\Events
 
     class ElasticsearchIndexPushEvent implements EventInterface
     {
-        
         private $dataVersion;
         
         public function __construct(DataVersion $dataVersion)
