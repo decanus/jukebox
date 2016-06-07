@@ -50,6 +50,8 @@ namespace Jukebox\Backend\Locators
                     return $this->factory->createTrackPathsPushEventHandler();
                 case 'ArtistPathsPush':
                     return $this->factory->createArtistPathsPushEventHandler();
+                case 'ElasticsearchIndexDelete':
+                    return $this->factory->createElasticsearchIndexDeleteEventHandler($event);
             }
         }
     }

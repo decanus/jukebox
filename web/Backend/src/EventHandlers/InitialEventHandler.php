@@ -5,6 +5,7 @@ namespace Jukebox\Backend\EventHandlers
 
     use Jukebox\Backend\Events\ArtistsToElasticsearchPushEvent;
     use Jukebox\Backend\Events\DataVersionPushEvent;
+    use Jukebox\Backend\Events\ElasticsearchIndexDeleteEvent;
     use Jukebox\Backend\Events\ElasticsearchIndexPushEvent;
     use Jukebox\Backend\Events\TracksToElasticsearchPushEvent;
     use Jukebox\Backend\Writers\EventQueueWriter;
@@ -25,6 +26,7 @@ namespace Jukebox\Backend\EventHandlers
 
         public function execute()
         {
+            $oldDataVersion = $this->eventQueueWriter->getDataVersion();
             $dataVersion = new DataVersion('now');
             $this->eventQueueWriter->add(new ElasticsearchIndexPushEvent($dataVersion));
             $this->eventQueueWriter->add(new ArtistsToElasticsearchPushEvent($dataVersion));
@@ -34,6 +36,7 @@ namespace Jukebox\Backend\EventHandlers
 
             // @todo remove old elasticsearch index
             $this->eventQueueWriter->add(new DataVersionPushEvent($dataVersion));
+            $this->eventQueueWriter->add(new ElasticsearchIndexDeleteEvent($oldDataVersion));
         }
 
         private function wait()

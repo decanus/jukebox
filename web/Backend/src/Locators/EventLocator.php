@@ -34,6 +34,10 @@ namespace Jukebox\Backend\Locators
                     return new \Jukebox\Backend\Events\TrackPathsPushEvent;
                 case 'ArtistPathsPush':
                     return new \Jukebox\Backend\Events\ArtistPathsPushEvent;
+                case 'ElasticsearchIndexDelete':
+                    return new \Jukebox\Backend\Events\ElasticsearchIndexDeleteEvent($request->getParam('index'));
+                case 'OldDataVersionDelete':
+                    return new \Jukebox\Backend\Events\ElasticsearchIndexDeleteEvent($request->getParam('index'));
                 default:
                     throw new \InvalidArgumentException('Event "' . $request->getAction() . '" does not exist');
             }

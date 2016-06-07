@@ -6,10 +6,10 @@ namespace Jukebox\Backend\Events
     use Jukebox\Framework\Events\EventInterface;
     use Jukebox\Framework\ValueObjects\DataVersion;
 
-    class ElasticsearchIndexPushEvent implements EventInterface
+    class OldDataVersionDeleteEvent implements EventInterface
     {
         private $dataVersion;
-        
+
         public function __construct(DataVersion $dataVersion)
         {
             $this->dataVersion = $dataVersion;
@@ -17,9 +17,9 @@ namespace Jukebox\Backend\Events
 
         public function getName(): string
         {
-            return 'ElasticsearchIndexPush';
+            return 'OldDataVersionDelete';
         }
-        
+
         public function getDataVersion(): DataVersion
         {
             return $this->dataVersion;

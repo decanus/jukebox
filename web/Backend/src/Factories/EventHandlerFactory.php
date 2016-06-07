@@ -115,5 +115,21 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createRedisBackend()
             );
         }
+
+        public function createElasticsearchIndexDeleteEventHandler(\Jukebox\Backend\Events\ElasticsearchIndexDeleteEvent $event): \Jukebox\Backend\EventHandlers\ElasticsearchIndexDeleteEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\ElasticsearchIndexDeleteEventHandler(
+                $event,
+                $this->getMasterFactory()->createElasticsearchClient()
+            );
+        }
+
+        public function createOldDataVersionDeleteEventHandler(\Jukebox\Backend\Events\OldDataVersionDeleteEvent $event): \Jukebox\Backend\EventHandlers\OldDataVersionDeleteEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\OldDataVersionDeleteEventHandler(
+                $event,
+                $this->getMasterFactory()->createRedisBackend()
+            );
+        }
     }
 }

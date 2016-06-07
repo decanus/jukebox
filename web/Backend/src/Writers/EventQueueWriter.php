@@ -5,6 +5,7 @@ namespace Jukebox\Backend\Writers
 
     use Jukebox\Framework\DataPool\RedisBackend;
     use Jukebox\Framework\Events\EventInterface;
+    use Jukebox\Framework\ValueObjects\DataVersion;
 
     class EventQueueWriter
     {
@@ -29,6 +30,12 @@ namespace Jukebox\Backend\Writers
         public function count()
         {
             return $this->redisBackend->getQueueLength('eventQueue');
+        }
+
+        // @todo does not belong here
+        public function getDataVersion(): DataVersion
+        {
+            return $this->redisBackend->get('currentDataVersion');
         }
     }
 }
