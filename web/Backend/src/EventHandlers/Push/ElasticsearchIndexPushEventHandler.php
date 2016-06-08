@@ -68,9 +68,9 @@ namespace Jukebox\Backend\EventHandlers\Push
                             'settings' => [
                                 'analysis' => [
                                     'analyzer' => [
-                                        'case_insensitive_sort' => [
+                                        'folding' => [
                                             'tokenizer' => 'keyword',
-                                            'filter' => ['lowercase']
+                                            'filter' =>  ['lowercase', 'asciifolding']
                                         ]
                                     ]
                                 ]

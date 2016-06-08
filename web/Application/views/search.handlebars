@@ -1,37 +1,45 @@
-<section class="page-content -fit">
+<section class="page-content">
     <div class="container">
         <h2>Search for "{{query}}"</h2>
+        {{#if results}}
+            {{#each results}}
 
-        {{#each results}}
+                {{#if isArtist}}
+                    <div class="search-result">
 
-            {{#if isArtist}}
-                <div class="search-track">
+                        <div class="button">
+                            <div class="round-button"></div>
+                        </div>
 
-                   <div class="button">
-                       <div class="round-button"></div>
-                   </div>
-
-                    <div class="text">
-                        <a is="jukebox-link" href="{{permalink}}" class="title">{{name}}</a>
+                        <div class="text">
+                            <a is="jukebox-link" href="{{permalink}}" class="title">{{name}}</a>
+                        </div>
                     </div>
-                </div>
-            {{/if}}
+                {{/if}}
 
-            {{#if isTrack}}
-                <div class="search-track">
+                {{#if isTrack}}
+                    <div class="search-result">
 
-                    <track-link track-id="{{id}}" class="button">
-                        <button class="round-button -clickable">
-                            <img src="/images/icons/play.svg" />
-                        </button>
-                    </track-link>
+                        <track-link track-id="{{id}}" class="button">
+                            <button class="round-button -clickable">
+                                <img src="/images/icons/play.svg"/>
+                            </button>
+                        </track-link>
 
-                    <div class="text">
-                        <a is="jukebox-link" href="{{permalink}}" class="title">{{title}}</a>
-                        <a is="jukebox-link" href="{{artist.permalink}}" class="artist">{{artist.name}}</a>
+                        <div class="text">
+                            <a is="jukebox-link" href="{{permalink}}" class="title">{{title}}</a>
+                            <a is="jukebox-link" href="{{artist.permalink}}" class="artist">{{artist.name}}</a>
+                        </div>
                     </div>
-                </div>
-            {{/if}}
-        {{/each}}
+                {{/if}}
+            {{/each}}
+        {{else}}
+            <p>
+                <b>Sorry.</b> We couldn't find anything matching "{{query}}".
+            </p>
+            <p>
+                Maybe you were looking for <a is="jukebox-link" href="/search?q=Adele">Adele</a>?
+            </p>
+        {{/if}}
     </div>
 </section>

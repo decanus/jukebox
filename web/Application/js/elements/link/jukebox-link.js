@@ -3,6 +3,7 @@
  */
 
 import { app } from '../../app'
+import { Route } from '../../app/route'
 
 export class JukeboxLink extends HTMLAnchorElement {
   createdCallback() {
@@ -13,7 +14,7 @@ export class JukeboxLink extends HTMLAnchorElement {
       }
 
       event.preventDefault()
-      app.setRoute(this.pathname)
+      app.setRoute(Route.fromLocation(this))
     })
     
   }

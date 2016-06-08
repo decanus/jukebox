@@ -2,17 +2,21 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
+import { Route } from '../app/route'
+
 /**
  *
- * @param {string} path
+ * @param {Route} route
  * @todo: allow passing in the window instance
  */
-export function updatePath (path) {
-  if (window.location.pathname === path) {
+export function updatePath (route) {
+  const currentState = Route.fromLocation(window.location)
+  
+  if (currentState.isSameValue(route)) {
     return
   }
 
-  window.history.pushState(null, '', path)
+  window.history.pushState(null, '', route.toString())
 }
 
 /**

@@ -18,7 +18,6 @@ clean:
 	rm -rf build/ $(BUNDLE)
 
 lint:
-	lessc --lint styles/jukebox.less
 	standard "js/**/*.js"
 
 install-deps:
