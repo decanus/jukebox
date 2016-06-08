@@ -32,7 +32,7 @@ mkdir -p $RPM_BUILD_ROOT/etc/cron.d
 
 install -m 755 -d $RPM_BUILD_ROOT%{_wwwDir}Frontend
 install -m 755 -d $RPM_BUILD_ROOT%{_wwwDir}Frontend/{html,src,config,data}
-install -m 755 -d $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/{css,images,js,html}/
+install -m 755 -d $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/{css,images,js}/
 
 install -m 755 -d $RPM_BUILD_ROOT%{_wwwDir}Framework
 install -m 755 -d $RPM_BUILD_ROOT%{_wwwDir}Framework/{lib,src}
@@ -46,7 +46,6 @@ install -m 755 -d $RPM_BUILD_ROOT%{_wwwDir}Backend/{config,src,data}
 install -m 644 %{_sourcedir}Backend/config/backend.cron $RPM_BUILD_ROOT/etc/cron.d/backend.cron
 
 cp -R %{_sourcedir}Frontend/html/images/* $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/images/
-cp -R %{_sourcedir}Frontend/html/html/* $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/html/
 cp -R %{_sourcedir}Frontend/html/favicon.ico $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/favicon.ico
 cp -R %{_sourcedir}Frontend/html/robots.txt $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/robots.txt
 
@@ -59,7 +58,7 @@ cp -R %{_sourcedir}Frontend/src/* $RPM_BUILD_ROOT%{_wwwDir}Frontend/src/
 cp -R %{_sourcedir}Frontend/data/* $RPM_BUILD_ROOT%{_wwwDir}Frontend/data/
 cp -R %{_sourcedir}Frontend/config/system.live.ini $RPM_BUILD_ROOT%{_wwwDir}Frontend/config/system.ini
 
-php %{_wwwDir}packages/scripts/appendCssAndJsVersion.php $RPM_BUILD_ROOT%{_wwwDir}Frontend/data/templates/template.xhtml %{version}-%{release}
+php %{_sourcedir}packages/scripts/appendCssAndJsVersion.php $RPM_BUILD_ROOT%{_wwwDir}Frontend/data/templates/template.xhtml %{version}-%{release}
 
 cp -R %{_sourcedir}Framework/lib/* $RPM_BUILD_ROOT%{_wwwDir}Framework/lib/
 cp -R %{_sourcedir}Framework/src/* $RPM_BUILD_ROOT%{_wwwDir}Framework/src/
