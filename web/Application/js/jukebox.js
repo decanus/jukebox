@@ -22,7 +22,8 @@ window.__$loadModel = function (model) {
   app.getModelLoader().load(model)
 }
 
-getInterval(60000)
+// todo: figure out an optimal interval for cleanup
+getInterval(180000)
   .forEach(() => {
     console.info('it\'s time to clean')
     app.getModelStore().cleanup()
