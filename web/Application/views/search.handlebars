@@ -3,18 +3,35 @@
         <h2>Search for "{{query}}"</h2>
 
         {{#each results}}
-            <div class="search-track">
-                <track-link track-id="{{id}}">
-                    <button>Play</button>
-                </track-link>
 
-                <track-link track-id="{{id}}" push-to-queue>
-                    <button>Add to queue</button>
-                </track-link>
+            {{#if isArtist}}
+                <div class="search-track">
 
-                <a is="jukebox-link" href="{{permalink}}" class="title">{{title}}</a>
-                <a is="jukebox-link" href="{{artist.permalink}}" class="artist">{{artist.name}}</a>
-            </div>
+                   <div class="button">
+                       <div class="round-button"></div>
+                   </div>
+
+                    <div class="text">
+                        <a is="jukebox-link" href="{{permalink}}" class="title">{{name}}</a>
+                    </div>
+                </div>
+            {{/if}}
+
+            {{#if isTrack}}
+                <div class="search-track">
+
+                    <track-link track-id="{{id}}" class="button">
+                        <button class="round-button -clickable">
+                            <img src="/images/icons/play.svg" />
+                        </button>
+                    </track-link>
+
+                    <div class="text">
+                        <a is="jukebox-link" href="{{permalink}}" class="title">{{title}}</a>
+                        <a is="jukebox-link" href="{{artist.permalink}}" class="artist">{{artist.name}}</a>
+                    </div>
+                </div>
+            {{/if}}
         {{/each}}
     </div>
 </section>

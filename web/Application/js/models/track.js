@@ -31,4 +31,12 @@ export class Track {
   get type() {
     return 'tracks'
   }
+
+  /**
+   * 
+   * @returns {boolean}
+   */
+  get isTrack () {
+    return true
+  }
 }
