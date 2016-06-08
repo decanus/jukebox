@@ -1,4 +1,4 @@
-%define _wwwDir /var/www/jukebox/
+%define _wwwDir /var/www/
 
 Summary: jukebox
 Name: jukebox
