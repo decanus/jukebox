@@ -5,7 +5,7 @@
     },
     "dynamic": "strict",
     "properties": {
-      "title": {"type": "string", "index": "analyzed", "analyzer": "standard"},
+      "title": {"type": "string", "index": "analyzed", "analyzer": "folding"},
       "duration": {"type": "integer", "index": "not_analyzed"},
       "vevo_id": {"type": "string", "index": "not_analyzed"},
       "isrc": {"type": "string", "index": "not_analyzed"},
@@ -21,15 +21,7 @@
       "artists": {
         "properties": {
           "id": {"type": "string", "index": "not_analyzed"},
-          "name": {
-            "type": "string",
-            "fields": {
-              "lower_case_sort": {
-                "type": "string",
-                "analyzer": "case_insensitive_sort"
-              }
-            }
-          },
+          "name": {"type": "string", "index": "analyzed", "analyzer": "folding"},
           "permalink": {"type": "string", "index": "not_analyzed"},
           "role": {"type": "string", "index": "not_analyzed"}
         }

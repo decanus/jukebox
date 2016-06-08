@@ -36,7 +36,7 @@ namespace Jukebox\API\Handlers\Get\Search
                 'query' => [
                     'multi_match' => [
                         'query' => $request->getParameter('query'),
-                        'fields' => ['name', 'title', 'artists.name.lower_case_sort'],
+                        'fields' => ['name', 'title', 'artists.name'],
                         'type' => 'phrase_prefix'
                     ]
                 ]
