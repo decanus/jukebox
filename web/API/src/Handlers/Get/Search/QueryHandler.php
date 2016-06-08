@@ -28,6 +28,10 @@ namespace Jukebox\API\Handlers\Get\Search
                 return;
             }
 
+            if (trim($request->getParameter('query')) === '') {
+                return;
+            }
+
             $params = [
                 'query' => [
                     'multi_match' => [
