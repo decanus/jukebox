@@ -3,6 +3,7 @@
  */
 
 import { app } from '../app'
+import { Route } from '../app/route'
 
 export class SearchField extends HTMLInputElement {
   createdCallback () {
@@ -11,7 +12,7 @@ export class SearchField extends HTMLInputElement {
         return
       }
       
-      app.setRoute(`/search/${encodeURIComponent(this.value)}`)
+      app.setRoute(new Route('/search', { q: this.value }))
     })
   }
 }

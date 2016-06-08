@@ -6,6 +6,7 @@ import { Emitter } from './event/emitter'
 import { updatePath, replacePath } from './dom/history'
 import { ModelStore } from './model/model-store'
 import { ModelLoader } from './model/model-loader'
+import { Route } from './app/route'
 
 export class Application {
   /**
@@ -25,7 +26,7 @@ export class Application {
      *
      * @type {string} route
      */
-    this._route = '/'
+    this._route = new Route('/')
 
     /**
      *
@@ -68,7 +69,7 @@ export class Application {
 
   /**
    *
-   * @returns {Observable<string>}
+   * @returns {Observable<Route>}
    */
   getRoute() {
     return this._emitter.toObservable('route')
@@ -76,7 +77,7 @@ export class Application {
 
   /**
    *
-   * @returns {string}
+   * @returns {Route}
    */
   getCurrentRoute () {
     return this._route
@@ -84,16 +85,16 @@ export class Application {
   
   /**
    *
-   * @param {string} route
+   * @param {Route} route
    * @param {boolean} replace
    */
   setRoute(route, { replace = false } = { replace: false }) {
     this._emitter.emit('route', route)
     
     if (replace) {
-      replacePath(route)
+      replacePath(route.toString())
     } else {
-      updatePath(route)
+      updatePath(route.toString())
     }
   }
 
