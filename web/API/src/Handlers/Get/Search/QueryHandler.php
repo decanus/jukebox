@@ -42,7 +42,17 @@ namespace Jukebox\API\Handlers\Get\Search
                 ]
             ];
 
-            $model->setData($this->searchBackend->search('tracks,artists', $params));
+            $size = 20;
+            if ($request->hasParameter('size')) {
+                $size = $request->getParameter('size');
+            }
+
+            $from = 0;
+            if ($request->hasParameter('from')) {
+                $from = $request->getParameter('from');
+            }
+
+            $model->setData($this->searchBackend->search('tracks,artists', $params, $size, $from));
         }
     }
 }

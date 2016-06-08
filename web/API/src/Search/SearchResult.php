@@ -6,9 +6,21 @@ namespace Jukebox\API\Search
     {
         private $response;
 
-        public function __construct(array $response = [])
+        /**
+         * @var int
+         */
+        private $size;
+
+        /**
+         * @var int
+         */
+        private $from;
+
+        public function __construct(array $response = [], $size = 0, $from = 0)
         {
             $this->response = $response;
+            $this->size = $size;
+            $this->from = $from;
         }
         
         public function found(): bool
@@ -36,7 +48,24 @@ namespace Jukebox\API\Search
 
         public function getPagination(): array
         {
+            if ($this->size === 0 && $this->from === 0) {
+                return;
+            }
 
+            return [
+                'size' => $this->size,
+                'from' => $this->from,
+                'pages' => ceil($this->getNumberOfHits() / $this->size)
+            ];
+        }
+
+        public function hasPagination(): bool
+        {
+            if ($this->size === 0 && $this->from === 0) {
+                return false;
+            }
+
+            return true;
         }
 
         public function getResponse(): array
