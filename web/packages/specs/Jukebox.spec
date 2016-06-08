@@ -28,6 +28,8 @@ Jukebox release
 %install
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
+mkdir -p $RPM_BUILD_ROOT/etc/cron.d
+
 install -m 755 -d $RPM_BUILD_ROOT%{_wwwDir}Frontend
 install -m 755 -d $RPM_BUILD_ROOT%{_wwwDir}Frontend/{html,src,config,data}
 install -m 755 -d $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/{css,images,js,html}/
