@@ -5,6 +5,12 @@ body {
 a {
   text-decoration: none;
   cursor: pointer;
+  color: @brand-color;
+  transition: color .125s;
+
+  &:hover {
+    color: lighten(@brand-color, 10);
+  }
 }
 
 p, h1, h2, h3 {

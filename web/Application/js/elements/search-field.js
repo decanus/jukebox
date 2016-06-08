@@ -11,8 +11,25 @@ export class SearchField extends HTMLInputElement {
       if (e.keyCode !== 13) {
         return
       }
-      
-      app.setRoute(new Route('/search', { q: this.value }))
+
+      let params = {}
+
+      if (this.value !== '') {
+        params = { q: this.value }
+      }
+
+      app.setRoute(new Route('/search', params))
     })
+
+    app.getRoute()
+      .forEach((route) => {
+        let value = ''
+
+        if (route.pathParts[ 0 ] === 'search') {
+          value = route.params[ 'q' ] || ''
+        }
+
+        this.value = value
+      })
   }
 }

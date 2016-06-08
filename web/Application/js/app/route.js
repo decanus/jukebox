@@ -42,6 +42,15 @@ export class Route {
 
   /**
    *
+   * @param {Route} other
+   * @returns {boolean}
+   */
+  isSameValue(other) {
+    return this.toString() === other.toString()
+  }
+  
+  /**
+   *
    * @param {Location|HTMLAnchorElement} location
    * @returns {Route}
    */

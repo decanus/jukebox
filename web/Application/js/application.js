@@ -86,16 +86,11 @@ export class Application {
   /**
    *
    * @param {Route} route
-   * @param {boolean} replace
    */
-  setRoute(route, { replace = false } = { replace: false }) {
+  setRoute(route) {
     this._emitter.emit('route', route)
     
-    if (replace) {
-      replacePath(route.toString())
-    } else {
-      updatePath(route.toString())
-    }
+    updatePath(route)
   }
 
   /**
