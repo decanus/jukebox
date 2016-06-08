@@ -27,5 +27,3 @@ getInterval(60000)
     console.info('it\'s time to clean')
     app.getModelStore().cleanup()
   })
-
-window.__$modelStore = app.getModelStore()
