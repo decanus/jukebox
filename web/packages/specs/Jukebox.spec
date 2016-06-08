@@ -6,7 +6,7 @@ Release: jukebox.1
 Group: System Environment/Libraries
 License: jukebox.ninja
 Vendor: jukebox.ninja
-Version: 0.0.3
+Version: 0.0.4
 Url: http://www.jukebox.ninja/
 
 #Source:
@@ -52,6 +52,7 @@ cp -R %{_sourcedir}Frontend/html/robots.txt $RPM_BUILD_ROOT%{_wwwDir}Frontend/ht
 cp -R %{_sourcedir}Styles/css/jukebox.css $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/css/jukebox-%{version}-%{release}.css
 cp -R %{_sourcedir}Application/build/js/polyfills.js $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/js/polyfills-%{version}-%{release}.js
 cp -R %{_sourcedir}Application/build/js/jukebox.js $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/js/jukebox-%{version}-%{release}.js
+cp -R %{_sourcedir}Application/build/js/views.js $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/js/views-%{version}-%{release}.js
 
 cp -R %{_sourcedir}Frontend/bootstrap.php $RPM_BUILD_ROOT%{_wwwDir}Frontend/bootstrap.php
 cp -R %{_sourcedir}Frontend/src/* $RPM_BUILD_ROOT%{_wwwDir}Frontend/src/
