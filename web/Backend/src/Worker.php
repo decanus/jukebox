@@ -51,7 +51,7 @@ namespace Jukebox\Backend
                     }
 
                     if ($this->eventQueueReader->count() === 0) {
-                        sleep(rand(5, 15));
+                        $this->sleep();
                         continue;
                     }
 
@@ -62,11 +62,26 @@ namespace Jukebox\Backend
                     $handler->execute();
                     gc_collect_cycles();
 
+                    $loopCount++;
                 } catch (\Throwable $e) {
                     $this->getLogger()->emergency($e);
-                    exit(1);
+                    $this->shutdown();
                 }
             }
+        }
+
+        private function sleep()
+        {
+            if (memory_get_usage(true) > 314572800) {
+                $this->shutdown();
+            }
+
+            sleep(rand(5, 15));
+        }
+
+        private function shutdown()
+        {
+            exit(1);
         }
     }
 }
