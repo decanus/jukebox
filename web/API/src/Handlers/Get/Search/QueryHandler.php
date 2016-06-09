@@ -36,8 +36,17 @@ namespace Jukebox\API\Handlers\Get\Search
                 'query' => [
                     'multi_match' => [
                         'query' => $request->getParameter('query'),
-                        'fields' => ['name', 'title', 'artists.name'],
-                        'type' => 'phrase_prefix'
+                        'fields' => [
+                            'name^100',
+                            'title^10',
+                            'title.snowball^2',
+                            'title.shingle^2',
+                            'title.ngram^2',
+                            'artists.name^10',
+                            'name.snowball^2',
+                            'name.shingle^2',
+                            'name.ngram^2',
+                        ],
                     ]
                 ]
             ];
