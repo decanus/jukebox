@@ -93,6 +93,10 @@ export class Application {
     updatePath(route)
   }
 
+  reloadCurrentRoute () {
+    this._emitter.emit('route', this._route)
+  }
+
   /**
    * 
    * @returns {ModelLoader}

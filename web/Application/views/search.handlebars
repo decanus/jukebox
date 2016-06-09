@@ -39,6 +39,14 @@
                         </div>
                     {{/if}}
                 {{/each}}
+
+                {{#if isCompletelyLoaded}}
+                {{else}}
+                    <search-paginator result-id="{{id}}">
+                        <div class="loading-animation"></div>
+                    </search-paginator>
+                {{/if}}
+
             {{else}}
                 <p>
                     <b>Sorry.</b> We couldn't find anything matching "{{query}}".

@@ -7,12 +7,18 @@ export class Result {
    *
    * @param {string} id
    * @param {Array<Track|Artist>} results
+   * @param {{ size: number, page: number, pages: number }} pagination
    */
-  constructor ({ id, results }) {
+  constructor ({ id, results, pagination }) {
     this.id = id
     this.results = results
 
-    Object.freeze(this)
+    /**
+     * @type {{ size: number, page: number, pages: number }}
+     */
+    this.pagination = pagination
+
+    Object.seal(this)
   }
 
   /**
@@ -29,5 +35,13 @@ export class Result {
    */
   get query () {
     return this.id
+  }
+
+  /**
+   * 
+   * @returns {boolean}
+   */
+  get isCompletelyLoaded () {
+    return this.pagination.page === this.pagination.pages
   }
 }

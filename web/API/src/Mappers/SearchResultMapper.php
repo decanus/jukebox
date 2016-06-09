@@ -9,6 +9,8 @@ namespace Jukebox\API\Mappers
     {
         public function map(SearchResult $searchResult): array
         {
+            $response = [];
+
             if ($searchResult->found()) {
                 return $this->normalize($searchResult->getResponse());
             }
@@ -23,7 +25,13 @@ namespace Jukebox\API\Mappers
                 $result[] = $this->normalize($hit);
             }
 
-            return $result;
+            if ($searchResult->hasPagination()) {
+                $response['pagination'] = $searchResult->getPagination();
+            }
+
+            $response['results'] =$result;
+
+            return $response;
         }
 
         private function normalize(array $object)
