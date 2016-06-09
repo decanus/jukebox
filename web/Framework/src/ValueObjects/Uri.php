@@ -36,7 +36,7 @@ namespace Jukebox\Framework\ValueObjects
                 parse_str($this->uri['query'], $this->parameters);
             }
 
-            $this->uri['path'] = urldecode($this->uri['path']);
+            $this->uri['path'] = $this->uri['path'];
         }
 
         /**
