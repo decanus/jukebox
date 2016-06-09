@@ -20,11 +20,11 @@ namespace Jukebox\API\Queries
         /**
          * @param string $artist
          * @param int $size
-         * @param int $from
+         * @param int $page
          * 
          * @return array
          */
-        public function execute(string $artist, int $size, int $from)
+        public function execute(string $artist, int $size, int $page)
         {
             $params = [
                 'query' => [
@@ -34,7 +34,7 @@ namespace Jukebox\API\Queries
                 ]
             ];
             
-            return $this->searchBackend->search('tracks', $params, $size, $from);
+            return $this->searchBackend->search('tracks', $params, $size, $page);
         }
     }
 }

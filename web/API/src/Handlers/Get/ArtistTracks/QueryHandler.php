@@ -28,12 +28,12 @@ namespace Jukebox\API\Handlers\Get\ArtistTracks
                 $size = $request->getParameter('size');
             }
 
-            $from = 0;
-            if ($request->hasParameter('from')) {
-                $from = $request->getParameter('from');
+            $page = 1;
+            if ($request->hasParameter('page')) {
+                $page = $request->getParameter('page');
             }
-
-            $tracks = $this->fetchTracksForArtistQuery->execute($request->getUri()->getExplodedPath()[2], $size, $from);
+            
+            $tracks = $this->fetchTracksForArtistQuery->execute($request->getUri()->getExplodedPath()[2], $size, $page);
 
             if (!empty($tracks)) {
                 $model->setData($tracks);
