@@ -60,6 +60,7 @@ namespace Jukebox\Backend
                     $handler = $this->eventHandlerLocator->locate($event);
                     
                     $handler->execute();
+                    gc_collect_cycles();
 
                 } catch (\Throwable $e) {
                     $this->getLogger()->emergency($e);
