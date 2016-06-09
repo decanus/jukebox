@@ -47,7 +47,6 @@ namespace Jukebox\Backend\EventHandlers
             }
             
             $this->eventQueueWriter->add(new DataVersionPushEvent($dataVersion));
-            $this->eventQueueWriter->add(new ElasticsearchIndexDeleteEvent($oldDataVersion));
             $this->eventQueueWriter->add(new OldDataVersionDeleteEvent($oldDataVersion));
         }
 

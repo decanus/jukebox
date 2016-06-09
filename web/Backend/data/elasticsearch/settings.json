@@ -1,0 +1,12 @@
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "folding": {
+          "tokenizer": "keyword",
+          "filter": ["lowercase", "asciifolding"]
+        }
+      }
+    }
+  }
+}
