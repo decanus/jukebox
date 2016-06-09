@@ -5,7 +5,6 @@ namespace Jukebox\Backend\Locators
 
     use Jukebox\Backend\CLI\Request;
     use Jukebox\Framework\Events\EventInterface;
-    use Jukebox\Framework\ValueObjects\DataVersion;
 
     class EventLocator
     {
