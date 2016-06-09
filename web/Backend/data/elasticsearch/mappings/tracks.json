@@ -15,7 +15,6 @@
         }
       },
       "duration": {"type": "integer", "index": "no"},
-      "vevo_id": {"type": "string", "index": "no"},
       "isrc": {"type": "string", "index": "no"},
       "is_live": {"type": "boolean", "index": "no"},
       "is_explicit": {"type": "boolean", "index": "no"},
