@@ -37,17 +37,24 @@ namespace Jukebox\Backend\EventHandlers\Push
          */
         private $mappingsPath;
 
+        /**
+         * @var string
+         */
+        private $settingsFilePath;
+
         public function __construct(
             ElasticsearchIndexPushEvent $event,
             Client $client,
             FileBackend $fileBackend,
-            string $mappingsPath
+            string $mappingsPath,
+            string $settingsFilePath
         )
         {
             $this->client = $client;
             $this->event = $event;
             $this->fileBackend = $fileBackend;
             $this->mappingsPath = $mappingsPath;
+            $this->settingsFilePath = $settingsFilePath;
         }
 
         public function execute()
@@ -61,21 +68,12 @@ namespace Jukebox\Backend\EventHandlers\Push
 
                 $this->client->indices()->close(['index' => $dataVersion]);
 
+                $settings = json_decode($this->fileBackend->load($this->settingsFilePath), true);
+
                 $this->client->indices()->putSettings(
                     [
                         'index' => $dataVersion,
-                        'body' => [
-                            'settings' => [
-                                'analysis' => [
-                                    'analyzer' => [
-                                        'folding' => [
-                                            'tokenizer' => 'keyword',
-                                            'filter' =>  ['lowercase', 'asciifolding']
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ]
+                        'body' => $settings
                     ]
                 );
 
