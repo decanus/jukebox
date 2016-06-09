@@ -1,14 +1,19 @@
 .search-result {
   margin-bottom: 16px;
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
 
   .button {
-    margin-right: 10px;
+    flex-shrink: 0;
+    margin: 4px 10px 0 0;
   }
 
   .button > button {
     cursor: pointer;
+  }
+
+  > .text {
+    flex-grow: 1;
   }
 
   > .text > .title {
