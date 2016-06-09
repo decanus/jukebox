@@ -1,6 +1,6 @@
 Summary: JukeboxServer
 Name: jukebox-server
-Version: 0.0.3
+Version: 0.0.4
 Release: jukebox.1
 Group: System Environment/Libraries
 License: Jukebox
