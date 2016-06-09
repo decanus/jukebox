@@ -5,7 +5,15 @@
     },
     "dynamic": "strict",
     "properties": {
-      "title": {"type": "string", "index": "analyzed", "analyzer": "folding"},
+      "title": {
+        "type": "string",
+        "fields": {
+          "title": {"type": "string", "analyzer": "default_analyzer"},
+          "snowball": {"type": "string", "analyzer": "snowball_analyzer"},
+          "shingle": {"type": "string", "analyzer": "shingle_analyzer"},
+          "ngrams": {"type": "text", "analyzer": "ngram_analyzer", "search_analyzer": "search_analyzer"}
+        }
+      },
       "duration": {"type": "integer", "index": "no"},
       "vevo_id": {"type": "string", "index": "no"},
       "isrc": {"type": "string", "index": "no"},
@@ -21,7 +29,7 @@
       "artists": {
         "properties": {
           "id": {"type": "string", "index": "no"},
-          "name": {"type": "string", "index": "analyzed", "analyzer": "folding"},
+          "name": {"type": "string", "index": "analyzed", "analyzer": "default_analyzer"},
           "permalink": {"type": "string", "index": "no"},
           "role": {"type": "string", "index": "no"}
         }

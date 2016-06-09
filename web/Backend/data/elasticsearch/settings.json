@@ -1,9 +1,42 @@
 {
   "settings": {
     "analysis": {
+      "tokenizer": {
+        "whitespace_tokenizer": {
+          "type": "whitespace"
+        }
+      },
+      "filter": {
+        "ngram_filter": {
+          "type": "edgeNGram",
+          "min_gram": 1,
+          "max_gram": 16,
+          "side": "front"
+        }
+      },
       "analyzer": {
-        "folding": {
-          "tokenizer": "keyword",
+        "default_analyzer": {
+          "tokenizer": "whitespace_tokenizer",
+          "filter": ["lowercase", "asciifolding"]
+        },
+        "snowball_analyzer": {
+          "type": "custom",
+          "tokenizer": "whitespace_tokenizer",
+          "filter": ["lowercase", "asciifolding", "snowball"]
+        },
+        "shingle_analyzer": {
+          "type": "custom",
+          "tokenizer": "whitespace_tokenizer",
+          "filter": ["lowercase", "asciifolding", "shingle"]
+        }, 
+        "ngram_analyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": ["lowercase", "asciifolding", "ngram_filter"]
+        },
+        "search_analyzer": {
+          "type": "custom",
+          "tokenizer": "whitespace_tokenizer",
           "filter": ["lowercase", "asciifolding"]
         }
       }
