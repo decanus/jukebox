@@ -26,8 +26,18 @@ namespace Jukebox\Frontend\Handlers\Get\Ajax\Search
                 return;
             }
 
+            $size = 20;
+            if ($request->hasParameter('size')) {
+                $size = $request->getParameter('size');
+            }
+
+            $page = 1;
+            if ($request->hasParameter('page')) {
+                $page = $request->getParameter('page');
+            }
+
             try {
-                $response = $this->jukeboxRestManager->search($request->getParameter('query'));
+                $response = $this->jukeboxRestManager->search($request->getParameter('query'), $size, $page);
 
                 if ($response->getResponseCode() !== 200) {
                     return;
