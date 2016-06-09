@@ -1,4 +1,4 @@
-%define _wwwDir /var/www/jukebox/
+%define _wwwDir /var/www/
 
 Summary: jukebox
 Name: jukebox
@@ -6,7 +6,7 @@ Release: jukebox.1
 Group: System Environment/Libraries
 License: jukebox.ninja
 Vendor: jukebox.ninja
-Version: 0.0.4
+Version: 0.0.5
 Url: http://www.jukebox.ninja/
 
 #Source:
