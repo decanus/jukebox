@@ -69,7 +69,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                 $response = $this->vevo->getArtist($artistName);
 
                 if ($response->getResponseCode() !== 200) {
-                    throw new \Exception('Artist could not be imported');
+                    throw new \Exception('Artist "' . $artistName . '" could not be imported');
                 }
 
                 $artist = $response->getDecodedJsonResponse();
