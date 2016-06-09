@@ -43,9 +43,10 @@ namespace Jukebox\API\Handlers\Get\Search
                             'title.shingle^2',
                             'title.ngram^2',
                             'artists.name^10',
+                            'artists.name.ngrams^2',
                             'name.snowball^2',
                             'name.shingle^2',
-                            'name.ngram^2',
+                            'name.ngram^5',
                         ],
                     ]
                 ]
