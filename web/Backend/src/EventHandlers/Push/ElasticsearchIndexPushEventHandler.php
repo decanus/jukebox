@@ -69,13 +69,7 @@ namespace Jukebox\Backend\EventHandlers\Push
                 $this->client->indices()->close(['index' => $dataVersion]);
 
                 $settings = json_decode($this->fileBackend->load($this->settingsFilePath), true);
-
-                $this->client->indices()->putSettings(
-                    [
-                        'index' => $dataVersion,
-                        'body' => $settings
-                    ]
-                );
+                $this->client->indices()->putSettings(['index' => $dataVersion, 'body' => $settings]);
 
                 $this->client->indices()->open(['index' => $dataVersion]);
 
