@@ -70,11 +70,11 @@ export class ModelLoader {
 
   /**
    *
-   * @param {{ id: string, results: Array }} data
+   * @param {{ id: string, results: Array, pagination: {} }} data
    */
   loadResult (data) {
     const results = data.results.map((model) => this.load(model))
-    const result = new Result({ id: data.id, results })
+    const result = new Result({ id: data.id, results, pagination: data.pagination })
 
     this._store.put(result)
 

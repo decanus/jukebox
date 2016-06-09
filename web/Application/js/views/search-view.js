@@ -25,7 +25,7 @@ export function SearchView(query) {
         results = Promise.resolve(store.get(key))
       } else {
         results = fetchSearch(query)
-          .then((results) => loader.loadResult({ id: query, results }))
+          .then((results) => loader.loadResult({ id: query, ...results }))
       }
 
       return results

@@ -7,10 +7,11 @@ import { buildQuery } from '../url/build-query'
 /**
  *
  * @param {string} query
+ * @param {number} page
  * @returns {Promise}
  */
-export function fetchSearch (query) {
-  return _fetch('/search', [ [ 'query', query ] ])
+export function fetchSearch (query, page = 1) {
+  return _fetch('/search', [ [ 'query', query ], [ 'page', page ] ])
 }
 
 /**

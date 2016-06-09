@@ -36,7 +36,7 @@ export class JukeboxApp extends HTMLElement {
       const view = resolveView(route)
 
       activeView.set(this, view)
-      this.innerHTML = '<div class="loading-animation"></div>'
+      this.innerHTML = '<div class="loading-animation -center"></div>'
 
       view.fetch()
         .then((page) => {
