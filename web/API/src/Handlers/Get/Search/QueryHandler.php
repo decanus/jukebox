@@ -34,21 +34,38 @@ namespace Jukebox\API\Handlers\Get\Search
 
             $params = [
                 'query' => [
-                    'multi_match' => [
-                        'query' => $request->getParameter('query'),
-                        'fields' => [
-                            'name.name^20',
-                            'title^10',
-                            'title.title^10',
-                            'title.snowball^2',
-                            'title.shingle^2',
-                            'title.ngram^2',
-                            'artists.name^10',
-                            'artists.name.ngrams',
-                            'name.snowball',
-                            'name.shingle',
-                            'name.ngram',
-                        ],
+                    'bool' => [
+                        'should' => [
+                            [
+                                'multi_match' => [
+                                    'query' => $request->getParameter('query'),
+                                    'fields' => [
+                                        'title^10',
+                                        'title.snowball^2',
+                                        'title.shingle^2',
+                                        'title.ngram',
+                                    ],
+                                ]
+                            ],
+                            [
+                                'multi_match' => [
+                                    'query' => $request->getParameter('query'),
+                                    'fields' => [
+                                        'name.name^10',
+                                        'name.ngram^2',
+                                    ],
+                                ]
+                            ],
+                            [
+                                'multi_match' => [
+                                    'query' => $request->getParameter('query'),
+                                    'fields' => [
+                                        'artists.name.name^10',
+                                        'artists.name.ngram^2',
+                                    ],
+                                ]
+                            ]
+                        ]
                     ]
                 ]
             ];
