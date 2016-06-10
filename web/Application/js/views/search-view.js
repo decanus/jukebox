@@ -42,6 +42,8 @@ export function SearchView(query) {
       const store = app.getModelStore()
       const models = page.data.results
 
+      store.hold(page.data)
+
       models.forEach((model) => {
         store.hold(model)
         
@@ -51,6 +53,8 @@ export function SearchView(query) {
       })
 
       return () => {
+        store.release(page.data)
+
         models.forEach((model) => {
           store.release(model)
 

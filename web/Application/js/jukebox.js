@@ -29,3 +29,5 @@ getInterval(180000)
     console.info('it\'s time to clean')
     app.getModelStore().cleanup()
   })
+
+// window.__$store = app.getModelStore()
