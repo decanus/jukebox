@@ -19,7 +19,7 @@ export class PlayerTitle extends HTMLElement {
       .getTrack()
       .forEach((track) => {
         $title.innerText = track.title
-        $artist.innerText = track.artist.name
+        $artist.innerText = track.artistsString
       })
 
     this.appendChild($title)

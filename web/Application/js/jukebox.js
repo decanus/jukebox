@@ -30,4 +30,4 @@ getInterval(180000)
     app.getModelStore().cleanup()
   })
 
-// window.__$store = app.getModelStore()
+window.__$store = app.getModelStore()

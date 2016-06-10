@@ -6,9 +6,9 @@ import { fetchSearch } from '../apr/apr'
 import { app } from '../app'
 import { Page } from './page'
 
-export function SearchView(query) {
+export function SearchView (query) {
   const store = app.getModelStore()
-  
+
   query = query.trim()
 
   return {
@@ -46,9 +46,9 @@ export function SearchView(query) {
 
       models.forEach((model) => {
         store.hold(model)
-        
+
         if (model.type === 'tracks') {
-          store.hold(model.artist)
+          model.artists.forEach((artist) => store.hold(artist.artist))
         }
       })
 
@@ -59,7 +59,7 @@ export function SearchView(query) {
           store.release(model)
 
           if (model.type === 'tracks') {
-            store.release(model.artist)
+            model.artists.forEach((artist) => store.release(artist.artist))
           }
         })
       }

@@ -29,7 +29,25 @@
 
                             <div class="text">
                                 <a is="jukebox-link" href="{{permalink}}" class="title">{{title}}</a>
-                                <a is="jukebox-link" href="{{artist.permalink}}" class="artist">{{artist.name}}</a>
+
+                                <div class="artist">
+
+                                    {{#artists}}
+
+                                        {{#if isPrependComma}},{{/if}}
+
+                                        {{#if isMain}}
+                                            <a is="jukebox-link" href="{{artist.permalink}}" class="artist">{{artist.name}}</a>
+                                        {{/if}}
+
+                                        {{#if isFeatured}}
+                                            feat. <a is="jukebox-link" href="{{artist.permalink}}" class="artist">{{artist.name}}</a>
+                                        {{/if}}
+
+                                    {{/artists}}
+
+                                </div>
+
 
                                 <track-link track-id="{{id}}" push-to-queue class="icon-button">
                                     <img src="/images/icons/black/queue.svg" alt="+" class="icon"/>
