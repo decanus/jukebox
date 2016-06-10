@@ -91,7 +91,10 @@ export class PlayerDelegate {
     
     const player = this.getCurrentPlayer()
     
-    player.ready().then(() => player.play())
+    player.ready().then(() => {
+      this._emitter.emit('loading')
+      player.play()
+    })
   }
 
   /**
@@ -302,8 +305,10 @@ export class PlayerDelegate {
       .map(() => PlayerState.PAUSED)
     const stop = this._emitter.toObservable('stop')
       .map(() => PlayerState.STOPPED)
+    const loading = this._emitter.toObservable('loading')
+      .map(() => PlayerState.LOADING)
     
-    return Observable.merge(play, pause, stop)
+    return Observable.merge(play, pause, loading, stop)
   }
 
   /**
