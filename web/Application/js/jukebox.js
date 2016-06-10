@@ -10,6 +10,7 @@ import { getInterval } from './dom/time/get-interval'
 import { Route } from './app/route'
 
 import './app/elements'
+import './app/media-keys'
 
 window.addEventListener('popstate', () => {
   app.setRoute(Route.fromLocation(window.location))
@@ -29,5 +30,3 @@ getInterval(180000)
     console.info('it\'s time to clean')
     app.getModelStore().cleanup()
   })
-
-window.__$store = app.getModelStore()
