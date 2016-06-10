@@ -23,8 +23,16 @@
     color: #000;
   }
 
-  > .text > .artist {
-    display: block;
+  > .text > .artists {
+    display: flex;
     color: @color-gray;
+  }
+
+  > .text > .artists > .artist {
+    color: @color-gray;
+  }
+
+  > .text > .artists > .sep {
+    white-space: pre;
   }
 }

@@ -30,18 +30,19 @@
                             <div class="text">
                                 <a is="jukebox-link" href="{{permalink}}" class="title">{{title}}</a>
 
-                                <div class="artist">
+                                <div class="artists">
 
                                     {{#artists}}
 
-                                        {{#if isPrependComma}},{{/if}}
+                                        <span class="sep">{{#if isPrependComma}}, {{/if}}</span>
 
                                         {{#if isMain}}
                                             <a is="jukebox-link" href="{{artist.permalink}}" class="artist">{{artist.name}}</a>
                                         {{/if}}
 
                                         {{#if isFeatured}}
-                                            feat. <a is="jukebox-link" href="{{artist.permalink}}" class="artist">{{artist.name}}</a>
+                                            <span class="sep"> feat. </span>
+                                            <a is="jukebox-link" href="{{artist.permalink}}" class="artist">{{artist.name}}</a>
                                         {{/if}}
 
                                     {{/artists}}
