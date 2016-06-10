@@ -34,39 +34,20 @@ namespace Jukebox\API\Handlers\Get\Search
 
             $params = [
                 'query' => [
-                    'bool' => [
-                        'should' => [
-                            [
-                                'multi_match' => [
-                                    'query' => $request->getParameter('query'),
-                                    'fields' => [
-                                        'title^10',
-                                        'title.snowball^2',
-                                        'title.shingle^2',
-                                        'title.ngram',
-                                    ],
-                                ]
-                            ],
-                            [
-                                'multi_match' => [
-                                    'query' => $request->getParameter('query'),
-                                    'fields' => [
-                                        'name^10',
-                                        'name.name^10',
-                                        'name.ngram^2',
-                                    ],
-                                ]
-                            ],
-                            [
-                                'multi_match' => [
-                                    'query' => $request->getParameter('query'),
-                                    'fields' => [
-                                        'artists.name.name^10',
-                                        'artists.name.ngram^2',
-                                    ],
-                                ]
-                            ]
-                        ]
+                    'multi_match' => [
+                        'query' => $request->getParameter('query'),
+                        'fields' => [
+                            'name^50',
+                            'title^10',
+                            'title.snowball^2',
+                            'title.shingle^2',
+                            'title.ngram^2',
+                            'artists.name^2',
+                            'artists.name.ngrams^2',
+                            'name.snowball^2',
+                            'name.shingle^2',
+                            'name.ngram^5',
+                        ],
                     ]
                 ]
             ];
