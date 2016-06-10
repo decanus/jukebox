@@ -3,7 +3,7 @@
  */
 
 import { resolveView } from '../views/resolve'
-import { renderTemplate } from '../templates'
+import { renderTemplate } from '../render-template'
 
 import { app } from '../app'
 
