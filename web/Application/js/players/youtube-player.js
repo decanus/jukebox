@@ -102,7 +102,9 @@ export class YoutubePlayer extends Emitter {
    * @returns {Promise}
    */
   pause () {
-    if (this._player.getPlayerState() !== YT.PlayerState.PLAYING) {
+    const state = this._player.getPlayerState()
+
+    if (state !== YT.PlayerState.PLAYING && state !== YT.PlayerState.BUFFERING) {
       return Promise.resolve()
     }
 
