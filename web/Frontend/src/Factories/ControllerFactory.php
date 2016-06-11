@@ -10,6 +10,7 @@ namespace Jukebox\Frontend\Factories
     use Jukebox\Framework\Models\PageModel;
     use Jukebox\Framework\ParamterObjects\ControllerParameterObject;
     use Jukebox\Frontend\Models\AjaxModel;
+    use Jukebox\Frontend\Models\SearchPageModel;
 
     class ControllerFactory extends AbstractFactory
     {
@@ -80,6 +81,20 @@ namespace Jukebox\Frontend\Factories
                 $this->getMasterFactory()->createResponseHandler(),
                 $this->getMasterFactory()->createPostHandler(),
                 new JsonResponse
+            );
+        }
+
+        public function createSearchPageController(ControllerParameterObject $parameterObject): GetController
+        {
+            return new GetController(
+                new SearchPageModel($parameterObject->getUri()),
+                $this->getMasterFactory()->createPreHandler(),
+                $this->getMasterFactory()->createCommandHandler(),
+                $this->getMasterFactory()->createSearchPageQueryHandler(),
+                $this->getMasterFactory()->createSearchPageTransformationHandler(),
+                $this->getMasterFactory()->createResponseHandler(),
+                $this->getMasterFactory()->createPostHandler(),
+                new HtmlResponse
             );
         }
     }
