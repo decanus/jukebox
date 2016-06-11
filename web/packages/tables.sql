@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS track_artists (
   artist INT NOT NULL,
   track INT NOT NULL,
   role VARCHAR(11),
+  UNIQUE(artist, track),
   FOREIGN KEY (artist) REFERENCES artists(id),
   FOREIGN KEY (track) REFERENCES tracks(id),
   CHECK (role IN ('main', 'featured'))
@@ -44,6 +45,7 @@ CREATE TABLE IF NOT EXISTS track_genres (
   id SERIAL PRIMARY KEY,
   track INT NOT NULL,
   genre INT NOT NULL,
+  UNIQUE(track, genre),
   FOREIGN KEY (track) REFERENCES tracks(id),
   FOREIGN KEY (genre) REFERENCES genres(id)
 );
