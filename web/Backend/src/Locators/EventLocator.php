@@ -25,7 +25,7 @@ namespace Jukebox\Backend\Locators
                     return new \Jukebox\Backend\Events\VevoArtistVideosImportEvent($request->getParam('artist'));
                 case 'InitialVevoArtistsVideosImport':
                     return new \Jukebox\Backend\Events\InitialVevoArtistsVideosImportEvent;
-                case 'ElasticsearchIndexPushEvent':
+                case 'ElasticsearchIndexPush':
                     return new \Jukebox\Backend\Events\ElasticsearchIndexPushEvent($request->getDataVersion());
                 case 'ArtistsToElasticsearchPush':
                     return new \Jukebox\Backend\Events\ArtistsToElasticsearchPushEvent($request->getDataVersion());
@@ -41,6 +41,8 @@ namespace Jukebox\Backend\Locators
                     return new \Jukebox\Backend\Events\ArtistPathsPushEvent($request->getDataVersion());
                 case 'OldDataVersionDelete':
                     return new \Jukebox\Backend\Events\OldDataVersionDeleteEvent($request->getDataVersion());
+                case 'SoundcloudArtistMatch':
+                    return new \Jukebox\Backend\Events\SoundcloudArtistMatchEvent($request->getParam('artistId'));
                 default:
                     throw new \InvalidArgumentException('Event "' . $request->getAction() . '" does not exist');
             }

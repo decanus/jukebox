@@ -9,27 +9,12 @@ namespace Jukebox\Backend\Services
     use Jukebox\Framework\DataPool\RedisBackend;
     use Jukebox\Framework\ValueObjects\Uri;
 
-    class Vevo
+    class Vevo extends AbstractService
     {
-        /**
-         * @var Uri
-         */
-        private $baseUri;
-
-        /**
-         * @var Curl
-         */
-        private $curl;
-        
         /**
          * @var RedisBackend
          */
         private $redisBackend;
-
-        /**
-         * @var RollingCurl
-         */
-        private $rollingCurl;
 
         public function __construct(
             Uri $baseUri,
@@ -38,77 +23,65 @@ namespace Jukebox\Backend\Services
             RedisBackend $redisBackend
         )
         {
-            $this->baseUri = $baseUri;
-            $this->curl = $curl;
+            parent::__construct($baseUri, $curl, $rollingCurl);
             $this->redisBackend = $redisBackend;
-            $this->rollingCurl = $rollingCurl;
         }
 
         public function getVideoForId(string $videoId): Response
         {
-            return $this->curl->get(
+            return $this->getCurl()->get(
                 $this->buildUrl('/video/' . $videoId),
-                ['token' => $this->getAuthorizationToken()]
+                ['token' => $this->getAccessToken()]
             );
         }
 
         public function getVideosForIds(array $videoIds, array $callback, $processingLimit = 10)
         {
-            $this->rollingCurl->setCallback($callback[0], $callback[1]);
-            $this->rollingCurl->setProcessingLimit($processingLimit);
+            $this->getRollingCurl()->setCallback($callback[0], $callback[1]);
+            $this->getRollingCurl()->setProcessingLimit($processingLimit);
 
             foreach ($videoIds as $videoId) {
-                $this->rollingCurl->addRequest(
-                    $this->buildUrl('/video/' . $videoId, ['token' => $this->getAuthorizationToken()]), $videoId
+                $this->getRollingCurl()->addRequest(
+                    $this->buildUrl('/video/' . $videoId, ['token' => $this->getAccessToken()]), $videoId
                 );
             }
 
-            $this->rollingCurl->execute();
+            $this->getRollingCurl()->execute();
         }
 
         public function getArtist(string $artistId): Response
         {
-            return $this->curl->get($this->buildUrl('/artist/' . urlencode($artistId)), ['token' => $this->getAuthorizationToken()]);
+            return $this->getCurl()->get($this->buildUrl('/artist/' . urlencode($artistId)), ['token' => $this->getAccessToken()]);
         }
 
         public function getVideosForArtist(string $artistId, $page = 1): Response
         {
-            return $this->curl->get(
+            return $this->getCurl()->get(
                 $this->buildUrl('/artist/' . $artistId . '/videos'),
-                ['token' => $this->getAuthorizationToken(), 'page' => $page, 'size' => 200]
+                ['token' => $this->getAccessToken(), 'page' => $page, 'size' => 200]
             );
         }
 
         public function getArtists($page = 1): Response
         {
-            return $this->curl->get(
+            return $this->getCurl()->get(
                 $this->buildUrl('/artists'),
-                ['token' => $this->getAuthorizationToken(), 'page' => $page, 'size' => 200]
+                ['token' => $this->getAccessToken(), 'page' => $page, 'size' => 200]
             );
         }
         
         public function getGenres(): Response
         {
-            return $this->curl->get(
+            return $this->getCurl()->get(
                 $this->buildUrl('/genres'),
-                ['token' => $this->getAuthorizationToken() ]
+                ['token' => $this->getAccessToken()]
             );
         }
 
-        private function buildUrl(string $path, array $query = []): Uri
-        {
-            $queryString = '';
-            if (!empty($query)) {
-                $queryString = '?' . http_build_query($query);
-            }
-
-            return new Uri($this->baseUri . $path . $queryString);
-        }
-
-        private function getAuthorizationToken(): string
+        private function getAccessToken(): string
         {
             if (!$this->redisBackend->has('vevo_accesstoken')) {
-                $response = $this->curl->post(new Uri('http://www.vevo.com/auth'));
+                $response = $this->getCurl()->post(new Uri('http://www.vevo.com/auth'));
 
                 if ($response->getResponseCode() !== 200) {
                     throw new \Exception('Authorization Failed');
