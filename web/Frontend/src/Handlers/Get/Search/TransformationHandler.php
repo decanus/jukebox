@@ -16,8 +16,25 @@ namespace Jukebox\Frontend\Handlers\Get\Search
                     return;
                 }
 
-                $searchResults['type'] = 'results';
                 $template = $this->getTemplate();
+                $noscript = $template->queryOne('//html:body')->appendElement('noscript');
+                $list = $noscript->appendElement('ul');
+
+                foreach ($searchResults['results'] as $result) {
+                    $item = $list->appendElement('li');
+
+                    if ($result['type'] === 'artists') {
+                        $value = $result['name'];
+                    } else {
+                        $value = $result['title'];
+                    }
+
+                    $link = $item->appendElement('a', $value);
+                    $link->setAttribute('href', $result['permalink']);
+
+                }
+
+                $searchResults['type'] = 'results';
                 $template->queryOne('//html:body')->appendElement('script', '__$loadModel(' . json_encode($searchResults) . ')');
             } catch (\Throwable $e) {
                 // do nothing
