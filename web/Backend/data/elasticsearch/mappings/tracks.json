@@ -22,6 +22,7 @@
       "is_audio": {"type": "boolean", "index": "no"},
       "is_explicit": {"type": "boolean", "index": "no"},
       "permalink": {"type": "string", "index": "no"},
+      "release_date": {"type": "date", "format": "yyyy-MM-dd", "index": "no"},
       "genres": {
         "properties": {
           "id": {"type": "string", "index": "no"},

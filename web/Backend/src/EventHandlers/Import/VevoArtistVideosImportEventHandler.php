@@ -176,7 +176,8 @@ namespace Jukebox\Backend\EventHandlers\Import
                     new PostgresBool($isAudio),
                     new PostgresBool($video['isOfficial']),
                     new PostgresBool($video['isExplicit']),
-                    $permalink
+                    $permalink,
+                    new \DateTime($video['releaseDate'])
                 );
 
                 $this->insertTrackSourceCommand->execute($id, new Youtube, $video['youTubeId'], $video['duration'] * 1000);
