@@ -13,18 +13,46 @@ namespace Jukebox\Backend\Commands
             string $vevoId = null,
             string $isrc = null,
             PostgresBool $isLive,
+            PostgresBool $isLyric,
+            PostgresBool $isAudio,
+            PostgresBool $isMusicVideo,
             PostgresBool $isExplicit,
             string $permalink
         ): string
         {
             $result = $this->getDatabaseBackend()->insert(
-                'INSERT INTO tracks (duration, title, vevo_id, isrc, is_live, is_explicit, permalink) VALUES (:duration, :title, :vevo_id, :isrc, :is_live, :is_explicit, :permalink)',
+                'INSERT INTO tracks (
+                    duration,
+                    title,
+                    vevo_id,
+                    isrc,
+                    is_live,
+                    is_lyric,
+                    is_audio,
+                    is_music_video,
+                    is_explicit,
+                    permalink
+                ) VALUES (
+                    :duration,
+                    :title,
+                    :vevo_id,
+                    :isrc,
+                    :is_live,
+                    :is_lyric,
+                    :is_audio,
+                    :is_music_video,
+                    :is_explicit,
+                    :permalink
+                )',
                 [
                     ':duration' => $duration,
                     ':title' => $title,
                     ':vevo_id' => $vevoId,
                     ':isrc' => $isrc,
                     ':is_live' => (string) $isLive,
+                    ':is_lyric' => (string) $isLyric,
+                    ':is_audio' => (string) $isAudio,
+                    ':is_music_video' => (string) $isMusicVideo,
                     ':is_explicit' => (string) $isExplicit,
                     ':permalink' => $permalink
                 ]
