@@ -18,6 +18,7 @@ namespace Jukebox\Backend\EventHandlers\Import
     use Jukebox\Framework\Logging\LoggerAwareTrait;
     use Jukebox\Framework\ValueObjects\Featured;
     use Jukebox\Framework\ValueObjects\Main;
+    use Jukebox\Framework\ValueObjects\PostgresBool;
     use Jukebox\Framework\ValueObjects\Sources\Youtube;
 
     class VevoArtistVideosImportEventHandler implements EventHandlerInterface, LoggerAware
@@ -161,8 +162,8 @@ namespace Jukebox\Backend\EventHandlers\Import
                     $video['title'],
                     $video['isrc'],
                     $video['isrc'],
-                    $video['isLive'],
-                    $video['isExplicit'],
+                    new PostgresBool($video['isLive']),
+                    new PostgresBool($video['isExplicit']),
                     $permalink
                 );
 

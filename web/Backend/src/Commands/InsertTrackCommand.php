@@ -2,6 +2,9 @@
 
 namespace Jukebox\Backend\Commands
 {
+
+    use Jukebox\Framework\ValueObjects\PostgresBool;
+
     class InsertTrackCommand extends AbstractDatabaseBackendCommand
     {
         public function execute(
@@ -9,21 +12,11 @@ namespace Jukebox\Backend\Commands
             string $title,
             string $vevoId = null,
             string $isrc = null,
-            bool $isLive = false,
-            bool $isExplicit = false,
+            PostgresBool $isLive,
+            PostgresBool $isExplicit,
             string $permalink
         ): string
         {
-            $live = 'f';
-            if ($isLive) {
-                $live = 't';
-            }
-
-            $explicit = 'f';
-            if ($isExplicit) {
-                $explicit = 't';
-            }
-
             $result = $this->getDatabaseBackend()->insert(
                 'INSERT INTO tracks (duration, title, vevo_id, isrc, is_live, is_explicit, permalink) VALUES (:duration, :title, :vevo_id, :isrc, :is_live, :is_explicit, :permalink)',
                 [
@@ -31,8 +24,8 @@ namespace Jukebox\Backend\Commands
                     ':title' => $title,
                     ':vevo_id' => $vevoId,
                     ':isrc' => $isrc,
-                    ':is_live' => $live,
-                    ':is_explicit' => $explicit,
+                    ':is_live' => (string) $isLive,
+                    ':is_explicit' => (string) $isExplicit,
                     ':permalink' => $permalink
                 ]
             );
