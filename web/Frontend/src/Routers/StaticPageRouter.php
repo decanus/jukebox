@@ -25,6 +25,10 @@ namespace Jukebox\Frontend\Routers
         {
             $uri = $request->getUri();
 
+            if ($uri->getPath() !== '/') {
+                throw new \InvalidArgumentException('Not a static page path');
+            }
+
             return $this->factory->createHomepageController(new ControllerParameterObject($uri));
         }
     }
