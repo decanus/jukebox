@@ -157,12 +157,24 @@ namespace Jukebox\Backend\EventHandlers\Import
                     }
                 }
 
+                $isAudio = false;
+                if (strpos($video['title'], '(Audio)') !== false) {
+                    $isAudio = true;
+                }
+
+                if (strpos($video['title'], '[Audio]') !== false) {
+                    $isAudio = true;
+                }
+
                 $id = $this->insertTrackCommand->execute(
                     $video['duration'] * 1000,
                     $video['title'],
                     $video['isrc'],
                     $video['isrc'],
                     new PostgresBool($video['isLive']),
+                    new PostgresBool($video['hasLyrics']),
+                    new PostgresBool($isAudio),
+                    new PostgresBool($video['isOfficial']),
                     new PostgresBool($video['isExplicit']),
                     $permalink
                 );
