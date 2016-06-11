@@ -17,6 +17,9 @@
       "duration": {"type": "integer", "index": "no"},
       "isrc": {"type": "string", "index": "no"},
       "is_live": {"type": "boolean", "index": "no"},
+      "is_lyric": {"type": "boolean", "index": "no"},
+      "is_music_video": {"type": "boolean", "index": "no"},
+      "is_audio": {"type": "boolean", "index": "no"},
       "is_explicit": {"type": "boolean", "index": "no"},
       "permalink": {"type": "string", "index": "no"},
       "genres": {
