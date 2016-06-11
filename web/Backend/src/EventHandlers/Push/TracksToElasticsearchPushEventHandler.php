@@ -88,6 +88,7 @@ namespace Jukebox\Backend\EventHandlers\Push
                     'is_audio' => $track['is_audio'],
                     'is_explicit' => $track['is_explicit'],
                     'permalink' => $track['permalink'],
+                    'release_date' => $track['release_date'],
                     'artists' => $artists,
                     'genres' => $genres,
                     'sources' => $sources

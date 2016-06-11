@@ -17,7 +17,8 @@ namespace Jukebox\Backend\Commands
             PostgresBool $isAudio,
             PostgresBool $isMusicVideo,
             PostgresBool $isExplicit,
-            string $permalink
+            string $permalink,
+            \DateTime $releaseDate
         ): string
         {
             $result = $this->getDatabaseBackend()->insert(
@@ -31,7 +32,8 @@ namespace Jukebox\Backend\Commands
                     is_audio,
                     is_music_video,
                     is_explicit,
-                    permalink
+                    permalink,
+                    release_date
                 ) VALUES (
                     :duration,
                     :title,
@@ -42,7 +44,8 @@ namespace Jukebox\Backend\Commands
                     :is_audio,
                     :is_music_video,
                     :is_explicit,
-                    :permalink
+                    :permalink,
+                    :release_date
                 )',
                 [
                     ':duration' => $duration,
@@ -54,7 +57,8 @@ namespace Jukebox\Backend\Commands
                     ':is_audio' => (string) $isAudio,
                     ':is_music_video' => (string) $isMusicVideo,
                     ':is_explicit' => (string) $isExplicit,
-                    ':permalink' => $permalink
+                    ':permalink' => $permalink,
+                    ':release_date' => $releaseDate->format('Y-m-d')
                 ]
             );
             

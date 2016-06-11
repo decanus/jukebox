@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS tracks (
   is_audio BOOL NOT NULL DEFAULT FALSE,
   is_music_video BOOL NOT NULL DEFAULT FALSE,
   is_explicit BOOL NOT NULL DEFAULT FALSE,
-  permalink VARCHAR(255) NOT NULL
+  permalink VARCHAR(255) NOT NULL,
+  release_date DATE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS artists (
