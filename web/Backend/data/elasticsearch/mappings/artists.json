@@ -15,6 +15,7 @@
         }
       },
       "official_website": {"type": "string", "index": "no"},
+      "soundcloud_id": {"type": "string", "index": "no"},
       "twitter": {"type": "string", "index": "no"},
       "facebook": {"type": "string", "index": "no"},
       "itunes": {"type": "string", "index": "no"},
