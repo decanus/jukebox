@@ -83,6 +83,12 @@ namespace Jukebox\Backend\EventHandlers
                         continue;
                     }
 
+                    similar_text(str_replace(['www.', '/'], '', $result['website']), str_replace(['www.', '/'], '', $artist['official_website']), $websiteSimilarity);
+                    if ($websiteSimilarity === 100) {
+                        $this->updateArtistSoundcloudIdCommand->execute($artistId, $result['id']);
+                        return;
+                    }
+                    
                     similar_text($result['website'], $artist['official_website'], $websiteSimilarity);
                     similar_text(strtolower($result['username']), strtolower($artist['name']), $nameMatch);
 
