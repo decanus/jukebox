@@ -78,10 +78,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                             // @todo handle
                         }
                     }
-
-
                     // @todo insert new track
-
                 }
                 
             } catch (\Throwable $e) {
