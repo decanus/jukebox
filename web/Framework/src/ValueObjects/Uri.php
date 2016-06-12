@@ -35,8 +35,6 @@ namespace Jukebox\Framework\ValueObjects
             if (isset($this->uri['query'])) {
                 parse_str($this->uri['query'], $this->parameters);
             }
-
-            $this->uri['path'] = $this->uri['path'];
         }
 
         /**
