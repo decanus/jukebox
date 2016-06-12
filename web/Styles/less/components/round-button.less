@@ -1,0 +1,17 @@
+.round-button {
+  background-color: @brand-color;
+  transition: background-color .125s;
+  will-change: background-color;
+  border-radius: 100%;
+  padding: 12px;
+  width: 40px;
+  height: 40px;
+
+  &.-clickable {
+    cursor: pointer;
+  }
+
+  &.-clickable &:hover {
+    background-color: lighten(@brand-color, 5);
+  }
+}

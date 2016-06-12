@@ -2,28 +2,24 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-/**
- *
- * @param {string} path
- * @todo: allow passing in the window instance
- */
-export function updatePath (path) {
-  if (window.location.pathname === path) {
-    return
-  }
-
-  window.history.pushState(null, '', path)
-}
+import { Route } from '../app/route'
 
 /**
  *
- * @param {string} path
+ * @param {Route} route
+ * @param {boolean} replace
  * @todo: allow passing in the window instance
  */
-export function replacePath (path) {
-  if (window.location.pathname === path) {
+export function updatePath (route, replace = false) {
+  const currentState = Route.fromLocation(window.location)
+  
+  if (currentState.isSameValue(route)) {
     return
   }
 
-  window.history.replaceState(null, '', path)
+  if (replace) {
+    window.history.replaceState(null, '', route.toString())
+  } else {
+    window.history.pushState(null, '', route.toString())
+  }
 }

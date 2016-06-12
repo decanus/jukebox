@@ -15,6 +15,7 @@ import { PlayerQueue } from  '../elements/player/player-queue'
 import { PlayerControls } from  '../elements/player/player-controls'
 import { PlayerQueueItem as _PlayerQueueItem} from  '../elements/player/player-queue-item'
 import { SearchField } from  '../elements/search-field'
+import { SearchPaginator } from  '../elements/search-paginator'
 
 
 /**
@@ -35,6 +36,7 @@ document.registerElement('track-link', TrackLink)
 document.registerElement('player-queue', PlayerQueue)
 document.registerElement('player-controls', PlayerControls)
 document.registerElement('player-scrobble-bar', PlayerScrobbleBar)
+document.registerElement('search-paginator', SearchPaginator)
 
 document.registerElement('toggle-sidebar', {
   'extends': 'button',

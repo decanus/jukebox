@@ -5,8 +5,12 @@ CREATE TABLE IF NOT EXISTS tracks (
   vevo_id VARCHAR(255) NULL DEFAULT NULL,
   isrc VARCHAR(255) NULL DEFAULT NULL,
   is_live BOOL NOT NULL DEFAULT FALSE,
+  is_lyric BOOL NOT NULL DEFAULT FALSE,
+  is_audio BOOL NOT NULL DEFAULT FALSE,
+  is_music_video BOOL NOT NULL DEFAULT FALSE,
   is_explicit BOOL NOT NULL DEFAULT FALSE,
-  permalink VARCHAR(255) NOT NULL
+  permalink VARCHAR(255) NOT NULL,
+  release_date DATE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS artists (
@@ -26,6 +30,7 @@ CREATE TABLE IF NOT EXISTS track_artists (
   artist INT NOT NULL,
   track INT NOT NULL,
   role VARCHAR(11),
+  UNIQUE(artist, track),
   FOREIGN KEY (artist) REFERENCES artists(id),
   FOREIGN KEY (track) REFERENCES tracks(id),
   CHECK (role IN ('main', 'featured'))
@@ -40,6 +45,7 @@ CREATE TABLE IF NOT EXISTS track_genres (
   id SERIAL PRIMARY KEY,
   track INT NOT NULL,
   genre INT NOT NULL,
+  UNIQUE(track, genre),
   FOREIGN KEY (track) REFERENCES tracks(id),
   FOREIGN KEY (genre) REFERENCES genres(id)
 );

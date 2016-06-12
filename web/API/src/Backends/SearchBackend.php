@@ -46,9 +46,19 @@ namespace Jukebox\API\Backends
             return $this->getDocument('tracks', $id);
         }
 
-        public function search(string $type, array $query, $size = 10000): array
+        public function search(string $type, array $query, int $size = 20, int $page = 1): array
         {
-            return $this->searchResultMapper->map(new SearchResult($this->client->search(['index' => $this->dataVersion, 'type' => $type, 'body' => $query, 'size' => $size])));
+            $from = 0;
+            if ($page > 1) {
+                $from = (($page - 1) * $size) + 1;
+            }
+            
+            return $this->searchResultMapper->map(new SearchResult(
+                    $this->client->search(['index' => $this->dataVersion, 'type' => $type, 'body' => $query, 'size' => $size, 'from' => $from]),
+                    $size,
+                    $page
+                )
+            );
         }
 
         private function getDocument(string $type, string $id): array

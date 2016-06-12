@@ -23,7 +23,17 @@ namespace Jukebox\API\Handlers\Get\ArtistTracks
         
         public function execute(RequestInterface $request, AbstractModel $model)
         {
-            $tracks = $this->fetchTracksForArtistQuery->execute($request->getUri()->getExplodedPath()[2]);
+            $size = 20;
+            if ($request->hasParameter('size')) {
+                $size = $request->getParameter('size');
+            }
+
+            $page = 1;
+            if ($request->hasParameter('page')) {
+                $page = $request->getParameter('page');
+            }
+            
+            $tracks = $this->fetchTracksForArtistQuery->execute($request->getUri()->getExplodedPath()[2], $size, $page);
 
             if (!empty($tracks)) {
                 $model->setData($tracks);

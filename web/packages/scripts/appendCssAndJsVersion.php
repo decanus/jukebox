@@ -14,6 +14,7 @@ if ($css->length === 1) {
 $js = [
     'jukebox',
     'polyfills',
+    'views',
 ];
 
 foreach ($js as $script) {

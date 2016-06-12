@@ -63,32 +63,45 @@ namespace Jukebox\Backend\EventHandlers\Push
         public function execute()
         {
             $tracks = $this->fetchTracksQuery->execute();
+            $params = ['body' => []];
 
-            foreach ($tracks as $track) {
+            foreach ($tracks as $key => $track) {
+                $params['body'][] = [
+                    'index' => [
+                        '_index' => (string) $this->event->getDataVersion(),
+                        '_type' => 'tracks',
+                        '_id' => $track['id']
+                    ]
+                ];
 
                 $artists = $this->fetchTrackArtistsQuery->execute($track['id']);
                 $genres = $this->fetchTrackGenresQuery->execute($track['id']);
                 $sources = $this->fetchTrackSourcesQuery->execute($track['id']);
 
-                $params = [
-                    'index' => $this->event->getDataVersion(),
-                    'type' => 'tracks',
-                    'id' => $track['id'],
-                    'body' => [
-                        'title' => $track['title'],
-                        'duration' => $track['duration'],
-                        'vevo_id' => $track['vevo_id'],
-                        'isrc' => $track['isrc'],
-                        'is_live' => $track['is_live'],
-                        'is_explicit' => $track['is_explicit'],
-                        'permalink' => $track['permalink'],
-                        'artists' => $artists,
-                        'genres' => $genres,
-                        'sources' => $sources
-                    ]
+                $params['body'][] = [
+                    'title' => $track['title'],
+                    'duration' => $track['duration'],
+                    'isrc' => $track['isrc'],
+                    'is_live' => $track['is_live'],
+                    'is_lyric' => $track['is_lyric'],
+                    'is_music_video' => $track['is_music_video'],
+                    'is_audio' => $track['is_audio'],
+                    'is_explicit' => $track['is_explicit'],
+                    'permalink' => $track['permalink'],
+                    'release_date' => $track['release_date'],
+                    'artists' => $artists,
+                    'genres' => $genres,
+                    'sources' => $sources
                 ];
 
-                $this->client->index($params);
+                if ($key % 1000 === 0) {
+                    $this->client->bulk($params);
+                    $params = ['body' => []];
+                }
+            }
+
+            if (!empty($params['body'])) {
+                $this->client->bulk($params);
             }
         }
     }

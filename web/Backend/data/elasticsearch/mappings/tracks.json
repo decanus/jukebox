@@ -1,0 +1,55 @@
+{
+  "tracks": {
+    "_all": {
+      "enabled": "false"
+    },
+    "dynamic": "strict",
+    "properties": {
+      "title": {
+        "type": "string",
+        "fields": {
+          "title": {"type": "string", "analyzer": "default_analyzer"},
+          "snowball": {"type": "string", "analyzer": "snowball_analyzer"},
+          "shingle": {"type": "string", "analyzer": "shingle_analyzer"},
+          "ngrams": {"type": "text", "analyzer": "ngram_analyzer", "search_analyzer": "search_analyzer"}
+        }
+      },
+      "duration": {"type": "integer", "index": "no"},
+      "isrc": {"type": "string", "index": "no"},
+      "is_live": {"type": "boolean", "index": "no"},
+      "is_lyric": {"type": "boolean", "index": "no"},
+      "is_music_video": {"type": "boolean", "index": "no"},
+      "is_audio": {"type": "boolean", "index": "no"},
+      "is_explicit": {"type": "boolean", "index": "no"},
+      "permalink": {"type": "string", "index": "no"},
+      "release_date": {"type": "date", "format": "yyyy-MM-dd", "index": "no"},
+      "genres": {
+        "properties": {
+          "id": {"type": "string", "index": "no"},
+          "name": {"type": "string", "index": "no"}
+        }
+      },
+      "artists": {
+        "properties": {
+          "id": {"type": "string", "index": "not_analyzed"},
+          "name": {
+            "type": "string",
+            "fields": {
+              "name": {"type": "string", "analyzer": "default_analyzer"},
+              "ngrams": {"type": "text", "analyzer": "ngram_analyzer", "search_analyzer": "search_analyzer"}
+            }
+          },
+          "permalink": {"type": "string", "index": "no"},
+          "role": {"type": "string", "index": "no"}
+        }
+      },
+      "sources": {
+        "properties": {
+          "source": {"type": "string", "index": "no"},
+          "source_data": {"type": "string", "index": "no"},
+          "duration": {"type": "integer", "index": "no"}
+        }
+      }
+    }
+  }
+}

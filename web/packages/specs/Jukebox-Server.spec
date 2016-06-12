@@ -1,6 +1,6 @@
 Summary: JukeboxServer
 Name: jukebox-server
-Version: 0.0.1
+Version: 0.0.4
 Release: jukebox.1
 Group: System Environment/Libraries
 License: Jukebox
@@ -35,6 +35,7 @@ install -m 644 %{_sourcedir}/nginx/* $RPM_BUILD_ROOT/etc/nginx/conf.d/
 install -m 644 %{_sourcedir}/supervisor/php_worker.conf $RPM_BUILD_ROOT/etc/supervisord.d/
 install -m 644 %{_sourcedir}/supervisor/supervisord.conf $RPM_BUILD_ROOT/etc/supervisord.conf.jukebox
 install -m 644 %{_sourcedir}/supervisor/supervisord $RPM_BUILD_ROOT/etc/rc.d/init.d/supervisord.jukebox
+install -m 644 %{_sourcedir}/php.ini $RPM_BUILD_ROOT/etc/php.ini.server
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -50,8 +51,11 @@ rm -rf $RPM_BUILD_ROOT
 /etc/nginx/conf.d/api.jukebox.ninja.conf
 /etc/nginx/conf.d/jukebox.ninja.conf
 /etc/nginx/conf.d/nginx-base.conf
+/etc/php.ini.server
 
 %post
+service nginx restart
+service php-fpm restart
 
 # supervisor installieren
 easy_install pip
@@ -59,6 +63,13 @@ pip install supervisor
 chmod +x /etc/rc.d/init.d/supervisord
 chkconfig --add supervisord
 chkconfig --level 345 supervisord on
+
+if [ ! -h /etc/php.ini -o ! "`readlink /etc/php.ini`" = "/etc/php.ini.server" ] ; then
+    if [ -e /etc/php.ini ] ; then
+        mv -f /etc/php.ini /etc/php.ini.orig
+    fi
+    ln -s /etc/php.ini.server /etc/php.ini
+fi
 
 %triggerin -- supervisord
 if [ ! -h /etc/supervisord.conf -o ! "`readlink /etc/supervisord.conf`" = "/etc/supervisord.conf.jukebox" ] ; then
