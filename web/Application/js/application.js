@@ -12,7 +12,7 @@ export class Application {
   /**
    *
    * @param {Document} document
-   * @param {PlayerDelegate} player
+   * @param {PlayerDelegator} player
    */
   constructor(document, player) {
     /**
@@ -30,7 +30,7 @@ export class Application {
 
     /**
      *
-     * @type {PlayerDelegate}
+     * @type {PlayerDelegator}
      * @private
      */
     this._player = player
@@ -61,7 +61,7 @@ export class Application {
 
   /**
    * 
-   * @returns {PlayerDelegate}
+   * @returns {PlayerDelegator}
    */
   getPlayer() {
     return this._player
@@ -87,11 +87,14 @@ export class Application {
    *
    * @param {Route} route
    * @param {boolean} replace
+   * @param {boolean} silent
    */
-  setRoute(route, { replace = false } = { replace: false }) {
+  setRoute(route, { replace = false, silent = false } = {}) {
     this._emitter.emit('route', route)
-    
-    updatePath(route, replace)
+
+    if (!silent) {
+      updatePath(route, replace)
+    }
   }
 
   reloadCurrentRoute () {

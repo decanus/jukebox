@@ -3,10 +3,10 @@
  */
 
 import { Application } from './application.js'
-import { PlayerDelegate } from './players/player-delegate'
+import { PlayerDelegator } from './players/player-delegator'
 
 /**
  * 
  * @type {Application}
  */
-export const app = new Application(document, new PlayerDelegate())
+export const app = new Application(document, new PlayerDelegator())

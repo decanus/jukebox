@@ -60,7 +60,7 @@ export class JukeboxApp extends HTMLElement {
             return
           }
 
-          app.setRoute(new Route('/error'), { replace: true })
+          app.setRoute(new Route('/error'), { silent: true })
 
           sendException(error)
         })
