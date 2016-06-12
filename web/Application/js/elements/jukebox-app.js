@@ -6,8 +6,8 @@ import { resolveView } from '../views/resolve'
 import { renderTemplate } from '../render-template'
 
 import { app } from '../app'
-
-const store = app.getModelStore()
+import { Route } from '../app/route'
+import { sendException } from '../app/analytics'
 
 /**
  *
@@ -45,7 +45,7 @@ export class JukeboxApp extends HTMLElement {
           if (active !== view && active !== undefined) {
             return
           }
-          
+
           if (cleanup.has(this)) {
             // call cleanup function from previous view
             cleanup.get(this)()
@@ -53,6 +53,11 @@ export class JukeboxApp extends HTMLElement {
           
           cleanup.set(this, view.handle(page))
           render(this, page)
+        })
+        .catch((error) => {
+          app.setRoute(new Route('/error'), { replace: true })
+
+          sendException(error)
         })
     })
   }

@@ -7,9 +7,13 @@ import { SearchView } from './search-view'
 import { StaticView } from './static-view'
 
 /**
+ * @typedef {{ fetch: (function(): Promise<Page>), handle: (function(Page) ) }} View
+ */
+
+/**
  *
  * @param {Route} route
- * @returns {{ fetch: (function(): Promise<Page>), handle: (function(Page) ) }}
+ * @returns {View}
  */
 export function resolveView (route) {
   switch (route.path) {
@@ -19,6 +23,8 @@ export function resolveView (route) {
       return StaticView(new Page({ title: 'Jukebox Ninja - Create Playlist', template: 'createPlaylist' }))
     case '/lorem':
       return StaticView(new Page({ title: 'Jukebox Ninja - Lorem', template: 'lorem' }))
+    case '/error':
+      return StaticView(new Page({ title: 'Jukebox Ninja - Error', template: 'error' }))
   }
 
   if (route.pathParts[ 0 ] === 'search') {

@@ -86,11 +86,12 @@ export class Application {
   /**
    *
    * @param {Route} route
+   * @param {boolean} replace
    */
-  setRoute(route) {
+  setRoute(route, { replace = false } = { replace: false }) {
     this._emitter.emit('route', route)
     
-    updatePath(route)
+    updatePath(route, replace)
   }
 
   reloadCurrentRoute () {

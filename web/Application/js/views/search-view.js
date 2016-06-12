@@ -6,6 +6,11 @@ import { fetchSearch } from '../apr/apr'
 import { app } from '../app'
 import { Page } from './page'
 
+/**
+ *
+ * @param {string} query
+ * @returns {View}
+ */
 export function SearchView (query) {
   const store = app.getModelStore()
 
@@ -24,6 +29,7 @@ export function SearchView (query) {
       if (store.has(key)) {
         results = Promise.resolve(store.get(key))
       } else {
+        //noinspection JSCheckFunctionSignatures
         results = fetchSearch(query)
           .then((results) => loader.loadResult({ id: query, ...results }))
       }
