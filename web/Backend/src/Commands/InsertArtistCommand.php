@@ -18,7 +18,7 @@ namespace Jukebox\Backend\Commands
             string $permalink
         ): bool
         {
-            return $this->getDatabaseBackend()->insert(
+            return $this->getDatabaseBackend()->execute(
                 'INSERT INTO artists (name, vevo_id, official_website, twitter, facebook, itunes, amazon, permalink) VALUES (:name, :vevo_id, :official_website, :twitter, :facebook, :itunes, :amazon, :permalink)',
                 [
                     ':name' => $artist,

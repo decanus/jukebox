@@ -21,7 +21,7 @@ namespace Jukebox\Backend\Commands
             \DateTime $releaseDate
         ): string
         {
-            $result = $this->getDatabaseBackend()->insert(
+            $result = $this->getDatabaseBackend()->execute(
                 'INSERT INTO tracks (
                     duration,
                     title,

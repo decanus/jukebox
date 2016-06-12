@@ -30,7 +30,7 @@ namespace Jukebox\Backend\Backends
             return $statement->fetch(\PDO::FETCH_ASSOC);
         }
 
-        public function insert(string $sql, array $parameters = []): bool
+        public function execute(string $sql, array $parameters = []): bool
         {
             $statement = $this->PDO->prepare($sql);
             return $statement->execute($parameters);
