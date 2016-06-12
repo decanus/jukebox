@@ -7,11 +7,6 @@
 
                     {{#if isArtist}}
                         <div class="search-result">
-
-                            <div class="button">
-                                <div class="round-button"></div>
-                            </div>
-
                             <div class="text">
                                 <a is="jukebox-link" href="{{permalink}}" class="title">{{name}}</a>
                             </div>
@@ -21,17 +16,25 @@
                     {{#if isTrack}}
                         <div class="search-result">
 
-                            <track-link track-id="{{id}}" class="button">
-                                <button class="round-button -clickable">
-                                    <img src="/images/icons/play.svg"/>
-                                </button>
-                            </track-link>
-
                             <div class="text">
-                                <a is="jukebox-link" href="{{permalink}}" class="title">{{title}}</a>
+
+                                <div class="title">
+
+                                    <a is="jukebox-link" href="{{permalink}}" class="label">{{title}}</a>
+
+
+                                    {{#isExplicit}}
+                                        <span class="item track-label -red">EXPLICIT</span>
+                                    {{/isExplicit}}
+
+                                    <span class="item track-label">MUSIC VIDEO</span>
+
+                                </div>
+
+
+
 
                                 <div class="artists">
-
                                     {{#artists}}
 
                                         <span class="sep">{{#if isPrependComma}}, {{/if}}</span>
@@ -46,13 +49,16 @@
                                         {{/if}}
 
                                     {{/artists}}
-
                                 </div>
 
+                            </div>
 
-                                <track-link track-id="{{id}}" push-to-queue class="icon-button">
-                                    <img src="/images/icons/black/queue.svg" alt="+" class="icon"/>
-                                    <span class="label">Add to queue</span>
+                            <div class="buttons">
+                                <track-link track-id="{{id}}" class="button">
+                                    <img src="/images/icons/actions/play.svg" alt="play" />
+                                </track-link>
+                                <track-link track-id="{{id}}" push-to-queue class="button">
+                                    <img src="/images/icons/actions/add.svg" alt="+" />
                                 </track-link>
                             </div>
                         </div>

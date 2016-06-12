@@ -1,16 +1,8 @@
 .search-result {
-  margin-bottom: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid #f5f5f5;
   display: flex;
   align-items: center;
-
-  .button {
-    flex-shrink: 0;
-    margin-right: 10px;
-  }
-
-  .button > button {
-    cursor: pointer;
-  }
 
   > .text {
     flex-grow: 1;
@@ -20,12 +12,22 @@
   }
 
   > .text > .title {
+    display: flex;
+    align-items: center;
+  }
+
+  > .text > .title > .label {
     color: #000;
+  }
+
+  > .text > .title > .item {
+    margin-left: 10px;
   }
 
   > .text > .artists {
     display: flex;
     color: @color-gray;
+    font-size: 14px;
   }
 
   > .text > .artists > .artist {
@@ -34,5 +36,19 @@
 
   > .text > .artists > .sep {
     white-space: pre;
+  }
+
+  > .buttons {
+    display: flex;
+    align-items: center;
+  }
+
+  > .buttons > .button {
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  > .buttons > .button {
+    margin-left: 40px;
   }
 }

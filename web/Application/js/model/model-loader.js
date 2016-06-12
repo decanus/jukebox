@@ -55,6 +55,8 @@ export class ModelLoader {
   loadTrack (data) {
     let youtubeTrack
 
+    data['isExplicit'] = data['is_explicit']
+
     data.sources.forEach((source) => {
       if (source.source === 'youtube') {
         youtubeTrack = new YoutubeTrack(source[ 'source_data' ], source[ 'duration' ])

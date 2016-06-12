@@ -9,14 +9,16 @@ export class Track {
    * @param {string} title
    * @param {Array<TrackArtist>} artists
    * @param {string} permalink
+   * @param {boolean} isExplicit
    * @param {YoutubeTrack} [youtubeTrack]
    */
-  constructor ({ id, title, artists, permalink }, { youtubeTrack }) {
+  constructor ({ id, title, artists, permalink, isExplicit = false }, { youtubeTrack }) {
     this.id = id
     this.title = title
     this.artists = artists
     this.permalink = permalink
     this.youtubeTrack = youtubeTrack
+    this.isExplicit = isExplicit
 
     Object.freeze(this)
   }
