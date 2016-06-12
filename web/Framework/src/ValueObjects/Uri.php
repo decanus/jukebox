@@ -35,6 +35,10 @@ namespace Jukebox\Framework\ValueObjects
             if (isset($this->uri['query'])) {
                 parse_str($this->uri['query'], $this->parameters);
             }
+
+            if ($this->getHost() !== 'apiv2.vevo.com') {
+                $this->uri['path'] = urldecode($this->uri['path']);
+            }
         }
 
         /**
