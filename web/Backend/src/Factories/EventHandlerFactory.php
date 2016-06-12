@@ -141,7 +141,8 @@ namespace Jukebox\Backend\Factories
             return new \Jukebox\Backend\EventHandlers\SoundcloudArtistMatchEventHandler(
                 $event,
                 $this->getMasterFactory()->createFetchArtistByIdQuery(),
-                $this->getMasterFactory()->createSoundcloudService()
+                $this->getMasterFactory()->createSoundcloudService(),
+                $this->getMasterFactory()->createUpdateArtistSoundcloudIdCommand()
             );
         }
     }

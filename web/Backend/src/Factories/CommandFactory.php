@@ -47,6 +47,13 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createPostgreDatabaseBackend()
             );
         }
+
+        public function createUpdateArtistSoundcloudIdCommand(): \Jukebox\Backend\Commands\UpdateArtistSoundcloudIdCommand
+        {
+            return new \Jukebox\Backend\Commands\UpdateArtistSoundcloudIdCommand(
+                $this->getMasterFactory()->createPostgreDatabaseBackend()
+            );
+        }
     }
 }
 

@@ -83,5 +83,12 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createPostgreDatabaseBackend()
             );
         }
+
+        public function createFetchArtistByIdQuery(): \Jukebox\Backend\Queries\FetchArtistByIdQuery
+        {
+            return new \Jukebox\Backend\Queries\FetchArtistByIdQuery(
+                $this->getMasterFactory()->createPostgreDatabaseBackend()
+            );
+        }
     }
 }

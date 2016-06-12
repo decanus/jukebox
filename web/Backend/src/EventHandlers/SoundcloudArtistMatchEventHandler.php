@@ -9,6 +9,7 @@ namespace Jukebox\Backend\EventHandlers
     use Jukebox\Backend\Services\Soundcloud;
     use Jukebox\Framework\Logging\LoggerAware;
     use Jukebox\Framework\Logging\LoggerAwareTrait;
+    use Jukebox\Framework\ValueObjects\Uri;
 
     class SoundcloudArtistMatchEventHandler implements EventHandlerInterface, LoggerAware
     {
@@ -58,14 +59,41 @@ namespace Jukebox\Backend\EventHandlers
                     return;
                 }
 
-                $results = $this->soundcloud->searchForArtist($artist['name']);
+                $results = $this->soundcloud->searchForArtist($artist['name'])->getDecodedJsonResponse();
 
                 foreach ($results as $result) {
-                    if ($result['website'] !== $artist['official_website']) {
+                    if ($result['website'] === null) {
                         continue;
                     }
 
-                    $this->updateArtistSoundcloudIdCommand->execute($artistId, $result['id']);
+                    if (strpos($result['website'], 'facebook') !== false) {
+                        continue;
+                    }
+                    
+                    if ($result['website'] === $artist['official_website']) {
+                        $this->updateArtistSoundcloudIdCommand->execute($artistId, $result['id']);
+                        return;
+                    }
+
+                    if (str_replace('www.', '', $result['website']) === $artist['official_website']) {
+                        $this->updateArtistSoundcloudIdCommand->execute($artistId, $result['id']);
+                        return;
+                    }
+
+                    if (rtrim($result['website'], '/') === $artist['official_website']) {
+                        $this->updateArtistSoundcloudIdCommand->execute($artistId, $result['id']);
+                        return;
+                    }
+
+                    if (str_replace('www.', '', $result['website']) === $artist['official_website']) {
+                        $this->updateArtistSoundcloudIdCommand->execute($artistId, $result['id']);
+                        return;
+                    }
+
+                    if (rtrim($result['website'], '/') === str_replace('www.', '', $artist['official_website'])) {
+                        $this->updateArtistSoundcloudIdCommand->execute($artistId, $result['id']);
+                        return;
+                    }
                 }
 
             } catch (\Throwable $e) {
