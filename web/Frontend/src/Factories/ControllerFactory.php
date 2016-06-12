@@ -7,9 +7,11 @@ namespace Jukebox\Frontend\Factories
     use Jukebox\Framework\Factories\AbstractFactory;
     use Jukebox\Framework\Http\Response\HtmlResponse;
     use Jukebox\Framework\Http\Response\JsonResponse;
+    use Jukebox\Framework\Http\StatusCodes\NotFound;
     use Jukebox\Framework\Models\PageModel;
     use Jukebox\Framework\ParamterObjects\ControllerParameterObject;
     use Jukebox\Frontend\Models\AjaxModel;
+    use Jukebox\Frontend\Models\SearchPageModel;
 
     class ControllerFactory extends AbstractFactory
     {
@@ -57,6 +59,9 @@ namespace Jukebox\Frontend\Factories
         
         public function createNotFoundPageController(ControllerParameterObject $parameterObject): GetController
         {
+            $response = new HtmlResponse;
+            $response->setStatusCode(new NotFound);
+
             return new GetController(
                 new PageModel($parameterObject->getUri()),
                 $this->getMasterFactory()->createPreHandler(),
@@ -65,7 +70,7 @@ namespace Jukebox\Frontend\Factories
                 $this->getMasterFactory()->createNotFoundTransformationHandler(),
                 $this->getMasterFactory()->createResponseHandler(),
                 $this->getMasterFactory()->createPostHandler(),
-                new HtmlResponse
+                $response
             );
         }
 
@@ -80,6 +85,20 @@ namespace Jukebox\Frontend\Factories
                 $this->getMasterFactory()->createResponseHandler(),
                 $this->getMasterFactory()->createPostHandler(),
                 new JsonResponse
+            );
+        }
+
+        public function createSearchPageController(ControllerParameterObject $parameterObject): GetController
+        {
+            return new GetController(
+                new SearchPageModel($parameterObject->getUri()),
+                $this->getMasterFactory()->createPreHandler(),
+                $this->getMasterFactory()->createCommandHandler(),
+                $this->getMasterFactory()->createSearchPageQueryHandler(),
+                $this->getMasterFactory()->createSearchPageTransformationHandler(),
+                $this->getMasterFactory()->createResponseHandler(),
+                $this->getMasterFactory()->createPostHandler(),
+                new HtmlResponse
             );
         }
     }

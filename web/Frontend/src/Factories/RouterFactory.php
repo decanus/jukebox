@@ -31,5 +31,10 @@ namespace Jukebox\Frontend\Factories
         {
             return new \Jukebox\Frontend\Routers\AjaxRequestRouter($this->getMasterFactory());
         }
+
+        public function createSearchPageRouter(): \Jukebox\Frontend\Routers\SearchPageRouter
+        {
+            return new \Jukebox\Frontend\Routers\SearchPageRouter($this->getMasterFactory());
+        }
     }
 }

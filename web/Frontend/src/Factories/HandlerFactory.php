@@ -117,6 +117,22 @@ namespace Jukebox\Frontend\Factories
             );
         }
 
+        public function createSearchPageQueryHandler(): \Jukebox\Frontend\Handlers\Get\Search\QueryHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Get\Search\QueryHandler(
+                $this->getMasterFactory()->createJukeboxRestManager()
+            );
+        }
+
+        public function createSearchPageTransformationHandler(): \Jukebox\Frontend\Handlers\Get\Search\TransformationHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Get\Search\TransformationHandler(
+                $this->getTemplate(),
+                $this->getMasterFactory()->createGenericPageTransformationHandler(),
+                $this->getMasterFactory()->createFileBackend()
+            );
+        }
+
         /**
          * @return fDOMDocument
          */

@@ -37,17 +37,16 @@ namespace Jukebox\API\Handlers\Get\Search
                     'multi_match' => [
                         'query' => $request->getParameter('query'),
                         'fields' => [
-                            'name.name^20',
+                            'name^50',
                             'title^10',
-                            'title.title^10',
                             'title.snowball^2',
                             'title.shingle^2',
                             'title.ngram^2',
-                            'artists.name^10',
-                            'artists.name.ngrams',
-                            'name.snowball',
-                            'name.shingle',
-                            'name.ngram',
+                            'artists.name^2',
+                            'artists.name.ngrams^2',
+                            'name.snowball^2',
+                            'name.shingle^2',
+                            'name.ngram^5',
                         ],
                     ]
                 ]

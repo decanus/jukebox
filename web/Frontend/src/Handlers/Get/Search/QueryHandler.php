@@ -1,6 +1,6 @@
 <?php
 
-namespace Jukebox\Frontend\Handlers\Get\Ajax\Search
+namespace Jukebox\Frontend\Handlers\Get\Search
 {
 
     use Jukebox\Framework\Handlers\QueryHandlerInterface;
@@ -26,33 +26,23 @@ namespace Jukebox\Frontend\Handlers\Get\Ajax\Search
 
         public function execute(RequestInterface $request, AbstractModel $model)
         {
-            if (!$request->hasParameter('query')) {
-                return;
-            }
-
-            $size = 20;
-            if ($request->hasParameter('size')) {
-                $size = $request->getParameter('size');
-            }
-
-            $page = 1;
-            if ($request->hasParameter('page')) {
-                $page = $request->getParameter('page');
-            }
-
             try {
-                $response = $this->jukeboxRestManager->search($request->getParameter('query'), $size, $page);
 
-                if ($response->getResponseCode() !== 200) {
-                    throw new \Exception('Non 200 response');
+                if (!$request->hasParameter('q')) {
+                    return;
                 }
 
-                $model->setData($response->getDecodedJsonResponse());
+                $response = $this->jukeboxRestManager->search($request->getParameter('q'), 20, 1);
 
+                if ($response->getResponseCode() !== 200) {
+                    return;
+                }
+
+                $model->setSearchResults($response->getDecodedJsonResponse());
             } catch (\Throwable $e) {
-                $this->getLogger()->emergency($e);
-                // @todo
+                $this->getLogger()->critical($e);
             }
+
         }
     }
 }
