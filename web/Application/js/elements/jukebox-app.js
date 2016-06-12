@@ -7,8 +7,6 @@ import { renderTemplate } from '../render-template'
 
 import { app } from '../app'
 
-const store = app.getModelStore()
-
 /**
  *
  * @param $element
