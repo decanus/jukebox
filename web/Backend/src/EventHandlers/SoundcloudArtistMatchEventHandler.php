@@ -88,7 +88,7 @@ namespace Jukebox\Backend\EventHandlers
                         $this->updateArtistSoundcloudIdCommand->execute($artistId, $result['id']);
                         return;
                     }
-                    
+
                     similar_text($result['website'], $artist['official_website'], $websiteSimilarity);
                     similar_text(strtolower($result['username']), strtolower($artist['name']), $nameMatch);
 
