@@ -5,11 +5,6 @@
 import * as config from '../../data/config.json'
 
 /**
- * @type {(function(string, string, { exDescription: string, exFatal: boolean }))}
- */
-const ga = window.ga
-
-/**
  *
  * @param {Error} error
  * @returns {string}
@@ -36,11 +31,7 @@ function getErrorDescription(error) {
  */
 export function sendException (error) {
   if (config['isDevelopmentMode']) {
-    console.log(getErrorDescription(error))
     console.error(error)
-  }
-
-  if (ga === undefined) {
     return
   }
 
@@ -48,4 +39,17 @@ export function sendException (error) {
     exDescription: getErrorDescription(error),
     exFatal: false
   })
+}
+
+/**
+ *
+ * @param {Route} route
+ */
+export function trackPageView (route) {
+  if (config['isDevelopmentMode']) {
+    return
+  }
+
+  ga('set', 'page', route.toString())
+  ga('send', 'pageview')
 }

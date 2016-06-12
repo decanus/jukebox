@@ -8,6 +8,7 @@ import 'es6-symbol/implement'
 import { app } from './app'
 import { getInterval } from './dom/time/get-interval'
 import { Route } from './app/route'
+import { trackPageView } from './app/analytics'
 
 import './app/elements'
 import './app/media-keys'
@@ -17,7 +18,10 @@ window.addEventListener('popstate', () => {
 })
 
 document.addEventListener('DOMContentLoaded', () => {
+  // todo: make listeners use getCurrentRoute() the first time and remove this
   app.setRoute(Route.fromLocation(window.location))
+
+  app.getRoute().forEach(trackPageView)
 })
 
 window.__$loadModel = function (model) {
