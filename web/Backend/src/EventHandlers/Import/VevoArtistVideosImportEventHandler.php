@@ -148,6 +148,8 @@ namespace Jukebox\Backend\EventHandlers\Import
                     return;
                 }
 
+                // @todo check if track by artist already exists, maybe it was indexed from another source
+
                 $permalink = '';
                 foreach ($video['artists'] as $artist) {
                     if ($artist['role'] === 'Main') {
