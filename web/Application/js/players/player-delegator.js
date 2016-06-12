@@ -39,7 +39,7 @@ function delegateToCurrentPlayer (method) {
   })
 }
 
-export class PlayerDelegate {
+export class PlayerDelegator {
   constructor () {
     /**
      *

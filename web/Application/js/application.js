@@ -12,7 +12,7 @@ export class Application {
   /**
    *
    * @param {Document} document
-   * @param {PlayerDelegate} player
+   * @param {PlayerDelegator} player
    */
   constructor(document, player) {
     /**
@@ -30,7 +30,7 @@ export class Application {
 
     /**
      *
-     * @type {PlayerDelegate}
+     * @type {PlayerDelegator}
      * @private
      */
     this._player = player
@@ -61,7 +61,7 @@ export class Application {
 
   /**
    * 
-   * @returns {PlayerDelegate}
+   * @returns {PlayerDelegator}
    */
   getPlayer() {
     return this._player
