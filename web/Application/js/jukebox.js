@@ -8,7 +8,7 @@ import 'es6-symbol/implement'
 import { app } from './app'
 import { getInterval } from './dom/time/get-interval'
 import { Route } from './app/route'
-import { trackPageView } from './app/analytics'
+import { trackPageView, sendPlayTrack } from './app/analytics'
 
 import './app/elements'
 import './app/media-keys'
@@ -23,6 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   app.getRoute().forEach(trackPageView)
 })
+
+app.getPlayer()
+  .getTrack()
+  .forEach((track) => sendPlayTrack(track))
 
 window.__$loadModel = function (model) {
   app.getModelLoader().load(model)
