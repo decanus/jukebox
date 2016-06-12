@@ -7,6 +7,7 @@ import { renderTemplate } from '../render-template'
 
 import { app } from '../app'
 import { Route } from '../app/route'
+import { sendException } from '../app/analytics'
 
 /**
  *
@@ -56,10 +57,7 @@ export class JukeboxApp extends HTMLElement {
         .catch((error) => {
           app.setRoute(new Route('/error'), { replace: true })
 
-          ga('send', 'exception', {
-            'exDescription': JSON.stringify(error),
-            'exFatal': false
-          })
+          sendException(error)
         })
     })
   }

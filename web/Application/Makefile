@@ -23,7 +23,7 @@ lint:
 install-deps:
 	npm install
 
-build/js/jukebox.js: data/tokens.json $(JS_FILES)
+build/js/jukebox.js: data/config.json $(JS_FILES)
 	@mkdir -p $(dir $@)
 ifeq ($(JUKEBOX_ENV),production)
 	browserify -t [ babelify ] -t envify -g [ uglifyify --no-sourcemap ] -p bundle-collapser/plugin js/jukebox.js | uglifyjs --screw-ie8 --mangle -o $@
@@ -42,9 +42,9 @@ build/js/polyfills.js: $(POLYFILLS)
 	@mkdir -p $(dir $@)
 	uglifyjs $^ -o $@
 
-data/tokens.json:
+data/config.json:
 ifeq ($(JUKEBOX_ENV),production)
-	cd data && ln -sf prod.json tokens.json
+	cd data && ln -sf prod.json config.json
 else
-	cd data && ln -sf dev.json tokens.json
+	cd data && ln -sf dev.json config.json
 endif
