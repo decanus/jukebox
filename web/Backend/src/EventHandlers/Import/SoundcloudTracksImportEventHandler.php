@@ -65,7 +65,22 @@ namespace Jukebox\Backend\EventHandlers\Import
 
                 foreach ($tracks as $track) {
 
-                    
+                    foreach ($artistTracks as $artistTrack) {
+
+                        foreach ($artistTrack['sources'] as $source) {
+                            if ($source === 'soundcloud') {
+                                continue 2;
+                            }
+                        }
+
+                        // @todo check if track is track to insert new source
+                        if ($artistTrack['title'] === $track['title']) {
+                            // @todo handle
+                        }
+                    }
+
+
+                    // @todo insert new track
 
                 }
                 
