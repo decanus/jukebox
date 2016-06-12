@@ -7,27 +7,19 @@ import { Route } from '../app/route'
 /**
  *
  * @param {Route} route
+ * @param {boolean} replace
  * @todo: allow passing in the window instance
  */
-export function updatePath (route) {
+export function updatePath (route, replace = false) {
   const currentState = Route.fromLocation(window.location)
   
   if (currentState.isSameValue(route)) {
     return
   }
 
-  window.history.pushState(null, '', route.toString())
-}
-
-/**
- *
- * @param {string} path
- * @todo: allow passing in the window instance
- */
-export function replacePath (path) {
-  if (window.location.pathname === path) {
-    return
+  if (replace) {
+    window.history.replaceState(null, '', route.toString())
+  } else {
+    window.history.pushState(null, '', route.toString())
   }
-
-  window.history.replaceState(null, '', path)
 }

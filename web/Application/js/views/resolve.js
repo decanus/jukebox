@@ -23,6 +23,8 @@ export function resolveView (route) {
       return StaticView(new Page({ title: 'Jukebox Ninja - Create Playlist', template: 'createPlaylist' }))
     case '/lorem':
       return StaticView(new Page({ title: 'Jukebox Ninja - Lorem', template: 'lorem' }))
+    case '/error':
+      return StaticView(new Page({ title: 'Jukebox Ninja - Error', template: 'error' }))
   }
 
   if (route.pathParts[ 0 ] === 'search') {
