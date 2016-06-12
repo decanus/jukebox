@@ -9,7 +9,7 @@ namespace Jukebox\Framework\ErrorHandlers
          */
         public function handleException(\Throwable $exception)
         {
-            header('Location: http://' . $_SERVER['HTTP_HOST'] . '/500');
+            header('Location: http://' . $_SERVER['HTTP_HOST'] . '/error');
             die();
         }
     }

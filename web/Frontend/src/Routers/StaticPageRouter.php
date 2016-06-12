@@ -25,7 +25,7 @@ namespace Jukebox\Frontend\Routers
         {
             $uri = $request->getUri();
 
-            if ($uri->getPath() !== '/') {
+            if ($uri->getPath() !== '/' && $uri->getPath() !== '/error') {
                 throw new \InvalidArgumentException('Not a static page path');
             }
 
