@@ -8,12 +8,16 @@ import 'es6-symbol/implement'
 import { app } from './app'
 import { getInterval } from './dom/time/get-interval'
 import { Route } from './app/route'
+import { trackPageView } from './app/analytics'
 
 import './app/elements'
 import './app/media-keys'
 
 window.addEventListener('popstate', () => {
-  app.setRoute(Route.fromLocation(window.location))
+  const route = Route.fromLocation(window.location)
+
+  app.setRoute(route)
+  trackPageView(route)
 })
 
 document.addEventListener('DOMContentLoaded', () => {
