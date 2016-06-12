@@ -81,11 +81,14 @@ namespace Jukebox\Backend\EventHandlers\Push
                 $params['body'][] = [
                     'title' => $track['title'],
                     'duration' => $track['duration'],
-                    'vevo_id' => $track['vevo_id'],
                     'isrc' => $track['isrc'],
                     'is_live' => $track['is_live'],
+                    'is_lyric' => $track['is_lyric'],
+                    'is_music_video' => $track['is_music_video'],
+                    'is_audio' => $track['is_audio'],
                     'is_explicit' => $track['is_explicit'],
                     'permalink' => $track['permalink'],
+                    'release_date' => $track['release_date'],
                     'artists' => $artists,
                     'genres' => $genres,
                     'sources' => $sources

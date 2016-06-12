@@ -59,7 +59,6 @@ namespace Jukebox\Backend\EventHandlers\Push
 
                 $params['body'][] = [
                     'name' => $artist['name'],
-                    'vevo_id' => $artist['vevo_id'],
                     'official_website' => $artist['official_website'],
                     'twitter' => $artist['twitter'],
                     'facebook' => $artist['facebook'],

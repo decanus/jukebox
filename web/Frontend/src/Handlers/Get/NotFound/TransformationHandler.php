@@ -34,7 +34,7 @@ namespace Jukebox\Frontend\Handlers\Get\NotFound
             $content = new fDOMDocument;
             $content->loadXML($this->fileBackend->load('templates://content/404.xml'));
 
-            $main = $template->queryOne('//html:main');
+            $main = $template->queryOne('//html:jukebox-app');
 
             $main->parentNode->replaceChild($template->importNode($content->documentElement, true), $main);
 

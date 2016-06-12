@@ -52,6 +52,7 @@ export class PlayerControls extends HTMLElement {
     $play.addEventListener('click', () => {
       switch (playerState) {
         case PlayerState.PLAYING:
+        case PlayerState.LOADING:
           return player.pause()
         case PlayerState.PAUSED:
         case PlayerState.STOPPED:
@@ -65,8 +66,8 @@ export class PlayerControls extends HTMLElement {
 
     player.getState().forEach((value) => {
       playerState = value
-
-      if (playerState === PlayerState.PLAYING) {
+      
+      if (playerState === PlayerState.PLAYING || playerState === PlayerState.LOADING) {
         $playIcon.src = '/images/icons/pause.svg'
         return
       }
