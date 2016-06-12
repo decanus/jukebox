@@ -5,11 +5,6 @@
 import * as config from '../../data/config.json'
 
 /**
- * @type {(function(string, string, ...))}
- */
-const ga = window.ga
-
-/**
  *
  * @param {Error} error
  * @returns {string}

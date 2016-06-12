@@ -14,14 +14,14 @@ import './app/elements'
 import './app/media-keys'
 
 window.addEventListener('popstate', () => {
-  const route = Route.fromLocation(window.location)
-
-  app.setRoute(route)
-  trackPageView(route)
+  app.setRoute(Route.fromLocation(window.location))
 })
 
 document.addEventListener('DOMContentLoaded', () => {
+  // todo: make listeners use getCurrentRoute() the first time and remove this
   app.setRoute(Route.fromLocation(window.location))
+
+  app.getRoute().forEach(trackPageView)
 })
 
 window.__$loadModel = function (model) {
