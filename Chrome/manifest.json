@@ -1,0 +1,59 @@
+{
+  "name": "Media Keys for Jukebox",
+  "version": "0.0.1",
+  "icons": {
+    "152": "icon.png"
+  },
+  "manifest_version": 2,
+  "permissions": [
+    "background",
+    "tabs"
+  ],
+  "background": {
+    "scripts": [
+      "js/background.js"
+    ],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.jukebox.ninja/*"
+      ],
+      "js": [
+        "js/inject.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "commands": {
+    "pause": {
+      "suggested_key": {
+        "default": "MediaPlayPause"
+      },
+      "description": "Play/Pause",
+      "global": true
+    },
+    "next": {
+      "suggested_key": {
+        "default": "MediaNextTrack"
+      },
+      "description": "Next Song",
+      "global": true
+    },
+    "stop": {
+      "suggested_key": {
+        "default": "MediaStop"
+      },
+      "description": "Stop Audio",
+      "global": true
+    },
+    "prev": {
+      "suggested_key": {
+        "default": "MediaPrevTrack"
+      },
+      "description": "Previous Song",
+      "global": true
+    }
+  }
+}
