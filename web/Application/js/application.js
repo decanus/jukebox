@@ -24,7 +24,7 @@ export class Application {
 
     /**
      *
-     * @type {string} route
+     * @type {Route} route
      */
     this._route = new Route('/')
 
