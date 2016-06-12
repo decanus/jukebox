@@ -61,42 +61,42 @@ namespace Jukebox\Backend\EventHandlers
 
                 $results = $this->soundcloud->searchForArtist($artist['name'])->getDecodedJsonResponse();
 
-                // @todo: matching sucks
                 foreach ($results as $result) {
                     if ($result['website'] === null) {
                         continue;
                     }
 
+                    // @todo test facebook and twitter paths
                     if (strpos($result['website'], 'facebook') !== false) {
                         continue;
                     }
-                    
-                    if ($result['website'] === $artist['official_website']) {
+
+                    if (strpos($result['website'], 'twitter') !== false) {
+                        continue;
+                    }
+
+                    if (!isset($result['subscriptions'][0])) {
+                        continue;
+                    }
+
+                    if ($result['subscriptions'][0]['product']['id'] !== 'creator-pro-unlimited') {
+                        continue;
+                    }
+
+                    similar_text($result['website'], $artist['official_website'], $websiteSimilarity);
+                    similar_text(strtolower($result['username']), strtolower($artist['name']), $nameMatch);
+
+                    if (($websiteSimilarity + $nameMatch) / 2 >= 90) {
                         $this->updateArtistSoundcloudIdCommand->execute($artistId, $result['id']);
                         return;
                     }
 
-                    if (str_replace('www.', '', $result['website']) === $artist['official_website']) {
-                        $this->updateArtistSoundcloudIdCommand->execute($artistId, $result['id']);
-                        return;
-                    }
-
-                    if (rtrim($result['website'], '/') === $artist['official_website']) {
-                        $this->updateArtistSoundcloudIdCommand->execute($artistId, $result['id']);
-                        return;
-                    }
-
-                    if (str_replace('www.', '', $result['website']) === $artist['official_website']) {
-                        $this->updateArtistSoundcloudIdCommand->execute($artistId, $result['id']);
-                        return;
-                    }
-
-                    if (rtrim($result['website'], '/') === str_replace('www.', '', $artist['official_website'])) {
+                    similar_text(strtolower($result['username']), strtolower($artist['name'] . 'music'), $extendedNameMatch);
+                    if (($websiteSimilarity + $extendedNameMatch) / 2 >= 90) {
                         $this->updateArtistSoundcloudIdCommand->execute($artistId, $result['id']);
                         return;
                     }
                 }
-
             } catch (\Throwable $e) {
                 $this->getLogger()->critical($e);
             }
