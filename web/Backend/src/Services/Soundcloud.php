@@ -26,5 +26,10 @@ namespace Jukebox\Backend\Services
         {
             return $this->getCurl()->get($this->buildUrl('/users'), ['q' => $artist, 'client_id' => $this->clientId]);
         }
+
+        public function getArtistTracks(string $artist): Response
+        {
+            return $this->getCurl()->get($this->buildUrl('/users/' . $artist . '/tracks'), ['client_id' => $this->clientId]);
+        }
     }
 }
