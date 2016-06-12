@@ -7,9 +7,13 @@ import { SearchView } from './search-view'
 import { StaticView } from './static-view'
 
 /**
+ * @typedef {{ fetch: (function(): Promise<Page>), handle: (function(Page) ) }} View
+ */
+
+/**
  *
  * @param {Route} route
- * @returns {{ fetch: (function(): Promise<Page>), handle: (function(Page) ) }}
+ * @returns {View}
  */
 export function resolveView (route) {
   switch (route.path) {

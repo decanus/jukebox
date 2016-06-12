@@ -18,6 +18,7 @@ namespace Jukebox\Backend\EventHandlers\Import
     use Jukebox\Framework\Logging\LoggerAwareTrait;
     use Jukebox\Framework\ValueObjects\Featured;
     use Jukebox\Framework\ValueObjects\Main;
+    use Jukebox\Framework\ValueObjects\PostgresBool;
     use Jukebox\Framework\ValueObjects\Sources\Youtube;
 
     class VevoArtistVideosImportEventHandler implements EventHandlerInterface, LoggerAware
@@ -156,14 +157,27 @@ namespace Jukebox\Backend\EventHandlers\Import
                     }
                 }
 
+                $isAudio = false;
+                if (strpos($video['title'], '(Audio)') !== false) {
+                    $isAudio = true;
+                }
+
+                if (strpos($video['title'], '[Audio]') !== false) {
+                    $isAudio = true;
+                }
+
                 $id = $this->insertTrackCommand->execute(
                     $video['duration'] * 1000,
                     $video['title'],
                     $video['isrc'],
                     $video['isrc'],
-                    $video['isLive'],
-                    $video['isExplicit'],
-                    $permalink
+                    new PostgresBool($video['isLive']),
+                    new PostgresBool($video['hasLyrics']),
+                    new PostgresBool($isAudio),
+                    new PostgresBool($video['isOfficial']),
+                    new PostgresBool($video['isExplicit']),
+                    $permalink,
+                    new \DateTime($video['releaseDate'])
                 );
 
                 $this->insertTrackSourceCommand->execute($id, new Youtube, $video['youTubeId'], $video['duration'] * 1000);

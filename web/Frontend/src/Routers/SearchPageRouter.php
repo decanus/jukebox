@@ -9,7 +9,7 @@ namespace Jukebox\Frontend\Routers
     use Jukebox\Framework\ParamterObjects\ControllerParameterObject;
     use Jukebox\Framework\Routers\RouterInterface;
 
-    class StaticPageRouter implements RouterInterface
+    class SearchPageRouter implements RouterInterface
     {
         /**
          * @var MasterFactory
@@ -24,12 +24,11 @@ namespace Jukebox\Frontend\Routers
         public function route(RequestInterface $request): ControllerInterface
         {
             $uri = $request->getUri();
-
-            if ($uri->getPath() !== '/') {
-                throw new \InvalidArgumentException('Not a static page path');
+            if ($uri->getPath() !== '/search') {
+                throw new \InvalidArgumentException('Not valid search path');
             }
 
-            return $this->factory->createHomepageController(new ControllerParameterObject($uri));
+            return $this->factory->createSearchPageController(new ControllerParameterObject($uri));
         }
     }
 }
