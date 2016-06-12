@@ -11,7 +11,7 @@
   ],
   "background": {
     "scripts": [
-      "background.js"
+      "js/background.js"
     ],
     "persistent": false
   },
@@ -21,7 +21,7 @@
         "*://*.jukebox.ninja/*"
       ],
       "js": [
-        "inject.js"
+        "js/inject.js"
       ],
       "run_at": "document_start"
     }
