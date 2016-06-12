@@ -55,6 +55,11 @@ export class JukeboxApp extends HTMLElement {
           render(this, page)
         })
         .catch((error) => {
+
+          if (app.getCurrentRoute().path === '/error') {
+            return
+          }
+
           app.setRoute(new Route('/error'), { replace: true })
 
           sendException(error)

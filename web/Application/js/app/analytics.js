@@ -53,3 +53,21 @@ export function trackPageView (route) {
   ga('set', 'page', route.toString())
   ga('send', 'pageview')
 }
+
+/**
+ *
+ * @param {Track} track
+ */
+export function sendPlayTrack (track) {
+  if (config['isDevelopmentMode']) {
+    return
+  }
+  
+  ga('send', {
+    hitType: 'event',
+    eventCategory: 'Track',
+    eventAction: 'play',
+    eventLabel: track.title,
+    eventValue: track.id
+  })
+}

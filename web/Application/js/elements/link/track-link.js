@@ -11,21 +11,16 @@ export class TrackLink extends HTMLElement {
   createdCallback () {
     this.addEventListener('click', () => {
       const player = app.getPlayer()
-      let promise = Promise.resolve()
-
-      if (!this.pushToQueue) {
-        promise = player.removeAllTracks()
+      const track = app.getModelStore().getTrack(this.trackId)
+      
+      if (this.append && player.getQueueSize() > 0) {
+        player.appendTrack(track)
+        return
       }
 
-      promise
-        .then(() => app.getModelStore().get({ type: 'tracks', id: this.trackId }))
-        .then((track) => {
-          player.addTrack(track)
-
-          if (player.getQueueSize() === 1) {
-            player.play()
-          }
-        })
+      player.prependTrack(track)
+      player.setCurrent(0)
+      player.play()
     })
   }
 
@@ -33,7 +28,7 @@ export class TrackLink extends HTMLElement {
    *
    * @returns {boolean}
    */
-  get pushToQueue () {
+  get append () {
     return this.hasAttribute('push-to-queue')
   }
 

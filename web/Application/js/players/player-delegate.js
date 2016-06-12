@@ -197,8 +197,17 @@ export class PlayerDelegate {
    *
    * @param {Track} track
    */
-  addTrack (track) {
-    this._queue.addTrack(track)
+  appendTrack (track) {
+    this._queue.appendTrack(track)
+    this._emitter.emit('queueChange')
+  }
+
+  /**
+   *
+   * @param {Track} track
+   */
+  prependTrack (track) {
+    this._queue.prependTrack(track)
     this._emitter.emit('queueChange')
   }
 
