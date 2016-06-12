@@ -36,13 +36,9 @@ namespace Jukebox\Framework\ValueObjects
                 parse_str($this->uri['query'], $this->parameters);
             }
 
-<<<<<<< Updated upstream
-            $this->uri['path'] = $this->uri['path'];
-=======
-            if ($this->getHost() !== 'apiv2.vevo.com') {
+:\React\Promise\queue()            if ($this->getHost() !== 'apiv2.vevo.com') {
                 $this->uri['path'] = urldecode($this->uri['path']);
             }
->>>>>>> Stashed changes
         }
 
         /**
