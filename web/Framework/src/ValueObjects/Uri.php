@@ -36,7 +36,7 @@ namespace Jukebox\Framework\ValueObjects
                 parse_str($this->uri['query'], $this->parameters);
             }
 
-:\React\Promise\queue()            if ($this->getHost() !== 'apiv2.vevo.com') {
+            if ($this->getHost() !== 'apiv2.vevo.com') {
                 $this->uri['path'] = urldecode($this->uri['path']);
             }
         }
