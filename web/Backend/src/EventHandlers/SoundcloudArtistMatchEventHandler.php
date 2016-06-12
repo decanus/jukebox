@@ -61,6 +61,7 @@ namespace Jukebox\Backend\EventHandlers
 
                 $results = $this->soundcloud->searchForArtist($artist['name'])->getDecodedJsonResponse();
 
+                // @todo: matching sucks
                 foreach ($results as $result) {
                     if ($result['website'] === null) {
                         continue;
