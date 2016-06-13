@@ -10,7 +10,7 @@ namespace Jukebox\Backend\EventHandlers\Import
     use Jukebox\Backend\DataObjects\Track;
     use Jukebox\Backend\EventHandlers\EventHandlerInterface;
     use Jukebox\Backend\Events\VevoArtistVideosImportEvent;
-    use Jukebox\Backend\Queries\FetchArtistByVevoIdBackendQuery;
+    use Jukebox\Backend\Queries\FetchArtistByVevoIdQuery;
     use Jukebox\Backend\Queries\FetchTrackByVevoIdQuery;
     use Jukebox\Backend\Services\Vevo;
     use Jukebox\Framework\Curl\Response;
@@ -38,7 +38,7 @@ namespace Jukebox\Backend\EventHandlers\Import
         private $vevo;
 
         /**
-         * @var FetchArtistByVevoIdBackendQuery
+         * @var FetchArtistByVevoIdQuery
          */
         private $fetchArtistByVevoIdQuery;
 
@@ -77,7 +77,7 @@ namespace Jukebox\Backend\EventHandlers\Import
         public function __construct(
             VevoArtistVideosImportEvent $event,
             Vevo $vevo,
-            FetchArtistByVevoIdBackendQuery $fetchArtistByVevoIdQuery,
+            FetchArtistByVevoIdQuery $fetchArtistByVevoIdQuery,
             InsertTrackCommand $insertTrackCommand,
             InsertTrackArtistCommand $insertTrackArtistsCommand,
             InsertTrackGenreCommand $insertTrackGenreCommand,
