@@ -43,6 +43,8 @@ namespace Jukebox\Backend\Locators
                     return new \Jukebox\Backend\Events\OldDataVersionDeleteEvent($request->getDataVersion());
                 case 'SoundcloudArtistMatch':
                     return new \Jukebox\Backend\Events\SoundcloudArtistMatchEvent($request->getParam('artistId'));
+                case 'SoundcloudTracksImport':
+                    return new \Jukebox\Backend\Events\SoundcloudTracksImportEvent($request->getParam('artistId'));
                 default:
                     throw new \InvalidArgumentException('Event "' . $request->getAction() . '" does not exist');
             }

@@ -145,5 +145,15 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createUpdateArtistSoundcloudIdCommand()
             );
         }
+        
+        public function createSoundcloudTracksImportEventHandler(\Jukebox\Backend\Events\SoundcloudTracksImportEvent $event): \Jukebox\Backend\EventHandlers\Import\SoundcloudTracksImportEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\Import\SoundcloudTracksImportEventHandler(
+                $event,
+                $this->getMasterFactory()->createFetchArtistByIdQuery(),
+                $this->getMasterFactory()->createSoundcloudService(),
+                $this->getMasterFactory()->createJukeboxRestManager()
+            );
+        }
     }
 }

@@ -83,7 +83,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                 foreach ($artist['links'] as $link) {
                     try {
                         if ($link['type'] === 'Facebook') {
-                            $facebook = new Uri($link['url']);
+                            $facebook = new Uri(trim($link['url']));
                             continue;
                         }
 
@@ -93,7 +93,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                         }
 
                         if ($link['type'] === 'Official Website') {
-                            $officialWebsite = new Uri($link['url']);
+                            $officialWebsite = new Uri(trim($link['url']));
                             continue;
                         }
                     } catch (\Throwable $e) {
@@ -104,12 +104,12 @@ namespace Jukebox\Backend\EventHandlers\Import
                 foreach ($artist['buyLinks'] as $link) {
                     try {
                         if ($link['vendor'] === 'iTunes') {
-                            $itunes = new Uri($link['url']);
+                            $itunes = new Uri(trim($link['url']));
                             continue;
                         }
 
                         if ($link['vendor'] === 'Amazon') {
-                            $amazon = new Uri($link['url']);
+                            $amazon = new Uri(trim($link['url']));
                             continue;
                         }
                     } catch (\Throwable $e) {
