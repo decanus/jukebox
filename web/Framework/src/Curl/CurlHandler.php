@@ -11,9 +11,9 @@ namespace Jukebox\Framework\Curl
     class CurlHandler
     {
 
-        public function sendRequest(string $method, Uri $uri, array $params = []): Response
+        public function sendRequest(string $method, Uri $uri, array $params = [], array $headers = []): Response
         {
-            $handle = $this->prepareRequest($method, $uri, $params);
+            $handle = $this->prepareRequest($method, $uri, $params, $headers);
             $result = curl_exec($handle);
 
             if (curl_errno($handle)) {
@@ -30,10 +30,11 @@ namespace Jukebox\Framework\Curl
          * @param string $method
          * @param Uri $uri
          * @param array $params
+         * @param array $headers
          *
          * @return resource
          */
-        private function prepareRequest(string $method, Uri $uri, array $params = [])
+        private function prepareRequest(string $method, Uri $uri, array $params = [], array $headers = [])
         {
             $handle = curl_init();
 
@@ -54,6 +55,11 @@ namespace Jukebox\Framework\Curl
             curl_setopt($handle, CURLOPT_HEADER, false);
             curl_setopt($handle, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($handle, CURLOPT_CONNECTTIMEOUT, 150);
+            curl_setopt($handle, CURLOPT_USERAGENT, 'Jukebox');
+            
+            if (!empty($headers)) {
+                curl_setopt($handle, CURLOPT_HTTPHEADER, $headers);
+            }
 
             return $handle;
         }
