@@ -117,6 +117,8 @@ namespace Jukebox\Backend\EventHandlers\Import
                     }
                 }
 
+                $title = $video['title'];
+
                 $isAudio = false;
                 if (strpos($video['title'], '(Audio)') !== false) {
                     $isAudio = true;
@@ -126,9 +128,39 @@ namespace Jukebox\Backend\EventHandlers\Import
                     $isAudio = true;
                 }
 
+                $replace = [
+                    '[Official Video]',
+                    '[Audio]',
+                    '(Audio)',
+                    '(AUDIO)',
+                    '(Explicit Video)',
+                    '(Explicit)',
+                    '(Official Explicit Video)',
+                    '(Official Video)',
+                    '(official video)',
+                    '[Official Video]',
+                    '(Official Lyric Video)',
+                    '(Official Music Video)',
+                    '(Official Pseudo Video)',
+                    '(lyric)',
+                    '(Lyric Video)',
+                    '[Lyric]',
+                    '(VIDEO LYRIC)',
+                    'Lyric video',
+                    '(Lyric Video/Live)',
+                    '(Live/Lyric Video)',
+                    '(Lyric video - LIVE)',
+                    '(Live Lyric Video)',
+                    '(Lyric Video/Live)',
+                    '[Lyric Video]',
+                    '[Official Lyric Video]'
+                ];
+
+                $title = trim(str_replace($replace, '', $title));
+
                 $track = new Track(
                     $video['duration'] * 1000,
-                    $video['title'],
+                    $title,
                     $video['isrc'],
                     $video['isrc'],
                     $video['isLive'],
