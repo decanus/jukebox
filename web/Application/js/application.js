@@ -6,12 +6,13 @@ import { Emitter } from './event/emitter'
 import { updatePath, replacePath } from './dom/history'
 import { ModelStore } from './model/model-store'
 import { ModelLoader } from './model/model-loader'
+import { Route } from './app/route'
 
 export class Application {
   /**
    *
    * @param {Document} document
-   * @param {PlayerDelegate} player
+   * @param {PlayerDelegator} player
    */
   constructor(document, player) {
     /**
@@ -23,13 +24,13 @@ export class Application {
 
     /**
      *
-     * @type {string} route
+     * @type {Route} route
      */
-    this._route = '/'
+    this._route = new Route('/')
 
     /**
      *
-     * @type {PlayerDelegate}
+     * @type {PlayerDelegator}
      * @private
      */
     this._player = player
@@ -60,7 +61,7 @@ export class Application {
 
   /**
    * 
-   * @returns {PlayerDelegate}
+   * @returns {PlayerDelegator}
    */
   getPlayer() {
     return this._player
@@ -68,7 +69,7 @@ export class Application {
 
   /**
    *
-   * @returns {Observable<string>}
+   * @returns {Observable<Route>}
    */
   getRoute() {
     return this._emitter.toObservable('route')
@@ -76,7 +77,7 @@ export class Application {
 
   /**
    *
-   * @returns {string}
+   * @returns {Route}
    */
   getCurrentRoute () {
     return this._route
@@ -84,17 +85,20 @@ export class Application {
   
   /**
    *
-   * @param {string} route
+   * @param {Route} route
    * @param {boolean} replace
+   * @param {boolean} silent
    */
-  setRoute(route, { replace = false } = { replace: false }) {
+  setRoute(route, { replace = false, silent = false } = {}) {
     this._emitter.emit('route', route)
-    
-    if (replace) {
-      replacePath(route)
-    } else {
-      updatePath(route)
+
+    if (!silent) {
+      updatePath(route, replace)
     }
+  }
+
+  reloadCurrentRoute () {
+    this._emitter.emit('route', this._route)
   }
 
   /**

@@ -28,6 +28,16 @@ export class ModelStore {
 
   /**
    *
+   * @param {number} id
+   * @returns {Track}
+   */
+  getTrack (id) {
+    //noinspection JSValidateTypes
+    return this.get({ type: 'tracks', id })
+  }
+
+  /**
+   *
    * @param {string} type
    * @param {number} id
    * @returns {boolean}

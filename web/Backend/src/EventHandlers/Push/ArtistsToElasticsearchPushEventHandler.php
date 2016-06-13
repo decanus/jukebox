@@ -46,25 +46,35 @@ namespace Jukebox\Backend\EventHandlers\Push
         public function execute()
         {
             $artists = $this->fetchArtistsQuery->execute();
+            $params = ['body' => []];
 
             foreach ($artists as $key => $artist) {
-                $params = [
-                    'index' => $this->event->getDataVersion(),
-                    'type' => 'artists',
-                    'id' => $artist['id'],
-                    'body' => [
-                        'name' => $artist['name'],
-                        'vevo_id' => $artist['vevo_id'],
-                        'official_website' => $artist['official_website'],
-                        'twitter' => $artist['twitter'],
-                        'facebook' => $artist['facebook'],
-                        'itunes' => $artist['itunes'],
-                        'amazon' => $artist['amazon'],
-                        'permalink' => $artist['permalink'],
+                $params['body'][] = [
+                    'index' => [
+                        '_index' => (string) $this->event->getDataVersion(),
+                        '_type' => 'artists',
+                        '_id' => $artist['id']
                     ]
                 ];
 
-                $this->elasticsearchClient->index($params);
+                $params['body'][] = [
+                    'name' => $artist['name'],
+                    'official_website' => $artist['official_website'],
+                    'twitter' => $artist['twitter'],
+                    'facebook' => $artist['facebook'],
+                    'itunes' => $artist['itunes'],
+                    'amazon' => $artist['amazon'],
+                    'permalink' => $artist['permalink'],
+                ];
+
+                if ($key % 1000 === 0) {
+                    $this->elasticsearchClient->bulk($params);
+                    $params = ['body' => []];
+                }
+            }
+
+            if (!empty($params['body'])) {
+                 $this->elasticsearchClient->bulk($params);
             }
         }
     }

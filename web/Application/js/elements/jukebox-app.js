@@ -3,11 +3,11 @@
  */
 
 import { resolveView } from '../views/resolve'
-import { renderTemplate } from '../templates'
+import { renderTemplate } from '../render-template'
 
 import { app } from '../app'
-
-const store = app.getModelStore()
+import { Route } from '../app/route'
+import { sendException } from '../app/analytics'
 
 /**
  *
@@ -36,6 +36,7 @@ export class JukeboxApp extends HTMLElement {
       const view = resolveView(route)
 
       activeView.set(this, view)
+      this.innerHTML = '<div class="loading-animation -center"></div>'
 
       view.fetch()
         .then((page) => {
@@ -44,7 +45,7 @@ export class JukeboxApp extends HTMLElement {
           if (active !== view && active !== undefined) {
             return
           }
-          
+
           if (cleanup.has(this)) {
             // call cleanup function from previous view
             cleanup.get(this)()
@@ -52,6 +53,16 @@ export class JukeboxApp extends HTMLElement {
           
           cleanup.set(this, view.handle(page))
           render(this, page)
+        })
+        .catch((error) => {
+
+          if (app.getCurrentRoute().path === '/error') {
+            return
+          }
+
+          app.setRoute(new Route('/error'), { silent: true })
+
+          sendException(error)
         })
     })
   }

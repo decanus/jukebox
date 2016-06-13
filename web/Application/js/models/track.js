@@ -2,22 +2,19 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-/**
- * @todo add multiple artists, primary artist
- */
 export class Track {
   /**
    *
    * @param {number} id
    * @param {string} title
-   * @param {Artist} artist
+   * @param {Array<TrackArtist>} artists
    * @param {string} permalink
    * @param {YoutubeTrack} [youtubeTrack]
    */
-  constructor ({ id, title, artist, permalink }, { youtubeTrack }) {
+  constructor ({ id, title, artists, permalink }, { youtubeTrack }) {
     this.id = id
     this.title = title
-    this.artist = artist
+    this.artists = artists
     this.permalink = permalink
     this.youtubeTrack = youtubeTrack
 
@@ -28,7 +25,39 @@ export class Track {
    *
    * @returns {string}
    */
-  get type() {
+  get type () {
     return 'tracks'
+  }
+
+  /**
+   *
+   * @returns {boolean}
+   */
+  get isTrack () {
+    return true
+  }
+
+  /**
+   *
+   * @returns {string}
+   */
+  get artistsString () {
+    return (
+      this.artists
+        .map((artist, i) => {
+          const name = artist.artist.name
+
+          if (artist.isFeatured) {
+            return ` feat. ${name}`
+          }
+
+          if (i !== 0) {
+            return `, ${name}`
+          }
+
+          return name
+        })
+        .join('')
+    )
   }
 }

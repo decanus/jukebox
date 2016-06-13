@@ -62,7 +62,8 @@ namespace Jukebox\Backend\Factories
                 $event,
                 $this->getMasterFactory()->createElasticsearchClient(),
                 $this->getMasterFactory()->createFileBackend(),
-                __DIR__ . '/../../data/mappings/'
+                __DIR__ . '/../../data/elasticsearch/mappings/',
+                __DIR__ . '/../../data/elasticsearch/settings.json'
             );
         }
 

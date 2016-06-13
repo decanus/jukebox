@@ -1,20 +1,79 @@
-<section class="page-content -fit">
+<section class="page-content">
     <div class="container">
-        <h2>Search for "{{query}}"</h2>
+        <div class="search-container">
+            <h2>Search for "{{query}}"</h2>
+            {{#if results}}
+                {{#each results}}
 
-        {{#each results}}
-            <div class="search-track">
-                <track-link track-id="{{id}}">
-                    <button>Play</button>
-                </track-link>
+                    {{#if isArtist}}
+                        <div class="search-result">
 
-                <track-link track-id="{{id}}" push-to-queue>
-                    <button>Add to queue</button>
-                </track-link>
+                            <div class="button">
+                                <div class="round-button"></div>
+                            </div>
 
-                <a is="jukebox-link" href="{{permalink}}" class="title">{{title}}</a>
-                <a is="jukebox-link" href="{{artist.permalink}}" class="artist">{{artist.name}}</a>
-            </div>
-        {{/each}}
+                            <div class="text">
+                                <a is="jukebox-link" href="{{permalink}}" class="title">{{name}}</a>
+                            </div>
+                        </div>
+                    {{/if}}
+
+                    {{#if isTrack}}
+                        <div class="search-result">
+
+                            <track-link track-id="{{id}}" class="button">
+                                <button class="round-button -clickable">
+                                    <img src="/images/icons/play.svg"/>
+                                </button>
+                            </track-link>
+
+                            <div class="text">
+                                <a is="jukebox-link" href="{{permalink}}" class="title">{{title}}</a>
+
+                                <div class="artists">
+
+                                    {{#artists}}
+
+                                        <span class="sep">{{#if isPrependComma}}, {{/if}}</span>
+
+                                        {{#if isMain}}
+                                            <a is="jukebox-link" href="{{artist.permalink}}" class="artist">{{artist.name}}</a>
+                                        {{/if}}
+
+                                        {{#if isFeatured}}
+                                            <span class="sep"> feat. </span>
+                                            <a is="jukebox-link" href="{{artist.permalink}}" class="artist">{{artist.name}}</a>
+                                        {{/if}}
+
+                                    {{/artists}}
+
+                                </div>
+
+
+                                <track-link track-id="{{id}}" push-to-queue class="icon-button">
+                                    <img src="/images/icons/black/queue.svg" alt="+" class="icon"/>
+                                    <span class="label">Add to queue</span>
+                                </track-link>
+                            </div>
+                        </div>
+                    {{/if}}
+                {{/each}}
+
+                {{#if isCompletelyLoaded}}
+                {{else}}
+                    <search-paginator result-id="{{id}}">
+                        <div class="loading-animation"></div>
+                    </search-paginator>
+                {{/if}}
+
+            {{else}}
+                <p>
+                    <b>Sorry.</b> We couldn't find anything matching "{{query}}".
+                </p>
+                <p>
+                    Maybe you were looking for <a is="jukebox-link" href="/search?q=Adele">Adele</a>?
+                </p>
+            {{/if}}
+        </div>
     </div>
 </section>

@@ -46,9 +46,9 @@ namespace Jukebox\Framework\Rest
             return $this->curl->get($this->buildUri('/v1/artists/' . $id . '/tracks'), ['key' => $this->key]);
         }
 
-        public function search(string $searchTerm): Response
+        public function search(string $searchTerm, int $size, int $page): Response
         {
-            return $this->curl->get($this->buildUri('/v1/search'), ['key' => $this->key, 'query' => $searchTerm]);
+            return $this->curl->get($this->buildUri('/v1/search'), ['key' => $this->key, 'query' => $searchTerm, 'size' => $size, 'page' => $page]);
         }
 
         private function buildUri(string $path): Uri

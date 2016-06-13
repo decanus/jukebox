@@ -28,17 +28,41 @@ namespace Jukebox\API\Handlers\Get\Search
                 return;
             }
 
+            if (trim($request->getParameter('query')) === '') {
+                return;
+            }
+
             $params = [
                 'query' => [
                     'multi_match' => [
                         'query' => $request->getParameter('query'),
-                        'fields' => ['name', 'title', 'artists.name.lower_case_sort'],
-                        'type' => 'phrase_prefix'
+                        'fields' => [
+                            'name^50',
+                            'title^10',
+                            'title.snowball^2',
+                            'title.shingle^2',
+                            'title.ngram^2',
+                            'artists.name^2',
+                            'artists.name.ngrams^2',
+                            'name.snowball^2',
+                            'name.shingle^2',
+                            'name.ngram^5',
+                        ],
                     ]
                 ]
             ];
 
-            $model->setData($this->searchBackend->search('tracks,artists', $params));
+            $size = 20;
+            if ($request->hasParameter('size')) {
+                $size = $request->getParameter('size');
+            }
+
+            $page = 1;
+            if ($request->hasParameter('page')) {
+                $page = $request->getParameter('page');
+            }
+
+            $model->setData($this->searchBackend->search('tracks,artists', $params, $size, $page));
         }
     }
 }

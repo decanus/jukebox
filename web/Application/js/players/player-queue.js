@@ -49,8 +49,20 @@ export class PlayerQueue {
    *
    * @param {Track} track
    */
-  addTrack (track) {
+  appendTrack (track) {
     this._tracks.push(track)
+  }
+
+  /**
+   *
+   * @param {Track} track
+   */
+  prependTrack (track) {
+    if (!this.isEmpty()) {
+      this._current += 1
+    }
+    
+    this._tracks.unshift(track)
   }
 
   /**

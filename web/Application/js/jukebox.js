@@ -7,25 +7,34 @@ import 'es6-symbol/implement'
 
 import { app } from './app'
 import { getInterval } from './dom/time/get-interval'
+import { Route } from './app/route'
+import { trackPageView, sendPlayTrack } from './app/analytics'
 
 import './app/elements'
+import './app/media-keys'
 
 window.addEventListener('popstate', () => {
-  app.setRoute(window.location.pathname)
+  app.setRoute(Route.fromLocation(window.location))
 })
 
 document.addEventListener('DOMContentLoaded', () => {
-  app.setRoute(window.location.pathname)
+  // todo: make listeners use getCurrentRoute() the first time and remove this
+  app.setRoute(Route.fromLocation(window.location))
+
+  app.getRoute().forEach(trackPageView)
 })
+
+app.getPlayer()
+  .getTrack()
+  .forEach((track) => sendPlayTrack(track))
 
 window.__$loadModel = function (model) {
   app.getModelLoader().load(model)
 }
 
-getInterval(60000)
+// todo: figure out an optimal interval for cleanup
+getInterval(180000)
   .forEach(() => {
     console.info('it\'s time to clean')
     app.getModelStore().cleanup()
   })
-
-window.__$modelStore = app.getModelStore()

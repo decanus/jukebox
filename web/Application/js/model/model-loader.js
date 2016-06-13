@@ -3,6 +3,7 @@
  */
 
 import { Track } from '../models/track'
+import { TrackArtist } from '../models/track-artist'
 import { YoutubeTrack } from '../models/youtube-track'
 import { Artist } from '../models/artist'
 import { Result } from '../models/result'
@@ -52,29 +53,44 @@ export class ModelLoader {
    * @returns {Track}
    */
   loadTrack (data) {
-    const artist = this.loadArtist(data[ 'artists' ][ 0 ])
     let youtubeTrack
 
     data.sources.forEach((source) => {
       if (source.source === 'youtube') {
-        youtubeTrack = new YoutubeTrack(source['source_data'], source['duration'])
+        youtubeTrack = new YoutubeTrack(source[ 'source_data' ], source[ 'duration' ])
       }
     })
 
-    const track = new Track({ ...data, artist }, { youtubeTrack })
+    const artists = data.artists
+      .sort((a, b) => {
+        if (a.role === b.role) {
+          return 0
+        }
+
+        if (a.role === 'featured' && b.role === 'main') {
+          return 1
+        }
+        
+        return -1
+      })
+      .map((artist, i) => {
+        return new TrackArtist(artist.role, this.loadArtist(artist), i)
+      })
+
+    const track = new Track({ ...data, artists }, { youtubeTrack })
 
     this._store.put(track)
-    
+
     return track
   }
 
   /**
    *
-   * @param {{ id: string, results: Array }} data
+   * @param {{ id: string, results: Array, pagination: {} }} data
    */
   loadResult (data) {
     const results = data.results.map((model) => this.load(model))
-    const result = new Result({ id: data.id, results })
+    const result = new Result({ id: data.id, results, pagination: data.pagination })
 
     this._store.put(result)
 

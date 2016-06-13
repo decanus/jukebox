@@ -39,7 +39,7 @@ function delegateToCurrentPlayer (method) {
   })
 }
 
-export class PlayerDelegate {
+export class PlayerDelegator {
   constructor () {
     /**
      *
@@ -91,7 +91,10 @@ export class PlayerDelegate {
     
     const player = this.getCurrentPlayer()
     
-    player.ready().then(() => player.play())
+    player.ready().then(() => {
+      this._emitter.emit('loading')
+      player.play()
+    })
   }
 
   /**
@@ -194,8 +197,17 @@ export class PlayerDelegate {
    *
    * @param {Track} track
    */
-  addTrack (track) {
-    this._queue.addTrack(track)
+  appendTrack (track) {
+    this._queue.appendTrack(track)
+    this._emitter.emit('queueChange')
+  }
+
+  /**
+   *
+   * @param {Track} track
+   */
+  prependTrack (track) {
+    this._queue.prependTrack(track)
     this._emitter.emit('queueChange')
   }
 
@@ -302,8 +314,10 @@ export class PlayerDelegate {
       .map(() => PlayerState.PAUSED)
     const stop = this._emitter.toObservable('stop')
       .map(() => PlayerState.STOPPED)
+    const loading = this._emitter.toObservable('loading')
+      .map(() => PlayerState.LOADING)
     
-    return Observable.merge(play, pause, stop)
+    return Observable.merge(play, pause, loading, stop)
   }
 
   /**

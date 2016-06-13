@@ -24,4 +24,12 @@ export class Artist {
   get type() {
     return 'artists'
   }
+
+  /**
+   * 
+   * @returns {boolean}
+   */
+  get isArtist () {
+    return true
+  }
 }
