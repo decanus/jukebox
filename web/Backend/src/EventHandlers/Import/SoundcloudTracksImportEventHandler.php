@@ -3,7 +3,6 @@
 namespace Jukebox\Backend\EventHandlers\Import
 {
 
-    use Jukebox\API\Queries\FetchTracksForArtistQuery;
     use Jukebox\Backend\EventHandlers\EventHandlerInterface;
     use Jukebox\Backend\Events\SoundcloudTracksImportEvent;
     use Jukebox\Backend\Queries\FetchArtistByIdQuery;
