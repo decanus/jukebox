@@ -5,7 +5,7 @@
   align-items: center;
 
   > .text {
-    flex-grow: 1;
+    flex: 1;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -18,6 +18,9 @@
 
   > .text > .title > .label {
     color: #000;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &.-active  > .text > .title > .label {
@@ -45,6 +48,7 @@
   > .buttons {
     display: flex;
     align-items: center;
+    flex-shrink: 0;
   }
 
   > .buttons > .button {
