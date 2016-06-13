@@ -153,7 +153,8 @@ namespace Jukebox\Backend\EventHandlers\Import
                     '(Live Lyric Video)',
                     '(Lyric Video/Live)',
                     '[Lyric Video]',
-                    '[Official Lyric Video]'
+                    '[Official Lyric Video]',
+                    '(Live)'
                 ];
 
                 $title = trim(str_replace($replace, '', $title));
