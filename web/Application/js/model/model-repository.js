@@ -35,6 +35,15 @@ export class ModelRepository {
 
   /**
    *
+   * @param {string} query
+   * @returns {Promise<Result>}
+   */
+  getResults (query) {
+    return this.get({ id: query, type: 'results' })
+  }
+
+  /**
+   *
    * @param {{ type: string, id: number }} model
    */
   add (model) {
@@ -52,7 +61,9 @@ export class ModelRepository {
 
     this._store.hold(key)
 
-    return () => this._store.release(key)
+    return () => {
+      this._store.release(key)
+    }
   }
 
   cleanup () {
