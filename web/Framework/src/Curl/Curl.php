@@ -32,9 +32,9 @@ namespace Jukebox\Framework\Curl
             return $this->sendRequest('GET', $uri, $params);
         }
 
-        public function post(Uri $uri, array $params = []): Response
+        public function post(Uri $uri, array $params = [], array $headers = []): Response
         {
-            return $this->sendRequest('POST', $uri, $params);
+            return $this->sendRequest('POST', $uri, $params, $headers);
         }
 
         public function patch(Uri $uri, array $params = []): Response
@@ -70,9 +70,9 @@ namespace Jukebox\Framework\Curl
             return $this->curlMultiHandler->sendRequest();
         }
 
-        private function sendRequest(string $method, Uri $uri, array $params = []): Response
+        private function sendRequest(string $method, Uri $uri, array $params = [], array $headers = []): Response
         {
-            return $this->curlHandler->sendRequest($method, $uri, $params);
+            return $this->curlHandler->sendRequest($method, $uri, $params, $headers);
         }
     }
 }

@@ -108,7 +108,7 @@ namespace Jukebox\Backend\Services
         private function getAuthorizationToken(): string
         {
             if (!$this->redisBackend->has('vevo_accesstoken')) {
-                $response = $this->curl->post(new Uri('http://www.vevo.com/auth'));
+                $response = $this->curl->post(new Uri('http://www.vevo.com/auth'), [], ['Accept: */*', 'Expect:', 'Content-type:', 'Content-length:']);
 
                 if ($response->getResponseCode() !== 200) {
                     throw new \Exception('Authorization Failed');
