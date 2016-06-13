@@ -38,24 +38,9 @@ namespace Jukebox\Backend\EventHandlers\Import
         private $vevo;
 
         /**
-         * @var FetchArtistByVevoIdQuery
-         */
-        private $fetchArtistByVevoIdQuery;
-
-        /**
          * @var InsertTrackCommand
          */
         private $insertTrackCommand;
-
-        /**
-         * @var InsertTrackArtistCommand
-         */
-        private $insertTrackArtistsCommand;
-
-        /**
-         * @var InsertTrackGenreCommand
-         */
-        private $insertTrackGenreCommand;
 
         /**
          * @var FetchTrackByVevoIdQuery
@@ -64,37 +49,18 @@ namespace Jukebox\Backend\EventHandlers\Import
 
         private $videoIds = [];
 
-        /**
-         * @var InsertTrackSourceCommand
-         */
-        private $insertTrackSourceCommand;
-
-        /**
-         * @var InsertTrackCommand
-         */
-        private $insertTrackCommandv2;
 
         public function __construct(
             VevoArtistVideosImportEvent $event,
             Vevo $vevo,
-            FetchArtistByVevoIdQuery $fetchArtistByVevoIdQuery,
-            InsertTrackCommand $insertTrackCommand,
-            InsertTrackArtistCommand $insertTrackArtistsCommand,
-            InsertTrackGenreCommand $insertTrackGenreCommand,
             FetchTrackByVevoIdQuery $fetchTrackByVevoIdQuery,
-            InsertTrackSourceCommand $insertTrackSourceCommand,
-            InsertTrackCommand $insertTrackCommandv2
+            InsertTrackCommand $insertTrackCommand
         )
         {
             $this->event = $event;
             $this->vevo = $vevo;
-            $this->fetchArtistByVevoIdQuery = $fetchArtistByVevoIdQuery;
-            $this->insertTrackCommand = $insertTrackCommand;
-            $this->insertTrackArtistsCommand = $insertTrackArtistsCommand;
-            $this->insertTrackGenreCommand = $insertTrackGenreCommand;
             $this->fetchTrackByVevoIdQuery = $fetchTrackByVevoIdQuery;
-            $this->insertTrackSourceCommand = $insertTrackSourceCommand;
-            $this->insertTrackCommandv2 = $insertTrackCommandv2;
+            $this->insertTrackCommand = $insertTrackCommand;
         }
 
         public function execute()
@@ -153,6 +119,8 @@ namespace Jukebox\Backend\EventHandlers\Import
                     }
                 }
 
+                $title = $video['title'];
+
                 $isAudio = false;
                 if (strpos($video['title'], '(Audio)') !== false) {
                     $isAudio = true;
@@ -162,9 +130,39 @@ namespace Jukebox\Backend\EventHandlers\Import
                     $isAudio = true;
                 }
 
+                $replace = [
+                    '[Official Video]',
+                    '[Audio]',
+                    '(Audio)',
+                    '(AUDIO)',
+                    '(Explicit Video)',
+                    '(Explicit)',
+                    '(Official Explicit Video)',
+                    '(Official Video)',
+                    '(official video)',
+                    '[Official Video]',
+                    '(Official Lyric Video)',
+                    '(Official Music Video)',
+                    '(Official Pseudo Video)',
+                    '(lyric)',
+                    '(Lyric Video)',
+                    '[Lyric]',
+                    '(VIDEO LYRIC)',
+                    'Lyric video',
+                    '(Lyric Video/Live)',
+                    '(Live/Lyric Video)',
+                    '(Lyric video - LIVE)',
+                    '(Live Lyric Video)',
+                    '(Lyric Video/Live)',
+                    '[Lyric Video]',
+                    '[Official Lyric Video]'
+                ];
+
+                $title = trim(str_replace($replace, '', $title));
+
                 $track = new Track(
                     $video['duration'] * 1000,
-                    $video['title'],
+                    $title,
                     $video['isrc'],
                     $video['isrc'],
                     $video['isLive'],
@@ -188,8 +186,13 @@ namespace Jukebox\Backend\EventHandlers\Import
                 $sources = [
                     ['duration' => $track->getDuration(), 'source' => new Youtube, 'sourceData' => $video['youTubeId']]
                 ];
+                
+                $genres = [];
+                if (isset($video['genres'])) {
+                    $genres = $video['genres'];
+                }
 
-                $this->insertTrackCommandv2->execute($track, $sources, $video['genres'], $artists);
+                $this->insertTrackCommand->execute($track, $sources, $genres, $artists);
 
             } catch (\Throwable $e) {
                 $this->getLogger()->critical($e);
