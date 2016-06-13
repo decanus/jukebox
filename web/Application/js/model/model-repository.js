@@ -2,7 +2,7 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-export class ModelBackend {
+export class ModelRepository {
   /**
    *
    * @param {ModelStore} store

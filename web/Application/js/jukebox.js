@@ -29,12 +29,12 @@ app.getPlayer()
   .forEach((track) => sendPlayTrack(track))
 
 window.__$loadModel = function (model) {
-  app.modelBackend.add(model)
+  app.modelRepository.add(model)
 }
 
 // todo: figure out an optimal interval for cleanup
 getInterval(180000)
   .forEach(() => {
     console.info('it\'s time to clean')
-    app.modelBackend.cleanup()
+    app.modelRepository.cleanup()
   })

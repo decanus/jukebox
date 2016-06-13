@@ -6,20 +6,20 @@ import { Emitter } from './../event/emitter'
 import { updatePath } from './../dom/history'
 import { ModelStore } from './../model/model-store'
 import { ModelLoader } from './../model/model-loader'
-import { ModelBackend } from './../model/model-backend'
+import { ModelRepository } from './../model/model-repository'
 import { ModelFetcher } from './../model/model-fetcher'
 import { Route } from './route'
 
 /**
  *
- * @returns {ModelBackend}
+ * @returns {ModelRepository}
  */
-function setUpModelBackend () {
+function createModelRepository () {
   const store = new ModelStore()
   const loader = new ModelLoader(store)
   const fetcher = new ModelFetcher()
 
-  return new ModelBackend(store, fetcher, loader)
+  return new ModelRepository(store, fetcher, loader)
 }
 
 export class Application {
@@ -58,10 +58,10 @@ export class Application {
 
     /**
      *
-     * @type {ModelBackend}
+     * @type {ModelRepository}
      * @private
      */
-    this._modelBackend = setUpModelBackend()
+    this._modelRepository = createModelRepository()
 
     /**
      *
@@ -69,7 +69,7 @@ export class Application {
      * @private
      * @deprecated
      */
-    this._modelStore = this._modelBackend._store
+    this._modelStore = this._modelRepository._store
 
     /**
      *
@@ -77,7 +77,7 @@ export class Application {
      * @private
      * @deprecated
      */
-    this._modelLoader = this._modelBackend._loader
+    this._modelLoader = this._modelRepository._loader
 
     // todo: change this
     this.getRoute().forEach((route) => (this._route = route))
@@ -147,10 +147,10 @@ export class Application {
 
   /**
    *
-   * @returns {ModelBackend}
+   * @returns {ModelRepository}
    */
-  get modelBackend () {
-    return this._modelBackend
+  get modelRepository () {
+    return this._modelRepository
   }
 
   showSidebar() {
