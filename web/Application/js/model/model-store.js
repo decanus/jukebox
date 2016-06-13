@@ -30,6 +30,7 @@ export class ModelStore {
    *
    * @param {number} id
    * @returns {Track}
+   * @deprecated
    */
   getTrack (id) {
     //noinspection JSValidateTypes
