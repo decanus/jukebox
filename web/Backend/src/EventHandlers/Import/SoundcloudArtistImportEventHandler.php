@@ -9,6 +9,7 @@ namespace Jukebox\Backend\EventHandlers\Import
     use Jukebox\Backend\Services\Soundcloud;
     use Jukebox\Framework\Logging\LoggerAware;
     use Jukebox\Framework\Logging\LoggerAwareTrait;
+    use Jukebox\Framework\ValueObjects\Uri;
 
     class SoundcloudArtistImportEventHandler implements EventHandlerInterface, LoggerAware
     {
@@ -52,9 +53,35 @@ namespace Jukebox\Backend\EventHandlers\Import
                 }
 
                 $artist = $response->getDecodedJsonResponse();
-
                 $webProfiles = $this->soundcloud->getArtistWebProfiles($id)->getDecodedJsonResponse();
-                var_dump($artist);exit;
+
+                $facebook = null;
+                $twitter = null;
+                foreach ($webProfiles as $webProfile) {
+                    if (isset($webProfile['service']) && $webProfile['service'] === 'facebook') {
+                        $facebook = new Uri($webProfile['url']);
+                        continue;
+                    }
+
+                    if (isset($webProfile['service']) && $webProfile['service'] === 'twitter') {
+                        $twitter = $webProfile['username'];
+                    }
+                }
+
+                $permalink = $permalink = preg_replace('/[^A-Za-z0-9 \- \/ ]/', '', strtolower('/' . $artist['username']));
+                $permalink = str_replace(' ', '-', $permalink);
+
+                $this->insertArtistCommand->execute(
+                    $artist['username'],
+                    null,
+                    null,
+                    $twitter,
+                    $facebook,
+                    null,
+                    null,
+                    $permalink,
+                    $id
+                );
 
             } catch (\Throwable $e) {
                 $this->getLogger()->critical($e);
