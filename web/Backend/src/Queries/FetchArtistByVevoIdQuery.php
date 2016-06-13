@@ -2,7 +2,7 @@
 
 namespace Jukebox\Backend\Queries
 {
-    class FetchArtistByVevoIdBackendQuery extends AbstractDatabaseBackendQuery
+    class FetchArtistByVevoIdQuery extends AbstractDatabaseBackendQuery
     {
 
         /**
