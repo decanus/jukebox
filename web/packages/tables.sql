@@ -10,7 +10,8 @@ CREATE TABLE IF NOT EXISTS tracks (
   is_music_video BOOL NOT NULL DEFAULT FALSE,
   is_explicit BOOL NOT NULL DEFAULT FALSE,
   permalink VARCHAR(255) NOT NULL,
-  release_date DATE NOT NULL
+  release_date DATE NOT NULL,
+  UNIQUE (permalink)
 );
 
 CREATE TABLE IF NOT EXISTS artists (
@@ -23,7 +24,8 @@ CREATE TABLE IF NOT EXISTS artists (
   facebook VARCHAR(255) NULL DEFAULT NULL,
   itunes VARCHAR(255) NULL DEFAULT NULL,
   amazon VARCHAR(255) NULL DEFAULT NULL,
-  permalink VARCHAR(255) NOT NULL
+  permalink VARCHAR(255) NOT NULL,
+  UNIQUE (permalink)
 );
 
 CREATE TABLE IF NOT EXISTS track_artists (

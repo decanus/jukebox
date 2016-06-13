@@ -36,5 +36,10 @@ namespace Jukebox\Backend\Services
         {
             return $this->getCurl()->get($this->buildUrl('/users/' . $artist), ['client_id' => $this->clientId]);
         }
+
+        public function getArtistWebProfiles(string $artist): Response
+        {
+            return $this->getCurl()->get($this->buildUrl('/users/' . $artist . '/web-profiles'), ['client_id' => $this->clientId]);
+        }
     }
 }

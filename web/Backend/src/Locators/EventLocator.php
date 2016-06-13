@@ -45,6 +45,8 @@ namespace Jukebox\Backend\Locators
                     return new \Jukebox\Backend\Events\SoundcloudArtistMatchEvent($request->getParam('artistId'));
                 case 'SoundcloudTracksImport':
                     return new \Jukebox\Backend\Events\SoundcloudTracksImportEvent($request->getParam('artistId'));
+                case 'SoundcloudArtistImport':
+                    return new \Jukebox\Backend\Events\SoundcloudArtistImportEvent($request->getParam('soundcloudId'));
                 default:
                     throw new \InvalidArgumentException('Event "' . $request->getAction() . '" does not exist');
             }
