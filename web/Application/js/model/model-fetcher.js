@@ -27,6 +27,12 @@ export class ModelFetcher {
    */
   fetchResult (query) {
     return fetchSearch(query)
+      .then((result) => {
+        result.type = 'results'
+        result.id = query
+        
+        return result
+      })
   }
 
   /**
