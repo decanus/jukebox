@@ -12,6 +12,7 @@ namespace Jukebox\Frontend\Handlers\Get\Search
         {
             try {
                 $searchResults = $this->getModel()->getSearchResults();
+
                 if ($searchResults === []) {
                     return;
                 }
@@ -35,6 +36,7 @@ namespace Jukebox\Frontend\Handlers\Get\Search
                 }
 
                 $searchResults['type'] = 'results';
+                $searchResults['id'] = $this->getModel()->getRequestUri()->getParameter('q');
                 $template->queryOne('//html:body')->appendElement('script', '__$loadModel(' . json_encode($searchResults) . ')');
             } catch (\Throwable $e) {
                 // do nothing

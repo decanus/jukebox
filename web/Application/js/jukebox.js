@@ -38,3 +38,5 @@ getInterval(180000)
     console.info('it\'s time to clean')
     app.modelRepository.cleanup()
   })
+
+window.repository = app.modelRepository
