@@ -42,9 +42,9 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createInsertTrackCommand(),
                 $this->getMasterFactory()->createInsertTrackArtistCommand(),
                 $this->getMasterFactory()->createInsertTrackGenreCommand(),
-                $this->getMasterFactory()->createFetchGenreByNameQuery(),
                 $this->getMasterFactory()->createFetchTrackByVevoIdQuery(),
-                $this->getMasterFactory()->createInsertTrackSourceCommand()
+                $this->getMasterFactory()->createInsertTrackSourceCommand(),
+                $this->getMasterFactory()->createInsertTrackCommand()
             );
         }
 
