@@ -8,7 +8,9 @@
                 <span class="item track-label -red">EXPLICIT</span>
             {{/isExplicit}}
 
-            <span class="item track-label">MUSIC VIDEO</span>
+            {{#isMusicVideo}}
+                <span class="item track-label">MUSIC VIDEO</span>
+            {{/isMusicVideo}}
         </div>
 
         <div class="artists">

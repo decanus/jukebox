@@ -56,6 +56,7 @@ export class ModelLoader {
     let youtubeTrack
 
     data['isExplicit'] = data['is_explicit']
+    data['isMusicVideo'] = data['is_music_video']
 
     data.sources.forEach((source) => {
       if (source.source === 'youtube') {
