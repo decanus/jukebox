@@ -11,16 +11,18 @@ export class TrackLink extends HTMLElement {
   createdCallback () {
     this.addEventListener('click', () => {
       const player = app.getPlayer()
-      const track = app.getModelStore().getTrack(this.trackId)
-      
-      if (this.append && player.getQueueSize() > 0) {
-        player.appendTrack(track)
-        return
-      }
 
-      player.prependTrack(track)
-      player.setCurrent(0)
-      player.play()
+      app.modelRepository.getTrack(this.trackId)
+        .then((track) => {
+          if (this.append && player.getQueueSize() > 0) {
+            player.appendTrack(track)
+            return
+          }
+
+          player.prependTrack(track)
+          player.setCurrent(0)
+          player.play()
+        })
     })
   }
 
