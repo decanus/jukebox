@@ -53,7 +53,6 @@ namespace Jukebox\Backend\EventHandlers\Import
             try {
 
                 $artist = $this->fetchArtistByIdQuery->execute($this->event->getArtistId());
-                var_dump($artist);exit;
                 $response = $this->soundcloud->getArtistTracks($artist['soundcloud_id']);
 
                 if ($response->getResponseCode() !== 200) {
@@ -63,7 +62,6 @@ namespace Jukebox\Backend\EventHandlers\Import
                 $tracks = $response->getDecodedJsonResponse();
                 $artistTracks = $this->jukeboxRestManager->getTracksByArtistId($artist['id'])->getDecodedJsonResponse();
 
-                var_dump($tracks);exit;
                 foreach ($tracks as $track) {
 
                     foreach ($artistTracks as $artistTrack) {
@@ -73,7 +71,6 @@ namespace Jukebox\Backend\EventHandlers\Import
                                 continue 2;
                             }
                         }
-
 
                         // @todo check if track is track to insert new source
                         if ($artistTrack['title'] === $track['title']) {
