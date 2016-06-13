@@ -55,9 +55,10 @@ export class ModelRepository {
   /**
    *
    * @param {{ type: string, id: number }} model
+   * @returns {{ type: string, id: number }}
    */
   add (model) {
-    this._loader.load(model)
+    return this._loader.load(model)
   }
 
   /**

@@ -13,7 +13,7 @@ const listener = new WeakMap()
  * @param {HTMLElement} $element
  * @returns {boolean}
  */
-function isElementInViewport($element) {
+function isElementInViewport ($element) {
   var rect = $element.getBoundingClientRect()
 
   return (
@@ -32,34 +32,35 @@ function onScroll ($element) {
   if (!isElementInViewport($element) || state.get($element) === 'loading' || $element.hidden) {
     return
   }
-  
-  // fetch search from store
-  const result = app.getModelStore()
-    .get({ type: 'results', id: $element.resultId })
-  
-  const pagination = result.pagination
 
-  if (pagination.page >= pagination.pages) {
-    $element.hidden = true
-  }
+  const repository = app.modelRepository
+  const result = repository.getResults($element.resultId)
 
-  state.set($element, 'loading')
+  const newResult = result.then((result) => {
+    const pagination = result.pagination
 
-  fetchSearch(result.query, pagination.page + 1)
-    .then((newResult) => {
+    if (pagination.page >= pagination.pages) {
+      $element.hidden = true
+    }
+
+    state.set($element, 'loading')
+
+    return fetchSearch(result.query, pagination.page + 1)
+  })
+
+  Promise.all([result, newResult])
+    .then((values) => {
+      const result = values[0]
+      const newResult = values[1]
+      const newResults = newResult.results.map((data) => repository.add(data))
+
       result.pagination = newResult.pagination
-
-      newResult.results
-        .map((item) => app.getModelLoader().load(item))
-        .forEach((model) => {
-          result.results.push(model)
-          app.getModelStore().hold(model)
-        })
+      result.results = result.results.concat(newResults)
 
       app.reloadCurrentRoute()
+
       state.set($element, 'ready')
     })
-    // todo: catch error
 }
 
 export class SearchPaginator extends HTMLElement {
