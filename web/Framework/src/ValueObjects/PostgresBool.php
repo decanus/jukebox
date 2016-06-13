@@ -11,7 +11,7 @@ namespace Jukebox\Framework\ValueObjects
 
         public function __construct(bool $bool)
         {
-            if ($this->bool) {
+            if ($bool) {
                 $this->bool = 't';
             } else {
                 $this->bool = 'f';

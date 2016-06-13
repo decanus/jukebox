@@ -25,12 +25,18 @@ namespace Jukebox\Framework\Factories
         {
             $logger = $this->createLogger();
             $logger->addLogger($this->createSlackLogger());
+            $logger->addLogger($this->createNSALogger());
             return $logger;
         }
 
         public function createCLILogger(): \Jukebox\Framework\Logging\Loggers\CLILogger
         {
             return new \Jukebox\Framework\Logging\Loggers\CLILogger;
+        }
+
+        public function createNSALogger(): \Jukebox\Framework\Logging\Loggers\NSALogger
+        {
+            return new \Jukebox\Framework\Logging\Loggers\NSALogger;
         }
 
         public function createSlackLogger()

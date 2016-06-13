@@ -36,7 +36,7 @@ namespace Jukebox\Frontend\Handlers\Get\NotFound
 
             $main = $template->queryOne('//html:jukebox-app');
 
-            $main->parentNode->replaceChild($template->importNode($content->documentElement, true), $main);
+            $main->appendChild($template->importNode($content->documentElement, true));
 
         }
     }

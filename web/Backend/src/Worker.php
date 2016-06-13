@@ -72,7 +72,7 @@ namespace Jukebox\Backend
 
         private function sleep()
         {
-            if (memory_get_usage(true) > 314572800) {
+            if (memory_get_usage(true) > 262144000) {
                 $this->shutdown();
             }
 
