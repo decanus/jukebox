@@ -128,7 +128,6 @@ namespace Jukebox\Backend\EventHandlers\Import
                     $isAudio = true;
                 }
 
-
                 if (strpos($video['title'], '(AUDIO)') !== false) {
                     $isAudio = true;
                 }
@@ -147,6 +146,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                     '(Official Lyric Video)',
                     '(Official Music Video)',
                     '(Official Pseudo Video)',
+                    '(LYRIC VIDEO)',
                     '(lyric)',
                     '(Lyric Video)',
                     '[Lyric]',
