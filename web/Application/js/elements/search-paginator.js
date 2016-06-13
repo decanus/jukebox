@@ -3,7 +3,7 @@
  */
 
 import { app } from '../app'
-import { fetchSearch } from '../apr/apr'
+import { fetchSearch } from '../app/apr'
 
 const state = new WeakMap()
 const listener = new WeakMap()

@@ -12,9 +12,11 @@ export class ModelLoader {
   /**
    *
    * @param {ModelStore} store
+   * @param {ResolveCache} resolveCache
    */
-  constructor (store) {
+  constructor (store, resolveCache) {
     this._store = store
+    this._resolveCache = resolveCache
   }
 
   /**
@@ -43,6 +45,7 @@ export class ModelLoader {
     const artist = new Artist(data)
 
     this._store.put(artist)
+    this._resolveCache.add(artist.permalink, { type: 'artists', id: artist.id })
 
     return artist
   }
@@ -82,6 +85,7 @@ export class ModelLoader {
     const track = new Track({ ...data, artists }, { youtubeTrack })
 
     this._store.put(track)
+    this._resolveCache.add(track.permalink, { type: 'tracks', id: track.id })
 
     return track
   }

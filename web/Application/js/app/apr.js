@@ -2,7 +2,7 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { buildQuery } from '../url/build-query'
+import { buildQuery } from '../url/query'
 
 /**
  *

@@ -8,12 +8,10 @@ import { ViewRepository } from './view-repository'
 
 /**
  *
- * @param {string} query
+ * @param {number} artistId
  * @returns {View}
  */
-export function SearchView (query) {
-  query = query.trim()
-
+export function ArtistView (artistId) {
   return {
     /**
      *
@@ -21,9 +19,9 @@ export function SearchView (query) {
      */
     fetch () {
       return app.modelRepository
-        .getResult(query)
-        .then((result) => {
-          return new Page({ title: 'Jukebox Ninja - Search', template: 'search', data: result })
+        .getArtist(artistId)
+        .then((artist) => {
+          return new Page({ title: `Jukebox Ninja - ${artist.name}`, template: 'artist', data: artist })
         })
     },
     /**
@@ -33,17 +31,8 @@ export function SearchView (query) {
      */
     handle (page) {
       const repository = new ViewRepository(app.modelRepository)
-      const models = page.data.results
 
       repository.hold(page.data)
-
-      models.forEach((model) => {
-        repository.hold(model)
-
-        if (model.type === 'tracks') {
-          model.artists.forEach((artist) => repository.hold(artist.artist))
-        }
-      })
 
       return () => repository.releaseAll()
     }

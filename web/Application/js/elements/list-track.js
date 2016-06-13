@@ -10,9 +10,10 @@ const subscription = new WeakMap()
 export class ListTrack extends HTMLElement {
   createdCallback () {
     const track = this.track
+    const currentTrack = app.player.getCurrentTrack()
 
     this.appendChild(renderTemplate('partials/list-track', this.ownerDocument, track))
-    this.active = (track.id === app.player.getCurrentTrack().id)
+    this.active = (currentTrack && track.id === currentTrack.id)
   }
 
   attachedCallback () {

@@ -9,14 +9,16 @@ import { ModelLoader } from './../model/model-loader'
 import { ModelRepository } from './../model/model-repository'
 import { ModelFetcher } from './../model/model-fetcher'
 import { Route } from './route'
+import { ResolveCache } from '../views/resolve-cache'
 
 /**
  *
+ * @param {ResolveCache} resolveCache
  * @returns {ModelRepository}
  */
-function createModelRepository () {
+function createModelRepository (resolveCache) {
   const store = new ModelStore()
-  const loader = new ModelLoader(store)
+  const loader = new ModelLoader(store, resolveCache)
   const fetcher = new ModelFetcher()
 
   return new ModelRepository(store, fetcher, loader)
@@ -58,10 +60,17 @@ export class Application {
 
     /**
      *
+     * @type {ResolveCache}
+     * @private
+     */
+    this._resolveCache = new ResolveCache()
+
+    /**
+     *
      * @type {ModelRepository}
      * @private
      */
-    this._modelRepository = createModelRepository()
+    this._modelRepository = createModelRepository(this._resolveCache)
 
     /**
      *
@@ -160,6 +169,14 @@ export class Application {
    */
   get modelRepository () {
     return this._modelRepository
+  }
+
+  /**
+   * 
+   * @returns {ResolveCache}
+   */
+  get resolveCache () {
+    return this._resolveCache
   }
 
   showSidebar() {
