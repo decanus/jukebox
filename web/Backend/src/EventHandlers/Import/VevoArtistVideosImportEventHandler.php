@@ -128,6 +128,10 @@ namespace Jukebox\Backend\EventHandlers\Import
                     $isAudio = true;
                 }
 
+                if (strpos($video['title'], '(AUDIO)') !== false) {
+                    $isAudio = true;
+                }
+
                 $replace = [
                     '[Official Video]',
                     '[Audio]',
@@ -142,11 +146,11 @@ namespace Jukebox\Backend\EventHandlers\Import
                     '(Official Lyric Video)',
                     '(Official Music Video)',
                     '(Official Pseudo Video)',
+                    '(LYRIC VIDEO)',
                     '(lyric)',
                     '(Lyric Video)',
                     '[Lyric]',
                     '(VIDEO LYRIC)',
-                    'Lyric video',
                     '(Lyric Video/Live)',
                     '(Live/Lyric Video)',
                     '(Lyric video - LIVE)',
@@ -154,7 +158,10 @@ namespace Jukebox\Backend\EventHandlers\Import
                     '(Lyric Video/Live)',
                     '[Lyric Video]',
                     '[Official Lyric Video]',
-                    '(Live)'
+                    '(Live)',
+                    'Lyric video',
+                    '[]',
+                    '()',
                 ];
 
                 $title = trim(str_replace($replace, '', $title));
