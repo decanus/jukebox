@@ -42,6 +42,16 @@ export class ModelRepository {
     return this.get({ id: query, type: 'results' })
   }
 
+
+  /**
+   *
+   * @param {number} id
+   * @returns {Promise<Track>}
+   */
+  getTrack (id) {
+    return this.get({ id, type: 'tracks' })
+  }
+
   /**
    *
    * @param {{ type: string, id: number }} model
