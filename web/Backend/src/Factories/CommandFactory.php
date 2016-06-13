@@ -20,13 +20,6 @@ namespace Jukebox\Backend\Factories
             );
         }
         
-        public function createInsertTrackCommand()
-        {
-            return new \Jukebox\Backend\Commands\InsertTrackCommand(
-                $this->getMasterFactory()->createPostgreDatabaseBackend()
-            );
-        }
-        
         public function createInsertTrackArtistCommand()
         {
             return new \Jukebox\Backend\Commands\InsertTrackArtistCommand(
@@ -44,6 +37,13 @@ namespace Jukebox\Backend\Factories
         public function createInsertTrackSourceCommand()
         {
             return new \Jukebox\Backend\Commands\InsertTrackSourceCommand(
+                $this->getMasterFactory()->createPostgreDatabaseBackend()
+            );
+        }
+
+        public function createInsertTrackCommand(): \Jukebox\Backend\Commands\InsertTrackCommand
+        {
+            return new \Jukebox\Backend\Commands\InsertTrackCommand(
                 $this->getMasterFactory()->createPostgreDatabaseBackend()
             );
         }
