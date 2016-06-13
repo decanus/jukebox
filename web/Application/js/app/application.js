@@ -63,22 +63,6 @@ export class Application {
      */
     this._modelRepository = createModelRepository()
 
-    /**
-     *
-     * @type {ModelStore}
-     * @private
-     * @deprecated
-     */
-    this._modelStore = this._modelRepository._store
-
-    /**
-     *
-     * @type {ModelLoader}
-     * @private
-     * @deprecated
-     */
-    this._modelLoader = this._modelRepository._loader
-
     // todo: change this
     this.getRoute().forEach((route) => (this._route = route))
   }
@@ -123,26 +107,6 @@ export class Application {
 
   reloadCurrentRoute () {
     this._emitter.emit('route', this._route)
-  }
-
-  /**
-   * 
-   * @returns {ModelLoader}
-   * @deprecated
-   * @see modelBackend
-   */
-  getModelLoader () {
-    return this._modelLoader
-  }
-
-  /**
-   *
-   * @returns {ModelStore}
-   * @deprecated
-   * @see modelBackend
-   */
-  getModelStore () {
-    return this._modelStore
   }
 
   /**
