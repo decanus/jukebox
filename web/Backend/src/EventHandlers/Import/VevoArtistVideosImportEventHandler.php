@@ -128,6 +128,11 @@ namespace Jukebox\Backend\EventHandlers\Import
                     $isAudio = true;
                 }
 
+
+                if (strpos($video['title'], '(AUDIO)') !== false) {
+                    $isAudio = true;
+                }
+
                 $replace = [
                     '[Official Video]',
                     '[Audio]',
