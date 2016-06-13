@@ -5,7 +5,6 @@ namespace Jukebox\Backend\EventHandlers\Import
 
     use Jukebox\Backend\Commands\InsertTrackArtistCommand;
     use Jukebox\Backend\Commands\InsertTrackCommand;
-    use Jukebox\Backend\Commands\InsertTrackCommand;
     use Jukebox\Backend\Commands\InsertTrackGenreCommand;
     use Jukebox\Backend\Commands\InsertTrackSourceCommand;
     use Jukebox\Backend\DataObjects\Track;
