@@ -11,8 +11,7 @@ namespace Jukebox\Backend\Factories
                 new \Jukebox\Backend\Backends\PDO(
                     $this->getMasterFactory()->getConfiguration()->get('postgreServer'),
                     $this->getMasterFactory()->getConfiguration()->get('postgreUsername'),
-                    $this->getMasterFactory()->getConfiguration()->get('postgrePassword'),
-                    [\PDO::ATTR_PERSISTENT => true]
+                    $this->getMasterFactory()->getConfiguration()->get('postgrePassword')
                 )
             );
         }
