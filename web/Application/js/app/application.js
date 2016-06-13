@@ -2,11 +2,25 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { Emitter } from './event/emitter'
-import { updatePath, replacePath } from './dom/history'
-import { ModelStore } from './model/model-store'
-import { ModelLoader } from './model/model-loader'
-import { Route } from './app/route'
+import { Emitter } from './../event/emitter'
+import { updatePath } from './../dom/history'
+import { ModelStore } from './../model/model-store'
+import { ModelLoader } from './../model/model-loader'
+import { ModelRepository } from './../model/model-repository'
+import { ModelFetcher } from './../model/model-fetcher'
+import { Route } from './route'
+
+/**
+ *
+ * @returns {ModelRepository}
+ */
+function createModelRepository () {
+  const store = new ModelStore()
+  const loader = new ModelLoader(store)
+  const fetcher = new ModelFetcher()
+
+  return new ModelRepository(store, fetcher, loader)
+}
 
 export class Application {
   /**
@@ -44,18 +58,28 @@ export class Application {
 
     /**
      *
-     * @type {ModelStore}
+     * @type {ModelRepository}
      * @private
      */
-    this._modelStore = new ModelStore()
+    this._modelRepository = createModelRepository()
+
+    /**
+     *
+     * @type {ModelStore}
+     * @private
+     * @deprecated
+     */
+    this._modelStore = this._modelRepository._store
 
     /**
      *
      * @type {ModelLoader}
      * @private
+     * @deprecated
      */
-    this._modelLoader = new ModelLoader(this._modelStore)
+    this._modelLoader = this._modelRepository._loader
 
+    // todo: change this
     this.getRoute().forEach((route) => (this._route = route))
   }
 
@@ -113,6 +137,8 @@ export class Application {
   /**
    * 
    * @returns {ModelLoader}
+   * @deprecated
+   * @see modelBackend
    */
   getModelLoader () {
     return this._modelLoader
@@ -121,9 +147,19 @@ export class Application {
   /**
    *
    * @returns {ModelStore}
+   * @deprecated
+   * @see modelBackend
    */
   getModelStore () {
     return this._modelStore
+  }
+
+  /**
+   *
+   * @returns {ModelRepository}
+   */
+  get modelRepository () {
+    return this._modelRepository
   }
 
   showSidebar() {

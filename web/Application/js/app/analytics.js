@@ -31,7 +31,7 @@ function getErrorDescription(error) {
  */
 export function sendException (error) {
   if (config['isDevelopmentMode']) {
-    console.error(error)
+    console.error(getErrorDescription(error))
     return
   }
 

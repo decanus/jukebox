@@ -2,7 +2,7 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { Application } from './application.js'
+import { Application } from './app/application.js'
 import { PlayerDelegator } from './players/player-delegator'
 
 /**
