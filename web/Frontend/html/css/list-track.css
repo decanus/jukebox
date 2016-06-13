@@ -1,0 +1,37 @@
+:host {
+  display: block;
+}
+
+#container {
+  padding: 16px 0;
+  border-bottom: 1px solid #f5f5f5;
+  display: flex;
+  align-items: center;
+}
+
+#artists {
+  color: red;
+}
+
+#text {
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#header {
+  display: flex;
+  align-items: center;
+}
+
+#link {
+  color: #000;
+  text-decoration: none;
+}
+
+#artists {
+  display: flex;
+  color: #A0A0A0;
+  font-size: 14px;
+}

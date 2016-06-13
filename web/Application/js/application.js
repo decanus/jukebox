@@ -62,8 +62,17 @@ export class Application {
   /**
    * 
    * @returns {PlayerDelegator}
+   * @deprecated
    */
   getPlayer() {
+    return this._player
+  }
+
+  /**
+   * 
+   * @returns {PlayerDelegator}
+   */
+  get player () {
     return this._player
   }
 
