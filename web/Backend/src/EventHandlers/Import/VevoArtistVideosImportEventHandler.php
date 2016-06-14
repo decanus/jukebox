@@ -138,6 +138,15 @@ namespace Jukebox\Backend\EventHandlers\Import
                     $isAudio = true;
                 }
 
+                $isExplicit = false;
+                if (strpos($video['title'], '(Explicit Version)') !== false) {
+                    $isExplicit = true;
+                }
+
+                if (strpos($video['title'], '(Explicit)') !== false) {
+                    $isExplicit = true;
+                }
+
                 $replace = [
                     '[Official Video]',
                     '[Audio]',
@@ -146,6 +155,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                     '(audio)',
                     '(Explicit Video)',
                     '(Explicit)',
+                    '(Explicit Version)',
                     '[Official Music Video]',
                     '(Official Explicit Video)',
                     '(Official audio)',
@@ -178,6 +188,10 @@ namespace Jukebox\Backend\EventHandlers\Import
 
                 $title = trim(str_replace($replace, '', $title));
 
+                if ($video['isExplicit']) {
+                    $isExplicit = true;
+                }
+
                 $track = new Track(
                     $video['duration'] * 1000,
                     $title,
@@ -187,7 +201,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                     $video['hasLyrics'],
                     $isAudio,
                     $video['isOfficial'],
-                    $video['isExplicit'],
+                    $isExplicit,
                     $permalink,
                     new \DateTime($video['releaseDate'])
                 );
