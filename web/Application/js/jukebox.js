@@ -2,6 +2,8 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
+import 'whatwg-fetch'
+
 import { app } from './app'
 import { getInterval } from './dom/time/get-interval'
 import { Route } from './app/route'
