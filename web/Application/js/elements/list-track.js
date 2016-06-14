@@ -14,6 +14,10 @@ export class ListTrack extends HTMLElement {
 
     this.appendChild(renderTemplate('partials/list-track', this.ownerDocument, track))
     this.active = (currentTrack && track.id === currentTrack.id)
+
+    if (this.isFirst) {
+      this.querySelector('.search-result').classList.add('-first')
+    }
   }
 
   attachedCallback () {
@@ -53,6 +57,14 @@ export class ListTrack extends HTMLElement {
    */
   get track () {
     return app.getModelStore().getTrack(Number.parseInt(this.trackId))
+  }
+
+  /**
+   *
+   * @returns {boolean}
+   */
+  get isFirst () {
+    return this.hasAttribute('is-first')
   }
 
   /**

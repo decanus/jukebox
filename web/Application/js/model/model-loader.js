@@ -42,6 +42,9 @@ export class ModelLoader {
    * @returns {Artist}
    */
   loadArtist (data) {
+
+    data['website'] = data['official_website']
+
     const artist = new Artist(data)
 
     this._store.put(artist)
