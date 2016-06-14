@@ -21,7 +21,7 @@ export function ArtistView (artistId) {
       return app.modelRepository
         .getArtist(artistId)
         .then((artist) => {
-          return new Page({ title: `Jukebox Ninja - ${artist.name}`, template: 'artist', data: artist })
+          return new Page({ title: `Jukebox Ninja - ${artist.name}`, template: 'artist', data: { artist }})
         })
     },
     /**
@@ -32,7 +32,7 @@ export function ArtistView (artistId) {
     handle (page) {
       const repository = new ViewRepository(app.modelRepository)
 
-      repository.hold(page.data)
+      repository.hold(page.data.artist)
 
       return () => repository.releaseAll()
     }
