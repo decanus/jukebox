@@ -109,7 +109,7 @@ namespace Jukebox\Frontend\Factories
                 $this->getMasterFactory()->createPreHandler(),
                 $this->getMasterFactory()->createCommandHandler(),
                 $this->getMasterFactory()->createResolveQueryHandler(),
-                $this->getMasterFactory()->createAjaxTransformationHandler(),
+                $this->getMasterFactory()->createResolveTransformationHandler(),
                 $this->getMasterFactory()->createResponseHandler(),
                 $this->getMasterFactory()->createPostHandler(),
                 new JsonResponse()

@@ -142,6 +142,11 @@ namespace Jukebox\Frontend\Factories
             );
         }
 
+        public function createResolveTransformationHandler(): \Jukebox\Frontend\Handlers\Get\Ajax\Resolve\TransformationHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Get\Ajax\Resolve\TransformationHandler;
+        }
+
         /**
          * @return fDOMDocument
          */
