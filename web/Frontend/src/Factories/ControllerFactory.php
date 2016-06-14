@@ -112,7 +112,7 @@ namespace Jukebox\Frontend\Factories
                 $this->getMasterFactory()->createResolveTransformationHandler(),
                 $this->getMasterFactory()->createResponseHandler(),
                 $this->getMasterFactory()->createPostHandler(),
-                new JsonResponse()
+                new JsonResponse
             );
         }
     }
