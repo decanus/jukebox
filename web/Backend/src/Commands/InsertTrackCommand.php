@@ -14,6 +14,11 @@ namespace Jukebox\Backend\Commands
 
                 $database = $this->getDatabaseBackend();
 
+                // @todo: possible fix?
+                while ($database->inTransaction()) {
+                    sleep(1);
+                }
+
                 $database->beginTransaction();
                 $result = $database->insert(
                     'INSERT INTO tracks (duration, title, vevo_id, isrc, is_live, is_lyric, is_audio, is_music_video, is_explicit, permalink, release_date) VALUES (:duration, :title, :vevo_id, :isrc, :is_live, :is_lyric, :is_audio, :is_music_video, :is_explicit, :permalink, :release_date)',
