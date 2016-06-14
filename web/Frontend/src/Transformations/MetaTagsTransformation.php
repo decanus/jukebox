@@ -36,9 +36,8 @@ namespace Jukebox\Frontend\Transformations
 
         private function handleArtistPage(ArtistPageModel $model)
         {
-            $artist = $model->getArtist();
-            $this->template->queryOne('/html:html/html:head/html:title')->setAttribute('content', 'Jukebox Ninja - ' . $artist['name']);
-            $this->template->queryOne('/html:html/html:head/html:meta[@name="description"]')->setAttribute('content', 'Jukebox Ninja - Listen to great artists like ' . $artist['name']);
+            $this->template->queryOne('/html:html/html:head/html:title')->setAttribute('content', $model->getMetaTitle());
+            $this->template->queryOne('/html:html/html:head/html:meta[@name="description"]')->setAttribute('content', $model->getMetaDescription());
         }
     }
 }

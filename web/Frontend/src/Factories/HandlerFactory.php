@@ -18,7 +18,8 @@ namespace Jukebox\Frontend\Factories
             return new \Jukebox\Frontend\Handlers\Get\GenericPageTransformationHandler(
                 $this->getTemplate(),
                 $this->getMasterFactory()->createAppendTrackingSnippetTransformation(),
-                $this->getMasterFactory()->createTwitterCardTagsTransformation()
+                $this->getMasterFactory()->createTwitterCardTagsTransformation(),
+                $this->getMasterFactory()->createMetaTagsTransformation()
             );
         }
 
