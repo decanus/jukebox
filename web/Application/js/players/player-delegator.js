@@ -74,27 +74,23 @@ export class PlayerDelegator {
     delegateToCurrentPlayer.call(this, 'getEnd')
       .forEach(() => this.next(true))
   }
-
-  /**
-   * 
-   * @returns {Promise}
-   */
-  play () {
+  
+  async play () {
     if (this._queue.isEmpty()) {
-      return Promise.reject()
+      throw new Error('queue is empty')
     }
     
     if (!this._queue.hasCurrentTrack()) {
-      return this.setCurrent(0)
-        .then(() => this.play())
+      await this.setCurrent(0)
+      await this.play()
+      return
     }
     
     const player = this.getCurrentPlayer()
-    
-    player.ready().then(() => {
-      this._emitter.emit('loading')
-      player.play()
-    })
+
+    await player.ready()
+    this._emitter.emit('loading')
+    await player.play()
   }
 
   /**

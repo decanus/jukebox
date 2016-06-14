@@ -25,22 +25,17 @@ export class ModelFetcher {
    * @param {string} query
    * @returns {Promise<{ type: string, id: number }>}
    */
-  fetchResult (query) {
-    return fetchSearch(query)
-      .then((result) => {
-        if (Array.isArray(result)) {
-          // todo: should this be done in php?
-          return { type: 'results', id: query, results: [], pagination: { size: 20, page: 1, pages: 1}}
-        }
+  async fetchResult (query) {
+    const result = await fetchSearch(query)
 
-        return result
-      })
-      .then((result) => {
-        result.type = 'results'
-        result.id = query
-        
-        return result
-      })
+    if (Array.isArray(result)) {
+      return { type: 'results', id: query, results: [], pagination: { size: 20, page: 1, pages: 1}}
+    }
+
+    result.type = 'results'
+    result.id = query
+
+    return result
   }
 
   /**
