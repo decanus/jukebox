@@ -8,7 +8,7 @@ namespace Jukebox\Frontend\Transformations
     use Jukebox\Frontend\Models\TrackPageModel;
     use TheSeer\fDOM\fDOMDocument;
 
-    class TwitterCardTagsTransformation
+    class MetaTagsTransformation
     {
         /**
          * @var fDOMDocument
@@ -30,15 +30,14 @@ namespace Jukebox\Frontend\Transformations
 
         private function handleTrackPage(TrackPageModel $model)
         {
-            $this->template->queryOne('/html:html/html:head/html:meta[@name="twitter:title"]')->setAttribute('content', $model->getMetaTitle());
-            $this->template->queryOne('/html:html/html:head/html:meta[@name="twitter:description"]')->setAttribute('content', $model->getMetaDescription());
+            $this->template->queryOne('/html:html/html:head/html:title')->setAttribute('content', $model->getMetaTitle());
+            $this->template->queryOne('/html:html/html:head/html:meta[@name="description"]')->setAttribute('content', $model->getMetaDescription());
         }
 
         private function handleArtistPage(ArtistPageModel $model)
         {
-            $artist = $model->getArtist();
-            $this->template->queryOne('/html:html/html:head/html:meta[@name="twitter:title"]')->setAttribute('content', 'Jukebox Ninja - ' . $artist['name']);
-            $this->template->queryOne('/html:html/html:head/html:meta[@name="twitter:description"]')->setAttribute('content', 'Jukebox Ninja - Listen to great artists like ' . $artist['name']);
+            $this->template->queryOne('/html:html/html:head/html:title')->setAttribute('content', $model->getMetaTitle());
+            $this->template->queryOne('/html:html/html:head/html:meta[@name="description"]')->setAttribute('content', $model->getMetaDescription());
         }
     }
 }
