@@ -16,7 +16,7 @@ import { app } from '../app'
 /**
  * 
  * @param path
- * @returns {{ type: string, id: number }|null}
+ * @returns {View|null}
  */
 async function resolveSpecial (path) {
   const resolved = await resolvePath(path)
@@ -33,6 +33,7 @@ async function resolveSpecial (path) {
 /**
  *
  * @param {{ id: number, type: string }} model
+ * @returns {View}
  */
 function getSpecialView (model) {
   switch (model.type) {
@@ -92,7 +93,7 @@ export async function resolveView (route) {
   const special = await resolveSpecial(route.path)
 
   if (special) {
-    // TODO: do something with special
+    return special
   }
 
   return StaticView(new Page({

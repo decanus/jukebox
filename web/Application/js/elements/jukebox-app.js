@@ -33,10 +33,11 @@ export class JukeboxApp extends HTMLElement {
 
   createdCallback () {
     app.getRoute().forEach(async (route) => {
+      this.innerHTML = '<div class="loading-animation -center"></div>'
+
       const view = await resolveView(route)
 
       activeView.set(this, view)
-      this.innerHTML = '<div class="loading-animation -center"></div>'
 
       const page = await view.fetch()
 
