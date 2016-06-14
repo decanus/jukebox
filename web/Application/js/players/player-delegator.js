@@ -82,8 +82,6 @@ export class PlayerDelegator {
     
     if (!this._queue.hasCurrentTrack()) {
       await this.setCurrent(0)
-      await this.play()
-      return
     }
     
     const player = this.getCurrentPlayer()
