@@ -2,7 +2,7 @@
 
     <div class="container">
 
-        <section class="profile-layout _margin-bottom-20">
+        <section class="profile-layout">
 
             <div class="sidebar"></div>
 
@@ -15,6 +15,8 @@
 
         </section>
 
+        <div class="_margin-bottom-40"></div>
+
         <section class="profile-layout">
 
             <div class="sidebar">
@@ -23,7 +25,7 @@
                         <li class="link">
                             <a href="{{artist.website}}" class="profile-social-link" rel="nofollow" target="_blank">
                                 <img src="/images/icons/gray/link.svg" />
-                                <span class="label">{{artist.websiteName}}</span>
+                                <span class="label">Official Website</span>
                             </a>
                         </li>
                     {{/if}}
@@ -41,9 +43,9 @@
             </div>
 
             <div class="content">
-                <list-track track-id="143" is-first></list-track>
-                <list-track track-id="112"></list-track>
-                <list-track track-id="14"></list-track>
+                {{#tracks}}
+                    <list-track track-id="{{id}}"></list-track>
+                {{/tracks}}
             </div>
 
         </section>

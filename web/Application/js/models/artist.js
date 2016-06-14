@@ -2,8 +2,6 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
   
-import { parseUrl } from '../url/parse'
-
 export class Artist {
   /**
    *
@@ -47,13 +45,5 @@ export class Artist {
    */
   get twitterUrl () {
     return `https://twitter.com/${this.twitter}`
-  }
-
-  /**
-   * 
-   * @returns {string}
-   */
-  get websiteName () {
-    return parseUrl(this.website).host
   }
 }

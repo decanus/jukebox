@@ -15,6 +15,21 @@ export function fetchSearch (query, page = 1) {
 }
 
 /**
+ *
+ * @param {number} artistId
+ * @returns {Promise}
+ */
+export async function fetchArtistTracks (artistId) {
+  const resp = await _fetch('/artist-tracks', [ [ 'artistId', artistId ] ])
+
+  if (!resp) {
+    return []
+  }
+
+  return resp.results
+}
+
+/**
  * @param {string} path
  */
 export function resolvePath (path) {

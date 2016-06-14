@@ -24,8 +24,8 @@ export class ListTrack extends HTMLElement {
     var _this = this
 
     let sub = app.player.getTrack().subscribe({
-      next (track) {
-        _this.active = (track.id === _this.track.id)
+      async next (track) {
+        _this.active = (track.id === (await _this.track).id)
       },
       complete () {
         subscription.delete(_this)
