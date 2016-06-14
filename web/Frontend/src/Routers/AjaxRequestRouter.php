@@ -30,6 +30,8 @@ namespace Jukebox\Frontend\Routers
                     return $this->factory->createAjaxSearchController(new ControllerParameterObject($uri));
                 case '/apr/resolve':
                     return $this->factory->createResolveController(new ControllerParameterObject($uri));
+                case '/apr/artist-tracks':
+                    return $this->factory->createArtistTracksController(new ControllerParameterObject($uri));
             }
 
             throw new \InvalidArgumentException('No ajax route found');
