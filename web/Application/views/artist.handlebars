@@ -1,10 +1,8 @@
-<header class="artist-banner"></header>
-
 <div class="page-content">
 
     <div class="container">
 
-        <section class="profile-layout">
+        <section class="profile-layout _margin-bottom-20">
 
             <div class="sidebar"></div>
 
@@ -15,7 +13,38 @@
                 </div>
             </div>
 
-            <div class="sidebar"></div>
+        </section>
+
+        <section class="profile-layout">
+
+            <div class="sidebar">
+                <ul class="profile-social-links">
+                    {{#if artist.website}}
+                        <li class="link">
+                            <a href="{{artist.website}}" class="profile-social-link" rel="nofollow" target="_blank">
+                                <img src="/images/icons/gray/link.svg" />
+                                <span class="label">{{artist.websiteName}}</span>
+                            </a>
+                        </li>
+                    {{/if}}
+
+                    {{#if artist.twitter}}
+                        <li class="link">
+                            <a href="{{artist.twitterUrl}}" class="profile-social-link" rel="nofollow" target="_blank">
+                                <img src="/images/icons/gray/twitter.svg" />
+                                <span class="label">@{{artist.twitter}}</span>
+                            </a>
+                        </li>
+                    {{/if}}
+                </ul>
+
+            </div>
+
+            <div class="content">
+                <list-track track-id="143" is-first></list-track>
+                <list-track track-id="112"></list-track>
+                <list-track track-id="14"></list-track>
+            </div>
 
         </section>
 
