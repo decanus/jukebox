@@ -5,17 +5,34 @@
 import { Page } from './page'
 import { SearchView } from './search-view'
 import { StaticView } from './static-view'
+import { resolvePath } from '../apr/apr'
+import { app } from '../app'
 
 /**
  * @typedef {{ fetch: (function(): Promise<Page>), handle: (function(Page) ) }} View
  */
 
 /**
+ * 
+ * @param path
+ * @returns {{ type: string, id: number }|null}
+ */
+async function resolveSpecial (path) {
+  const resolved = await resolvePath(path)
+
+  if (resolved.status === 404) {
+    return null
+  }
+
+  return app.modelRepository.add(resolved)
+}
+
+/**
  *
  * @param {Route} route
  * @returns {View}
  */
-export function resolveView (route) {
+export async function resolveView (route) {
   switch (route.path) {
     case '/':
       return StaticView(new Page({ title: 'Jukebox Ninja - Home', template: 'homepage' }))
@@ -29,6 +46,12 @@ export function resolveView (route) {
 
   if (route.pathParts[ 0 ] === 'search') {
     return SearchView(route.params[ 'q' ] || '')
+  }
+
+  const special = await resolveSpecial(route.path)
+
+  if (special) {
+    // TODO: do something with special
   }
 
   return StaticView(new Page({

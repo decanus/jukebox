@@ -15,7 +15,7 @@ import { sendException } from '../app/analytics'
  * @param {Page} page
  * @returns {Promise}
  */
-function render($element, page) {
+function render ($element, page) {
   $element.ownerDocument.title = page.title
   $element.innerHTML = ''
 
@@ -30,40 +30,39 @@ const cleanup = new WeakMap()
 const activeView = new WeakMap()
 
 export class JukeboxApp extends HTMLElement {
-  
-  createdCallback() {
-    app.getRoute().forEach((route) => {
-      const view = resolveView(route)
+
+  createdCallback () {
+    app.getRoute().forEach(async (route) => {
+      const view = await resolveView(route)
 
       activeView.set(this, view)
       this.innerHTML = '<div class="loading-animation -center"></div>'
 
-      view.fetch()
-        .then((page) => {
-          const active = activeView.get(this)
-          
-          if (active !== view && active !== undefined) {
-            return
-          }
+      const page = await view.fetch()
 
-          if (cleanup.has(this)) {
-            // call cleanup function from previous view
-            cleanup.get(this)()
-          }
-          
-          cleanup.set(this, view.handle(page))
-          render(this, page)
-        })
-        .catch((error) => {
+      try {
+        const active = activeView.get(this)
 
-          if (app.getCurrentRoute().path === '/error') {
-            return
-          }
+        if (active !== view && active !== undefined) {
+          return
+        }
 
-          app.setRoute(new Route('/error'), { silent: true })
+        if (cleanup.has(this)) {
+          // call cleanup function from previous view
+          cleanup.get(this)()
+        }
 
-          sendException(error)
-        })
+        cleanup.set(this, view.handle(page))
+        render(this, page)
+      } catch (error) {
+        if (app.getCurrentRoute().path === '/error') {
+          return
+        }
+
+        app.setRoute(new Route('/error'), { silent: true })
+
+        sendException(error)
+      }
     })
   }
 }
