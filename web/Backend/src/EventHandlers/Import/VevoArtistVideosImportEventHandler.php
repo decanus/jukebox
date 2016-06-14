@@ -108,10 +108,16 @@ namespace Jukebox\Backend\EventHandlers\Import
                     return;
                 }
 
+                $videoFragment = $video['urlSafeTitle'];
+
+                if ($videoFragment === '') {
+                    $videoFragment = $video['isrc'];
+                }
+
                 $permalink = '';
                 foreach ($video['artists'] as $artist) {
                     if ($artist['role'] === 'Main') {
-                        $permalink = preg_replace('/[^A-Za-z0-9 \- \/ ]/', '', strtolower('/' . $artist['urlSafeName'] . '/' . $video['urlSafeTitle']));
+                        $permalink = preg_replace('/[^A-Za-z0-9 \- \/ ]/', '', strtolower('/' . $artist['urlSafeName'] . '/' . $videoFragment));
                         $permalink = str_replace(' ', '', $permalink);
                         break;
                     }
