@@ -21,14 +21,17 @@
 </head>
 <body class="app-layout">
 
-<div class="header">
+<div class="header" itemscope="" itemtype="http://schema.org/WebSite">
     <header class="app-header">
         <a href="/" is="jukebox-link" class="logo">
             <img src="/images/logo.svg" alt="Jukebox Ninja" />
         </a>
 
-        <div class="search">
-            <input type="text" is="search-field" class="search-field" placeholder="Search ..." />
+        <meta itemprop="url" content="https://www.jukebox.ninja/"/>
+
+        <div class="search" itemprop="potentialAction" itemscope="" itemtype="http://schema.org/SearchAction">
+            <meta itemprop="target" content="https://www.jukebox.ninja/search?q={q}" />
+            <input type="text" is="search-field" class="search-field" placeholder="Search ..." name="q" itemprop="query-input" />
         </div>
 
         <button class="button" is="toggle-sidebar" hidden="hidden">

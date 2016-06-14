@@ -19,5 +19,10 @@ namespace Jukebox\Frontend\Factories
         {
             return new \Jukebox\Frontend\Transformations\TwitterCardTagsTransformation;
         }
+
+        public function createMetaTagsTransformation(): \Jukebox\Frontend\Transformations\MetaTagsTransformation
+        {
+            return new \Jukebox\Frontend\Transformations\MetaTagsTransformation;
+        }
     }
 }
