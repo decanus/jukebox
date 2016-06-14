@@ -8,8 +8,8 @@ import { renderTemplate } from '../render-template'
 const subscription = new WeakMap()
 
 export class ListTrack extends HTMLElement {
-  createdCallback () {
-    const track = this.track
+  async createdCallback () {
+    const track = await this.track
     const currentTrack = app.player.getCurrentTrack()
 
     this.appendChild(renderTemplate('partials/list-track', this.ownerDocument, track))
@@ -53,10 +53,10 @@ export class ListTrack extends HTMLElement {
 
   /**
    *
-   * @returns {Track}
+   * @returns {Promise<Track>}
    */
   get track () {
-    return app.getModelStore().getTrack(Number.parseInt(this.trackId))
+    return app.modelRepository.getTrack(Number.parseInt(this.trackId))
   }
 
   /**
