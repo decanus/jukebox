@@ -17,14 +17,12 @@ export function SearchView (query) {
   return {
     /**
      *
-     * @returns {Promise<Page>}
+     * @returns {Page}
      */
-    fetch () {
-      return app.modelRepository
-        .getResult(query)
-        .then((result) => {
-          return new Page({ title: 'Jukebox Ninja - Search', template: 'search', data: result })
-        })
+    async fetch () {
+      const result = await app.modelRepository.getResult(query)
+
+      return new Page({ title: 'Jukebox Ninja - Search', template: 'search', data: result })
     },
     /**
      *
