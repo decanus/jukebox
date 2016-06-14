@@ -2,15 +2,15 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { stringify, parse } from '../../node_modules/query-string/index'
+import { buildQuery, parseQuery } from '../url/query'
 
 export class Route {
   /**
    *
    * @param {string} path
-   * @param {{}} params
+   * @param {Map} params
    */
-  constructor (path, params = {}) {
+  constructor (path, params = new Map()) {
     this.path = path
     this.params = params
 
@@ -30,7 +30,7 @@ export class Route {
    * @returns {string}
    */
   toString () {
-    const query = stringify(this.params)
+    const query = buildQuery(this.params)
     const path = this.path
 
     if (query.length > 0) {
@@ -55,6 +55,6 @@ export class Route {
    * @returns {Route}
    */
   static fromLocation (location) {
-    return new Route(location.pathname, parse(location.search))
+    return new Route(location.pathname, parseQuery(location.search))
   }
 }

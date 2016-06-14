@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   app.getRoute().forEach(trackPageView)
 })
 
-app.getPlayer()
+app.player
   .getTrack()
   .forEach((track) => sendPlayTrack(track))
 
@@ -38,4 +38,7 @@ getInterval(180000)
     app.modelRepository.cleanup()
   })
 
-window.repository = app.modelRepository
+//noinspection JSUnresolvedVariable
+if (process.env.JUKEBOX_ENV !== 'production') {
+  window.__$app = app
+}

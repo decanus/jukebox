@@ -169,6 +169,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                     '(Lyric Video/Live)',
                     '[Lyric Video]',
                     '[Official Lyric Video]',
+                    '(Live)',
                     'Lyric video',
                     '[PARENTAL ADVISORY]',
                     '[]',

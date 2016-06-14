@@ -44,7 +44,7 @@ namespace Jukebox\Frontend\Models
 
         public function getMetaDescription(): string
         {
-            return 'Jukebox Ninja - Listen to great artists like ' . $this->artist['title'];
+            return 'Jukebox Ninja - Listen to great artists like ' . $this->artist['name'];
         }
     }
 }

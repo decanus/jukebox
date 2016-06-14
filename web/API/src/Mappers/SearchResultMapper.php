@@ -29,7 +29,7 @@ namespace Jukebox\API\Mappers
                 $response['pagination'] = $searchResult->getPagination();
             }
 
-            $response['results'] =$result;
+            $response['results'] = $result;
 
             return $response;
         }

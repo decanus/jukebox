@@ -115,5 +115,19 @@ namespace Jukebox\Frontend\Factories
                 new JsonResponse
             );
         }
+
+        public function createArtistTracksController(ControllerParameterObject $parameterObject): GetController
+        {
+            return new GetController(
+                new AjaxModel($parameterObject->getUri()),
+                $this->getMasterFactory()->createPreHandler(),
+                $this->getMasterFactory()->createCommandHandler(),
+                $this->getMasterFactory()->createArtistTracksQueryHandler(),
+                $this->getMasterFactory()->createAjaxTransformationHandler(),
+                $this->getMasterFactory()->createResponseHandler(),
+                $this->getMasterFactory()->createPostHandler(),
+                new JsonResponse
+            );
+        }
     }
 }

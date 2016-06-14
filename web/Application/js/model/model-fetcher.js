@@ -2,7 +2,7 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { fetchSearch } from '../apr/apr'
+import { fetchSearch } from '../app/apr'
 
 export class ModelFetcher {
   /**

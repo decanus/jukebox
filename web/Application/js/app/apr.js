@@ -2,7 +2,7 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { buildQuery } from '../url/build-query'
+import { buildQuery } from '../url/query'
 
 /**
  *
@@ -12,6 +12,21 @@ import { buildQuery } from '../url/build-query'
  */
 export function fetchSearch (query, page = 1) {
   return _fetch('/search', [ [ 'query', query ], [ 'page', page ] ])
+}
+
+/**
+ *
+ * @param {number} artistId
+ * @returns {Promise}
+ */
+export async function fetchArtistTracks (artistId) {
+  const resp = await _fetch('/artist-tracks', [ [ 'artistId', artistId ] ])
+
+  if (!resp) {
+    return []
+  }
+
+  return resp.results
 }
 
 /**

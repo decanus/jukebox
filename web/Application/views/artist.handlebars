@@ -1,0 +1,56 @@
+<div class="page-content">
+
+    <div class="container">
+
+        <section class="profile-layout">
+
+            <div class="sidebar"></div>
+
+            <div class="content">
+                <div class="profile-title">
+                    <div class="title">{{artist.name}}</div>
+                    <div class="label">Artist</div>
+                </div>
+            </div>
+
+        </section>
+
+        <div class="_margin-bottom-40"></div>
+
+        <section class="profile-layout">
+
+            <div class="sidebar">
+                <ul class="profile-social-links">
+                    {{#if artist.website}}
+                        <li class="link">
+                            <a href="{{artist.website}}" class="profile-social-link" rel="nofollow" target="_blank">
+                                <img src="/images/icons/gray/link.svg" />
+                                <span class="label">Official Website</span>
+                            </a>
+                        </li>
+                    {{/if}}
+
+                    {{#if artist.twitter}}
+                        <li class="link">
+                            <a href="{{artist.twitterUrl}}" class="profile-social-link" rel="nofollow" target="_blank">
+                                <img src="/images/icons/gray/twitter.svg" />
+                                <span class="label">@{{artist.twitter}}</span>
+                            </a>
+                        </li>
+                    {{/if}}
+                </ul>
+
+            </div>
+
+            <div class="content">
+                {{#tracks}}
+                    <list-track track-id="{{id}}"></list-track>
+                {{/tracks}}
+            </div>
+
+        </section>
+
+    </div>
+
+
+</div>

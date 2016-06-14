@@ -5,7 +5,8 @@
 import { Page } from './page'
 import { SearchView } from './search-view'
 import { StaticView } from './static-view'
-import { resolvePath } from '../apr/apr'
+import { ArtistView } from './artist-view'
+import { resolvePath } from '../app/apr'
 import { app } from '../app'
 
 /**
@@ -15,7 +16,7 @@ import { app } from '../app'
 /**
  * 
  * @param path
- * @returns {{ type: string, id: number }|null}
+ * @returns {View|null}
  */
 async function resolveSpecial (path) {
   const resolved = await resolvePath(path)
@@ -24,7 +25,42 @@ async function resolveSpecial (path) {
     return null
   }
 
-  return app.modelRepository.add(resolved)
+  const model = app.modelRepository.add(resolved)
+  
+  return getSpecialView(model)
+}
+
+/**
+ *
+ * @param {{ id: number, type: string }} model
+ * @returns {View}
+ */
+function getSpecialView (model) {
+  switch (model.type) {
+    case 'artists':
+      return ArtistView(model.id)
+    case 'tracks':
+      return null
+  }
+
+  throw new Error(`no route for model with type ${model.type}`)
+}
+
+/**
+ *
+ * @param {Route} route
+ * @returns {View}
+ */
+function resolveCached (route) {
+  const cache = app.resolveCache
+  const path = route.path
+
+  if (!cache.has(path)) {
+    //noinspection JSValidateTypes
+    return
+  }
+
+  return getSpecialView(cache.get(path))
 }
 
 /**
@@ -33,6 +69,12 @@ async function resolveSpecial (path) {
  * @returns {View}
  */
 export async function resolveView (route) {
+  const cached = resolveCached(route)
+
+  if (cached) {
+    return cached
+  }
+
   switch (route.path) {
     case '/':
       return StaticView(new Page({ title: 'Jukebox Ninja - Home', template: 'homepage' }))
@@ -45,13 +87,13 @@ export async function resolveView (route) {
   }
 
   if (route.pathParts[ 0 ] === 'search') {
-    return SearchView(route.params[ 'q' ] || '')
+    return SearchView(route.params.get('q') || '')
   }
 
   const special = await resolveSpecial(route.path)
 
   if (special) {
-    // TODO: do something with special
+    return special
   }
 
   return StaticView(new Page({

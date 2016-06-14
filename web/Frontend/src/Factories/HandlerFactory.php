@@ -147,6 +147,13 @@ namespace Jukebox\Frontend\Factories
             return new \Jukebox\Frontend\Handlers\Get\Ajax\Resolve\TransformationHandler;
         }
 
+        public function createArtistTracksQueryHandler(): \Jukebox\Frontend\Handlers\Get\Ajax\ArtistTracks\QueryHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Get\Ajax\ArtistTracks\QueryHandler(
+                $this->getMasterFactory()->createJukeboxRestManager()
+            );
+        }
+
         /**
          * @return fDOMDocument
          */

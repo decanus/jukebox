@@ -20,7 +20,7 @@ export function SearchView (query) {
      * @returns {Page}
      */
     async fetch () {
-      const result = await app.modelRepository.getResults(query)
+      const result = await app.modelRepository.getResult(query)
 
       return new Page({ title: 'Jukebox Ninja - Search', template: 'search', data: result })
     },
