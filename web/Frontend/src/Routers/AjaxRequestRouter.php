@@ -28,7 +28,7 @@ namespace Jukebox\Frontend\Routers
             switch ($uri->getPath()) {
                 case '/apr/search':
                     return $this->factory->createAjaxSearchController(new ControllerParameterObject($uri));
-                case '/resolve':
+                case '/apr/resolve':
                     return $this->factory->createResolveController(new ControllerParameterObject($uri));
             }
 
