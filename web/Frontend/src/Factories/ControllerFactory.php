@@ -101,5 +101,19 @@ namespace Jukebox\Frontend\Factories
                 new HtmlResponse
             );
         }
+
+        public function createResolveController(ControllerParameterObject $parameterObject): GetController
+        {
+            return new GetController(
+                new AjaxModel($parameterObject->getUri()),
+                $this->getMasterFactory()->createPreHandler(),
+                $this->getMasterFactory()->createCommandHandler(),
+                $this->getMasterFactory()->createResolveQueryHandler(),
+                $this->getMasterFactory()->createAjaxTransformationHandler(),
+                $this->getMasterFactory()->createResponseHandler(),
+                $this->getMasterFactory()->createPostHandler(),
+                new JsonResponse()
+            );
+        }
     }
 }

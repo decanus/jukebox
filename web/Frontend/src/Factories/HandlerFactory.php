@@ -134,6 +134,14 @@ namespace Jukebox\Frontend\Factories
             );
         }
 
+        public function createResolveQueryHandler(): \Jukebox\Frontend\Handlers\Get\Ajax\Resolve\QueryHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Get\Ajax\Resolve\QueryHandler(
+                $this->getMasterFactory()->createDataPoolReader(),
+                $this->getMasterFactory()->createJukeboxRestManager()
+            );
+        }
+
         /**
          * @return fDOMDocument
          */
