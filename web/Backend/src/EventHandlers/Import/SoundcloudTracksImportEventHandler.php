@@ -72,6 +72,8 @@ namespace Jukebox\Backend\EventHandlers\Import
                             }
                         }
 
+                        // @todo move into MapReduce
+
                         // @todo check if track is track to insert new source
                         if ($artistTrack['title'] === $track['title']) {
                             // @todo handle

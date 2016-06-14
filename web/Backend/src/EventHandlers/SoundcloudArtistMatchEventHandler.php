@@ -83,25 +83,27 @@ namespace Jukebox\Backend\EventHandlers
                         continue;
                     }
 
-                    similar_text(str_replace(['www.', '/'], '', $result['website']), str_replace(['www.', '/'], '', $artist['official_website']), $websiteSimilarity);
-                    if ($websiteSimilarity === 100) {
-                        $this->updateArtistSoundcloudIdCommand->execute($artistId, $result['id']);
-                        return;
-                    }
+                    // @todo move into MapReduce
 
-                    similar_text($result['website'], $artist['official_website'], $websiteSimilarity);
-                    similar_text(strtolower($result['username']), strtolower($artist['name']), $nameMatch);
-
-                    if (($websiteSimilarity + $nameMatch) / 2 >= 90) {
-                        $this->updateArtistSoundcloudIdCommand->execute($artistId, $result['id']);
-                        return;
-                    }
-
-                    similar_text(strtolower($result['username']), strtolower($artist['name'] . 'music'), $extendedNameMatch);
-                    if (($websiteSimilarity + $extendedNameMatch) / 2 >= 90) {
-                        $this->updateArtistSoundcloudIdCommand->execute($artistId, $result['id']);
-                        return;
-                    }
+//                    similar_text(str_replace(['www.', '/'], '', $result['website']), str_replace(['www.', '/'], '', $artist['official_website']), $websiteSimilarity);
+//                    if ($websiteSimilarity === 100) {
+//                        $this->updateArtistSoundcloudIdCommand->execute($artistId, $result['id']);
+//                        return;
+//                    }
+//
+//                    similar_text($result['website'], $artist['official_website'], $websiteSimilarity);
+//                    similar_text(strtolower($result['username']), strtolower($artist['name']), $nameMatch);
+//
+//                    if (($websiteSimilarity + $nameMatch) / 2 >= 90) {
+//                        $this->updateArtistSoundcloudIdCommand->execute($artistId, $result['id']);
+//                        return;
+//                    }
+//
+//                    similar_text(strtolower($result['username']), strtolower($artist['name'] . 'music'), $extendedNameMatch);
+//                    if (($websiteSimilarity + $extendedNameMatch) / 2 >= 90) {
+//                        $this->updateArtistSoundcloudIdCommand->execute($artistId, $result['id']);
+//                        return;
+//                    }
                 }
             } catch (\Throwable $e) {
                 $this->getLogger()->critical($e);
