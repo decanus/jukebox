@@ -15,6 +15,13 @@ export function fetchSearch (query, page = 1) {
 }
 
 /**
+ * @param {string} path
+ */
+export function resolvePath (path) {
+  return _fetch('/resolve', [ [ 'path', path ] ])
+}
+
+/**
  *
  * @param {string} path
  * @param {Array<Array<string>>} queryParams

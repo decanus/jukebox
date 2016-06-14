@@ -6,11 +6,44 @@ import { Page } from './page'
 import { SearchView } from './search-view'
 import { StaticView } from './static-view'
 import { ArtistView } from './artist-view'
+import { resolvePath } from '../app/apr'
 import { app } from '../app'
 
 /**
  * @typedef {{ fetch: (function(): Promise<Page>), handle: (function(Page) ) }} View
  */
+
+/**
+ * 
+ * @param path
+ * @returns {{ type: string, id: number }|null}
+ */
+async function resolveSpecial (path) {
+  const resolved = await resolvePath(path)
+
+  if (resolved.status === 404) {
+    return null
+  }
+
+  const model = app.modelRepository.add(resolved)
+  
+  return getSpecialView(model)
+}
+
+/**
+ *
+ * @param {{ id: number, type: string }} model
+ */
+function getSpecialView (model) {
+  switch (model.type) {
+    case 'artists':
+      return ArtistView(model.id)
+    case 'tracks':
+      return null
+  }
+
+  throw new Error(`no route for model with type ${model.type}`)
+}
 
 /**
  *
@@ -26,14 +59,7 @@ function resolveCached (route) {
     return
   }
 
-  const cached = cache.get(path)
-
-  switch (cached.type) {
-    case 'artists':
-      return ArtistView(cached.id)
-    case 'tracks':
-      // TODO
-  }
+  return getSpecialView(cache.get(path))
 }
 
 /**
@@ -41,7 +67,7 @@ function resolveCached (route) {
  * @param {Route} route
  * @returns {View}
  */
-export function resolveView (route) {
+export async function resolveView (route) {
   const cached = resolveCached(route)
 
   if (cached) {
@@ -61,6 +87,12 @@ export function resolveView (route) {
 
   if (route.pathParts[ 0 ] === 'search') {
     return SearchView(route.params.get('q') || '')
+  }
+
+  const special = await resolveSpecial(route.path)
+
+  if (special) {
+    // TODO: do something with special
   }
 
   return StaticView(new Page({
