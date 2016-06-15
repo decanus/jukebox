@@ -60,9 +60,15 @@ namespace Jukebox\Backend\Commands
 
                 foreach ($genres as $genre) {
                     try {
+                        $genre = $database->fetch('SELECT id FROM genres WHERE name = :name', [':name' => $genre]);
+
+                        if (!$genre) {
+                            continue;
+                        }
+
                         $database->insert(
                             'INSERT INTO track_genres (track, genre) VALUES(:track, (SELECT id FROM genres WHERE name = :name))',
-                            [':track' => $trackId, ':name' => $genre]
+                            [':track' => $trackId, ':name' => $genre['id']]
                         );
                     } catch (\Throwable $e) {
                         continue;
@@ -71,9 +77,14 @@ namespace Jukebox\Backend\Commands
 
                 foreach ($artists as $artist) {
                     try {
+                        $artistId = $database->fetch('SELECT id FROM artists WHERE vevo_id = :artist', [':artist' => $artist['vevo_id']]);
+                        if (!$artistId) {
+                            continue;
+                        }
+
                         $database->insert(
-                            'INSERT INTO track_artists (artist, track, role) VALUES ((SELECT id FROM artists WHERE vevo_id = :artist), :track, :role)',
-                            [':artist' => $artist['vevo_id'], ':track' => $trackId, ':role' => (string) $artist['role']]
+                            'INSERT INTO track_artists (artist, track, role) VALUES (:artist, :track, :role)',
+                            [':artist' => $artistId, ':track' => $trackId, ':role' => (string) $artist['role']]
                         );
                     } catch (\Throwable $e) {
                         continue;
