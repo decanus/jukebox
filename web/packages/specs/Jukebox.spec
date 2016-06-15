@@ -94,5 +94,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_wwwDir}Frontend/*
 
 %post
+
+ln -s /var/www/CDN/artists /var/www/Frontend/html/images/artists
+
 service crond restart
 service supervisord restart
