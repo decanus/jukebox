@@ -84,7 +84,7 @@ namespace Jukebox\Backend\Commands
 
                         $database->insert(
                             'INSERT INTO track_artists (artist, track, role) VALUES (:artist, :track, :role)',
-                            [':artist' => $artistId, ':track' => $trackId, ':role' => (string) $artist['role']]
+                            [':artist' => $artistId['id'], ':track' => $trackId, ':role' => (string) $artist['role']]
                         );
                     } catch (\Throwable $e) {
                         continue;
