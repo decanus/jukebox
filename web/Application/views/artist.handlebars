@@ -4,22 +4,10 @@
 
         <section class="profile-layout">
 
-            <div class="sidebar"></div>
-
-            <div class="content">
-                <div class="profile-title">
-                    <div class="title">{{artist.name}}</div>
-                    <div class="label">Artist</div>
-                </div>
-            </div>
-
-        </section>
-
-        <div class="_margin-bottom-40"></div>
-
-        <section class="profile-layout">
-
             <div class="sidebar">
+
+                <div class="profile-image" style="background-image: url('{{artist.imageUrl}}')"></div>
+
                 <ul class="profile-social-links">
                     {{#if artist.website}}
                         <li class="link">
@@ -43,6 +31,12 @@
             </div>
 
             <div class="content">
+
+                <div class="profile-title _margin-bottom-20">
+                    <div class="title">{{artist.name}}</div>
+                    <div class="label">Artist</div>
+                </div>
+
                 {{#tracks}}
                     <list-track track-id="{{id}}"></list-track>
                 {{/tracks}}
