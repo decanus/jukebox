@@ -171,6 +171,7 @@ namespace Jukebox\Backend\EventHandlers\Import
             $filename = array_pop($sliced);
             $image->resizeImage($newWidth, $newHeight, Imagick::FILTER_LANCZOS, 1);
             $image->writeImage('/var/www/CDN/artists/' . $filename);
+            $image->clear();
 
             return $filename;
         }
