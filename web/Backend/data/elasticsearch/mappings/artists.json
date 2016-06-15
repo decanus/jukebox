@@ -19,7 +19,8 @@
       "facebook": {"type": "string", "index": "no"},
       "itunes": {"type": "string", "index": "no"},
       "amazon": {"type": "string", "index": "no"},
-      "permalink": {"type": "string", "index": "no"}
+      "permalink": {"type": "string", "index": "no"},
+      "image": {"type": "string", "index": "no"}
     }
   }
 }
