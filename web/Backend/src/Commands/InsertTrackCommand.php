@@ -4,10 +4,14 @@ namespace Jukebox\Backend\Commands
 {
 
     use Jukebox\Backend\DataObjects\Track;
+    use Jukebox\Framework\Logging\LoggerAware;
+    use Jukebox\Framework\Logging\LoggerAwareTrait;
     use Jukebox\Framework\ValueObjects\PostgresBool;
 
-    class InsertTrackCommand extends AbstractDatabaseBackendCommand
+    class InsertTrackCommand extends AbstractDatabaseBackendCommand implements LoggerAware
     {
+        use LoggerAwareTrait;
+
         public function execute(Track $track, array $sources = [], array $genres = [], array $artists = []): bool
         {
             try {
@@ -78,6 +82,7 @@ namespace Jukebox\Backend\Commands
 
                 $database->commit();
             } catch (\Throwable $e) {
+                $this->getLogger()->critical($e);
                 $this->getDatabaseBackend()->rollBack();
                 return false;
             }
