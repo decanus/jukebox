@@ -87,9 +87,6 @@ export class Application {
      * @deprecated
      */
     this._modelLoader = this._modelRepository._loader
-
-    // todo: change this
-    this.getRoute().forEach((route) => (this._route = route))
   }
 
   /**
@@ -132,6 +129,7 @@ export class Application {
    * @param {boolean} silent
    */
   setRoute(route, { replace = false, silent = false } = {}) {
+    this._route = route
     this._emitter.emit('route', route)
 
     if (!silent) {
