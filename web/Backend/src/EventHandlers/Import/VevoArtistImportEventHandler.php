@@ -124,6 +124,12 @@ namespace Jukebox\Backend\EventHandlers\Import
                     $image = null;
                 }
 
+                $permalink = strtolower('/' . $artist['urlSafeName']);
+
+                if ($permalink === '/search') {
+                    $permalink .= '-art';
+                }
+
                 $result = $this->insertArtistCommand->execute(
                     $artist['name'],
                     $artist['urlSafeName'],
@@ -132,7 +138,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                     $facebook,
                     $itunes,
                     $amazon,
-                    strtolower('/' . $artist['urlSafeName']),
+                    $permalink,
                     $image
                 );
                 
