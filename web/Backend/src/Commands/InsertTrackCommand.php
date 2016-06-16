@@ -67,7 +67,7 @@ namespace Jukebox\Backend\Commands
 
                     $database->insert(
                         'INSERT INTO track_genres (track, genre) VALUES(:track, :id)',
-                        [':track' => $trackId, ':name' => $genre['id']]
+                        [':track' => $trackId, ':id' => $genre['id']]
                     );
                 }
 
