@@ -37,6 +37,12 @@ export class AppView extends HTMLElement {
       const view = View(this.data)
 
       const page = await view.fetch()
+      
+      // the user might have already navigated away at this point,
+      // so let's check if we're still attached to the dom
+      if (!this.parentNode) {
+        return
+      }
 
       cleanup.set(this, view.handle(page))
 
