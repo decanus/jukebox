@@ -59,36 +59,28 @@ namespace Jukebox\Backend\Commands
                 }
 
                 foreach ($genres as $genre) {
-                    try {
-                        $genre = $database->fetch('SELECT id FROM genres WHERE name = :name', [':name' => $genre]);
+                    $genre = $database->fetch('SELECT id FROM genres WHERE name = :name', [':name' => $genre]);
 
-                        if (!$genre) {
-                            continue;
-                        }
-
-                        $database->insert(
-                            'INSERT INTO track_genres (track, genre) VALUES(:track, (SELECT id FROM genres WHERE name = :name))',
-                            [':track' => $trackId, ':name' => $genre['id']]
-                        );
-                    } catch (\Throwable $e) {
+                    if (!$genre) {
                         continue;
                     }
+
+                    $database->insert(
+                        'INSERT INTO track_genres (track, genre) VALUES(:track, :id)',
+                        [':track' => $trackId, ':id' => $genre['id']]
+                    );
                 }
 
                 foreach ($artists as $artist) {
-                    try {
-                        $artistId = $database->fetch('SELECT id FROM artists WHERE vevo_id = :artist', [':artist' => $artist['vevo_id']]);
-                        if (!$artistId) {
-                            continue;
-                        }
-
-                        $database->insert(
-                            'INSERT INTO track_artists (artist, track, role) VALUES (:artist, :track, :role)',
-                            [':artist' => $artistId['id'], ':track' => $trackId, ':role' => (string) $artist['role']]
-                        );
-                    } catch (\Throwable $e) {
+                    $artistId = $database->fetch('SELECT id FROM artists WHERE vevo_id = :artist', [':artist' => $artist['vevo_id']]);
+                    if (!$artistId) {
                         continue;
                     }
+
+                    $database->insert(
+                        'INSERT INTO track_artists (artist, track, role) VALUES (:artist, :track, :role)',
+                        [':artist' => $artistId['id'], ':track' => $trackId, ':role' => (string) $artist['role']]
+                    );
                 }
 
                 $result = $database->commit();

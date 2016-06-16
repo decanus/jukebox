@@ -146,6 +146,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                 $replace = [
                     '[Official Video]',
                     '[Audio]',
+                    '[audio]',
                     '(Audio)',
                     '(AUDIO)',
                     '(audio)',
@@ -161,6 +162,8 @@ namespace Jukebox\Backend\EventHandlers\Import
                     '(Official Lyric Video)',
                     '(Official Music Video)',
                     '(Official Pseudo Video)',
+                    '(Audio Only)',
+                    '[Official]',
                     'Clip officiel)',
                     '(LYRIC VIDEO)',
                     '(lyric)',
