@@ -37,9 +37,7 @@
                     <div class="label">Artist</div>
                 </div>
 
-                {{#tracks}}
-                    <list-track track-id="{{id}}"></list-track>
-                {{/tracks}}
+                <app-view name="artist-tracks" data="{{ json artist.id }}"></app-view>
             </div>
 
         </section>

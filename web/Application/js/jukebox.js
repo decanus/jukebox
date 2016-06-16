@@ -42,3 +42,8 @@ getInterval(180000)
 if (process.env.JUKEBOX_ENV !== 'production') {
   window.__$app = app
 }
+
+// todo: put this idk where
+Handlebars.registerHelper('json', function (context) {
+  return JSON.stringify(context)
+})

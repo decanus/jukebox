@@ -22,7 +22,7 @@ export function fetchSearch (query, page = 1) {
 export async function fetchArtistTracks (artistId) {
   const resp = await _fetch('/artist-tracks', [ [ 'artistId', artistId ] ])
 
-  if (!resp) {
+  if (resp.status === 404) {
     return []
   }
 
