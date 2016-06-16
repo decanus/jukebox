@@ -4,9 +4,21 @@
 
 import { app } from '../app'
 import { Route } from '../app/route'
+import { SharedPort } from '../shared/shared-port'
+import { StorageWrapper } from '../dom/storage'
 
 export class SearchField extends HTMLInputElement {
   createdCallback () {
+    const port = new SharedPort('queue', new StorageWrapper(window.localStorage))
+
+    port.listen((query) => {
+      this.value = query
+    })
+    
+    this.addEventListener('input', () => {
+      port.push(this.value)
+    })
+    
     this.addEventListener('keyup', (e) => {
       if (e.keyCode !== 13) {
         return
