@@ -10,26 +10,6 @@ import { Route } from '../../app/route'
 import { sendException } from '../../app/analytics'
 import { AppView } from '../../app/elements'
 
-/**
- *
- * @param $element
- * @param {Page} page
- * @returns {Promise}
- */
-function render ($element, page) {
-  $element.ownerDocument.title = page.title
-  $element.innerHTML = ''
-
-  const $html = renderTemplate(page.template, $element.ownerDocument, page.data)
-  $element.appendChild($html)
-}
-
-//
-// yep @brendaneich you fucked up
-//
-const cleanup = new WeakMap()
-const activeView = new WeakMap()
-
 export class AppMount extends HTMLElement {
 
   createdCallback () {
