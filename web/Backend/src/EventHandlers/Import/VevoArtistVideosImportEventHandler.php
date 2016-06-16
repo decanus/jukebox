@@ -221,7 +221,11 @@ namespace Jukebox\Backend\EventHandlers\Import
                     $genres = $video['genres'];
                 }
 
-                $this->insertTrackCommand->execute($track, $sources, $genres, $artists);
+                $result = $this->insertTrackCommand->execute($track, $sources, $genres, $artists);
+
+                if (!$result) {
+                    throw new \Exception('Importing track "' . $track->getTitle() . '" failed');
+                }
 
             } catch (\Throwable $e) {
                 $this->getLogger()->critical($e);

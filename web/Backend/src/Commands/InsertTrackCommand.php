@@ -19,37 +19,6 @@ namespace Jukebox\Backend\Commands
                 $database = $this->getDatabaseBackend();
 
                 // @todo: possible fix?
-
-                foreach ($genres as $key => $genre) {
-                    try {
-                        $genreId = $database->fetch('SELECT id FROM genres WHERE name = :name', [':name' => $genre]);
-
-                        if (!$genreId) {
-                            throw new \InvalidArgumentException('Genre "' . $genre . '" does not exist');
-                        }
-
-                        $genres[$key] = $genreId['id'];
-                    } catch (\Throwable $e) {
-                        unset($genres[$key]);
-                        continue;
-                    }
-                }
-
-                foreach ($artists as $key => $artist) {
-                    try {
-                        $artistId = $database->fetch('SELECT id FROM artists WHERE vevo_id = :artist', [':artist' => $artist['vevo_id']]);
-
-                        if (!$artistId) {
-                            throw new \InvalidArgumentException('Artist "' . $artist['vevo_id'] . '" does not exist');
-                        }
-
-                        $artist[$key]['id'] = $artistId['id'];
-                    } catch (\Throwable $e) {
-                        unset($artists[$key]);
-                        continue;
-                    }
-                }
-
                 while ($database->inTransaction()) {
                     sleep(1);
                 }
@@ -91,9 +60,15 @@ namespace Jukebox\Backend\Commands
 
                 foreach ($genres as $genre) {
                     try {
+                        $genre = $database->fetch('SELECT id FROM genres WHERE name = :name', [':name' => $genre]);
+
+                        if (!$genre) {
+                            continue;
+                        }
+
                         $database->insert(
                             'INSERT INTO track_genres (track, genre) VALUES(:track, (SELECT id FROM genres WHERE name = :name))',
-                            [':track' => $trackId, ':name' => $genre]
+                            [':track' => $trackId, ':name' => $genre['id']]
                         );
                     } catch (\Throwable $e) {
                         continue;
@@ -102,16 +77,24 @@ namespace Jukebox\Backend\Commands
 
                 foreach ($artists as $artist) {
                     try {
+                        $artistId = $database->fetch('SELECT id FROM artists WHERE vevo_id = :artist', [':artist' => $artist['vevo_id']]);
+                        if (!$artistId) {
+                            continue;
+                        }
+
                         $database->insert(
                             'INSERT INTO track_artists (artist, track, role) VALUES (:artist, :track, :role)',
-                            [':artist' => $artist['id'], ':track' => $trackId, ':role' => (string) $artist['role']]
+                            [':artist' => $artistId['id'], ':track' => $trackId, ':role' => (string) $artist['role']]
                         );
                     } catch (\Throwable $e) {
                         continue;
                     }
                 }
 
-                $database->commit();
+                $result = $database->commit();
+                if (!$result) {
+                    throw new \Exception('Failed');
+                }
             } catch (\Throwable $e) {
                 $this->getLogger()->critical($e);
                 $this->getDatabaseBackend()->rollBack();
