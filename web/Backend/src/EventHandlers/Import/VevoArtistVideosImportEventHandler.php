@@ -79,7 +79,6 @@ namespace Jukebox\Backend\EventHandlers\Import
                 $this->vevo->getVideosForIds($this->videoIds, [$this, 'handleVideos']);
 
             } catch (\Throwable $e) {
-                var_dump($e);
                 $this->getLogger()->critical($e);
             }
         }
@@ -87,7 +86,6 @@ namespace Jukebox\Backend\EventHandlers\Import
         public function handleVideos(string $vevoId, Response $response)
         {
             if ($response->getResponseCode() !== 200) {
-                var_dump('not good');
                 return;
             }
 
