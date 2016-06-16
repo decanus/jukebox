@@ -127,7 +127,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                 $permalink = strtolower('/' . $artist['urlSafeName']);
 
                 if ($permalink === '/search') {
-                    $permalink .= '-art';
+                    $permalink .= '-official';
                 }
 
                 $result = $this->insertArtistCommand->execute(
