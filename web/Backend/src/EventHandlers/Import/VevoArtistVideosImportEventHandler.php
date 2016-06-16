@@ -146,6 +146,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                 $replace = [
                     '[Official Video]',
                     '[Audio]',
+                    '[audio]',
                     '(Audio)',
                     '(AUDIO)',
                     '(audio)',
