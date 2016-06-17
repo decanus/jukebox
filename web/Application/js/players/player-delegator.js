@@ -271,8 +271,14 @@ export class PlayerDelegator {
    * @param {number} volume
    */
   setVolume (volume) {
+    const player = this.getCurrentPlayer()
+
     this._volume = volume
-    this.getCurrentPlayer().setVolume(volume)
+
+    player
+      .ready()
+      .then(() => player.setVolume(volume))
+
     this._emitter.emit('volumeChange')
   }
 

@@ -11,6 +11,7 @@ import { trackPageView, sendPlayTrack } from './app/analytics'
 
 import './app/elements'
 import './app/media-keys'
+import './app/settings'
 
 window.addEventListener('popstate', () => {
   app.setRoute(Route.fromLocation(window.location))

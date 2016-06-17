@@ -12,7 +12,7 @@ export class StorageWrapper {
      *
      * @type {Storage}
      */
-    this._storage = storage;
+    this._storage = storage
   }
 
   /**
@@ -20,13 +20,9 @@ export class StorageWrapper {
    * @param {string} key
    */
   get (key) {
-    let item = this._storage.getItem(key);
+    let item = this._storage.getItem(key)
 
-    if (item === null) {
-      throw new Error(`key '${key}' not found in storage`);
-    }
-
-    return JSON.parse(item);
+    return JSON.parse(item)
   }
 
   /**
@@ -35,7 +31,7 @@ export class StorageWrapper {
    * @param {*} value
    */
   set (key, value) {
-    this._storage.setItem(key, JSON.stringify(value));
+    this._storage.setItem(key, JSON.stringify(value))
   }
 
   /**
@@ -43,7 +39,7 @@ export class StorageWrapper {
    * @param {string} key
    */
   remove (key) {
-    this._storage.removeItem(key);
+    this._storage.removeItem(key)
   }
 
   /**
@@ -53,15 +49,15 @@ export class StorageWrapper {
    */
   has (key) {
     try {
-      this.get(key);
-      return true;
+      this.get(key)
+      return true
     } catch (_) {
-      return false;
+      return false
     }
   }
 
   clear () {
-    this._storage.clear();
+    this._storage.clear()
   }
 
   /**
@@ -97,22 +93,6 @@ export class StorageWrapper {
    * @returns {number}
    */
   get size () {
-    return this[ native ].length;
+    return this[ native ].length
   }
-}
-
-/**
- *
- * @returns {StorageWrapper}
- */
-export function getLocalStorage () {
-  return new StorageWrapper(window.localStorage);
-}
-
-/**
- *
- * @returns {StorageWrapper}
- */
-export function getSessionStorage () {
-  return new StorageWrapper(window.sessionStorage);
 }
