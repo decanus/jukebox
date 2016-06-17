@@ -4,14 +4,23 @@ namespace Jukebox\Backend\Commands
 {
 
     use Jukebox\Backend\DataObjects\Track;
+    use Jukebox\Framework\Logging\LoggerAware;
+    use Jukebox\Framework\Logging\LoggerAwareTrait;
     use Jukebox\Framework\ValueObjects\PostgresBool;
 
-    class InsertTrackCommand extends AbstractDatabaseBackendCommand
+    class InsertTrackCommand extends AbstractDatabaseBackendCommand implements LoggerAware
     {
+        use LoggerAwareTrait;
+
         public function execute(Track $track, array $sources = [], array $genres = [], array $artists = []): bool
         {
             try {
                 $database = $this->getDatabaseBackend();
+
+                // @todo: possible fix?
+                while ($database->inTransaction()) {
+                    sleep(1);
+                }
 
                 $database->beginTransaction();
                 $result = $database->insert(
@@ -49,29 +58,36 @@ namespace Jukebox\Backend\Commands
                 }
 
                 foreach ($genres as $genre) {
-                    try {
-                        $database->insert(
-                            'INSERT INTO track_genres (track, genre) VALUES(:track, (SELECT id FROM genres WHERE name = :name))',
-                            [':track' => $trackId, ':name' => $genre]
-                        );
-                    } catch (\Throwable $e) {
+                    $genre = $database->fetch('SELECT id FROM genres WHERE name = :name', [':name' => $genre]);
+
+                    if (!$genre) {
                         continue;
                     }
+
+                    $database->insert(
+                        'INSERT INTO track_genres (track, genre) VALUES(:track, :id)',
+                        [':track' => $trackId, ':id' => $genre['id']]
+                    );
                 }
 
                 foreach ($artists as $artist) {
-                    try {
-                        $database->insert(
-                            'INSERT INTO track_artists (artist, track, role) VALUES ((SELECT id FROM artists WHERE vevo_id = :artist), :track, :role)',
-                            [':artist' => $artist['vevo_id'], ':track' => $trackId, ':role' => (string) $artist['role']]
-                        );
-                    } catch (\Throwable $e) {
+                    $artistId = $database->fetch('SELECT id FROM artists WHERE vevo_id = :artist', [':artist' => $artist['vevo_id']]);
+                    if (!$artistId) {
                         continue;
                     }
+
+                    $database->insert(
+                        'INSERT INTO track_artists (artist, track, role) VALUES (:artist, :track, :role)',
+                        [':artist' => $artistId['id'], ':track' => $trackId, ':role' => (string) $artist['role']]
+                    );
                 }
 
-                $database->commit();
+                $result = $database->commit();
+                if (!$result) {
+                    throw new \Exception('Failed');
+                }
             } catch (\Throwable $e) {
+                $this->getLogger()->critical($e);
                 $this->getDatabaseBackend()->rollBack();
                 return false;
             }

@@ -1,0 +1,46 @@
+<div class="search-result">
+    <div class="text">
+        <div class="title">
+            <a is="jukebox-link" href="{{permalink}}" class="label">{{title}}</a>
+
+
+            {{#isExplicit}}
+                <span class="item track-label -red">EXPLICIT</span>
+            {{/isExplicit}}
+
+            {{#isMusicVideo}}
+                <span class="item track-label">MUSIC VIDEO</span>
+            {{/isMusicVideo}}
+
+            {{#isLive}}
+                <span class="item track-label">LIVE</span>
+            {{/isLive}}
+        </div>
+
+        <div class="artists">
+            {{#artists}}
+
+                <span class="sep">{{#if isPrependComma}}, {{/if}}</span>
+
+                {{#if isMain}}
+                    <a is="jukebox-link" href="{{artist.permalink}}" class="artist">{{artist.name}}</a>
+                {{/if}}
+
+                {{#if isFeatured}}
+                    <span class="sep"> feat. </span>
+                    <a is="jukebox-link" href="{{artist.permalink}}" class="artist">{{artist.name}}</a>
+                {{/if}}
+
+            {{/artists}}
+        </div>
+    </div>
+
+    <div class="buttons">
+        <track-link track-id="{{id}}" class="button">
+            <img src="/images/icons/actions/play.svg" alt="play" title="play"/>
+        </track-link>
+        <track-link track-id="{{id}}" push-to-queue class="button">
+            <img src="/images/icons/actions/add.svg" alt="+" title="Add to Queue"/>
+        </track-link>
+    </div>
+</div>

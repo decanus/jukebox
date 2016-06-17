@@ -2,8 +2,7 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import 'babel-polyfill'
-import 'es6-symbol/implement'
+import 'whatwg-fetch'
 
 import { app } from './app'
 import { getInterval } from './dom/time/get-interval'
@@ -24,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   app.getRoute().forEach(trackPageView)
 })
 
-app.getPlayer()
+app.player
   .getTrack()
   .forEach((track) => sendPlayTrack(track))
 
@@ -39,4 +38,12 @@ getInterval(180000)
     app.modelRepository.cleanup()
   })
 
-window.repository = app.modelRepository
+//noinspection JSUnresolvedVariable
+if (process.env.JUKEBOX_ENV !== 'production') {
+  window.__$app = app
+}
+
+// todo: put this idk where
+Handlebars.registerHelper('json', function (context) {
+  return JSON.stringify(context)
+})

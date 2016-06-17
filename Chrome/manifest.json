@@ -1,6 +1,7 @@
 {
-  "name": "Media Keys for Jukebox",
-  "version": "0.0.1",
+  "name": "Media Keys Support for Jukebox Ninja",
+  "short_name": "Jukebox Ninja"
+  "version": "0.0.2",
   "icons": {
     "152": "icon.png"
   },

@@ -48,7 +48,7 @@ namespace Jukebox\Backend\Backends
 
         public function commit()
         {
-            $this->PDO->commit();
+            return $this->PDO->commit();
         }
 
         public function rollBack()

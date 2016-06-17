@@ -65,6 +65,7 @@ namespace Jukebox\Backend\EventHandlers\Push
                     'itunes' => $artist['itunes'],
                     'amazon' => $artist['amazon'],
                     'permalink' => $artist['permalink'],
+                    'image' => $artist['image'],
                 ];
 
                 if ($key % 1000 === 0) {

@@ -1,6 +1,6 @@
 import { Emitter } from '../../event/emitter'
 import { ORIGIN, PLAYER_URL } from './constants'
-import { buildQuery } from '../../url/build-query'
+import { buildQuery } from '../../url/query'
 import { createObservable } from '../../dom/events/create-observable'
 
 /**

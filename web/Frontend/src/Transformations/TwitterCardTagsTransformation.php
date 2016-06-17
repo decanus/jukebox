@@ -30,9 +30,8 @@ namespace Jukebox\Frontend\Transformations
 
         private function handleTrackPage(TrackPageModel $model)
         {
-            $track = $model->getTrack();
-            $this->template->queryOne('/html:html/html:head/html:meta[@name="twitter:title"]')->setAttribute('content', 'Jukebox Ninja - ' . $track['title']);
-            $this->template->queryOne('/html:html/html:head/html:meta[@name="twitter:description"]')->setAttribute('content', 'Jukebox Ninja - Listen to great tracks like ' . $track['title']);
+            $this->template->queryOne('/html:html/html:head/html:meta[@name="twitter:title"]')->setAttribute('content', $model->getMetaTitle());
+            $this->template->queryOne('/html:html/html:head/html:meta[@name="twitter:description"]')->setAttribute('content', $model->getMetaDescription());
         }
 
         private function handleArtistPage(ArtistPageModel $model)

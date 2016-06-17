@@ -3,14 +3,10 @@
 namespace Jukebox\Backend\EventHandlers\Import
 {
 
-    use Jukebox\Backend\Commands\InsertTrackArtistCommand;
     use Jukebox\Backend\Commands\InsertTrackCommand;
-    use Jukebox\Backend\Commands\InsertTrackGenreCommand;
-    use Jukebox\Backend\Commands\InsertTrackSourceCommand;
     use Jukebox\Backend\DataObjects\Track;
     use Jukebox\Backend\EventHandlers\EventHandlerInterface;
     use Jukebox\Backend\Events\VevoArtistVideosImportEvent;
-    use Jukebox\Backend\Queries\FetchArtistByVevoIdQuery;
     use Jukebox\Backend\Queries\FetchTrackByVevoIdQuery;
     use Jukebox\Backend\Services\Vevo;
     use Jukebox\Framework\Curl\Response;
@@ -109,11 +105,16 @@ namespace Jukebox\Backend\EventHandlers\Import
                 }
 
                 // @todo check if track by artist already exists, maybe it was indexed from another source
+                $videoFragment = $video['urlSafeTitle'];
+
+                if ($videoFragment === '') {
+                    $videoFragment = $video['isrc'];
+                }
 
                 $permalink = '';
                 foreach ($video['artists'] as $artist) {
                     if ($artist['role'] === 'Main') {
-                        $permalink = preg_replace('/[^A-Za-z0-9 \- \/ ]/', '', strtolower('/' . $artist['urlSafeName'] . '/' . $video['urlSafeTitle']));
+                        $permalink = preg_replace('/[^A-Za-z0-9 \- \/ ]/', '', strtolower('/' . $artist['urlSafeName'] . '/' . $videoFragment));
                         $permalink = str_replace(' ', '', $permalink);
                         break;
                     }
@@ -134,14 +135,25 @@ namespace Jukebox\Backend\EventHandlers\Import
                     $isAudio = true;
                 }
 
+                $isExplicit = false;
+                if (strpos($video['title'], '(Explicit Version)') !== false) {
+                    $isExplicit = true;
+                }
+
+                if (strpos($video['title'], '(Explicit)') !== false) {
+                    $isExplicit = true;
+                }
+
                 $replace = [
                     '[Official Video]',
                     '[Audio]',
+                    '[audio]',
                     '(Audio)',
                     '(AUDIO)',
                     '(audio)',
                     '(Explicit Video)',
                     '(Explicit)',
+                    '(Explicit Version)',
                     '[Official Music Video]',
                     '(Official Explicit Video)',
                     '(Official audio)',
@@ -151,6 +163,9 @@ namespace Jukebox\Backend\EventHandlers\Import
                     '(Official Lyric Video)',
                     '(Official Music Video)',
                     '(Official Pseudo Video)',
+                    '(Audio Only)',
+                    '[Official]',
+                    'Clip officiel)',
                     '(LYRIC VIDEO)',
                     '(lyric)',
                     '(Lyric Video)',
@@ -165,6 +180,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                     '(Lyric Video/Live)',
                     '[Lyric Video]',
                     '[Official Lyric Video]',
+                    '(Live)',
                     'Lyric video',
                     '[PARENTAL ADVISORY]',
                     '[]',
@@ -172,6 +188,10 @@ namespace Jukebox\Backend\EventHandlers\Import
                 ];
 
                 $title = trim(str_replace($replace, '', $title));
+
+                if ($video['isExplicit']) {
+                    $isExplicit = true;
+                }
 
                 $track = new Track(
                     $video['duration'] * 1000,
@@ -182,7 +202,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                     $video['hasLyrics'],
                     $isAudio,
                     $video['isOfficial'],
-                    $video['isExplicit'],
+                    $isExplicit,
                     $permalink,
                     new \DateTime($video['releaseDate'])
                 );
@@ -205,7 +225,11 @@ namespace Jukebox\Backend\EventHandlers\Import
                     $genres = $video['genres'];
                 }
 
-                $this->insertTrackCommand->execute($track, $sources, $genres, $artists);
+                $result = $this->insertTrackCommand->execute($track, $sources, $genres, $artists);
+
+                if (!$result) {
+                    throw new \Exception('Importing track "' . $track->getTitle() . '" failed');
+                }
 
             } catch (\Throwable $e) {
                 $this->getLogger()->critical($e);

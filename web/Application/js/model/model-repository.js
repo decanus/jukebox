@@ -37,11 +37,21 @@ export class ModelRepository {
    *
    * @param {string} query
    * @returns {Promise<Result>}
+   * @deprecated
+   * @see getResult
    */
   getResults (query) {
     return this.get({ id: query, type: 'results' })
   }
 
+  /**
+   *
+   * @param {string} query
+   * @returns {Promise<Result>}
+   */
+  getResult (query) {
+    return this.get({ id: query, type: 'results' })
+  }
 
   /**
    *
@@ -50,6 +60,23 @@ export class ModelRepository {
    */
   getTrack (id) {
     return this.get({ id, type: 'tracks' })
+  }
+
+  /**
+   *
+   * @param {number} id
+   * @returns {Promise<Artist>}
+   */
+  getArtist (id) {
+    return this.get({ id, type: 'artists' })
+  }
+
+  /**
+   *
+   * @param {number} artistId
+   */
+  getArtistTracks (artistId) {
+    return this.get({ id: artistId, type: 'artist-tracks' })
   }
 
   /**
