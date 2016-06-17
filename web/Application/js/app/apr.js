@@ -23,10 +23,10 @@ export async function fetchArtistTracks (artistId) {
   const resp = await _fetch('/artist-tracks', [ [ 'artistId', artistId ] ])
 
   if (resp.status === 404) {
-    return []
+    return { type: 'artist-tracks', id: artistId, results: [], pagination: { size: 20, page: 1, pages: 1 }}
   }
 
-  return resp.results
+  return resp
 }
 
 /**

@@ -30,7 +30,9 @@ export class ModelLoader {
       case 'tracks':
         return this.loadTrack(model)
       case 'results':
-        return this.loadResult(model)
+        return this.loadResult(model, 'results')
+      case 'artist-tracks':
+        return this.loadResult(model, 'artist-tracks')
       default:
         throw new Error(`unable to load model with type ${model.type}`)
     }
@@ -98,10 +100,11 @@ export class ModelLoader {
   /**
    *
    * @param {{ id: string, results: Array, pagination: {} }} data
+   * @param {string} type
    */
-  loadResult (data) {
+  loadResult (data, type) {
     const results = data.results.map((model) => this.load(model))
-    const result = new Result({ id: data.id, results, pagination: data.pagination })
+    const result = new Result({ id: data.id, results, pagination: data.pagination, type })
 
     this._store.put(result)
 
