@@ -54,6 +54,11 @@ export class Artist {
    * @returns {string}
    */
   get imageUrl () {
+
+    if (this.image == null) {
+      return ''
+    }
+
     return `/images/artists/${this.image}`
   }
 }

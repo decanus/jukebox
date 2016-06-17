@@ -6,7 +6,9 @@
 
             <div class="sidebar">
 
-                <div class="profile-image" style="background-image: url('{{artist.imageUrl}}')"></div>
+                {{#if artist.imageUrl}}
+                    <div class="profile-image" style="background-image: url('{{artist.imageUrl}}')"></div>
+                {{/if}}
 
                 <ul class="profile-social-links">
                     {{#if artist.website}}
