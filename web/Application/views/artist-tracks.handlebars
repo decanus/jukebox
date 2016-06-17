@@ -1,3 +1,11 @@
-{{#results}}
-<list-track track-id="{{id}}"></list-track>
-{{/results}}
+{{#if tracks}}
+
+    {{#results}}
+        <list-track track-id="{{id}}"></list-track>
+    {{/results}}
+
+{{else}}
+
+    <p>This artist has no tracks.</p>
+
+{{/if}}

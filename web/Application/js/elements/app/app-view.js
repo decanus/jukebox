@@ -28,7 +28,15 @@ export class AppView extends HTMLElement {
 
   createdCallback () {
     this.innerHTML = '<div class="loading-animation -center"></div>'
+
     this._root = false
+    this._name = this.getAttribute('name')
+
+    try {
+      this._data = JSON.parse(this.getAttribute('data'))
+    } catch (ignored) {
+      
+    }
   }
 
   async attachedCallback () {
@@ -37,7 +45,7 @@ export class AppView extends HTMLElement {
       const view = View(this.data)
 
       const page = await view.fetch()
-      
+
       // the user might have already navigated away at this point,
       // so let's check if we're still attached to the dom
       if (!this.parentNode) {
@@ -49,9 +57,8 @@ export class AppView extends HTMLElement {
       render(this, page)
 
     } catch (error) {
-      // todo: display error screen
       sendException(error)
-      
+
       if (this.root) {
         this.innerHTML = ''
         this.appendChild(renderTemplate('error', this.ownerDocument))
@@ -73,7 +80,7 @@ export class AppView extends HTMLElement {
    * @returns {string}
    */
   get name () {
-    return this._name || this.getAttribute('name')
+    return this._name
   }
 
   /**
@@ -89,7 +96,7 @@ export class AppView extends HTMLElement {
    * @returns {{}}
    */
   get data () {
-    return this._data || JSON.parse(this.getAttribute('data'))
+    return this._data
   }
 
   /**
