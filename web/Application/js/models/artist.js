@@ -56,7 +56,7 @@ export class Artist {
   get imageUrl () {
 
     if (this.image == null) {
-      return ''
+      return '/images/artists/default.png'
     }
 
     return `/images/artists/${this.image}`
