@@ -21,11 +21,11 @@ export class PlayerQueue extends HTMLElement {
     const queue = app.player.getQueue()
 
     this.innerHTML = ''
-
+    
     this.appendChild(renderTemplate('partials/player-queue', this.ownerDocument, {
       currentTrack: app.player.getCurrentTrack(),
-      userQueue: queue.userQueue.tracks,
-      playQueue: queue.playQueue.tracks.tracks
+      userQueue: queue.getNextUserQueueTracks(),
+      playQueue: queue.getNextPlayQueueTracks()
     }))
   }
 }

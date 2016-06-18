@@ -134,7 +134,8 @@ export class PlayerDelegator {
    * @returns {Promise}
    */
   async next (automatic = false) {
-    await this._queue.next(automatic)
+    this._queue.next(automatic)
+
     await this._loadCurrentTrack()
 
     return await this.play()
@@ -145,8 +146,12 @@ export class PlayerDelegator {
    * @returns {Promise}
    * @todo re-implement
    */
-  prev () {
-    
+  async prev () {
+    this._queue.prev()
+
+    await this._loadCurrentTrack()
+
+    return await this.play()
   }
 
   async stop () {
@@ -304,7 +309,7 @@ export class PlayerDelegator {
    * @param {number} mode
    */
   setRepeatMode (mode) {
-    this._queue.setRepeatMode(mode)
+    this._queue.repeatMode = mode
     this._emitter.emit('repeatModeChange', mode)
   }
 
@@ -321,7 +326,7 @@ export class PlayerDelegator {
    * @returns {number}
    */
   getCurrentRepeatMode () {
-    return this._queue.getRepeatMode()
+    return this._queue.repeatMode
   }
 
   /**

@@ -66,6 +66,11 @@ export class QueueDelegate {
    * @param {boolean} automatic
    */
   next (automatic = false) {
+
+    if (this._repeatMode === RepeatMode.TRACK && automatic) {
+      return
+    }
+
     if (this._current === this.userQueue) {
       // pop the first track off the user queue
       this.userQueue.removeFirstTrack()
@@ -73,7 +78,7 @@ export class QueueDelegate {
 
     if (this._current === this.playQueue) {
       // move cursor in play queue
-      this.playQueue.next()
+      this.playQueue.next(this.repeatMode)
     }
 
     // if there's a track in the user queue we play that one
@@ -88,7 +93,8 @@ export class QueueDelegate {
   }
 
   prev () {
-
+    this._current = this.playQueue
+    this.playQueue.prev(this._repeatMode)
   }
   
   onStop () {
@@ -113,6 +119,26 @@ export class QueueDelegate {
 
   /**
    *
+   * @returns {Array<Track>}
+   */
+  getNextUserQueueTracks () {
+    if (this._current === this.userQueue) {
+      return this.userQueue.tracks.slice(1)
+    }
+
+    return this.userQueue.tracks
+  }
+
+  /**
+   *
+   * @returns {Array<Track>}
+   */
+  getNextPlayQueueTracks () {
+    return this.playQueue.getNextTracks()
+  }
+
+  /**
+   *
    * @returns {Track}
    */
   get currentTrack () {
@@ -121,5 +147,21 @@ export class QueueDelegate {
     }
 
     return this._current.currentTrack
+  }
+
+  /**
+   *
+   * @param {number} value
+   */
+  set repeatMode (value) {
+    this._repeatMode = value
+  }
+
+  /**
+   *
+   * @returns {number}
+   */
+  get repeatMode () {
+    return this._repeatMode
   }
 }

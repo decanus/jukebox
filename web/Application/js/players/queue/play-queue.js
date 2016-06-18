@@ -3,6 +3,7 @@
  */
 
 import { TrackList } from '../../value/track-list'
+import { RepeatMode } from '../repeat-mode'
 
 export class PlayQueue {
   /**
@@ -30,17 +31,54 @@ export class PlayQueue {
     return queue
   }
 
-  next () {
-    if (this.isLast()) {
-      // todo: repeat mode
-      this._current = -1
-    } else {
-      this._current += 1
-    }
+  /**
+   *
+   * @param {number} repeatMode
+   */
+  next (repeatMode) {
+    this._current = this._getNext(repeatMode)
   }
 
-  prev () {
+  /**
+   *
+   * @param {number} repeatMode
+   */
+  prev (repeatMode) {
+    this._current = this._getPrev(repeatMode)
+  }
 
+  /**
+   *
+   * @param {number} repeatMode
+   * @returns {number}
+   * @private
+   */
+  _getNext (repeatMode) {
+    const isLast = this.isLast()
+
+    if (isLast && repeatMode === RepeatMode.QUEUE) {
+      return 0
+    }
+
+    if (isLast) {
+      return -1
+    }
+
+    return this._current + 1
+  }
+
+  /**
+   *
+   * @param {number} repeatMode
+   * @returns {number}
+   * @private
+   */
+  _getPrev (repeatMode) {
+    if (this.isFirst() && repeatMode === RepeatMode.QUEUE) {
+      return this.size - 1
+    }
+
+    return this._current - 1
   }
 
   /**
@@ -68,7 +106,27 @@ export class PlayQueue {
   }
 
   /**
-   * 
+   *
+   * @returns {boolean}
+   */
+  isFirst () {
+    return this._current === 0
+  }
+
+  /**
+   *
+   * @returns {Array<Track>}
+   */
+  getNextTracks () {
+    if (this.current === -1) {
+      return []
+    }
+
+    return this.tracks.tracks.slice(this.current + 1)
+  }
+
+  /**
+   *
    * @returns {TrackList}
    */
   get tracks () {
