@@ -4,7 +4,7 @@
 
 import { app } from '../../app'
 
-export class TrackLink extends HTMLElement {
+export class PlayTrackLink extends HTMLElement {
   /**
    * @internal
    */
@@ -17,20 +17,8 @@ export class TrackLink extends HTMLElement {
         app.modelRepository.get({ type: this.resultType, id: this.resultId })
       ])
 
-      if (this.append) {
-        player.queueTrack(track)
-      } else {
-        player.playTrack(track, result)
-      }
+      player.playTrack(track, result)
     })
-  }
-
-  /**
-   *
-   * @returns {boolean}
-   */
-  get append () {
-    return this.hasAttribute('push-to-queue')
   }
 
   /**

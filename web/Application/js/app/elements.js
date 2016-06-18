@@ -7,7 +7,8 @@ import { AppView as _AppView } from '../elements/app/app-view'
 import { PlayerTitle } from '../elements/player/player-title'
 import { JukeboxLink } from '../elements/link/jukebox-link'
 import { ScrobbleBar as _ScrobbleBar } from '../elements/scrobble-bar'
-import { TrackLink } from '../elements/link/track-link'
+import { QueueTrackLink } from '../elements/link/queue-track-link'
+import { PlayTrackLink } from '../elements/link/play-track-link'
 import { ToggleSidebar } from '../elements/toggle-sidebar'
 import { PlayerVolume } from '../elements/player/player-volume'
 import { PlayerRepeatButton } from  '../elements/player/player-repeat-button'
@@ -38,7 +39,8 @@ document.registerElement('app-mount', AppMount)
 document.registerElement('player-title', PlayerTitle)
 document.registerElement('player-volume', PlayerVolume)
 document.registerElement('player-repeat-button', PlayerRepeatButton)
-document.registerElement('track-link', TrackLink)
+document.registerElement('queue-track-link', QueueTrackLink)
+document.registerElement('play-track-link', PlayTrackLink)
 document.registerElement('player-queue', PlayerQueue)
 document.registerElement('player-controls', PlayerControls)
 document.registerElement('player-scrobble-bar', PlayerScrobbleBar)
