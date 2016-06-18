@@ -12,6 +12,7 @@ namespace Jukebox\Backend\EventHandlers\Import
     use Jukebox\Framework\Logging\LoggerAware;
     use Jukebox\Framework\Logging\LoggerAwareTrait;
     use Jukebox\Framework\ValueObjects\Uri;
+    use Jukebox\Framework\ValueObjects\WebProfiles\Twitter;
 
     class VevoArtistImportEventHandler implements EventHandlerInterface, LoggerAware
     {
@@ -80,11 +81,6 @@ namespace Jukebox\Backend\EventHandlers\Import
 //                        if ($link['type'] === 'Facebook') {
 //                            $facebook = new Uri($link['url']);
 //                        }
-//
-//                        if ($link['type'] === 'Twitter') {
-//                            $twitter = $link['userName'];
-//                        }
-//
 //                        if ($link['type'] === 'Official Website') {
 //                            $officialWebsite = new Uri($link['url']);
 //                        }
@@ -135,7 +131,20 @@ namespace Jukebox\Backend\EventHandlers\Import
             $profiles = [];
 
             foreach ($links as $link) {
+                try {
+                    $type = $link['type'];
 
+                    if ($type === 'Twitter') {
+                        $profiles[] = ['profile' => new Twitter, 'profileData' => $link['userName']];
+                        continue;
+                    }
+
+                    if ($type === 'Facebook') {
+                        continue;
+                    }
+                } catch (\Throwable $e) {
+                    continue;
+                }
             }
 
             foreach ($buyLinks as $buyLink) {
