@@ -31,7 +31,6 @@ export class PlayQueue {
   }
 
   next () {
-
     if (this.isLast()) {
       // todo: repeat mode
       this._current = -1
@@ -66,6 +65,14 @@ export class PlayQueue {
    */
   isLast () {
     return this._current === (this.size - 1)
+  }
+
+  /**
+   * 
+   * @returns {TrackList}
+   */
+  get tracks () {
+    return this._tracks
   }
 
   /**

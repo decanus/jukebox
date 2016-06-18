@@ -29,6 +29,14 @@ export class UserQueue {
 
   /**
    *
+   * @returns {Array<Track>}
+   */
+  get tracks () {
+    return this._queue
+  }
+
+  /**
+   *
    * @returns {number}
    */
   get size () {

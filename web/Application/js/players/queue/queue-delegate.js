@@ -4,7 +4,11 @@
 
 import { PlayQueue } from './play-queue'
 import { UserQueue } from './user-queue'
+import { RepeatMode } from '../repeat-mode'
 
+/**
+ * @todo implement repeat mode
+ */
 export class QueueDelegate {
   constructor () {
     /**
@@ -25,6 +29,13 @@ export class QueueDelegate {
      * @type {UserQueue}
      */
     this.userQueue = new UserQueue()
+
+    /**
+     * 
+     * @type {number}
+     * @private
+     */
+    this._repeatMode = RepeatMode.NONE
   }
 
   /**
@@ -50,7 +61,11 @@ export class QueueDelegate {
     this.userQueue.appendTrack(track)
   }
 
-  next () {
+  /**
+   *
+   * @param {boolean} automatic
+   */
+  next (automatic = false) {
     if (this._current === this.userQueue) {
       // pop the first track off the user queue
       this.userQueue.removeFirstTrack()
@@ -74,6 +89,10 @@ export class QueueDelegate {
 
   prev () {
 
+  }
+  
+  onStop () {
+    this._current = null
   }
 
   /**

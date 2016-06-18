@@ -5,15 +5,11 @@
 import { app } from '../../app'
 import { createElement } from '../../dom/create-element'
 
-const player = app.getPlayer()
 
 export class PlayerQueueItem extends HTMLElement {
-  /**
-   *
-   * @param {Track} track
-   * @param {number} index
-   */
-  init (track, index) {
+
+  async createdCallback () {
+    const track = await app.modelRepository.getTrack(this.trackId)
     const $container = createElement(this.ownerDocument, 'div', '', { 'class': 'player-queue-item' })
 
     const $title = createElement(this.ownerDocument, 'div', track.title, { 'class': 'title' })
@@ -23,13 +19,33 @@ export class PlayerQueueItem extends HTMLElement {
     $container.appendChild($artist)
 
     $container.addEventListener('click', () => {
-      player.setCurrent(index)
+      //player.setCurrent(index)
     })
-
-    if (player.getCurrent() === index) {
-      $container.classList.add('-active')
-    }
-
+    
     this.appendChild($container)
+  }
+
+  /**
+   *
+   * @returns {number}
+   */
+  get trackId () {
+    return Number.parseInt(this.getAttribute('track-id'))
+  }
+
+  /**
+   *
+   * @returns {number}
+   */
+  get index () {
+    return Number.parseInt(this.getAttribute('index'))
+  }
+
+  /**
+   *
+   * @returns {boolean}
+   */
+  get current () {
+    return this.hasAttribute('current')
   }
 }

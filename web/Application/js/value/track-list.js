@@ -72,6 +72,14 @@ export class TrackList {
 
   /**
    * 
+   * @returns {Array<Track>}
+   */
+  get tracks () {
+    return this._tracks
+  }
+
+  /**
+   * 
    * @returns {Number}
    */
   get size () {
