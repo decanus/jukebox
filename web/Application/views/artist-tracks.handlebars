@@ -1,8 +1,8 @@
-{{#if results}}
+{{#if tracks.results}}
 
-    {{#results}}
-        <list-track track-id="{{id}}"></list-track>
-    {{/results}}
+    {{#tracks.results}}
+        <list-track track-id="{{id}}" result-id="{{@root.artistId}}" result-type="artist-tracks"></list-track>
+    {{/tracks.results}}
 
 {{else}}
 

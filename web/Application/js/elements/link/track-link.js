@@ -9,20 +9,19 @@ export class TrackLink extends HTMLElement {
    * @internal
    */
   createdCallback () {
-    this.addEventListener('click', () => {
-      const player = app.getPlayer()
+    this.addEventListener('click', async () => {
+      const player = app.player
 
-      app.modelRepository.getTrack(this.trackId)
-        .then((track) => {
-          if (this.append && player.getQueueSize() > 0) {
-            player.appendTrack(track)
-            return
-          }
+      const [ track, result ] = await Promise.all([
+        app.modelRepository.getTrack(this.trackId),
+        app.modelRepository.get({ type: this.resultType, id: this.resultId })
+      ])
 
-          player.prependTrack(track)
-          player.setCurrent(0)
-          player.play()
-        })
+      if (this.append) {
+        player.queueTrack(track)
+      } else {
+        player.playTrack(track, result)
+      }
     })
   }
 
@@ -40,5 +39,21 @@ export class TrackLink extends HTMLElement {
    */
   get trackId () {
     return Number.parseInt(this.getAttribute('track-id'))
+  }
+
+  /**
+   *
+   * @returns {string}
+   */
+  get resultId () {
+    return this.getAttribute('result-id')
+  }
+
+  /**
+   *
+   * @returns {string}
+   */
+  get resultType () {
+    return this.getAttribute('result-type')
   }
 }
