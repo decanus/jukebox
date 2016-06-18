@@ -74,49 +74,32 @@ namespace Jukebox\Backend\EventHandlers\Import
                 }
 
                 $artist = $response->getDecodedJsonResponse();
+                $webProfiles = $this->handleWebProfiles($artist['links'], $artist['buyLinks']);
 
-                $officialWebsite = null;
-                $twitter = null;
-                $facebook = null;
-                $itunes = null;
-                $amazon = null;
-
-                foreach ($artist['links'] as $link) {
-                    try {
-                        if ($link['type'] === 'Facebook') {
-                            $facebook = new Uri($link['url']);
-                            continue;
-                        }
-
-                        if ($link['type'] === 'Twitter') {
-                            $twitter = $link['userName'];
-                            continue;
-                        }
-
-                        if ($link['type'] === 'Official Website') {
-                            $officialWebsite = new Uri($link['url']);
-                            continue;
-                        }
-                    } catch (\Throwable $e) {
-                        continue;
-                    }
-                }
-
-                foreach ($artist['buyLinks'] as $link) {
-                    try {
-                        if ($link['vendor'] === 'iTunes') {
-                            $itunes = new Uri($link['url']);
-                            continue;
-                        }
-
-                        if ($link['vendor'] === 'Amazon') {
-                            $amazon = new Uri($link['url']);
-                            continue;
-                        }
-                    } catch (\Throwable $e) {
-                        continue;
-                    }
-                }
+//                foreach ($artist['links'] as $link) {
+//                        if ($link['type'] === 'Facebook') {
+//                            $facebook = new Uri($link['url']);
+//                        }
+//
+//                        if ($link['type'] === 'Twitter') {
+//                            $twitter = $link['userName'];
+//                        }
+//
+//                        if ($link['type'] === 'Official Website') {
+//                            $officialWebsite = new Uri($link['url']);
+//                        }
+//                }
+//
+//                foreach ($artist['buyLinks'] as $link) {
+//                        if ($link['vendor'] === 'iTunes') {
+//                            $itunes = new Uri($link['url']);
+//                            continue;
+//                        }
+//
+//                        if ($link['vendor'] === 'Amazon') {
+//                            $amazon = new Uri($link['url']);
+//                        }
+//                }
 
                 try {
                     $image = $this->downloadImage($artist['thumbnailUrl']);
@@ -133,13 +116,9 @@ namespace Jukebox\Backend\EventHandlers\Import
                 $result = $this->insertArtistCommand->execute(
                     $artist['name'],
                     $artist['urlSafeName'],
-                    $officialWebsite,
-                    $twitter,
-                    $facebook,
-                    $itunes,
-                    $amazon,
                     $permalink,
-                    $image
+                    $image,
+                    $webProfiles
                 );
                 
                 if (!$result) {
@@ -149,6 +128,21 @@ namespace Jukebox\Backend\EventHandlers\Import
             } catch (\Exception $e) {
                 $this->getLogger()->critical($e);
             }
+        }
+
+        private function handleWebProfiles(array $links = [], array $buyLinks = []): array
+        {
+            $profiles = [];
+
+            foreach ($links as $link) {
+
+            }
+
+            foreach ($buyLinks as $buyLink) {
+
+            }
+
+            return $profiles;
         }
 
         private function downloadImage(string $uri): string
