@@ -26,5 +26,17 @@ namespace Jukebox\Framework\Factories
                 $this->getMasterFactory()->getConfiguration()->get('mongoDatabase')
             );
         }
+
+        public function createPostgreDatabaseBackend(): \Jukebox\Framework\Backends\PostgreDatabaseBackend
+        {
+            return new \Jukebox\Framework\Backends\PostgreDatabaseBackend(
+                new \Jukebox\Framework\Backends\PDO(
+                    $this->getMasterFactory()->getConfiguration()->get('postgreServer'),
+                    $this->getMasterFactory()->getConfiguration()->get('postgreUsername'),
+                    $this->getMasterFactory()->getConfiguration()->get('postgrePassword'),
+                    [\PDO::ATTR_PERSISTENT => true]
+                )
+            );
+        }
     }
 }
