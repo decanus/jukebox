@@ -12,6 +12,9 @@ namespace Jukebox\Backend\EventHandlers\Import
     use Jukebox\Framework\Logging\LoggerAware;
     use Jukebox\Framework\Logging\LoggerAwareTrait;
     use Jukebox\Framework\ValueObjects\Uri;
+    use Jukebox\Framework\ValueObjects\WebProfiles\Amazon;
+    use Jukebox\Framework\ValueObjects\WebProfiles\iTunes;
+    use Jukebox\Framework\ValueObjects\WebProfiles\OfficialWebsite;
     use Jukebox\Framework\ValueObjects\WebProfiles\Twitter;
 
     class VevoArtistImportEventHandler implements EventHandlerInterface, LoggerAware
@@ -77,26 +80,6 @@ namespace Jukebox\Backend\EventHandlers\Import
                 $artist = $response->getDecodedJsonResponse();
                 $webProfiles = $this->handleWebProfiles($artist['links'], $artist['buyLinks']);
 
-//                foreach ($artist['links'] as $link) {
-//                        if ($link['type'] === 'Facebook') {
-//                            $facebook = new Uri($link['url']);
-//                        }
-//                        if ($link['type'] === 'Official Website') {
-//                            $officialWebsite = new Uri($link['url']);
-//                        }
-//                }
-//
-//                foreach ($artist['buyLinks'] as $link) {
-//                        if ($link['vendor'] === 'iTunes') {
-//                            $itunes = new Uri($link['url']);
-//                            continue;
-//                        }
-//
-//                        if ($link['vendor'] === 'Amazon') {
-//                            $amazon = new Uri($link['url']);
-//                        }
-//                }
-
                 try {
                     $image = $this->downloadImage($artist['thumbnailUrl']);
                 } catch (\Throwable $e) {
@@ -139,6 +122,11 @@ namespace Jukebox\Backend\EventHandlers\Import
                         continue;
                     }
 
+                    if ($link['type'] === 'Official Website') {
+                        $profiles[] = ['profile' => new OfficialWebsite, 'profileData' => $link['url']];
+                        continue;
+                    }
+
                     if ($type === 'Facebook') {
                         continue;
                     }
@@ -148,7 +136,16 @@ namespace Jukebox\Backend\EventHandlers\Import
             }
 
             foreach ($buyLinks as $buyLink) {
+                $vendor = $buyLink['vendor'];
 
+                if ($vendor === 'iTunes') {
+                    $profiles[] = ['profile' => new iTunes, 'profileData' => $buyLink['url']];
+                    continue;
+                }
+
+                if ($vendor === 'Amazon') {
+                    $profiles[] = ['profile' => new Amazon, 'profileData' => $buyLink['url']];
+                }
             }
 
             return $profiles;
