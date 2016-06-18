@@ -118,12 +118,12 @@ namespace Jukebox\Backend\EventHandlers\Import
                     $type = $link['type'];
 
                     if ($type === 'Twitter') {
-                        $profiles[] = ['profile' => new Twitter, 'profileData' => $link['userName']];
+                        $profiles[] = ['profile' => new Twitter, 'profileData' => trim($link['userName'])];
                         continue;
                     }
 
                     if ($link['type'] === 'Official Website') {
-                        $profiles[] = ['profile' => new OfficialWebsite, 'profileData' => $link['url']];
+                        $profiles[] = ['profile' => new OfficialWebsite, 'profileData' => trim($link['url'])];
                         continue;
                     }
 
@@ -139,12 +139,12 @@ namespace Jukebox\Backend\EventHandlers\Import
                 $vendor = $buyLink['vendor'];
 
                 if ($vendor === 'iTunes') {
-                    $profiles[] = ['profile' => new iTunes, 'profileData' => $buyLink['url']];
+                    $profiles[] = ['profile' => new iTunes, 'profileData' => trim($buyLink['url'])];
                     continue;
                 }
 
                 if ($vendor === 'Amazon') {
-                    $profiles[] = ['profile' => new Amazon, 'profileData' => $buyLink['url']];
+                    $profiles[] = ['profile' => new Amazon, 'profileData' => trim($buyLink['url'])];
                 }
             }
 
