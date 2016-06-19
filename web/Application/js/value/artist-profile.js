@@ -26,6 +26,8 @@ export class ArtistProfile {
         return `Twitter`
       case 'itunes':
         return 'iTunes'
+      case 'facebook':
+        return 'Facebook'
     }
   }
 
@@ -49,6 +51,7 @@ export class ArtistProfile {
     switch(this.type) {
       case 'official_website':
       case 'itunes':
+      case 'facebook':
         return this.data
       case 'twitter':
         return `https://twitter.com/${this.data}`
