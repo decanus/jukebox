@@ -8,10 +8,12 @@ export class Result {
    * @param {string} id
    * @param {Array<Track|Artist>} results
    * @param {{ size: number, page: number, pages: number }} pagination
+   * @param {string} type
    */
-  constructor ({ id, results, pagination }) {
+  constructor ({ id, results, pagination, type }) {
     this.id = id
     this.results = results
+    this.type = type
 
     /**
      * @type {{ size: number, page: number, pages: number }}
@@ -19,14 +21,6 @@ export class Result {
     this.pagination = pagination
 
     Object.seal(this)
-  }
-
-  /**
-   *
-   * @returns {string}
-   */
-  get type () {
-    return 'results'
   }
 
   /**

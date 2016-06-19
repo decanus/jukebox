@@ -2,21 +2,17 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { Page } from './page'
-import { SearchView } from './search-view'
-import { StaticView } from './static-view'
-import { ArtistView } from './artist-view'
 import { resolvePath } from '../app/apr'
 import { app } from '../app'
 
 /**
- * @typedef {{ fetch: (function(): Promise<Page>), handle: (function(Page) ) }} View
+ * @typedef {{ name: string, data: * }} ResolvedRoute
  */
 
 /**
- * 
+ *
  * @param path
- * @returns {View|null}
+ * @returns {ResolvedRoute|null}
  */
 async function resolveSpecial (path) {
   const resolved = await resolvePath(path)
@@ -26,20 +22,21 @@ async function resolveSpecial (path) {
   }
 
   const model = app.modelRepository.add(resolved)
-  
+
   return getSpecialView(model)
 }
 
 /**
  *
  * @param {{ id: number, type: string }} model
- * @returns {View}
+ * @returns {ResolvedRoute|null}
  */
 function getSpecialView (model) {
   switch (model.type) {
     case 'artists':
-      return ArtistView(model.id)
+      return { name: 'artist', data: model.id }
     case 'tracks':
+      // todo: implement
       return null
   }
 
@@ -49,15 +46,14 @@ function getSpecialView (model) {
 /**
  *
  * @param {Route} route
- * @returns {View}
+ * @returns {ResolvedRoute|null}
  */
 function resolveCached (route) {
   const cache = app.resolveCache
   const path = route.path
 
   if (!cache.has(path)) {
-    //noinspection JSValidateTypes
-    return
+    return null
   }
 
   return getSpecialView(cache.get(path))
@@ -66,7 +62,8 @@ function resolveCached (route) {
 /**
  *
  * @param {Route} route
- * @returns {View}
+ * @returns {ResolvedRoute}
+ * @todo rename and move
  */
 export async function resolveView (route) {
   const cached = resolveCached(route)
@@ -75,19 +72,17 @@ export async function resolveView (route) {
     return cached
   }
 
+  // todo: better handling for static pages
+
   switch (route.path) {
     case '/':
-      return StaticView(new Page({ title: 'Jukebox Ninja - Home', template: 'homepage' }))
-    case '/create':
-      return StaticView(new Page({ title: 'Jukebox Ninja - Create Playlist', template: 'createPlaylist' }))
-    case '/lorem':
-      return StaticView(new Page({ title: 'Jukebox Ninja - Lorem', template: 'lorem' }))
+      return { name: 'static', data: { title: 'Jukebox Ninja - Home', template: 'homepage' } }
     case '/error':
-      return StaticView(new Page({ title: 'Jukebox Ninja - Error', template: 'error' }))
+      return { name: 'static', data: { title: 'Jukebox Ninja - Error', template: 'error' } }
   }
 
   if (route.pathParts[ 0 ] === 'search') {
-    return SearchView(route.params.get('q') || '')
+    return { name: 'search', data: route.params.get('q') || '' }
   }
 
   const special = await resolveSpecial(route.path)
@@ -96,9 +91,12 @@ export async function resolveView (route) {
     return special
   }
 
-  return StaticView(new Page({
-    title: 'Jukebox Ninja - Page Not Found',
-    template: '404',
-    data: { uri: route }
-  }))
+  return {
+    name: 'static',
+    data: {
+      title: 'Jukebox Ninja - Page Not Found',
+      template: '404',
+      data: { uri: route }
+    }
+  }
 }

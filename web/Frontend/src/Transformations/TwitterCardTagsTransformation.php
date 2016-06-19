@@ -39,6 +39,15 @@ namespace Jukebox\Frontend\Transformations
             $artist = $model->getArtist();
             $this->template->queryOne('/html:html/html:head/html:meta[@name="twitter:title"]')->setAttribute('content', 'Jukebox Ninja - ' . $artist['name']);
             $this->template->queryOne('/html:html/html:head/html:meta[@name="twitter:description"]')->setAttribute('content', 'Jukebox Ninja - Listen to great artists like ' . $artist['name']);
+
+            $head = $this->template->queryOne('/html:html/html:head');
+            $image = $head->appendElement('meta');
+            $image->setAttribute('name', 'twitter:image');
+
+            $imageLink = $artist['image'];
+            if ($imageLink !== null) {
+                $image->setAttribute('content', '/images/artists/' . $artist['image']);
+            }
         }
     }
 }

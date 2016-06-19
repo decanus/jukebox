@@ -26,9 +26,9 @@ install-deps:
 build/js/jukebox.js: data/config.json $(JS_FILES)
 	@mkdir -p $(dir $@)
 ifeq ($(JUKEBOX_ENV),production)
-	browserify -t [ babelify ] -t envify -g [ uglifyify --no-sourcemap ] -p bundle-collapser/plugin js/jukebox.js | uglifyjs --screw-ie8 --mangle -o $@
+	browserify -t [ babelify ] -g [ uglifyify --no-sourcemap ] -p bundle-collapser/plugin js/jukebox.js | uglifyjs --screw-ie8 --mangle -o $@
 else
-	browserify -t [ babelify ] -t envify js/jukebox.js > $@
+	browserify -t [ babelify ] js/jukebox.js > $@
 endif
 
 build/js/views.js: $(VIEWS)

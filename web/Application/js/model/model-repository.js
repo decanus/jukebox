@@ -73,6 +73,23 @@ export class ModelRepository {
 
   /**
    *
+   * @param {number} artistId
+   */
+  getArtistTracks (artistId) {
+    return this.get({ id: artistId, type: 'artist-tracks' })
+  }
+
+  /**
+   *
+   * @param {number} artistId
+   * @returns {Promise<ArtistProfiles>}
+   */
+  getArtistProfiles (artistId) {
+    return this.get({ id: artistId, type: 'artist-profiles' })
+  }
+
+  /**
+   *
    * @param {{ type: string, id: number }} model
    * @returns {{ type: string, id: number }}
    */

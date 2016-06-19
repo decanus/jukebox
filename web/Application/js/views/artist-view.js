@@ -3,7 +3,6 @@
  */
 
 import { app } from '../app'
-import { fetchArtistTracks } from '../app/apr'
 import { Page } from './page'
 import { ViewRepository } from './view-repository'
 
@@ -20,15 +19,9 @@ export function ArtistView (artistId) {
      */
     async fetch () {
       const repository = app.modelRepository
+      const artist = await repository.getArtist(artistId)
 
-      let [ artist, tracks ] = await Promise.all([
-        repository.getArtist(artistId),
-        fetchArtistTracks(artistId)
-      ])
-
-      tracks = tracks.map((data) => repository.add(data))
-
-      return new Page({ title: `Jukebox Ninja - ${artist.name}`, template: 'artist', data: { artist, tracks } })
+      return new Page({ title: `Jukebox Ninja - ${artist.name}`, template: 'artist', data: { artist } })
     },
     /**
      *
@@ -40,8 +33,6 @@ export function ArtistView (artistId) {
       const data = page.data
 
       repository.hold(data.artist)
-
-      data.tracks.forEach((track) => repository.hold(track))
 
       return () => repository.releaseAll()
     }

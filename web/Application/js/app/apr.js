@@ -19,14 +19,23 @@ export function fetchSearch (query, page = 1) {
  * @param {number} artistId
  * @returns {Promise}
  */
+export function fetchArtistProfiles (artistId) {
+  return _fetch('/artist-web-profiles', [ [ 'artistId', artistId ] ])
+}
+
+/**
+ *
+ * @param {number} artistId
+ * @returns {Promise}
+ */
 export async function fetchArtistTracks (artistId) {
   const resp = await _fetch('/artist-tracks', [ [ 'artistId', artistId ] ])
 
-  if (!resp) {
-    return []
+  if (resp.status === 404) {
+    return { type: 'artist-tracks', id: artistId, results: [], pagination: { size: 20, page: 1, pages: 1 } }
   }
 
-  return resp.results
+  return resp
 }
 
 /**
