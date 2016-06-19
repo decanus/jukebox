@@ -15,7 +15,7 @@ namespace Jukebox\Framework\Logging\Loggers
 
         public function log(LogInterface $log)
         {
-            error_log(json_encode($log->getLog()));
+            file_put_contents('/var/log/jukebox.log', json_encode($log->getLog()), FILE_APPEND);
         }
     }
 }

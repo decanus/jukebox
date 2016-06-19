@@ -8,10 +8,10 @@ import { createFragmentFromString } from './dom/fragment'
  *
  * @param {string} templateName
  * @param {Document} document
- * @param {{}} data
+ * @param {{}} [data]
  * @returns {DocumentFragment}
  */
-export function renderTemplate (templateName, document, data) {
+export function renderTemplate (templateName, document, data = {}) {
   //noinspection JSUnresolvedVariable
   return createFragmentFromString(
     document,

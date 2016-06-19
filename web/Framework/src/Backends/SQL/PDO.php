@@ -1,6 +1,6 @@
 <?php
 
-namespace Jukebox\Backend\Backends
+namespace Jukebox\Framework\Backends
 {
     class PDO
     {
@@ -41,7 +41,7 @@ namespace Jukebox\Backend\Backends
         {
             $this->connect();
             try {
-                if ($name !== 'lastInsertId') {
+                if ($name !== 'lastInsertId' && !$this->pdo->inTransaction()) {
                     $this->pdo->query("SELECT 1;")->execute();
                 }
             } catch (\PDOException $e) {

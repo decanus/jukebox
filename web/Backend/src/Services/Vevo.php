@@ -74,7 +74,7 @@ namespace Jukebox\Backend\Services
         public function getVideosForArtist(string $artistId, $page = 1): Response
         {
             return $this->curl->get(
-                $this->buildUrl('/artist/' . $artistId . '/videos'),
+                $this->buildUrl('/artist/' . urlencode($artistId) . '/videos'),
                 ['token' => $this->getAuthorizationToken(), 'page' => $page, 'size' => 200]
             );
         }
@@ -108,7 +108,7 @@ namespace Jukebox\Backend\Services
         private function getAuthorizationToken(): string
         {
             if (!$this->redisBackend->has('vevo_accesstoken')) {
-                $response = $this->curl->post(new Uri('http://www.vevo.com/auth'));
+                $response = $this->curl->post(new Uri('http://www.vevo.com/auth'), [], ['Accept: */*', 'Expect:', 'Content-type:', 'Content-length:']);
 
                 if ($response->getResponseCode() !== 200) {
                     throw new \Exception('Authorization Failed');

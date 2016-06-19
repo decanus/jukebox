@@ -2,7 +2,7 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { fetchSearch } from '../apr/apr'
+import { fetchSearch, fetchArtistTracks, fetchArtistProfiles } from '../app/apr'
 
 export class ModelFetcher {
   /**
@@ -15,6 +15,10 @@ export class ModelFetcher {
     switch (type) {
       case 'results':
         return this.fetchResult(id)
+      case 'artist-tracks':
+        return this.fetchArtistTracks(id)
+      case 'artist-profiles':
+        return this.fetchArtistProfiles(id)
     }
 
     return Promise.reject(new Error(`unable to fetch model with type ${type}`))
@@ -25,22 +29,46 @@ export class ModelFetcher {
    * @param {string} query
    * @returns {Promise<{ type: string, id: number }>}
    */
-  fetchResult (query) {
-    return fetchSearch(query)
-      .then((result) => {
-        if (Array.isArray(result)) {
-          // todo: should this be done in php?
-          return { type: 'results', id: query, results: [], pagination: { size: 20, page: 1, pages: 1}}
-        }
+  async fetchResult (query) {
+    const result = await fetchSearch(query)
 
-        return result
-      })
-      .then((result) => {
-        result.type = 'results'
-        result.id = query
-        
-        return result
-      })
+    if (Array.isArray(result)) {
+      return { type: 'results', id: query, results: [], pagination: { size: 20, page: 1, pages: 1}}
+    }
+
+    result.type = 'results'
+    result.id = query
+
+    return result
+  }
+
+  /**
+   *
+   * @param {number} artistId
+   * @returns {Promise<{ type: string, id: number }>}
+   */
+  async fetchArtistTracks (artistId) {
+    const result = await fetchArtistTracks(artistId)
+    
+    result.type = 'artist-tracks'
+    result.id = artistId
+    
+    return result
+  }
+
+  /**
+   *
+   * @param {number} artistId
+   * @returns {Promise<{type: string, id: number, profiles: Promise}>}
+   */
+  async fetchArtistProfiles (artistId) {
+    const profiles = await fetchArtistProfiles(artistId)
+
+    return {
+      type: 'artist-profiles',
+      id: artistId,
+      profiles
+    }
   }
 
   /**

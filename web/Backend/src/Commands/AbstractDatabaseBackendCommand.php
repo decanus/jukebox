@@ -3,7 +3,7 @@
 namespace Jukebox\Backend\Commands
 {
 
-    use Jukebox\Backend\Backends\PostgreDatabaseBackend;
+    use Jukebox\Framework\Backends\PostgreDatabaseBackend;
 
     abstract class AbstractDatabaseBackendCommand
     {

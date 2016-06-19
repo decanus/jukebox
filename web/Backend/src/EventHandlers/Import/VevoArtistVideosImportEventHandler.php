@@ -3,14 +3,10 @@
 namespace Jukebox\Backend\EventHandlers\Import
 {
 
-    use Jukebox\Backend\Commands\InsertTrackArtistCommand;
     use Jukebox\Backend\Commands\InsertTrackCommand;
-    use Jukebox\Backend\Commands\InsertTrackGenreCommand;
-    use Jukebox\Backend\Commands\InsertTrackSourceCommand;
+    use Jukebox\Backend\DataObjects\Track;
     use Jukebox\Backend\EventHandlers\EventHandlerInterface;
     use Jukebox\Backend\Events\VevoArtistVideosImportEvent;
-    use Jukebox\Backend\Queries\FetchArtistByVevoIdBackendQuery;
-    use Jukebox\Backend\Queries\FetchGenreByNameQuery;
     use Jukebox\Backend\Queries\FetchTrackByVevoIdQuery;
     use Jukebox\Backend\Services\Vevo;
     use Jukebox\Framework\Curl\Response;
@@ -18,7 +14,6 @@ namespace Jukebox\Backend\EventHandlers\Import
     use Jukebox\Framework\Logging\LoggerAwareTrait;
     use Jukebox\Framework\ValueObjects\Featured;
     use Jukebox\Framework\ValueObjects\Main;
-    use Jukebox\Framework\ValueObjects\PostgresBool;
     use Jukebox\Framework\ValueObjects\Sources\Youtube;
 
     class VevoArtistVideosImportEventHandler implements EventHandlerInterface, LoggerAware
@@ -39,29 +34,9 @@ namespace Jukebox\Backend\EventHandlers\Import
         private $vevo;
 
         /**
-         * @var FetchArtistByVevoIdBackendQuery
-         */
-        private $fetchArtistByVevoIdQuery;
-
-        /**
          * @var InsertTrackCommand
          */
         private $insertTrackCommand;
-
-        /**
-         * @var InsertTrackArtistCommand
-         */
-        private $insertTrackArtistsCommand;
-
-        /**
-         * @var InsertTrackGenreCommand
-         */
-        private $insertTrackGenreCommand;
-        
-        /**
-         * @var FetchGenreByNameQuery
-         */
-        private $fetchGenreByNameQuery;
 
         /**
          * @var FetchTrackByVevoIdQuery
@@ -70,37 +45,18 @@ namespace Jukebox\Backend\EventHandlers\Import
 
         private $videoIds = [];
 
-        /**
-         * @var InsertTrackSourceCommand
-         */
-        private $insertTrackSourceCommand;
-
-        /**
-         * @var string
-         */
-        private $artistId;
 
         public function __construct(
             VevoArtistVideosImportEvent $event,
             Vevo $vevo,
-            FetchArtistByVevoIdBackendQuery $fetchArtistByVevoIdQuery,
-            InsertTrackCommand $insertTrackCommand,
-            InsertTrackArtistCommand $insertTrackArtistsCommand,
-            InsertTrackGenreCommand $insertTrackGenreCommand,
-            FetchGenreByNameQuery $fetchGenreByNameQuery,
             FetchTrackByVevoIdQuery $fetchTrackByVevoIdQuery,
-            InsertTrackSourceCommand $insertTrackSourceCommand
+            InsertTrackCommand $insertTrackCommand
         )
         {
             $this->event = $event;
             $this->vevo = $vevo;
-            $this->fetchArtistByVevoIdQuery = $fetchArtistByVevoIdQuery;
-            $this->insertTrackCommand = $insertTrackCommand;
-            $this->insertTrackArtistsCommand = $insertTrackArtistsCommand;
-            $this->insertTrackGenreCommand = $insertTrackGenreCommand;
-            $this->fetchGenreByNameQuery = $fetchGenreByNameQuery;
             $this->fetchTrackByVevoIdQuery = $fetchTrackByVevoIdQuery;
-            $this->insertTrackSourceCommand = $insertTrackSourceCommand;
+            $this->insertTrackCommand = $insertTrackCommand;
         }
 
         public function execute()
@@ -148,14 +104,22 @@ namespace Jukebox\Backend\EventHandlers\Import
                     return;
                 }
 
+                $videoFragment = $video['urlSafeTitle'];
+
+                if ($videoFragment === '') {
+                    $videoFragment = $video['isrc'];
+                }
+
                 $permalink = '';
                 foreach ($video['artists'] as $artist) {
                     if ($artist['role'] === 'Main') {
-                        $permalink = preg_replace('/[^A-Za-z0-9 \- \/ ]/', '', strtolower('/' . $artist['urlSafeName'] . '/' . $video['urlSafeTitle']));
+                        $permalink = preg_replace('/[^A-Za-z0-9 \- \/ ]/', '', strtolower('/' . $artist['urlSafeName'] . '/' . $videoFragment));
                         $permalink = str_replace(' ', '', $permalink);
                         break;
                     }
                 }
+
+                $title = $video['title'];
 
                 $isAudio = false;
                 if (strpos($video['title'], '(Audio)') !== false) {
@@ -166,48 +130,112 @@ namespace Jukebox\Backend\EventHandlers\Import
                     $isAudio = true;
                 }
 
-                $id = $this->insertTrackCommand->execute(
+                if (strpos($video['title'], '(AUDIO)') !== false) {
+                    $isAudio = true;
+                }
+
+                $isExplicit = false;
+                if (strpos($video['title'], '(Explicit Version)') !== false) {
+                    $isExplicit = true;
+                }
+
+                if (strpos($video['title'], '(Explicit)') !== false) {
+                    $isExplicit = true;
+                }
+
+                $replace = [
+                    '[Official Video]',
+                    '[Audio]',
+                    '[audio]',
+                    '(Audio)',
+                    '(AUDIO)',
+                    '(audio)',
+                    '(Explicit Video)',
+                    '(Explicit)',
+                    '(Explicit Version)',
+                    '[Official Music Video]',
+                    '(Official Explicit Video)',
+                    '(Official audio)',
+                    '(Official Video)',
+                    '(official video)',
+                    '[Official Video]',
+                    '(Official Lyric Video)',
+                    '(Official Music Video)',
+                    '(Official Pseudo Video)',
+                    '(Audio Only)',
+                    '[Official]',
+                    'Clip officiel)',
+                    '(LYRIC VIDEO)',
+                    '(lyric)',
+                    '(Lyric Video)',
+                    '[Lyric]',
+                    '[Live]',
+                    '(Live)',
+                    '(VIDEO LYRIC)',
+                    '(Lyric Video/Live)',
+                    '(Live/Lyric Video)',
+                    '(Lyric video - LIVE)',
+                    '(Live Lyric Video)',
+                    '(Lyric Video/Live)',
+                    '[Lyric Video]',
+                    '[Official Lyric Video]',
+                    '(Live)',
+                    'Lyric video',
+                    '[PARENTAL ADVISORY]',
+                    '[]',
+                    '()',
+                ];
+
+                $title = trim(str_replace($replace, '', $title));
+
+                if ($video['isExplicit']) {
+                    $isExplicit = true;
+                }
+
+                $track = new Track(
                     $video['duration'] * 1000,
-                    $video['title'],
+                    $title,
                     $video['isrc'],
                     $video['isrc'],
-                    new PostgresBool($video['isLive']),
-                    new PostgresBool($video['hasLyrics']),
-                    new PostgresBool($isAudio),
-                    new PostgresBool($video['isOfficial']),
-                    new PostgresBool($video['isExplicit']),
+                    $video['isLive'],
+                    $video['hasLyrics'],
+                    $isAudio,
+                    $video['isOfficial'],
+                    $isExplicit,
                     $permalink,
                     new \DateTime($video['releaseDate'])
                 );
 
-                $this->insertTrackSourceCommand->execute($id, new Youtube, $video['youTubeId'], $video['duration'] * 1000);
-
+                $artists = [];
                 foreach ($video['artists'] as $artist) {
                     try {
-                        $this->handleArtist($id, $artist);
+                        $artists[] = $this->handleArtist($artist);
                     } catch (\Throwable $e) {
-                        $this->getLogger()->emergency($e);
+                        $this->getLogger()->critical($e);
                     }
                 }
 
+                $sources = [
+                    ['duration' => $track->getDuration(), 'source' => new Youtube, 'sourceData' => $video['youTubeId']]
+                ];
+                
+                $genres = [];
                 if (isset($video['genres'])) {
-                    foreach ($video['genres'] as $genre) {
-                        try {
-                            $this->insertTrackGenreCommand->execute(
-                                $id,
-                                $this->fetchGenreByNameQuery->execute($genre)['id']
-                            );
-                        } catch (\Throwable $e) {
-                            $this->getLogger()->emergency($e);
-                        }
-                    }
+                    $genres = $video['genres'];
                 }
+
+                $result = $this->insertTrackCommand->execute($track, $sources, $genres, $artists);
+
+                if (!$result) {
+                    throw new \Exception('Importing track "' . $track->getTitle() . '" failed');
+                }
+
             } catch (\Throwable $e) {
                 $this->getLogger()->critical($e);
             }
         }
 
-        private function handleArtist($trackID, array $artist)
+        private function handleArtist(array $artist): array
         {
             switch ($artist['role']) {
                 case 'Main':
@@ -220,21 +248,16 @@ namespace Jukebox\Backend\EventHandlers\Import
                     throw new \InvalidArgumentException('Unknown role "' . $artist['role'] . '"');
             }
 
-            if ($artist['urlSafeName'] === $this->event->getArtist()) {
-                if ($this->artistId === null) {
-                    $this->artistId = $this->fetchArtistByVevoIdQuery->execute($artist['urlSafeName'])['id'];
-                }
-                $artistId = $this->artistId;
-            } else {
-                $artistId = $this->fetchArtistByVevoIdQuery->execute($artist['urlSafeName'])['id'];
-            }
-
-            $this->insertTrackArtistsCommand->execute($trackID, $artistId, $role);
+            return ['role' => $role, 'vevo_id' => $artist['urlSafeName']];
         }
 
         private function handleVideoIds(array $videos)
         {
             foreach ($videos as $video) {
+                if (isset($video['categories']) && in_array('Shows and Interviews', $video['categories'])) {
+                    continue;
+                }
+
                 $this->videoIds[] = $video['isrc'];
             }
         }

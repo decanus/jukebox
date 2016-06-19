@@ -1,0 +1,30 @@
+<div class="page-content">
+
+    <div class="container">
+
+        <section class="profile-layout">
+
+            <div class="sidebar">
+
+                <div class="profile-image" style="background-image: url('{{artist.imageUrl}}')"></div>
+
+                <app-view name="artist-profiles" data="{{ json artist.id }}"></app-view>
+
+            </div>
+
+            <div class="content">
+
+                <div class="profile-title _margin-bottom-20">
+                    <div class="title">{{artist.name}}</div>
+                    <div class="label">Artist</div>
+                </div>
+
+                <app-view name="artist-tracks" data="{{ json artist.id }}"></app-view>
+            </div>
+
+        </section>
+
+    </div>
+
+
+</div>

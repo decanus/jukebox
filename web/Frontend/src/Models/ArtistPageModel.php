@@ -36,5 +36,15 @@ namespace Jukebox\Frontend\Models
         {
             return $this->tracks;
         }
+
+        public function getMetaTitle(): string
+        {
+            return 'Jukebox Ninja - ' . $this->artist['name'];
+        }
+
+        public function getMetaDescription(): string
+        {
+            return 'Jukebox Ninja - Listen to great artists like ' . $this->artist['name'];
+        }
     }
 }

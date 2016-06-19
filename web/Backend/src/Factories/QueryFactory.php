@@ -7,9 +7,9 @@ namespace Jukebox\Backend\Factories
 
     class QueryFactory extends AbstractFactory
     {
-        public function createFetchArtistByVevoIdQuery(): \Jukebox\Backend\Queries\FetchArtistByVevoIdBackendQuery
+        public function createFetchArtistByVevoIdQuery(): \Jukebox\Backend\Queries\FetchArtistByVevoIdQuery
         {
-            return new \Jukebox\Backend\Queries\FetchArtistByVevoIdBackendQuery(
+            return new \Jukebox\Backend\Queries\FetchArtistByVevoIdQuery(
                 $this->getMasterFactory()->createPostgreDatabaseBackend()
             );
         }

@@ -3,14 +3,20 @@
 namespace Jukebox\Backend\EventHandlers\Import
 {
 
+    use Imagick;
     use Jukebox\Backend\Commands\InsertArtistCommand;
     use Jukebox\Backend\EventHandlers\EventHandlerInterface;
     use Jukebox\Backend\Events\VevoArtistImportEvent;
-    use Jukebox\Backend\Queries\FetchArtistByVevoIdBackendQuery;
+    use Jukebox\Backend\Queries\FetchArtistByVevoIdQuery;
     use Jukebox\Backend\Services\Vevo;
     use Jukebox\Framework\Logging\LoggerAware;
     use Jukebox\Framework\Logging\LoggerAwareTrait;
     use Jukebox\Framework\ValueObjects\Uri;
+    use Jukebox\Framework\ValueObjects\WebProfiles\Amazon;
+    use Jukebox\Framework\ValueObjects\WebProfiles\Facebook;
+    use Jukebox\Framework\ValueObjects\WebProfiles\iTunes;
+    use Jukebox\Framework\ValueObjects\WebProfiles\OfficialWebsite;
+    use Jukebox\Framework\ValueObjects\WebProfiles\Twitter;
 
     class VevoArtistImportEventHandler implements EventHandlerInterface, LoggerAware
     {
@@ -35,7 +41,7 @@ namespace Jukebox\Backend\EventHandlers\Import
         private $insertArtistCommand;
 
         /**
-         * @var FetchArtistByVevoIdBackendQuery
+         * @var FetchArtistByVevoIdQuery
          */
         private $fetchArtistByVevoIdQuery;
 
@@ -43,7 +49,7 @@ namespace Jukebox\Backend\EventHandlers\Import
             VevoArtistImportEvent $event,
             Vevo $vevo,
             InsertArtistCommand $insertArtistCommand,
-            FetchArtistByVevoIdBackendQuery $fetchArtistByVevoIdQuery
+            FetchArtistByVevoIdQuery $fetchArtistByVevoIdQuery
         )
         {
             $this->event = $event;
@@ -73,59 +79,26 @@ namespace Jukebox\Backend\EventHandlers\Import
                 }
 
                 $artist = $response->getDecodedJsonResponse();
+                $webProfiles = $this->handleWebProfiles($artist['links'], $artist['buyLinks']);
 
-                $officialWebsite = null;
-                $twitter = null;
-                $facebook = null;
-                $itunes = null;
-                $amazon = null;
-
-                foreach ($artist['links'] as $link) {
-                    try {
-                        if ($link['type'] === 'Facebook') {
-                            $facebook = new Uri($link['url']);
-                            continue;
-                        }
-
-                        if ($link['type'] === 'Twitter') {
-                            $twitter = $link['userName'];
-                            continue;
-                        }
-
-                        if ($link['type'] === 'Official Website') {
-                            $officialWebsite = new Uri($link['url']);
-                            continue;
-                        }
-                    } catch (\Throwable $e) {
-                        continue;
-                    }
+                try {
+                    $image = $this->downloadImage($artist['thumbnailUrl']);
+                } catch (\Throwable $e) {
+                    $image = null;
                 }
 
-                foreach ($artist['buyLinks'] as $link) {
-                    try {
-                        if ($link['vendor'] === 'iTunes') {
-                            $itunes = new Uri($link['url']);
-                            continue;
-                        }
+                $permalink = strtolower('/' . $artist['urlSafeName']);
 
-                        if ($link['vendor'] === 'Amazon') {
-                            $amazon = new Uri($link['url']);
-                            continue;
-                        }
-                    } catch (\Throwable $e) {
-                        continue;
-                    }
+                if ($permalink === '/search') {
+                    $permalink .= '-official';
                 }
 
                 $result = $this->insertArtistCommand->execute(
                     $artist['name'],
                     $artist['urlSafeName'],
-                    $officialWebsite,
-                    $twitter,
-                    $facebook,
-                    $itunes,
-                    $amazon,
-                    strtolower('/' . $artist['urlSafeName'])
+                    $permalink,
+                    $image,
+                    $webProfiles
                 );
                 
                 if (!$result) {
@@ -135,6 +108,80 @@ namespace Jukebox\Backend\EventHandlers\Import
             } catch (\Exception $e) {
                 $this->getLogger()->critical($e);
             }
+        }
+
+        private function handleWebProfiles(array $links = [], array $buyLinks = []): array
+        {
+            $profiles = [];
+
+            foreach ($links as $link) {
+                try {
+                    $type = $link['type'];
+
+                    if ($type === 'Twitter') {
+                        $profiles[] = ['profile' => new Twitter, 'profileData' => trim($link['userName'])];
+                        continue;
+                    }
+
+                    if ($link['type'] === 'Official Website') {
+                        $profiles[] = ['profile' => new OfficialWebsite, 'profileData' => trim($link['url'])];
+                        continue;
+                    }
+
+                    if ($type === 'Facebook') {
+                        $profiles[] = ['profile' => new Facebook, 'profileData' => trim($link['url'])];
+                        continue;
+                    }
+                } catch (\Throwable $e) {
+                    continue;
+                }
+            }
+
+            foreach ($buyLinks as $buyLink) {
+                $vendor = $buyLink['vendor'];
+
+                if ($vendor === 'iTunes') {
+                    $profiles[] = ['profile' => new iTunes, 'profileData' => trim($buyLink['url'])];
+                    continue;
+                }
+
+                if ($vendor === 'Amazon') {
+                    $profiles[] = ['profile' => new Amazon, 'profileData' => trim($buyLink['url'])];
+                }
+            }
+
+            return $profiles;
+        }
+
+        private function downloadImage(string $uri): string
+        {
+            $handle = fopen($uri, 'rb');
+            $image = new Imagick;
+            $image->readImageFile($handle);
+
+            $width = $image->getImageWidth();
+            $height = $image->getImageHeight();
+
+            $maxSize = 200;
+
+            if ($height > $width) {
+                $scalingFactor = $maxSize / $width;
+                $newWidth = $maxSize;
+                $newHeight = $height * $scalingFactor;
+            } else {
+                $scalingFactor = $maxSize / $height;
+                $newHeight = $maxSize;
+                $newWidth = $width * $scalingFactor;
+            }
+
+            $splitUri = explode('/', $uri);
+            $sliced  = array_slice($splitUri, -1);
+            $filename = array_pop($sliced);
+            $image->resizeImage($newWidth, $newHeight, Imagick::FILTER_LANCZOS, 1);
+            $image->writeImage('/var/www/CDN/artists/' . $filename);
+            $image->clear();
+
+            return $filename;
         }
     }
 }
