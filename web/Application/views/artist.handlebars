@@ -8,25 +8,7 @@
 
                 <div class="profile-image" style="background-image: url('{{artist.imageUrl}}')"></div>
 
-                <ul class="profile-social-links">
-                    {{#if artist.website}}
-                        <li class="link">
-                            <a href="{{artist.website}}" class="profile-social-link" rel="nofollow" target="_blank">
-                                <img src="/images/icons/gray/link.svg" />
-                                <span class="label">Official Website</span>
-                            </a>
-                        </li>
-                    {{/if}}
-
-                    {{#if artist.twitter}}
-                        <li class="link">
-                            <a href="{{artist.twitterUrl}}" class="profile-social-link" rel="nofollow" target="_blank">
-                                <img src="/images/icons/gray/twitter.svg" />
-                                <span class="label">@{{artist.twitter}}</span>
-                            </a>
-                        </li>
-                    {{/if}}
-                </ul>
+                <app-view name="artist-profiles" data="{{ json artist.id }}"></app-view>
 
             </div>
 
