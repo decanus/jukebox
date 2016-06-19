@@ -11,16 +11,16 @@ import { ViewRepository } from './view-repository'
  * @param {number} artistId
  * @returns {View}
  */
-export function ArtistTracksView (artistId) {
+export function ArtistProfilesView (artistId) {
   return {
     /**
      *
      * @returns {Page}
      */
     async fetch () {
-      const tracks = await app.modelRepository.getArtistTracks(artistId)
+      const profiles = await app.modelRepository.getArtistProfiles(artistId)
 
-      return new Page({ title: '', template: 'artist-tracks', data: tracks })
+      return new Page({ title: '', template: 'artist-profiles', data: profiles })
     },
     /**
      *
@@ -29,8 +29,7 @@ export function ArtistTracksView (artistId) {
      */
     handle (page) {
       const repository = new ViewRepository(app.modelRepository)
-      
-      page.data.results.forEach((track) => repository.hold(track))
+
       repository.hold(page.data)
 
       return () => repository.releaseAll()

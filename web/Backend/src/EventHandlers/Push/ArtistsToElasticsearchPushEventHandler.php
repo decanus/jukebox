@@ -59,11 +59,6 @@ namespace Jukebox\Backend\EventHandlers\Push
 
                 $params['body'][] = [
                     'name' => $artist['name'],
-                    'official_website' => $artist['official_website'],
-                    'twitter' => $artist['twitter'],
-                    'facebook' => $artist['facebook'],
-                    'itunes' => $artist['itunes'],
-                    'amazon' => $artist['amazon'],
                     'permalink' => $artist['permalink'],
                     'image' => $artist['image'],
                 ];
