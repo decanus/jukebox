@@ -14,11 +14,6 @@
           "ngrams": {"type": "text", "analyzer": "ngram_analyzer", "search_analyzer": "search_analyzer"}
         }
       },
-      "official_website": {"type": "string", "index": "no"},
-      "twitter": {"type": "string", "index": "no"},
-      "facebook": {"type": "string", "index": "no"},
-      "itunes": {"type": "string", "index": "no"},
-      "amazon": {"type": "string", "index": "no"},
       "permalink": {"type": "string", "index": "no"},
       "image": {"type": "string", "index": "no"}
     }

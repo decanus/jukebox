@@ -2,6 +2,9 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
+/**
+ * @todo this needs to be renamed
+ */
 export class Page {
   /**
    *
