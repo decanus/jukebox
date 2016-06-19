@@ -6,7 +6,9 @@ import { Track } from '../models/track'
 import { TrackArtist } from '../models/track-artist'
 import { YoutubeTrack } from '../models/youtube-track'
 import { Artist } from '../models/artist'
+import { ArtistProfiles } from '../models/artist-profiles'
 import { Result } from '../models/result'
+import { ArtistProfile } from '../value/artist-profile'
 
 export class ModelLoader {
   /**
@@ -33,6 +35,8 @@ export class ModelLoader {
         return this.loadResult(model, 'results')
       case 'artist-tracks':
         return this.loadResult(model, 'artist-tracks')
+      case 'artist-profiles':
+        return this.loadArtistProfiles(model)
       default:
         throw new Error(`unable to load model with type ${model.type}`)
     }
@@ -109,5 +113,21 @@ export class ModelLoader {
     this._store.put(result)
 
     return result
+  }
+
+  /**
+   * 
+   * @param {{ profiles: Array, id: number }} data
+   * @returns {ArtistProfiles}
+   */
+  loadArtistProfiles (data) {
+    const result = data.profiles
+      .map(({ profile, profile_data }) => new ArtistProfile(profile, profile_data))
+
+    const profiles = new ArtistProfiles({ id: data.id, profiles: result })
+    
+    this._store.put(profiles)
+    
+    return profiles
   }
 }

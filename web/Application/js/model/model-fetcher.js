@@ -2,7 +2,7 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { fetchSearch, fetchArtistTracks } from '../app/apr'
+import { fetchSearch, fetchArtistTracks, fetchArtistProfiles } from '../app/apr'
 
 export class ModelFetcher {
   /**
@@ -17,6 +17,8 @@ export class ModelFetcher {
         return this.fetchResult(id)
       case 'artist-tracks':
         return this.fetchArtistTracks(id)
+      case 'artist-profiles':
+        return this.fetchArtistProfiles(id)
     }
 
     return Promise.reject(new Error(`unable to fetch model with type ${type}`))
@@ -52,6 +54,21 @@ export class ModelFetcher {
     result.id = artistId
     
     return result
+  }
+
+  /**
+   *
+   * @param {number} artistId
+   * @returns {Promise<{type: string, id: number, profiles: Promise}>}
+   */
+  async fetchArtistProfiles (artistId) {
+    const profiles = await fetchArtistProfiles(artistId)
+
+    return {
+      type: 'artist-profiles',
+      id: artistId,
+      profiles
+    }
   }
 
   /**
