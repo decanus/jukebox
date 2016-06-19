@@ -13,6 +13,7 @@ namespace Jukebox\Backend\EventHandlers\Import
     use Jukebox\Framework\Logging\LoggerAwareTrait;
     use Jukebox\Framework\ValueObjects\Uri;
     use Jukebox\Framework\ValueObjects\WebProfiles\Amazon;
+    use Jukebox\Framework\ValueObjects\WebProfiles\Facebook;
     use Jukebox\Framework\ValueObjects\WebProfiles\iTunes;
     use Jukebox\Framework\ValueObjects\WebProfiles\OfficialWebsite;
     use Jukebox\Framework\ValueObjects\WebProfiles\Twitter;
@@ -128,6 +129,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                     }
 
                     if ($type === 'Facebook') {
+                        $profiles[] = ['profile' => new Facebook, 'profileData' => trim($link['url'])];
                         continue;
                     }
                 } catch (\Throwable $e) {
