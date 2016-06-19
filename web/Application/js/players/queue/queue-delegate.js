@@ -44,12 +44,7 @@ export class QueueDelegate {
    * @param {Result} results
    */
   playTrack (track, results) {
-    if (this.playQueue.id === results.uniqueId) {
-      this.playQueue.setCurrentTrack(track)
-    } else {
-      this.playQueue = PlayQueue.fromContext(track, results)
-    }
-
+    this.playQueue = PlayQueue.fromContext(track, results)
     this._current = this.playQueue
   }
 

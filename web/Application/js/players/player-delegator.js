@@ -144,7 +144,6 @@ export class PlayerDelegator {
   /**
    *
    * @returns {Promise}
-   * @todo re-implement
    */
   async prev () {
     this._queue.prev()
@@ -162,8 +161,6 @@ export class PlayerDelegator {
 
     this._queue.onStop()
     this._emitter.emit('stop')
-
-    return result
   }
 
   /**

@@ -47,17 +47,15 @@ export class TrackList {
    * @returns {number}
    */
   indexOfTrack (track) {
-    const index = -1
-
-    const tracks = this._tracks
+    const result = this._tracks
       .map(($track, $idx) => ({ $track, $idx }))
-      .filter(({ $track }) => $track.id === track.id)
+      .find(({ $track }) => $track.id === track.id)
 
-    if (tracks.length === 0) {
+    if (result) {
       return -1
     }
 
-    return tracks[0].$idx
+    return result.$idx
   }
 
   /**

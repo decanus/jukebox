@@ -8,11 +8,9 @@ import { RepeatMode } from '../repeat-mode'
 export class PlayQueue {
   /**
    *
-   * @param {string} [id]
    * @param {TrackList} [tracks]
    */
-  constructor (id = '', tracks = null) {
-    this._id = id
+  constructor (tracks = null) {
     this._tracks = tracks || new TrackList()
     this._current = 0
   }
@@ -24,7 +22,7 @@ export class PlayQueue {
    */
   static fromContext (track, result) {
     const tracks = TrackList.fromResult(result)
-    const queue = new PlayQueue(result.uniqueId, tracks)
+    const queue = new PlayQueue(tracks)
 
     queue.current = tracks.indexOfTrack(track)
 
