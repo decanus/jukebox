@@ -154,6 +154,13 @@ namespace Jukebox\Frontend\Factories
             );
         }
 
+        public function createArtistWebProfilesQueryHandler(): \Jukebox\Frontend\Handlers\Get\Ajax\ArtistWebProfiles\QueryHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Get\Ajax\ArtistWebProfiles\QueryHandler(
+                $this->getMasterFactory()->createJukeboxRestManager()
+            );
+        }
+
         /**
          * @return fDOMDocument
          */
