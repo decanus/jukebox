@@ -43,3 +43,13 @@ getInterval(180000)
 if (process.env.JUKEBOX_ENV !== 'production') {
   window.__$app = app
 }
+
+const worker = new SharedWorker('/js/shared-worker.js', 'Jukebox Ninja')
+
+worker.port.addEventListener('message', (event) => {
+  console.log('counter', event.data)
+})
+
+worker.port.start()
+
+window.worker = worker
