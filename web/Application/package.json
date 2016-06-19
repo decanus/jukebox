@@ -27,7 +27,6 @@
     "babelify": "^7.3.0",
     "browserify": "^13.0.1",
     "bundle-collapser": "^1.2.1",
-    "envify": "^3.4.0",
     "handlebars": "^4.0.5",
     "query-string": "^4.2.2",
     "standard": "^7.1.2",
