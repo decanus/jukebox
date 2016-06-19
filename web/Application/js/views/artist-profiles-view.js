@@ -4,6 +4,7 @@
 
 import { app } from '../app'
 import { Page } from './page'
+import { ViewRepository } from './view-repository'
 
 /**
  *
@@ -27,7 +28,11 @@ export function ArtistProfilesView (artistId) {
      * @returns {function()}
      */
     handle (page) {
-      return () => {}
+      const repository = new ViewRepository(app.modelRepository)
+
+      repository.hold(page.data)
+
+      return () => repository.releaseAll()
     }
   }
 }
