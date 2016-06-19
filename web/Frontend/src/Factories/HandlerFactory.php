@@ -168,6 +168,13 @@ namespace Jukebox\Frontend\Factories
             );
         }
 
+        public function createGetTrackQueryHandler(): \Jukebox\Frontend\Handlers\Get\Ajax\Track\QueryHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Get\Ajax\Track\QueryHandler(
+                $this->getMasterFactory()->createJukeboxRestManager()
+            );
+        }
+
         /**
          * @return fDOMDocument
          */
