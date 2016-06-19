@@ -7,6 +7,7 @@ namespace Jukebox\Frontend\Routers
     use Jukebox\Framework\Factories\MasterFactory;
     use Jukebox\Framework\Http\Request\PostRequest;
     use Jukebox\Framework\Http\Request\RequestInterface;
+    use Jukebox\Framework\ParamterObjects\ControllerParameterObject;
     use Jukebox\Framework\Routers\RouterInterface;
 
     class PostRequestRouter implements RouterInterface
@@ -31,9 +32,9 @@ namespace Jukebox\Frontend\Routers
 
             switch ($uri->getPath()) {
                 case '/action/login':
-                    // @todo
+                    return $this->factory->createLoginRequestController(new ControllerParameterObject($uri));
                 case '/action/register':
-                    // @todo
+                    return $this->factory->createRegistrationRequestController(new ControllerParameterObject($uri));
             }
 
             throw new \InvalidArgumentException('No route found');
