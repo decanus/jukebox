@@ -34,6 +34,8 @@ namespace Jukebox\Frontend\Routers
                     return $this->factory->createArtistTracksController(new ControllerParameterObject($uri));
                 case '/apr/artist-web-profiles':
                     return $this->factory->createArtistWebProfilesController(new ControllerParameterObject($uri));
+                case '/apr/artist':
+                    return $this->factory->createGetArtistController(new ControllerParameterObject($uri));
             }
 
             throw new \InvalidArgumentException('No ajax route found');

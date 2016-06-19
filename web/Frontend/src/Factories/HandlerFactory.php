@@ -161,6 +161,13 @@ namespace Jukebox\Frontend\Factories
             );
         }
 
+        public function createGetArtistQueryHandler(): \Jukebox\Frontend\Handlers\Get\Ajax\Artist\QueryHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Get\Ajax\Artist\QueryHandler(
+                $this->getMasterFactory()->createJukeboxRestManager()
+            );
+        }
+
         /**
          * @return fDOMDocument
          */
