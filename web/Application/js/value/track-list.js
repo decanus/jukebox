@@ -51,7 +51,7 @@ export class TrackList {
       .map(($track, $idx) => ({ $track, $idx }))
       .find(({ $track }) => $track.id === track.id)
 
-    if (result) {
+    if (result == null) {
       return -1
     }
 
