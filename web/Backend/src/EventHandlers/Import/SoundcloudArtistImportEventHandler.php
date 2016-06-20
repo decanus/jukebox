@@ -13,7 +13,7 @@ namespace Jukebox\Backend\EventHandlers\Import
     use Jukebox\Framework\ValueObjects\WebProfiles\Facebook;
     use Jukebox\Framework\ValueObjects\WebProfiles\Twitter;
 
-    class SoundcloudArtistImportEventHandler implements EventHandlerInterface, LoggerAware
+    class SoundcloudArtistImportEventHandler extends AbstractArtistImportEventHandler implements LoggerAware
     {
         use LoggerAwareTrait;
 
@@ -73,12 +73,19 @@ namespace Jukebox\Backend\EventHandlers\Import
 
                 $permalink = $permalink = preg_replace('/[^A-Za-z0-9 \- \/ ]/', '', strtolower('/' . $artist['username']));
                 $permalink = str_replace(' ', '-', $permalink);
+                $avatarUrl = str_replace('-large', '-t200x200', $artist['avatar_url']);
+
+                try {
+                    $image = $this->downloadImage($avatarUrl);
+                } catch (\Throwable $e) {
+                    $image = null;
+                }
 
                 $this->insertArtistCommand->execute(
                     $artist['username'],
                     null,
                     $permalink,
-                    null,
+                    $image,
                     $id,
                     $profiles
                 );
