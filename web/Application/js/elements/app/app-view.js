@@ -75,6 +75,14 @@ export class AppView extends HTMLElement {
     }
   }
 
+  reloadView () {
+    this.detachedCallback()
+
+    this.innerHTML = '<div class="loading-animation -center"></div>'
+    
+    return this.attachedCallback()
+  }
+
   /**
    *
    * @returns {string}
