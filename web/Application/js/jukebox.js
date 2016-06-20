@@ -48,8 +48,3 @@ if (config.isDevelopmentMode === true) {
 Handlebars.registerHelper('json', function (context) {
   return JSON.stringify(context)
 })
-
-// todo: put this idk where
-Handlebars.registerHelper('debug', function (ctx) {
-  console.log(ctx)
-})

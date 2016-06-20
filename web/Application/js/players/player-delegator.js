@@ -177,17 +177,6 @@ export class PlayerDelegator {
     this._emitter.emit('stop')
   }
 
-  /**
-   *
-   * @param {string} type
-   * @param {number} index
-   * @returns {Promise}
-   * @todo implement
-   */
-  setCurrent (type, index) {
-
-  }
-
   async _loadCurrentTrack () {
     const pause = this.pause()
     const player = this.getCurrentPlayer()
