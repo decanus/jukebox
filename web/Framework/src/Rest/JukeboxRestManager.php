@@ -5,6 +5,7 @@ namespace Jukebox\Framework\Rest
 
     use Jukebox\Framework\Curl\Curl;
     use Jukebox\Framework\Curl\Response;
+    use Jukebox\Framework\ValueObjects\Email;
     use Jukebox\Framework\ValueObjects\Uri;
 
     class JukeboxRestManager
@@ -49,6 +50,14 @@ namespace Jukebox\Framework\Rest
         public function search(string $searchTerm, int $size, int $page): Response
         {
             return $this->curl->get($this->buildUri('/v1/search'), ['key' => $this->key, 'query' => $searchTerm, 'size' => $size, 'page' => $page]);
+        }
+
+        public function login(Email $email, string $password): Response
+        {
+            return $this->curl->post(
+                $this->buildUri('/v1/authentication'),
+                ['key' => $this->key, 'email' => (string) $email, 'password' => $password]
+            );
         }
 
         private function buildUri(string $path): Uri
