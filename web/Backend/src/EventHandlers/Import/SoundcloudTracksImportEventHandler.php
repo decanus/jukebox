@@ -3,6 +3,7 @@
 namespace Jukebox\Backend\EventHandlers\Import
 {
 
+    use Jukebox\Backend\DataObjects\Track;
     use Jukebox\Backend\EventHandlers\EventHandlerInterface;
     use Jukebox\Backend\Events\SoundcloudTracksImportEvent;
     use Jukebox\Backend\Queries\FetchArtistByIdQuery;
@@ -21,11 +22,6 @@ namespace Jukebox\Backend\EventHandlers\Import
         private $event;
 
         /**
-         * @var FetchArtistByIdQuery
-         */
-        private $fetchArtistByIdQuery;
-
-        /**
          * @var Soundcloud
          */
         private $soundcloud;
@@ -37,13 +33,11 @@ namespace Jukebox\Backend\EventHandlers\Import
 
         public function __construct(
             SoundcloudTracksImportEvent $event,
-            FetchArtistByIdQuery $fetchArtistByIdQuery,
             Soundcloud $soundcloud,
             JukeboxRestManager $jukeboxRestManager
         )
         {
             $this->event = $event;
-            $this->fetchArtistByIdQuery = $fetchArtistByIdQuery;
             $this->soundcloud = $soundcloud;
             $this->jukeboxRestManager = $jukeboxRestManager;
         }
@@ -51,34 +45,37 @@ namespace Jukebox\Backend\EventHandlers\Import
         public function execute()
         {
             try {
-
-                $artist = $this->fetchArtistByIdQuery->execute($this->event->getArtistId());
-                $response = $this->soundcloud->getArtistTracks($artist['soundcloud_id']);
+                $response = $this->soundcloud->getArtistTracks($this->event->getSoundcloudId());
 
                 if ($response->getResponseCode() !== 200) {
-                    throw new \RuntimeException('Failed to load data for "' . $artist['name'] . '"');
+                    throw new \RuntimeException('Failed to load data for "' . $this->event->getSoundcloudId() . '"');
                 }
 
                 $tracks = $response->getDecodedJsonResponse();
-                $artistTracks = $this->jukeboxRestManager->getTracksByArtistId($artist['id'])->getDecodedJsonResponse();
 
                 foreach ($tracks as $track) {
 
-                    foreach ($artistTracks as $artistTrack) {
-
-                        foreach ($artistTrack['sources'] as $source) {
-                            if ($source === 'soundcloud') {
-                                continue 2;
-                            }
-                        }
-
-                        // @todo move into MapReduce
-
-                        // @todo check if track is track to insert new source
-                        if ($artistTrack['title'] === $track['title']) {
-                            // @todo handle
-                        }
+                    $isrc = null;
+                    if ($track['isrc'] !== '' && $track['isrc'] !== null) {
+                        $isrc = $track['isrc'];
                     }
+
+                    $permalink = '';
+
+                    $obj = new Track(
+                        $track['duration'],
+                        $track['title'],
+                        null,
+                        $isrc,
+                        false,
+                        false,
+                        true,
+                        false,
+                        false,
+                        $permalink,
+                        new \DateTime($track['created_at'])
+                    );
+
                     // @todo insert new track
                 }
                 

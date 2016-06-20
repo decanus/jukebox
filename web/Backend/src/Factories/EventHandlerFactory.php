@@ -135,7 +135,6 @@ namespace Jukebox\Backend\Factories
         {
             return new \Jukebox\Backend\EventHandlers\Import\SoundcloudTracksImportEventHandler(
                 $event,
-                $this->getMasterFactory()->createFetchArtistByIdQuery(),
                 $this->getMasterFactory()->createSoundcloudService(),
                 $this->getMasterFactory()->createJukeboxRestManager()
             );

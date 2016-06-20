@@ -10,16 +10,16 @@ namespace Jukebox\Backend\Events
         /**
          * @var string
          */
-        private $artistId;
+        private $soundcloudId;
 
-        public function __construct(string $artistId)
+        public function __construct(string $soundcloudId)
         {
-            $this->artistId = $artistId;
+            $this->soundcloudId = $soundcloudId;
         }
 
-        public function getArtistId(): string
+        public function getSoundcloudId(): string
         {
-            return $this->artistId;
+            return $this->soundcloudId;
         }
 
         public function getName(): string
