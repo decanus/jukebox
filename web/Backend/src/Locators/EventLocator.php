@@ -41,8 +41,6 @@ namespace Jukebox\Backend\Locators
                     return new \Jukebox\Backend\Events\ArtistPathsPushEvent($request->getDataVersion());
                 case 'OldDataVersionDelete':
                     return new \Jukebox\Backend\Events\OldDataVersionDeleteEvent($request->getDataVersion());
-                case 'SoundcloudArtistMatch':
-                    return new \Jukebox\Backend\Events\SoundcloudArtistMatchEvent($request->getParam('artistId'));
                 case 'SoundcloudTracksImport':
                     return new \Jukebox\Backend\Events\SoundcloudTracksImportEvent($request->getParam('artistId'));
                 case 'SoundcloudArtistImport':

@@ -130,16 +130,6 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createRedisBackend()
             );
         }
-
-        public function createSoundcloudArtistMatchEventHandler(\Jukebox\Backend\Events\SoundcloudArtistMatchEvent $event): \Jukebox\Backend\EventHandlers\SoundcloudArtistMatchEventHandler
-        {
-            return new \Jukebox\Backend\EventHandlers\SoundcloudArtistMatchEventHandler(
-                $event,
-                $this->getMasterFactory()->createFetchArtistByIdQuery(),
-                $this->getMasterFactory()->createSoundcloudService(),
-                $this->getMasterFactory()->createUpdateArtistSoundcloudIdCommand()
-            );
-        }
         
         public function createSoundcloudTracksImportEventHandler(\Jukebox\Backend\Events\SoundcloudTracksImportEvent $event): \Jukebox\Backend\EventHandlers\Import\SoundcloudTracksImportEventHandler
         {
