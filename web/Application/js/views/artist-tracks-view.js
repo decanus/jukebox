@@ -20,7 +20,7 @@ export function ArtistTracksView (artistId) {
     async fetch () {
       const tracks = await app.modelRepository.getArtistTracks(artistId)
 
-      return new Page({ title: '', template: 'artist-tracks', data: tracks })
+      return new Page({ title: '', template: 'artist-tracks', data: { tracks, artistId } })
     },
     /**
      *
@@ -30,8 +30,8 @@ export function ArtistTracksView (artistId) {
     handle (page) {
       const repository = new ViewRepository(app.modelRepository)
       
-      page.data.results.forEach((track) => repository.hold(track))
-      repository.hold(page.data)
+      page.data.tracks.results.forEach((track) => repository.hold(track))
+      repository.hold(page.data.tracks)
 
       return () => repository.releaseAll()
     }
