@@ -1,3 +1,6 @@
+/**
+ * (c) 2016 Jukebox Ninja <www.jukebox.ninja>
+ */
 (function () {
 
   'use strict'

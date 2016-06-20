@@ -35,7 +35,11 @@ namespace Jukebox\Frontend\Handlers\Get\Artist
 
                 $tracks = $this->getModel()->getTracks();
 
-                foreach ($tracks as $track) {
+                if (!isset($tracks['results'])) {
+                    return;
+                }
+
+                foreach ($tracks['results'] as $track) {
 
                     $recording = $musicGroup->appendElement('article');
                     $recording->setAttribute('itemprop', 'track');

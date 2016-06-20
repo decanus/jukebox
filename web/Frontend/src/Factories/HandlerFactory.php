@@ -18,7 +18,8 @@ namespace Jukebox\Frontend\Factories
             return new \Jukebox\Frontend\Handlers\Get\GenericPageTransformationHandler(
                 $this->getTemplate(),
                 $this->getMasterFactory()->createAppendTrackingSnippetTransformation(),
-                $this->getMasterFactory()->createTwitterCardTagsTransformation()
+                $this->getMasterFactory()->createTwitterCardTagsTransformation(),
+                $this->getMasterFactory()->createMetaTagsTransformation()
             );
         }
 
@@ -130,6 +131,47 @@ namespace Jukebox\Frontend\Factories
                 $this->getTemplate(),
                 $this->getMasterFactory()->createGenericPageTransformationHandler(),
                 $this->getMasterFactory()->createFileBackend()
+            );
+        }
+
+        public function createResolveQueryHandler(): \Jukebox\Frontend\Handlers\Get\Ajax\Resolve\QueryHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Get\Ajax\Resolve\QueryHandler(
+                $this->getMasterFactory()->createDataPoolReader(),
+                $this->getMasterFactory()->createJukeboxRestManager()
+            );
+        }
+
+        public function createResolveTransformationHandler(): \Jukebox\Frontend\Handlers\Get\Ajax\Resolve\TransformationHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Get\Ajax\Resolve\TransformationHandler;
+        }
+
+        public function createArtistTracksQueryHandler(): \Jukebox\Frontend\Handlers\Get\Ajax\ArtistTracks\QueryHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Get\Ajax\ArtistTracks\QueryHandler(
+                $this->getMasterFactory()->createJukeboxRestManager()
+            );
+        }
+
+        public function createArtistWebProfilesQueryHandler(): \Jukebox\Frontend\Handlers\Get\Ajax\ArtistWebProfiles\QueryHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Get\Ajax\ArtistWebProfiles\QueryHandler(
+                $this->getMasterFactory()->createJukeboxRestManager()
+            );
+        }
+
+        public function createGetArtistQueryHandler(): \Jukebox\Frontend\Handlers\Get\Ajax\Artist\QueryHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Get\Ajax\Artist\QueryHandler(
+                $this->getMasterFactory()->createJukeboxRestManager()
+            );
+        }
+
+        public function createGetTrackQueryHandler(): \Jukebox\Frontend\Handlers\Get\Ajax\Track\QueryHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Get\Ajax\Track\QueryHandler(
+                $this->getMasterFactory()->createJukeboxRestManager()
             );
         }
 

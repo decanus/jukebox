@@ -3,7 +3,8 @@
  */
 
 import { app } from '../app'
-import { fetchSearch } from '../apr/apr'
+import { fetchResults } from '../app/apr'
+import { findView } from '../dom/find-view'
 
 const state = new WeakMap()
 const listener = new WeakMap()
@@ -13,7 +14,7 @@ const listener = new WeakMap()
  * @param {HTMLElement} $element
  * @returns {boolean}
  */
-function isElementInViewport($element) {
+function isElementInViewport ($element) {
   var rect = $element.getBoundingClientRect()
 
   return (
@@ -28,38 +29,32 @@ function isElementInViewport($element) {
  *
  * @param {SearchPaginator} $element
  */
-function onScroll ($element) {
+async function onScroll ($element) {
   if (!isElementInViewport($element) || state.get($element) === 'loading' || $element.hidden) {
     return
   }
-  
-  // fetch search from store
-  const result = app.getModelStore()
-    .get({ type: 'results', id: $element.resultId })
-  
+
+  const repository = app.modelRepository
+  const result = await repository.get({ id: $element.resultId, type: $element.resultType })
+
   const pagination = result.pagination
 
   if (pagination.page >= pagination.pages) {
     $element.hidden = true
+    return
   }
 
   state.set($element, 'loading')
 
-  fetchSearch(result.query, pagination.page + 1)
-    .then((newResult) => {
-      result.pagination = newResult.pagination
+  const newResult = await fetchResults($element.resultType, result.query, pagination.page + 1)
+  const newResults = newResult.results.map((data) => repository.add(data))
 
-      newResult.results
-        .map((item) => app.getModelLoader().load(item))
-        .forEach((model) => {
-          result.results.push(model)
-          app.getModelStore().hold(model)
-        })
+  result.pagination = newResult.pagination
+  result.results = result.results.concat(newResults)
 
-      app.reloadCurrentRoute()
-      state.set($element, 'ready')
-    })
-    // todo: catch error
+  await findView($element).reloadView()
+
+  state.set($element, 'ready')
 }
 
 export class SearchPaginator extends HTMLElement {
@@ -74,7 +69,6 @@ export class SearchPaginator extends HTMLElement {
     listener.set(this, _listener)
     // todo: this is extremly ugly, need a better way to find the scrolling container
     document.querySelector('main').addEventListener('scroll', _listener)
-    onScroll(this)
   }
 
   detachedCallback () {
@@ -88,6 +82,14 @@ export class SearchPaginator extends HTMLElement {
    */
   get resultId () {
     return this.getAttribute('result-id')
+  }
+
+  /**
+   *
+   * @returns {string}
+   */
+  get resultType () {
+    return this.getAttribute('result-type')
   }
 
   /**

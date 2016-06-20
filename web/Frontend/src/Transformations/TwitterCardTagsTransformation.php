@@ -30,9 +30,8 @@ namespace Jukebox\Frontend\Transformations
 
         private function handleTrackPage(TrackPageModel $model)
         {
-            $track = $model->getTrack();
-            $this->template->queryOne('/html:html/html:head/html:meta[@name="twitter:title"]')->setAttribute('content', 'Jukebox Ninja - ' . $track['title']);
-            $this->template->queryOne('/html:html/html:head/html:meta[@name="twitter:description"]')->setAttribute('content', 'Jukebox Ninja - Listen to great tracks like ' . $track['title']);
+            $this->template->queryOne('/html:html/html:head/html:meta[@name="twitter:title"]')->setAttribute('content', $model->getMetaTitle());
+            $this->template->queryOne('/html:html/html:head/html:meta[@name="twitter:description"]')->setAttribute('content', $model->getMetaDescription());
         }
 
         private function handleArtistPage(ArtistPageModel $model)
@@ -40,6 +39,15 @@ namespace Jukebox\Frontend\Transformations
             $artist = $model->getArtist();
             $this->template->queryOne('/html:html/html:head/html:meta[@name="twitter:title"]')->setAttribute('content', 'Jukebox Ninja - ' . $artist['name']);
             $this->template->queryOne('/html:html/html:head/html:meta[@name="twitter:description"]')->setAttribute('content', 'Jukebox Ninja - Listen to great artists like ' . $artist['name']);
+
+            $head = $this->template->queryOne('/html:html/html:head');
+            $image = $head->appendElement('meta');
+            $image->setAttribute('name', 'twitter:image');
+
+            $imageLink = $artist['image'];
+            if ($imageLink !== null) {
+                $image->setAttribute('content', '/images/artists/' . $artist['image']);
+            }
         }
     }
 }

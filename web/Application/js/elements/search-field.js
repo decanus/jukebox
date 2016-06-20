@@ -12,10 +12,10 @@ export class SearchField extends HTMLInputElement {
         return
       }
 
-      let params = {}
+      let params = new Map()
 
       if (this.value !== '') {
-        params = { q: this.value }
+        params.set('q', this.value)
       }
 
       app.setRoute(new Route('/search', params))
@@ -26,7 +26,7 @@ export class SearchField extends HTMLInputElement {
         let value = ''
 
         if (route.pathParts[ 0 ] === 'search') {
-          value = route.params[ 'q' ] || ''
+          value = route.params.get('q') || ''
         }
 
         this.value = value

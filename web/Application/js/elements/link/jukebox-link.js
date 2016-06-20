@@ -7,7 +7,6 @@ import { Route } from '../../app/route'
 
 export class JukeboxLink extends HTMLAnchorElement {
   createdCallback() {
-    
     this.addEventListener('click', (event) => {
       if (event.ctrlKey || event.metaKey) {
         return
@@ -16,6 +15,5 @@ export class JukeboxLink extends HTMLAnchorElement {
       event.preventDefault()
       app.setRoute(Route.fromLocation(this))
     })
-    
   }
 }

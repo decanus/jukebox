@@ -2,13 +2,13 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import 'babel-polyfill'
-import 'es6-symbol/implement'
+import 'whatwg-fetch'
 
 import { app } from './app'
 import { getInterval } from './dom/time/get-interval'
 import { Route } from './app/route'
 import { trackPageView, sendPlayTrack } from './app/analytics'
+import config from '../data/config.json'
 
 import './app/elements'
 import './app/media-keys'
@@ -24,17 +24,27 @@ document.addEventListener('DOMContentLoaded', () => {
   app.getRoute().forEach(trackPageView)
 })
 
-app.getPlayer()
+app.player
   .getTrack()
   .forEach((track) => sendPlayTrack(track))
 
 window.__$loadModel = function (model) {
-  app.getModelLoader().load(model)
+  app.modelRepository.add(model)
 }
 
 // todo: figure out an optimal interval for cleanup
 getInterval(180000)
   .forEach(() => {
     console.info('it\'s time to clean')
-    app.getModelStore().cleanup()
+    app.modelRepository.cleanup()
   })
+
+//noinspection JSUnresolvedVariable
+if (config.isDevelopmentMode === true) {
+  window.__$app = app
+}
+
+// todo: put this idk where
+Handlebars.registerHelper('json', function (context) {
+  return JSON.stringify(context)
+})

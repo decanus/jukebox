@@ -6,7 +6,7 @@ Release: jukebox.1
 Group: System Environment/Libraries
 License: jukebox.ninja
 Vendor: jukebox.ninja
-Version: 0.0.9
+Version: 0.1.4
 Url: http://www.jukebox.ninja/
 
 #Source:
@@ -94,5 +94,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_wwwDir}Frontend/*
 
 %post
+
+ln -s /var/www/CDN/artists /var/www/Frontend/html/images/artists
+
 service crond restart
 service supervisord restart

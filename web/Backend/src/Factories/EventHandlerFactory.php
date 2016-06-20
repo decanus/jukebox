@@ -38,13 +38,8 @@ namespace Jukebox\Backend\Factories
             return new \Jukebox\Backend\EventHandlers\Import\VevoArtistVideosImportEventHandler(
                 $event,
                 $this->getMasterFactory()->createVevoService(),
-                $this->getMasterFactory()->createFetchArtistByVevoIdQuery(),
-                $this->getMasterFactory()->createInsertTrackCommand(),
-                $this->getMasterFactory()->createInsertTrackArtistCommand(),
-                $this->getMasterFactory()->createInsertTrackGenreCommand(),
-                $this->getMasterFactory()->createFetchGenreByNameQuery(),
                 $this->getMasterFactory()->createFetchTrackByVevoIdQuery(),
-                $this->getMasterFactory()->createInsertTrackSourceCommand()
+                $this->getMasterFactory()->createInsertTrackCommand()
             );
         }
 
