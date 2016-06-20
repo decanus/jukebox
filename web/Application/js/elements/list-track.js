@@ -12,7 +12,12 @@ export class ListTrack extends HTMLElement {
     const track = await this.track
     const currentTrack = app.player.getCurrentTrack()
 
-    this.appendChild(renderTemplate('partials/list-track', this.ownerDocument, track))
+    this.appendChild(renderTemplate('partials/list-track', this.ownerDocument, {
+      track,
+      resultId: this.resultId,
+      resultType: this.resultType
+    }))
+    
     this.active = (currentTrack && track.id === currentTrack.id)
 
     if (this.isFirst) {
@@ -49,6 +54,22 @@ export class ListTrack extends HTMLElement {
    */
   get trackId () {
     return this.getAttribute('track-id')
+  }
+
+  /**
+   *
+   * @returns {string}
+   */
+  get resultId () {
+    return this.getAttribute('result-id')
+  }
+
+  /**
+   *
+   * @returns {string}
+   */
+  get resultType () {
+    return this.getAttribute('result-type')
   }
 
   /**
