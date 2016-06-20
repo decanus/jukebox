@@ -83,7 +83,7 @@ export class PlayQueue {
    *
    * @param {Track} track
    */
-  setCurrentTrack (track) {
+  setTrack (track) {
     this.current = this._tracks.indexOfTrack(track)
   }
 

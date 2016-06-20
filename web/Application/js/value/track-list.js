@@ -35,6 +35,18 @@ export class TrackList {
   /**
    *
    * @param {Track} track
+   */
+  append (track) {
+    this._tracks.push(track)
+  }
+
+  removeLast () {
+    this._tracks.pop()
+  }
+
+  /**
+   *
+   * @param {Track} track
    * @returns {boolean}
    */
   containsTrack (track) {

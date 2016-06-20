@@ -6,9 +6,6 @@ import { PlayQueue } from './play-queue'
 import { UserQueue } from './user-queue'
 import { RepeatMode } from '../repeat-mode'
 
-/**
- * @todo implement repeat mode
- */
 export class QueueDelegate {
   constructor () {
     /**
@@ -46,6 +43,24 @@ export class QueueDelegate {
   playTrack (track, results) {
     this.playQueue = PlayQueue.fromContext(track, results)
     this._current = this.playQueue
+  }
+
+  /**
+   *
+   * @param {string} queue
+   * @param {Track} track
+   */
+  setTrack (queue, track) {
+    switch(queue) {
+      case 'user':
+        this.userQueue.setTrack(track)
+        this._current = this.userQueue
+        return
+      case 'play':
+        this.playQueue.setTrack(track)
+        this._current = this.playQueue
+        return
+    }
   }
 
   /**

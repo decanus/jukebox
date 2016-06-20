@@ -99,6 +99,20 @@ export class PlayerDelegator {
     this._emitter.emit('queueChange')
   }
 
+  /**
+   * 
+   * @param {string} queue
+   * @param {Track} track
+   */
+  async setTrack (queue, track) {
+    this._queue.setTrack(queue, track)
+    this._emitter.emit('queueChange')
+
+    await this._loadCurrentTrack()
+
+    return await this.play()
+  }
+
   async play () {
     if (this._queue.isEmpty()) {
       throw new Error('queue is empty')

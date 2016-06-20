@@ -19,7 +19,7 @@ export class PlayerQueueItem extends HTMLElement {
     $container.appendChild($artist)
 
     $container.addEventListener('click', () => {
-      //player.setCurrent(index)
+      app.player.setTrack(this.type, track)
     })
     
     this.appendChild($container)
@@ -47,5 +47,13 @@ export class PlayerQueueItem extends HTMLElement {
    */
   get current () {
     return this.hasAttribute('current')
+  }
+
+  /**
+   *
+   * @returns {string}
+   */
+  get type () {
+    return this.getAttribute('type')
   }
 }

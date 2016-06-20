@@ -2,9 +2,11 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
+import { TrackList } from '../../value/track-list'
+  
 export class UserQueue {
   constructor () {
-    this._queue = []
+    this._queue = new TrackList()
   }
 
   /**
@@ -12,11 +14,21 @@ export class UserQueue {
    * @param {Track} track
    */
   appendTrack (track) {
-    this._queue.push(track)
+    this._queue.append(track)
+  }
+
+  /**
+   * 
+   * @param {Track} track
+   */
+  setTrack (track) {
+    const index = this._queue.indexOfTrack(track)
+
+    this._queue = new TrackList(this.tracks.slice(index))
   }
 
   removeFirstTrack () {
-    this._queue.shift()
+    this._queue.removeLast()
   }
 
   /**
@@ -32,7 +44,7 @@ export class UserQueue {
    * @returns {Array<Track>}
    */
   get tracks () {
-    return this._queue
+    return this._queue.tracks
   }
 
   /**
@@ -40,7 +52,7 @@ export class UserQueue {
    * @returns {number}
    */
   get size () {
-    return this._queue.length
+    return this._queue.tracks.length
   }
 
   /**
@@ -48,6 +60,6 @@ export class UserQueue {
    * @returns {Track}
    */
   get currentTrack () {
-    return this._queue[ 0 ]
+    return this._queue.get(0)
   }
 }

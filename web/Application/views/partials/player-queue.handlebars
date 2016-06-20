@@ -8,7 +8,7 @@
     <h3>Queued Tracks</h3>
 
     {{#each userQueue}}
-        <player-queue-item track-id="{{id}}" index="{{@index}}"></player-queue-item>
+        <player-queue-item track-id="{{id}}" index="{{@index}}" type="user"></player-queue-item>
     {{/each}}
 {{/if}}
 
@@ -16,6 +16,6 @@
     <h3>Up Next</h3>
 
     {{#each playQueue}}
-        <player-queue-item track-id="{{id}}" index="{{@index}}"></player-queue-item>
+        <player-queue-item track-id="{{id}}" index="{{@index}}" type="play"></player-queue-item>
     {{/each}}
 {{/if}}
