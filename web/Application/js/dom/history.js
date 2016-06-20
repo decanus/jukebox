@@ -8,7 +8,6 @@ import { Route } from '../app/route'
  *
  * @param {Route} route
  * @param {boolean} replace
- * @todo: allow passing in the window instance
  */
 export function updatePath (route, replace = false) {
   const currentState = Route.fromLocation(window.location)
