@@ -28,6 +28,8 @@ export class ArtistProfile {
         return 'iTunes'
       case 'facebook':
         return 'Facebook'
+      case 'amazon':
+        return 'Amazon'
     }
   }
 
@@ -52,6 +54,7 @@ export class ArtistProfile {
       case 'official_website':
       case 'itunes':
       case 'facebook':
+      case 'amazon':
         return this.data
       case 'twitter':
         return `https://twitter.com/${this.data}`
