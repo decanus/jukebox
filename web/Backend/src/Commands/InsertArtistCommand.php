@@ -18,7 +18,7 @@ namespace Jukebox\Backend\Commands
 
                 $database->beginTransaction();
 
-                $database->insert(
+                $database->execute(
                     'INSERT INTO artists (name, vevo_id, permalink, image, soundcloud_id) VALUES (:name, :vevo_id, :permalink, :image, :soundcloud_id)',
                     [':name' => $artist, ':vevo_id' => $vevoId, ':permalink' => $permalink, ':image' => $image, ':soundcloud_id' => $soundcloudId]
                 );
@@ -26,7 +26,7 @@ namespace Jukebox\Backend\Commands
                 $artistId = $database->lastInsertId('artists_id_seq');
 
                 foreach ($webProfiles as $webProfile) {
-                    $database->insert(
+                    $database->execute(
                         'INSERT INTO artist_web_profiles (artist, profile, profile_data) VALUES (:artist, :profile, :profile_data)',
                         [':artist' => $artistId, ':profile' => (string) $webProfile['profile'], ':profile_data' => $webProfile['profileData']]
                     );
