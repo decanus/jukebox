@@ -17,22 +17,26 @@ namespace Jukebox\Backend\EventHandlers\Import
             $width = $image->getImageWidth();
             $height = $image->getImageHeight();
 
-            $maxSize = 200;
-
-            if ($height > $width) {
-                $scalingFactor = $maxSize / $width;
-                $newWidth = $maxSize;
-                $newHeight = $height * $scalingFactor;
-            } else {
-                $scalingFactor = $maxSize / $height;
-                $newHeight = $maxSize;
-                $newWidth = $width * $scalingFactor;
-            }
-
             $splitUri = explode('/', $uri);
             $sliced  = array_slice($splitUri, -1);
             $filename = array_pop($sliced);
-            $image->resizeImage($newWidth, $newHeight, Imagick::FILTER_LANCZOS, 1);
+
+            $maxSize = 200;
+
+            if ($width !== $maxSize && $height !== $maxSize) {
+                if ($height > $width) {
+                    $scalingFactor = $maxSize / $width;
+                    $newWidth = $maxSize;
+                    $newHeight = $height * $scalingFactor;
+                } else {
+                    $scalingFactor = $maxSize / $height;
+                    $newHeight = $maxSize;
+                    $newWidth = $width * $scalingFactor;
+                }
+
+                $image->resizeImage($newWidth, $newHeight, Imagick::FILTER_LANCZOS, 1);
+            }
+
             $image->writeImage('/var/www/CDN/artists/' . $filename);
             $image->clear();
 
