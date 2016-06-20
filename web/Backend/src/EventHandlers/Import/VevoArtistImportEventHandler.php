@@ -12,6 +12,11 @@ namespace Jukebox\Backend\EventHandlers\Import
     use Jukebox\Framework\Logging\LoggerAware;
     use Jukebox\Framework\Logging\LoggerAwareTrait;
     use Jukebox\Framework\ValueObjects\Uri;
+    use Jukebox\Framework\ValueObjects\WebProfiles\Amazon;
+    use Jukebox\Framework\ValueObjects\WebProfiles\Facebook;
+    use Jukebox\Framework\ValueObjects\WebProfiles\iTunes;
+    use Jukebox\Framework\ValueObjects\WebProfiles\OfficialWebsite;
+    use Jukebox\Framework\ValueObjects\WebProfiles\Twitter;
 
     class VevoArtistImportEventHandler implements EventHandlerInterface, LoggerAware
     {
@@ -75,48 +80,7 @@ namespace Jukebox\Backend\EventHandlers\Import
 
                 $artist = $response->getDecodedJsonResponse();
 
-                $officialWebsite = null;
-                $twitter = null;
-                $facebook = null;
-                $itunes = null;
-                $amazon = null;
-
-                foreach ($artist['links'] as $link) {
-                    try {
-                        if ($link['type'] === 'Facebook') {
-                            $facebook = new Uri(trim($link['url']));
-                            continue;
-                        }
-
-                        if ($link['type'] === 'Twitter') {
-                            $twitter = $link['userName'];
-                            continue;
-                        }
-
-                        if ($link['type'] === 'Official Website') {
-                            $officialWebsite = new Uri(trim($link['url']));
-                            continue;
-                        }
-                    } catch (\Throwable $e) {
-                        continue;
-                    }
-                }
-
-                foreach ($artist['buyLinks'] as $link) {
-                    try {
-                        if ($link['vendor'] === 'iTunes') {
-                            $itunes = new Uri(trim($link['url']));
-                            continue;
-                        }
-
-                        if ($link['vendor'] === 'Amazon') {
-                            $amazon = new Uri(trim($link['url']));
-                            continue;
-                        }
-                    } catch (\Throwable $e) {
-                        continue;
-                    }
-                }
+                $webProfiles = $this->handleWebProfiles($artist['links'], $artist['buyLinks']);
 
                 try {
                     $image = $this->downloadImage($artist['thumbnailUrl']);
@@ -133,13 +97,9 @@ namespace Jukebox\Backend\EventHandlers\Import
                 $result = $this->insertArtistCommand->execute(
                     $artist['name'],
                     $artist['urlSafeName'],
-                    $officialWebsite,
-                    $twitter,
-                    $facebook,
-                    $itunes,
-                    $amazon,
                     $permalink,
-                    $image
+                    $image,
+                    $webProfiles
                 );
                 
                 if (!$result) {
@@ -149,6 +109,49 @@ namespace Jukebox\Backend\EventHandlers\Import
             } catch (\Exception $e) {
                 $this->getLogger()->critical($e);
             }
+        }
+
+        private function handleWebProfiles(array $links = [], array $buyLinks = []): array
+        {
+            $profiles = [];
+
+            foreach ($links as $link) {
+                try {
+                    $type = $link['type'];
+
+                    if ($type === 'Twitter') {
+                        $profiles[] = ['profile' => new Twitter, 'profileData' => trim($link['userName'])];
+                        continue;
+                    }
+
+                    if ($link['type'] === 'Official Website') {
+                        $profiles[] = ['profile' => new OfficialWebsite, 'profileData' => trim($link['url'])];
+                        continue;
+                    }
+
+                    if ($type === 'Facebook') {
+                        $profiles[] = ['profile' => new Facebook, 'profileData' => trim($link['url'])];
+                        continue;
+                    }
+                } catch (\Throwable $e) {
+                    continue;
+                }
+            }
+
+            foreach ($buyLinks as $buyLink) {
+                $vendor = $buyLink['vendor'];
+
+                if ($vendor === 'iTunes') {
+                    $profiles[] = ['profile' => new iTunes, 'profileData' => trim($buyLink['url'])];
+                    continue;
+                }
+
+                if ($vendor === 'Amazon') {
+                    $profiles[] = ['profile' => new Amazon, 'profileData' => trim($buyLink['url'])];
+                }
+            }
+
+            return $profiles;
         }
 
         private function downloadImage(string $uri): string

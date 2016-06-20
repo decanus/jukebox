@@ -18,12 +18,6 @@ CREATE TABLE IF NOT EXISTS artists (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   vevo_id VARCHAR(255) NULL DEFAULT NULL,
-  official_website VARCHAR(255) NULL DEFAULT NULL,
-  soundcloud_id VARCHAR(255) NULL DEFAULT NULL,
-  twitter VARCHAR(255) NULL DEFAULT NULL,
-  facebook VARCHAR(255) NULL DEFAULT NULL,
-  itunes VARCHAR(255) NULL DEFAULT NULL,
-  amazon VARCHAR(255) NULL DEFAULT NULL,
   permalink VARCHAR(255) NOT NULL,
   image VARCHAR(255) NULL DEFAULT NULL,
   UNIQUE (permalink)
@@ -63,4 +57,13 @@ CREATE TABLE IF NOT EXISTS track_sources (
   CHECK (source IN ('youtube', 'soundcloud')),
   UNIQUE(source, source_data),
   FOREIGN KEY (track) REFERENCES tracks(id)
+);
+
+CREATE TABLE IF NOT EXISTS artist_web_profiles (
+  id SERIAL PRIMARY KEY,
+  artist INT NOT NULL,
+  profile VARCHAR(100) NOT NULL,
+  profile_data VARCHAR(255) NOT NULL
+  CHECK (profile IN ('facebook', 'twitter', 'itunes', 'amazon', 'official_website')),
+  FOREIGN KEY (artist) REFERENCES artists(id)
 );

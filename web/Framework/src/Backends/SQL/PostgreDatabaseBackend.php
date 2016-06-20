@@ -1,6 +1,6 @@
 <?php
 
-namespace Jukebox\Backend\Backends
+namespace Jukebox\Framework\Backends
 {
     class PostgreDatabaseBackend
     {

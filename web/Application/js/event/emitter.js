@@ -23,6 +23,7 @@ export class Emitter {
    *
    * @param {string} name
    * @param {Function} callbackFn
+   * @deprecated
    */
   on (name, callbackFn) {
     let listeners = this[ events ].get(name)
@@ -39,6 +40,7 @@ export class Emitter {
    *
    * @param {string} name
    * @param {Function} callbackFn
+   * @deprecated
    */
   off (name, callbackFn) {
     if (!this[ events ].get(name)) {
@@ -59,6 +61,20 @@ export class Emitter {
     }
 
     this[ events ].get(name).forEach((fn) => fn(data))
+  }
+
+  /**
+   *
+   * @param {string} name
+   * @param {Function} callbackFn
+   * @returns {function()}
+   */
+  addListener (name, callbackFn) {
+    this.on(name, callbackFn)
+
+    return () => {
+      this.off(name, callbackFn)
+    }
   }
 
   /**

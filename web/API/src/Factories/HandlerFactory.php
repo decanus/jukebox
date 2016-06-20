@@ -108,5 +108,12 @@ namespace Jukebox\API\Factories
             );
         }
 
+        public function createGetArtistWebProfilesQueryHandler(): \Jukebox\API\Handlers\Get\ArtistWebProfiles\QueryHandler
+        {
+            return new \Jukebox\API\Handlers\Get\ArtistWebProfiles\QueryHandler(
+                $this->getMasterFactory()->createPostgreDatabaseBackend()
+            );
+        }
+
     }
 }
