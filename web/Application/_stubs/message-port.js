@@ -20,6 +20,12 @@ MessagePort.prototype.start = function () {}
 /**
  * Disconnects the port, so it is no longer active.
  */
-MessagePort.prototype.stop = function () {}
+MessagePort.prototype.close = function () {}
 
 MessagePort.prototype.onmessage = 0
+
+/**
+ * 
+ * @type {MessagePort}
+ */
+SharedWorker.prototype.port = null

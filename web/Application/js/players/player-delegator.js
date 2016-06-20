@@ -93,10 +93,15 @@ export class PlayerDelegator {
   /**
    *
    * @param {Track} track
+   * @param {boolean} emit
    */
-  queueTrack (track) {
+  queueTrack (track, emit = true) {
     this._queue.queueTrack(track)
     this._emitter.emit('queueChange')
+    
+    if (emit) {
+      this._emitter.emit('queuePush', track)
+    }
   }
 
   /**
@@ -341,5 +346,13 @@ export class PlayerDelegator {
    */
   getQueueChange () {
     return this._emitter.toObservable('queueChange')
+  }
+
+  /**
+   *
+   * @returns {Observable}
+   */
+  getQueuePush () {
+    return this._emitter.toObservable('queuePush')
   }
 }
