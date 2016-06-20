@@ -5,6 +5,7 @@
 import { app } from '../../app'
 import { createElement } from '../../dom/create-element'
 import { PlayerState } from '../../players/player-state'
+import { InsertIcon } from '../../app/elements'
 
 const player = app.getPlayer()
 
@@ -15,16 +16,15 @@ const player = app.getPlayer()
  * @returns {Element}
  */
 function createControlElement (doc, icon) {
-  let $control = createElement(doc, 'div', '', {
+  const $control = createElement(doc, 'div', '', {
     'class': 'control',
     'role': 'button'
   })
-
-  let $icon = createElement(doc, 'insert-icon', '', {
-    'icon-name': `${icon}`,
-    'class': '-normal'
-  })
-
+  
+  const $icon = new InsertIcon()
+  $icon.iconName = icon
+  $icon.className = '-normal'
+  
   $control.appendChild($icon)
 
   return $control

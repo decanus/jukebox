@@ -13,7 +13,7 @@
         <symbol id="heart" width="128px" height="128px" viewBox="0 0 128 128">
             <title>Heart</title>
             <path d="M64,123.019336 L10.980664,70 C-3.66022134,55.3591146 -3.66022134,31.6215494 10.980664,16.980664 C25.6215494,2.33977866 49.3591146,2.33977866 64,16.980664 C78.6408854,2.33977866 102.378451,2.33977866 117.019336,16.980664 C131.660221,31.6215494 131.660221,55.3591146 117.019336,70 L64,123.019336 Z M64,106 L108.534055,61.5147186 C118.488648,51.5601248 118.488648,35.4205392 108.534055,25.4659454 C98.5794608,15.5113515 82.4398752,15.5113515 72.4852814,25.4659454 L64,33.9512268 L55.5147186,25.4659454 C45.5601248,15.5113515 29.4205392,15.5113515 19.4659454,25.4659454 C9.51135154,35.4205392 9.51135154,51.5601248 19.4659454,61.5147186 L64,106 Z"
-                  fill="currentColor" fill-rule="evenodd" style="stroke: var(--icon-fill-color)"/>
+                  fill="currentColor" fill-rule="evenodd" />
         </symbol>
         
         <symbol id="next" width="128px" height="128px" viewBox="0 0 128 128">
@@ -81,7 +81,7 @@
             </g>
         </symbol>
 
-        <symbol id="repeat-track-icon" width="128px" height="128px" viewBox="0 0 128 128">
+        <symbol id="repeat-track" width="128px" height="128px" viewBox="0 0 128 128">
             <title>Repeat Track</title>
 
             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">

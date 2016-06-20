@@ -18,7 +18,7 @@ import { PlayerQueueItem as _PlayerQueueItem} from  '../elements/player/player-q
 import { SearchField } from  '../elements/search-field'
 import { SearchPaginator } from  '../elements/search-paginator'
 import { ListTrack } from  '../elements/list-track'
-import { InsertIcon } from  '../elements/insert-icon'
+import { InsertIcon as _InsertIcon } from  '../elements/insert-icon'
 
 /**
  * @type {Function}
@@ -35,6 +35,11 @@ export const ScrobbleBar = document.registerElement('scrobble-bar', _ScrobbleBar
  */
 export const PlayerQueueItem = document.registerElement('player-queue-item', _PlayerQueueItem)
 
+/**
+ * @type {Function}
+ */
+export const InsertIcon = document.registerElement('insert-icon', _InsertIcon)
+
 document.registerElement('app-mount', AppMount)
 document.registerElement('player-title', PlayerTitle)
 document.registerElement('player-volume', PlayerVolume)
@@ -45,7 +50,6 @@ document.registerElement('player-controls', PlayerControls)
 document.registerElement('player-scrobble-bar', PlayerScrobbleBar)
 document.registerElement('search-paginator', SearchPaginator)
 document.registerElement('list-track', ListTrack)
-document.registerElement('insert-icon', InsertIcon)
 
 document.registerElement('toggle-sidebar', {
   'extends': 'button',
