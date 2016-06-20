@@ -42,7 +42,7 @@ namespace Jukebox\Frontend\Transformations
 
             $imageLink = $artist['image'];
             if ($imageLink !== null) {
-                $this->template->queryOne('/html:html/html:head/html:meta[@name="twitter:image"]')->setAttribute('content', 'https://www.jukebox.ninja/images/artists/' . $artist['image']);
+                $this->template->queryOne('/html:html/html:head/html:meta[@name="twitter:image"]')->setAttribute('content', 'https://www.jukebox.ninja/images/artists/' . $imageLink);
             }
         }
     }
