@@ -13,7 +13,7 @@ namespace Jukebox\API\Endpoints\v1
 
         protected function doHandle(RequestInterface $request): ControllerInterface
         {
-            return $this->getFactory()->createRegistrationController(new ControllerParameterObject($uri));
+            return $this->getFactory()->createRegistrationController(new ControllerParameterObject($request->getUri()));
         }
 
         public function getApiEndpoint(): string
