@@ -27,11 +27,11 @@
             <arg path="${basedir}/src" />
         </exec>
 
-        <!--<exec executable="phpab">-->
-            <!--<arg value="&#45;&#45;output" />-->
-            <!--<arg path="${basedir}/lib/autoload.php" />-->
-            <!--<arg path="${basedir}/lib" />-->
-        <!--</exec>-->
+        <exec executable="phpab">
+            <arg value="--output" />
+            <arg path="${basedir}/lib/autoload.php" />
+            <arg path="${basedir}/lib" />
+        </exec>
 
         <!--<exec executable="phpab">-->
         <!--<arg value="&#45;&#45;output" />-->

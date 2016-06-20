@@ -1,6 +1,6 @@
 <?php
 
-namespace Jukebox\Frontend\Handlers\Get\Ajax\ArtistTracks
+namespace Jukebox\Frontend\Handlers\Get\Ajax\Artist
 {
 
     use Jukebox\Framework\Handlers\QueryHandlerInterface;
@@ -22,18 +22,8 @@ namespace Jukebox\Frontend\Handlers\Get\Ajax\ArtistTracks
 
         public function execute(RequestInterface $request, AbstractModel $model)
         {
-            $size = 20;
-            if ($request->hasParameter('size')) {
-                $size = $request->getParameter('size');
-            }
-
-            $page = 1;
-            if ($request->hasParameter('page')) {
-                $page = $request->getParameter('page');
-            }
-
             try {
-                $model->setData($this->jukeboxRestManager->getTracksByArtistId($request->getParameter('artistId'), $size, $page)->getDecodedJsonResponse());
+                $model->setData($this->jukeboxRestManager->getArtistById($request->getParameter('id'))->getDecodedJsonResponse());
             } catch (\Throwable $e) {
                 return;
             }
