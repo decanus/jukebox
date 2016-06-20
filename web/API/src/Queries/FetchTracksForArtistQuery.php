@@ -27,6 +27,9 @@ namespace Jukebox\API\Queries
         public function execute(string $artist, int $size, int $page)
         {
             $params = [
+                'sort' => [
+                    'release_date' => ['order' => 'desc']
+                ],
                 'query' => [
                     'bool' => [
                         'must' => ['match' => ['artists.id' => $artist]]
