@@ -20,6 +20,8 @@ import { SearchField } from  '../elements/search-field'
 import { SearchPaginator } from  '../elements/search-paginator'
 import { ListTrack } from  '../elements/list-track'
 import { InsertIcon as _InsertIcon } from  '../elements/insert-icon'
+import { TabLink } from  '../elements/tab/tab-link'
+import { TabContent } from  '../elements/tab/tab-content'
 
 /**
  * @type {Function}
@@ -52,6 +54,8 @@ document.registerElement('player-controls', PlayerControls)
 document.registerElement('player-scrobble-bar', PlayerScrobbleBar)
 document.registerElement('search-paginator', SearchPaginator)
 document.registerElement('list-track', ListTrack)
+document.registerElement('tab-link', TabLink)
+document.registerElement('tab-content', TabContent)
 
 document.registerElement('toggle-sidebar', {
   'extends': 'button',
