@@ -75,7 +75,6 @@ export class SearchPaginator extends HTMLElement {
     listener.set(this, _listener)
     // todo: this is extremly ugly, need a better way to find the scrolling container
     document.querySelector('main').addEventListener('scroll', _listener)
-    onScroll(this)
   }
 
   detachedCallback () {
