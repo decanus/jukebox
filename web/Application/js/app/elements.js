@@ -18,6 +18,7 @@ import { PlayerQueueItem as _PlayerQueueItem} from  '../elements/player/player-q
 import { SearchField } from  '../elements/search-field'
 import { SearchPaginator } from  '../elements/search-paginator'
 import { ListTrack } from  '../elements/list-track'
+import { InsertIcon } from  '../elements/insert-icon'
 
 /**
  * @type {Function}
@@ -44,6 +45,7 @@ document.registerElement('player-controls', PlayerControls)
 document.registerElement('player-scrobble-bar', PlayerScrobbleBar)
 document.registerElement('search-paginator', SearchPaginator)
 document.registerElement('list-track', ListTrack)
+document.registerElement('insert-icon', InsertIcon)
 
 document.registerElement('toggle-sidebar', {
   'extends': 'button',

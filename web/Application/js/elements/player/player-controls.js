@@ -20,8 +20,9 @@ function createControlElement (doc, icon) {
     'role': 'button'
   })
 
-  let $icon = createElement(doc, 'img', '', {
-    'src': `/images/icons/${icon}.svg`
+  let $icon = createElement(doc, 'insert-icon', '', {
+    'icon-name': `${icon}`,
+    'class': '-normal'
   })
 
   $control.appendChild($icon)
@@ -40,14 +41,14 @@ export class PlayerControls extends HTMLElement {
 
     this.appendChild($controls)
 
-    const $prev = $controls.appendChild(createControlElement(this.ownerDocument, 'previous'))
+    const $prev = $controls.appendChild(createControlElement(this.ownerDocument, 'prev'))
     $prev.addEventListener('click', () => player.prev())
     $prev.classList.add('-prev')
 
     const $play = $controls.appendChild(createControlElement(this.ownerDocument, 'play'))
     $play.classList.add('-playpause')
 
-    const $playIcon = $play.querySelector('img')
+    const $playIcon = $play.querySelector('insert-icon')
 
     $play.addEventListener('click', () => {
       switch (playerState) {
@@ -68,11 +69,11 @@ export class PlayerControls extends HTMLElement {
       playerState = value
       
       if (playerState === PlayerState.PLAYING || playerState === PlayerState.LOADING) {
-        $playIcon.src = '/images/icons/pause.svg'
+        $playIcon.iconName = 'pause'
         return
       }
 
-      $playIcon.src =  '/images/icons/play.svg'
+      $playIcon.iconName = 'play'
     })
   }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <defs>
-        <symbol id="facebook-icon" width="128px" height="128px" viewBox="0 0 128 128">
+        <symbol id="facebook" width="128px" height="128px" viewBox="0 0 128 128">
             <title>Facebook</title>
             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                 <g fill="currentColor">
@@ -9,12 +9,14 @@
                 </g>
             </g>
         </symbol>
-        <symbol id="heart-icon" width="128px" height="128px" viewBox="0 0 128 128">
+        
+        <symbol id="heart" width="128px" height="128px" viewBox="0 0 128 128">
             <title>Heart</title>
             <path d="M64,123.019336 L10.980664,70 C-3.66022134,55.3591146 -3.66022134,31.6215494 10.980664,16.980664 C25.6215494,2.33977866 49.3591146,2.33977866 64,16.980664 C78.6408854,2.33977866 102.378451,2.33977866 117.019336,16.980664 C131.660221,31.6215494 131.660221,55.3591146 117.019336,70 L64,123.019336 Z M64,106 L108.534055,61.5147186 C118.488648,51.5601248 118.488648,35.4205392 108.534055,25.4659454 C98.5794608,15.5113515 82.4398752,15.5113515 72.4852814,25.4659454 L64,33.9512268 L55.5147186,25.4659454 C45.5601248,15.5113515 29.4205392,15.5113515 19.4659454,25.4659454 C9.51135154,35.4205392 9.51135154,51.5601248 19.4659454,61.5147186 L64,106 Z"
                   fill="currentColor" fill-rule="evenodd" style="stroke: var(--icon-fill-color)"/>
         </symbol>
-        <symbol id="next-icon" width="128px" height="128px" viewBox="0 0 128 128">
+        
+        <symbol id="next" width="128px" height="128px" viewBox="0 0 128 128">
             <title>Next</title>
             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                 <g fill="currentColor">
@@ -22,7 +24,8 @@
                 </g>
             </g>
         </symbol>
-        <symbol id="pause-icon" width="128px" height="128px" viewBox="0 0 128 128">
+        
+        <symbol id="pause" width="128px" height="128px" viewBox="0 0 128 128">
             <title>Pause</title>
             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                 <g fill="currentColor">
@@ -31,13 +34,13 @@
             </g>
         </symbol>
 
-        <symbol id="play-icon" width="128px" height="128px" viewBox="0 0 128 128">
+        <symbol id="play" width="128px" height="128px" viewBox="0 0 128 128">
             <title>Play</title>
             <path d="M128.139393,64 L20,128 L20,-4.57078819e-13 L128.139393,64 Z M107.182483,64.0000004 C109.021897,65.0425371 32,21.0000004 32,21.0000004 L32,107.000002 L107.182483,64.0000004 Z"
                   stroke="none" fill="currentColor" fill-rule="evenodd"/>
         </symbol>
 
-        <symbol id="plus-icon" width="128px" height="128px" viewBox="0 0 128 128">
+        <symbol id="plus" width="128px" height="128px" viewBox="0 0 128 128">
             <title>Plus</title>
 
             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -47,7 +50,7 @@
             </g>
         </symbol>
 
-        <symbol id="prev-icon" width="128px" height="128px" viewBox="0 0 128 128">
+        <symbol id="prev" width="128px" height="128px" viewBox="0 0 128 128">
             <title>Previous</title>
 
             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -58,7 +61,7 @@
             </g>
         </symbol>
 
-        <symbol id="queue-icon" width="128px" height="128px" viewBox="0 0 128 128">
+        <symbol id="queue" width="128px" height="128px" viewBox="0 0 128 128">
             <title>Queue</title>
 
             <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -68,7 +71,7 @@
             </g>
         </symbol>
 
-        <symbol id="repeat-icon" width="128px" height="128px" viewBox="0 0 128 128">
+        <symbol id="repeat" width="128px" height="128px" viewBox="0 0 128 128">
             <title>Repeat</title>
 
             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -88,7 +91,7 @@
             </g>
         </symbol>
 
-        <symbol id="itunes-icon" width="128px" height="128px" viewBox="0 0 128 128">
+        <symbol id="itunes" width="128px" height="128px" viewBox="0 0 128 128">
             <title>iTunes</title>
 
             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -98,7 +101,7 @@
             </g>
         </symbol>
 
-        <symbol id="link-icon" width="128px" height="128px" viewBox="0 0 128 128">
+        <symbol id="link" width="128px" height="128px" viewBox="0 0 128 128">
             <title>Link</title>
 
             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -108,7 +111,7 @@
             </g>
         </symbol>
 
-        <symbol id="twitter-icon" width="128px" height="128px" viewBox="0 0 128 128">
+        <symbol id="twitter" width="128px" height="128px" viewBox="0 0 128 128">
             <title>Twitter</title>
 
             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -118,7 +121,7 @@
             </g>
         </symbol>
 
-        <symbol id="youtube-icon" width="128px" height="128px" viewBox="0 0 128 128">
+        <symbol id="youtube" width="128px" height="128px" viewBox="0 0 128 128">
             <title>YouTube</title>
 
             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
