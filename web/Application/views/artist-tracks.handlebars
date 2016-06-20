@@ -4,6 +4,13 @@
         <list-track track-id="{{id}}"></list-track>
     {{/results}}
 
+    {{#if isCompletelyLoaded}}
+    {{else}}
+        <search-paginator result-id="{{id}}" result-type="artist-tracks">
+            <div class="loading-animation"></div>
+        </search-paginator>
+    {{/if}}
+
 {{else}}
 
     <p>This artist has no tracks.</p>
