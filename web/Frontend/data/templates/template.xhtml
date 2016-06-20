@@ -15,7 +15,7 @@
     <meta name="twitter:site" content="@jukeboxninjaapp" />
     <meta name="twitter:title" content="" />
     <meta name="twitter:description" content="" />
-    <meta name="twitter:image" content="/images/favicon-152.png" />
+    <meta name="twitter:image" content="https://www.jukebox.ninja/images/favicon-152.png" />
 
     <title/>
 </head>
@@ -53,20 +53,33 @@
     </main>
 
     <aside class="sidebar">
-        <div id="youtube-player-wrap" class="youtube-player _margin-bottom-20">
-            <div id="youtube-player"/>
-        </div>
 
-        <player-title/>
-        <player-scrobble-bar />
-        <player-controls />
-        <player-volume />
-        <player-repeat-button class="player-action-button"/>
+        <nav class="player-tabs">
+            <tab-link tab-name="player" tab-group="player" class="tab" active="active">
+                <insert-icon icon-name="play" class="icon" />
+            </tab-link>
+            <tab-link tab-name="queue" tab-group="player" class="tab">
+                <insert-icon icon-name="queue" class="icon" />
+            </tab-link>
+        </nav>
 
-        <div class="player-queue">
-            <player-queue class="inner" />
-        </div>
+        <tab-content tab-name="player" tab-group="player">
+            <div id="youtube-player-wrap" class="youtube-player _margin-bottom-20">
+                <div id="youtube-player"/>
+            </div>
 
+            <player-title/>
+            <player-scrobble-bar />
+            <player-controls />
+            <player-volume />
+            <player-repeat-button class="player-action-button"/>
+        </tab-content>
+
+        <tab-content tab-name="queue" tab-group="player" hidden="hidden">
+            <div class="player-queue">
+                <player-queue class="inner" />
+            </div>
+        </tab-content>
     </aside>
 </div>
 

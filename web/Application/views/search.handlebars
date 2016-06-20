@@ -3,26 +3,26 @@
         <div class="search-container">
             <h2>Search for "{{query}}"</h2>
             {{#if results.length}}
-                {{#each results}}
+                {{#each results as |result|}}
 
-                    {{#if isArtist}}
+                    {{#if result.isArtist}}
                         <div class="search-result">
                             <div class="text">
                                 <div class="title">
-                                    <a is="jukebox-link" href="{{permalink}}" class="label">{{name}}</a>
+                                    <a is="jukebox-link" href="{{result.permalink}}" class="label">{{result.name}}</a>
                                 </div>
                             </div>
                         </div>
                     {{/if}}
 
-                    {{#if isTrack}}
-                        <list-track track-id="{{id}}"></list-track>
+                    {{#if result.isTrack}}
+                        <list-track track-id="{{result.id}}" result-id="{{@root.query}}" result-type="results"></list-track>
                     {{/if}}
                 {{/each}}
 
                 {{#if isCompletelyLoaded}}
                 {{else}}
-                    <search-paginator result-id="{{id}}">
+                    <search-paginator result-id="{{id}}" result-type="results">
                         <div class="loading-animation"></div>
                     </search-paginator>
                 {{/if}}

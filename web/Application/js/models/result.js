@@ -38,4 +38,12 @@ export class Result {
   get isCompletelyLoaded () {
     return this.pagination.page === this.pagination.pages
   }
+
+  /**
+   * 
+   * @returns {string}
+   */
+  get uniqueId () {
+    return `${this.type}:${this.id}`
+  }
 }

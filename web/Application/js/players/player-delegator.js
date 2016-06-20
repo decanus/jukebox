@@ -6,12 +6,11 @@ import { YoutubePlayer } from './youtube-player'
 import { Emitter } from '../event/emitter'
 import { Observable } from '../observable'
 import { PlayerState } from './player-state'
-import { PlayerQueue } from './player-queue'
+import { QueueDelegate } from './queue/queue-delegate'
 
 /**
  *
  * @param {string} method
- * @todo search word if currently searching in field
  */
 function delegateToCurrentPlayer (method) {
   return new Observable((observer) => {
@@ -43,10 +42,10 @@ export class PlayerDelegator {
   constructor () {
     /**
      *
-     * @type {PlayerQueue}
+     * @type {QueueDelegate}
      * @private
      */
-    this._queue = new PlayerQueue()
+    this._queue = new QueueDelegate()
 
     /**
      *
@@ -74,16 +73,57 @@ export class PlayerDelegator {
     delegateToCurrentPlayer.call(this, 'getEnd')
       .forEach(() => this.next(true))
   }
-  
+
+  /**
+   *
+   * @param {Track} track
+   * @param {Result} result
+   */
+  async playTrack (track, result) {
+    await this.pause()
+    
+    this._queue.playTrack(track, result)
+    this._emitter.emit('queueChange')
+    
+    await this._loadCurrentTrack()
+
+    return await this.play()
+  }
+
+  /**
+   *
+   * @param {Track} track
+   */
+  queueTrack (track) {
+    this._queue.queueTrack(track)
+    this._emitter.emit('queueChange')
+  }
+
+  /**
+   * 
+   * @param {string} queue
+   * @param {Track} track
+   */
+  async setTrack (queue, track) {
+    this._queue.setTrack(queue, track)
+    this._emitter.emit('queueChange')
+
+    await this._loadCurrentTrack()
+
+    return await this.play()
+  }
+
   async play () {
     if (this._queue.isEmpty()) {
       throw new Error('queue is empty')
     }
-    
+
     if (!this._queue.hasCurrentTrack()) {
-      await this.setCurrent(0)
+      this._queue.next()
+      await this._loadCurrentTrack()
+      // await this.setCurrent(0)
     }
-    
+
     const player = this.getCurrentPlayer()
 
     await player.ready()
@@ -94,7 +134,7 @@ export class PlayerDelegator {
   /**
    * @returns {Promise}
    */
-  pause() {
+  pause () {
     if (!this._queue.hasCurrentTrack()) {
       return Promise.resolve()
     }
@@ -107,72 +147,62 @@ export class PlayerDelegator {
    * @param {boolean} automatic
    * @returns {Promise}
    */
-  next (automatic = false) {
-    return this._playTrackByIndex(this._queue.getNext(automatic))
+  async next (automatic = false) {
+    this._queue.next(automatic)
+
+    await this._loadCurrentTrack()
+
+    return await this.play()
   }
 
   /**
    *
    * @returns {Promise}
    */
-  prev () {
-    return this._playTrackByIndex(this._queue.getPrev())
+  async prev () {
+    this._queue.prev()
+
+    await this._loadCurrentTrack()
+
+    return await this.play()
   }
 
-  /**
-   * 
-   * @param {number} index
-   * @returns {Promise}
-   * @private
-   */
-  _playTrackByIndex(index) {
-    if (index === -1) {
-      return this.stop()
-    }
-
-    return this.setCurrent(index).then(() => this.play())
-  }
-
-  stop () {
+  async stop () {
     const player = this.getCurrentPlayer()
 
-    const result = player.ready()
-      .then(() => player.stop())
-      .then(() => {
-        this._queue.setCurrent(-1)
-        this._emitter.emit('stop')
-      })
+    await player.ready()
+    await player.stop()
 
-    return result
+    this._queue.onStop()
+    this._emitter.emit('stop')
   }
 
   /**
    *
+   * @param {string} type
    * @param {number} index
    * @returns {Promise}
+   * @todo implement
    */
-  setCurrent (index) {
+  setCurrent (type, index) {
+
+  }
+
+  async _loadCurrentTrack () {
     const pause = this.pause()
-
-    this._queue.setCurrent(index)
-
     const player = this.getCurrentPlayer()
 
-    const result = pause
-      .then(() => player.ready())
-      .then(() => {
-        // todo: we have to pick the right track here
-        player.setTrack(this._queue.getCurrentTrack().youtubeTrack)
-        player.setVolume(this._volume)
+    await pause
+    await player.ready()
 
-        this._emitter.emit('trackChange')
-      })
+    player.setTrack(this._queue.currentTrack.youtubeTrack)
+    player.setVolume(this._volume)
 
-    return result
+    this._emitter.emit('trackChange')
   }
 
   /**
-   * 
+   *
    * @returns {number}
    */
   getCurrent () {
@@ -190,39 +220,10 @@ export class PlayerDelegator {
   /**
    *
    * @param {Track} track
-   */
-  appendTrack (track) {
-    this._queue.appendTrack(track)
-    this._emitter.emit('queueChange')
-  }
-
-  /**
-   *
-   * @param {Track} track
-   */
-  prependTrack (track) {
-    this._queue.prependTrack(track)
-    this._emitter.emit('queueChange')
-  }
-
-  /**
-   *
-   * @param {Track} track
+   * @todo implement
    */
   removeTrack (track) {
-    this._queue.removeTrack(track)
-    this._emitter.emit('queueChange')
-  }
 
-  /**
-   * 
-   * @returns {Promise}
-   */
-  removeAllTracks () {
-    return this.stop().then(() => {
-      this._queue.empty()
-      this._emitter.emit('queueChange')
-    })
   }
 
   /**
@@ -231,23 +232,23 @@ export class PlayerDelegator {
    */
   getTrack () {
     return this._emitter.toObservable('trackChange')
-      .map(() => this._queue.getCurrentTrack())
+      .map(() => this._queue.currentTrack)
   }
 
   /**
-   * 
+   *
    * @returns {Track}
    */
   getCurrentTrack () {
-    return this._queue.getCurrentTrack()
+    return this._queue.currentTrack
   }
 
   /**
-   * 
-   * @returns {Array<Track>}
+   *
+   * @returns {QueueDelegate}
    */
-  getTracks () {
-    return this._queue.getTracks()
+  getQueue () {
+    return this._queue
   }
 
   /**
@@ -284,7 +285,7 @@ export class PlayerDelegator {
   }
 
   /**
-   * 
+   *
    * @param {number} position
    */
   setPosition (position) {
@@ -310,21 +311,21 @@ export class PlayerDelegator {
       .map(() => PlayerState.STOPPED)
     const loading = this._emitter.toObservable('loading')
       .map(() => PlayerState.LOADING)
-    
+
     return Observable.merge(play, pause, loading, stop)
   }
 
   /**
-   * 
+   *
    * @param {number} mode
    */
   setRepeatMode (mode) {
-    this._queue.setRepeatMode(mode)
+    this._queue.repeatMode = mode
     this._emitter.emit('repeatModeChange', mode)
   }
 
   /**
-   * 
+   *
    * @returns {Observable}
    */
   getRepeatMode () {
@@ -332,11 +333,11 @@ export class PlayerDelegator {
   }
 
   /**
-   * 
+   *
    * @returns {number}
    */
   getCurrentRepeatMode () {
-    return this._queue.getRepeatMode()
+    return this._queue.repeatMode
   }
 
   /**
@@ -345,13 +346,5 @@ export class PlayerDelegator {
    */
   getQueueChange () {
     return this._emitter.toObservable('queueChange')
-  }
-
-  /**
-   * 
-   * @returns {Number}
-   */
-  getQueueSize () {
-    return this._queue.getSize()
   }
 }

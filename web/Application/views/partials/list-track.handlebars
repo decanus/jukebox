@@ -1,24 +1,23 @@
 <div class="search-result">
     <div class="text">
         <div class="title">
-            <a class="label">{{title}}</a>
+            <span class="label">{{track.title}}</span>
 
-
-            {{#isExplicit}}
+            {{#track.isExplicit}}
                 <span class="item track-label -red">EXPLICIT</span>
-            {{/isExplicit}}
+            {{/track.isExplicit}}
 
-            {{#isMusicVideo}}
+            {{#track.isMusicVideo}}
                 <span class="item track-label">MUSIC VIDEO</span>
-            {{/isMusicVideo}}
+            {{/track.isMusicVideo}}
 
-            {{#isLive}}
+            {{#track.isLive}}
                 <span class="item track-label">LIVE</span>
-            {{/isLive}}
+            {{/track.isLive}}
         </div>
 
         <div class="artists">
-            {{#artists}}
+            {{#track.artists}}
 
                 <span class="sep">{{#if isPrependComma}}, {{/if}}</span>
 
@@ -31,16 +30,16 @@
                     <a is="jukebox-link" href="{{artist.permalink}}" class="artist">{{artist.name}}</a>
                 {{/if}}
 
-            {{/artists}}
+            {{/track.artists}}
         </div>
     </div>
 
     <div class="buttons">
-        <track-link track-id="{{id}}" class="button">
-            <img src="/images/icons/actions/play.svg" alt="play" title="play"/>
-        </track-link>
-        <track-link track-id="{{id}}" push-to-queue class="button">
-            <img src="/images/icons/actions/add.svg" alt="+" title="Add to Queue"/>
-        </track-link>
+        <play-track-link track-id="{{track.id}}" result-id="{{resultId}}" result-type="{{resultType}}" class="button">
+            <insert-icon class="icon" icon-name="play"></insert-icon>
+        </play-track-link>
+        <queue-track-link track-id="{{track.id}}" class="button">
+            <insert-icon class="icon" icon-name="plus"></insert-icon>
+        </queue-track-link>
     </div>
 </div>

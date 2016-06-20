@@ -58,6 +58,10 @@ namespace Jukebox\Backend\EventHandlers\Import
 
         private function handleArtist(array $artist)
         {
+            if ($artist['urlSafeName'] === 'vevo') {
+                return;
+            }
+
             $this->eventQueueWriter->add(new VevoArtistImportEvent($artist['urlSafeName']));
         }
     }
