@@ -4,12 +4,10 @@ namespace Jukebox\Backend\EventHandlers\Import
 {
 
     use Jukebox\Backend\Commands\InsertArtistCommand;
-    use Jukebox\Backend\EventHandlers\EventHandlerInterface;
     use Jukebox\Backend\Events\SoundcloudArtistImportEvent;
     use Jukebox\Backend\Services\Soundcloud;
     use Jukebox\Framework\Logging\LoggerAware;
     use Jukebox\Framework\Logging\LoggerAwareTrait;
-    use Jukebox\Framework\ValueObjects\Uri;
     use Jukebox\Framework\ValueObjects\WebProfiles\Facebook;
     use Jukebox\Framework\ValueObjects\WebProfiles\Twitter;
 
