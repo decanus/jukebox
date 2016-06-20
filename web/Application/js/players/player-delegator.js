@@ -93,10 +93,15 @@ export class PlayerDelegator {
   /**
    *
    * @param {Track} track
+   * @param {boolean} emit
    */
-  queueTrack (track) {
+  queueTrack (track, emit = true) {
     this._queue.queueTrack(track)
     this._emitter.emit('queueChange')
+    
+    if (emit) {
+      this._emitter.emit('queuePush', track)
+    }
   }
 
   /**
@@ -261,8 +266,14 @@ export class PlayerDelegator {
    * @param {number} volume
    */
   setVolume (volume) {
+    const player = this.getCurrentPlayer()
+
     this._volume = volume
-    this.getCurrentPlayer().setVolume(volume)
+
+    player
+      .ready()
+      .then(() => player.setVolume(volume))
+
     this._emitter.emit('volumeChange')
   }
 
@@ -335,5 +346,13 @@ export class PlayerDelegator {
    */
   getQueueChange () {
     return this._emitter.toObservable('queueChange')
+  }
+
+  /**
+   *
+   * @returns {Observable}
+   */
+  getQueuePush () {
+    return this._emitter.toObservable('queuePush')
   }
 }

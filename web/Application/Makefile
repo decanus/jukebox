@@ -5,7 +5,7 @@
 SHELL := /bin/bash
 PATH  := ./node_modules/.bin:$(PATH)
 
-BUNDLE := build/js/jukebox.js build/js/polyfills.js build/js/views.js
+BUNDLE := build/js/jukebox.js build/js/polyfills.js build/js/views.js build/js/shared-worker.js
 JS_FILES := $(shell find js -name "*.js")
 POLYFILLS := $(wildcard polyfills/*.js)
 VIEWS := $(shell find views -name "*.handlebars")
@@ -41,6 +41,14 @@ endif
 build/js/polyfills.js: $(POLYFILLS)
 	@mkdir -p $(dir $@)
 	uglifyjs $^ -o $@
+
+build/js/shared-worker.js: $(JS_FILES)
+	@mkdir -p $(dir $@)
+ifeq ($(JUKEBOX_ENV),production)
+	browserify -t [ babelify ] -t envify -g [ uglifyify --no-sourcemap ] -p bundle-collapser/plugin js/shared-worker.js | uglifyjs --screw-ie8 --mangle -o $@
+else
+	browserify -t [ babelify ] -t envify js/shared-worker.js > $@
+endif
 
 data/config.json:
 ifeq ($(JUKEBOX_ENV),production)

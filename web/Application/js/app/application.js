@@ -10,6 +10,7 @@ import { ModelRepository } from './../model/model-repository'
 import { ModelFetcher } from './../model/model-fetcher'
 import { Route } from './route'
 import { ResolveCache } from '../views/resolve-cache'
+import { SharedCommunicator } from '../shared/shared-communicator'
 
 /**
  *
@@ -22,6 +23,17 @@ function createModelRepository (resolveCache) {
   const fetcher = new ModelFetcher()
 
   return new ModelRepository(store, fetcher, loader)
+}
+
+function createCommunicator () {
+  const worker = new SharedWorker('/js/shared-worker.js', 'Jukebox Ninja')
+  const communicator = new SharedCommunicator(worker.port)
+
+  worker.port.start()
+
+  window.addEventListener('beforunload', () => communicator.pushClosing())
+
+  return communicator
 }
 
 export class Application {
@@ -87,6 +99,20 @@ export class Application {
      * @deprecated
      */
     this._modelLoader = this._modelRepository._loader
+
+    /**
+     *
+     * @type {string}
+     * @private
+     */
+    this._instanceId = `${Date.now()}:${Math.random()}`
+
+    /**
+     * 
+     * @type {SharedCommunicator}
+     * @private
+     */
+    this._communicator = createCommunicator()
   }
 
   /**
@@ -175,6 +201,22 @@ export class Application {
    */
   get resolveCache () {
     return this._resolveCache
+  }
+
+  /**
+   *
+   * @returns {string}
+   */
+  get instanceId () {
+    return this._instanceId
+  }
+
+  /**
+   *
+   * @returns {SharedCommunicator}
+   */
+  get sharedCommunicator () {
+    return this._communicator
   }
 
   showSidebar() {

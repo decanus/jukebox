@@ -12,6 +12,8 @@ import config from '../data/config.json'
 
 import './app/elements'
 import './app/media-keys'
+import './app/settings'
+import { PlayerState } from './players/player-state'
 
 window.addEventListener('popstate', () => {
   app.setRoute(Route.fromLocation(window.location))
@@ -48,3 +50,25 @@ if (config.isDevelopmentMode === true) {
 Handlebars.registerHelper('json', function (context) {
   return JSON.stringify(context)
 })
+
+app.sharedCommunicator
+  .getPlayPushes()
+  .forEach((msg) => app.player.pause())
+
+app.player.getState()
+  .filter((state) => (state === PlayerState.PLAYING))
+  .forEach(() => app.sharedCommunicator.pushPlay())
+
+app.player.getQueuePush()
+  .forEach((track) => {
+    console.log('pushing track', track)
+    app.sharedCommunicator.pushQueueTrack(track)
+  })
+
+app.sharedCommunicator.getQueueTrackPushes()
+  .forEach(async (msg) => {
+    console.log(msg)
+    const track = await app.modelRepository.getTrack(msg.data.id)
+
+    app.player.queueTrack(track, false)
+  })
