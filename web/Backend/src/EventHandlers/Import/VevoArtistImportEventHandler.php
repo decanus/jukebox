@@ -141,7 +141,15 @@ namespace Jukebox\Backend\EventHandlers\Import
                 $vendor = $buyLink['vendor'];
 
                 if ($vendor === 'iTunes') {
-                    $profiles[] = ['profile' => new iTunes, 'profileData' => trim($buyLink['url'])];
+                    $uri = new Uri(trim($buyLink['url']));
+                    foreach ($profiles as $profile) {
+                        $data = new Uri($profile['profileData']);
+                        if ($data->getPath() === $uri->getPath()) {
+                            continue 2;
+                        }
+                    }
+
+                    $profiles[] = ['profile' => new iTunes, 'profileData' => (string) $uri];
                     continue;
                 }
 
