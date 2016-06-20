@@ -31,6 +31,7 @@ export function ArtistTracksView (artistId) {
       const repository = new ViewRepository(app.modelRepository)
       
       page.data.results.forEach((track) => repository.hold(track))
+      repository.hold(page.data)
 
       return () => repository.releaseAll()
     }

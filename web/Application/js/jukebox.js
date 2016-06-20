@@ -8,6 +8,7 @@ import { app } from './app'
 import { getInterval } from './dom/time/get-interval'
 import { Route } from './app/route'
 import { trackPageView, sendPlayTrack } from './app/analytics'
+import config from '../data/config.json'
 
 import './app/elements'
 import './app/media-keys'
@@ -39,7 +40,7 @@ getInterval(180000)
   })
 
 //noinspection JSUnresolvedVariable
-if (process.env.JUKEBOX_ENV !== 'production') {
+if (config.isDevelopmentMode === true) {
   window.__$app = app
 }
 

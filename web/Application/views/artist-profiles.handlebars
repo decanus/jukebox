@@ -1,0 +1,10 @@
+<ul class="profile-social-links">
+    {{#each profiles}}
+        <li class="link">
+            <a href="{{url}}" class="profile-social-link" rel="nofollow" target="_blank">
+                <insert-icon class="icon" icon-name="{{icon}}"></insert-icon>
+                <span class="label">{{label}}</span>
+            </a>
+        </li>
+    {{/each}}
+</ul>

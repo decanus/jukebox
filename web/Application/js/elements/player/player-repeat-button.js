@@ -4,6 +4,7 @@
 
 import { app } from '../../app'
 import { RepeatMode } from './../../players/repeat-mode'
+import { InsertIcon, PlayerQueueItem } from '../../app/elements'
 
 /**
  *
@@ -31,17 +32,18 @@ function getIcon (mode) {
     case RepeatMode.TRACK:
       return 'repeat-track'
     case RepeatMode.QUEUE:
-      return 'repeat-colored'
+      return 'repeat'
   }
 
-  return 'repeat-white'
+  return 'repeat'
 }
 
 const player = app.getPlayer()
 
 export class PlayerRepeatButton extends HTMLElement {
   createdCallback() {
-    this.$icon = this.ownerDocument.createElement('img')
+    this.$icon = new InsertIcon()
+    this.$icon.className = '-normal'
     this.appendChild(this.$icon)
     
     this.addEventListener('click', () => {
@@ -53,6 +55,14 @@ export class PlayerRepeatButton extends HTMLElement {
   }
 
   updateDom () {
-    this.$icon.src = `/images/icons/${getIcon(player.getCurrentRepeatMode())}.svg`
+    const currentRepeatMode = player.getCurrentRepeatMode()
+    
+    this.$icon.iconName = getIcon(currentRepeatMode)
+    
+    if (currentRepeatMode === RepeatMode.NONE) {
+      this.$icon.classList.remove('-brand-color')
+    } else {
+      this.$icon.classList.add('-brand-color')
+    }
   }
 }

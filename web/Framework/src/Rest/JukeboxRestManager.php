@@ -42,9 +42,14 @@ namespace Jukebox\Framework\Rest
             return $this->curl->get($this->buildUri('/v1/artists/' . $id), ['key' => $this->key]);
         }
 
-        public function getTracksByArtistId(string $id): Response
+        public function getTracksByArtistId(string $id, int $size = 20, int $page = 1): Response
         {
-            return $this->curl->get($this->buildUri('/v1/artists/' . $id . '/tracks'), ['key' => $this->key]);
+            return $this->curl->get($this->buildUri('/v1/artists/' . $id . '/tracks'), ['key' => $this->key, 'size' => $size, 'page' => $page]);
+        }
+
+        public function getWebProfilesByArtistId(string $id): Response
+        {
+            return $this->curl->get($this->buildUri('/v1/artists/' . $id . '/web-profiles'), ['key' => $this->key]);
         }
 
         public function search(string $searchTerm, int $size, int $page): Response

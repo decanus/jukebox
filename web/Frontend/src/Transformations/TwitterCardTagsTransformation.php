@@ -41,7 +41,7 @@ namespace Jukebox\Frontend\Transformations
             $this->template->queryOne('/html:html/html:head/html:meta[@name="twitter:description"]')->setAttribute('content', 'Jukebox Ninja - Listen to great artists like ' . $artist['name']);
 
             $head = $this->template->queryOne('/html:html/html:head');
-            $image = $head->appendNode('meta');
+            $image = $head->appendElement('meta');
             $image->setAttribute('name', 'twitter:image');
 
             $imageLink = $artist['image'];
