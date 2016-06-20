@@ -74,12 +74,8 @@ namespace Jukebox\Backend\EventHandlers\Import
                 $this->insertArtistCommand->execute(
                     $artist['username'],
                     null,
-                    null,
-                    $twitter,
-                    $facebook,
-                    null,
-                    null,
                     $permalink,
+                    null,
                     $id
                 );
 
