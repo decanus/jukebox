@@ -10,6 +10,8 @@ namespace Jukebox\Backend\EventHandlers\Import
     use Jukebox\Framework\Logging\LoggerAware;
     use Jukebox\Framework\Logging\LoggerAwareTrait;
     use Jukebox\Framework\ValueObjects\Uri;
+    use Jukebox\Framework\ValueObjects\WebProfiles\Facebook;
+    use Jukebox\Framework\ValueObjects\WebProfiles\Twitter;
 
     class SoundcloudArtistImportEventHandler implements EventHandlerInterface, LoggerAware
     {
@@ -55,16 +57,17 @@ namespace Jukebox\Backend\EventHandlers\Import
                 $artist = $response->getDecodedJsonResponse();
                 $webProfiles = $this->soundcloud->getArtistWebProfiles($id)->getDecodedJsonResponse();
 
-                $facebook = null;
-                $twitter = null;
+                $profiles = [];
+
                 foreach ($webProfiles as $webProfile) {
                     if (isset($webProfile['service']) && $webProfile['service'] === 'facebook') {
-                        $facebook = new Uri($webProfile['url']);
+                        $profiles[] = ['profile' => new Facebook, 'profileData' => $webProfile['url']];
                         continue;
                     }
 
                     if (isset($webProfile['service']) && $webProfile['service'] === 'twitter') {
-                        $twitter = $webProfile['username'];
+                        $profiles[] = ['profile' => new Twitter, 'profileData' => $webProfile['username']];
+
                     }
                 }
 
@@ -76,7 +79,8 @@ namespace Jukebox\Backend\EventHandlers\Import
                     null,
                     $permalink,
                     null,
-                    $id
+                    $id,
+                    $profiles
                 );
 
             } catch (\Throwable $e) {
