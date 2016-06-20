@@ -3,7 +3,7 @@
  */
 
 import { app } from '../app'
-import { fetchSearch } from '../app/apr'
+import { fetchResults } from '../app/apr'
 import { findView } from '../dom/find-view'
 
 const state = new WeakMap()
@@ -46,7 +46,7 @@ async function onScroll ($element) {
 
   state.set($element, 'loading')
 
-  const newResult = await fetchSearch(result.query, pagination.page + 1)
+  const newResult = await fetchResults($element.resultType, result.query, pagination.page + 1)
   const newResults = newResult.results.map((data) => repository.add(data))
 
   result.pagination = newResult.pagination
