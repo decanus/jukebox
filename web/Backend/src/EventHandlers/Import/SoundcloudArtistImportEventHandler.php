@@ -79,6 +79,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                     $image = null;
                 }
 
+                // @todo not sure if we should use username
                 $this->insertArtistCommand->execute(
                     $artist['username'],
                     null,
