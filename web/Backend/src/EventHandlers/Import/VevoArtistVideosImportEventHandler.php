@@ -158,7 +158,6 @@ namespace Jukebox\Backend\EventHandlers\Import
                     '(Official Lyric Video)',
                     '(Official Music Video)',
                     '(Official Pseudo Video)',
-                    '(Audio Only)',
                     '[Official]',
                     '(Clip officiel)',
                     '(Clip Officiel)',
@@ -275,6 +274,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                 ' – Official Audio',
                 '(Official Live Audio)',
                 '[Official Audio]',
+                '(Audio Only)',
             ];
         }
     }
