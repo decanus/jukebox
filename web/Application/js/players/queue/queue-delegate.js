@@ -122,6 +122,19 @@ export class QueueDelegate {
   }
 
   /**
+   * 
+   * @returns {boolean}
+   */
+  isFirst () {
+    
+    if (this.playQueue.isFirst() && this._current === this.playQueue) {
+      return true
+    }
+    
+    return this._current === this.userQueue && !this.userQueue.isEmpty() && this.playQueue.isFirst()
+  }
+
+  /**
    *
    * @returns {boolean}
    */

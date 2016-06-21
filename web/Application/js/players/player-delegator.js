@@ -164,7 +164,10 @@ export class PlayerDelegator {
    * @returns {Promise}
    */
   async prev () {
-    this._queue.prev()
+    
+    if (!this._queue.isFirst()) {
+      this._queue.prev()
+    }
 
     await this._loadCurrentTrack()
 
