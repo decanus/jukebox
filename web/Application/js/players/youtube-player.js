@@ -140,9 +140,9 @@ export class YoutubePlayer {
     let stopped = this._getStateChange()
       .filter((e) => e.data !== YT.PlayerState.PLAYING)
       .once()
-    
+
     this._player.stopVideo()
-    
+
     return stopped
   }
 

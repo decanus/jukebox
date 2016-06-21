@@ -150,6 +150,10 @@ export class PlayerDelegator {
   async next (automatic = false) {
     this._queue.next(automatic)
 
+    if (!this._queue.hasCurrentTrack()) {
+      return await this.stop()
+    }
+    
     await this._loadCurrentTrack()
 
     return await this.play()
