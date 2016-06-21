@@ -100,6 +100,8 @@ export class QueueDelegate {
     if (!this.playQueue.isEmpty()) {
       this._current = this.playQueue
     }
+    
+    console.log(this._current)
   }
 
   prev () {
@@ -108,7 +110,7 @@ export class QueueDelegate {
   }
   
   onStop () {
-    this._current = null
+    //this._current = null
   }
 
   /**
@@ -120,11 +122,24 @@ export class QueueDelegate {
   }
 
   /**
+   * 
+   * @returns {boolean}
+   */
+  isFirst () {
+    
+    if (this.playQueue.isFirst() && this._current === this.playQueue) {
+      return true
+    }
+    
+    return this._current === this.userQueue && !this.userQueue.isEmpty() && this.playQueue.isFirst()
+  }
+
+  /**
    *
    * @returns {boolean}
    */
   hasCurrentTrack () {
-    return this.currentTrack !== null
+    return this.currentTrack != null
   }
 
   /**
