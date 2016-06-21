@@ -5,7 +5,7 @@
 import { Emitter } from '../event/emitter'
 import { createObservable } from '../dom/events/create-observable'
 import { getInterval } from '../dom/time/get-interval'
-import { Track } from '../models/track'
+import { Observable } from '../observable'
 
 /**
  *
@@ -29,9 +29,14 @@ function loadYoutubeApi () {
   })
 }
 
-export class YoutubePlayer extends Emitter {
+export class YoutubePlayer {
   constructor () {
-    super()
+    /**
+     *
+     * @type {Emitter}
+     * @private
+     */
+    this._emitter = new Emitter()
 
     /**
      *
@@ -92,6 +97,12 @@ export class YoutubePlayer extends Emitter {
   play () {
     let play = this.getPlay().once()
 
+    if (this._player.getPlayerState() === YT.PlayerState.BUFFERING) {
+      // we really don't want to wait for a play event
+      // because this is gonna block our whole ui if the video is buffering
+      this._emitter.emit('play')
+    }
+
     this._player.playVideo()
 
     return play
@@ -109,6 +120,12 @@ export class YoutubePlayer extends Emitter {
     }
 
     let pause = this.getPause().once()
+
+    if (state === YT.PlayerState.BUFFERING) {
+      // we really don't want to wait for a pause event
+      // because this is gonna block our whole ui if the video is buffering
+      this._emitter.emit('pause')
+    }
 
     this._player.pauseVideo()
 
@@ -143,8 +160,10 @@ export class YoutubePlayer extends Emitter {
    * @returns {Observable}
    */
   getPlay () {
-    return this._getStateChange()
+    const play = this._getStateChange()
       .filter((e) => e.data === YT.PlayerState.PLAYING)
+
+    return Observable.merge(play, this._emitter.toObservable('play'))
   }
 
   /**
@@ -152,8 +171,10 @@ export class YoutubePlayer extends Emitter {
    * @returns {Observable}
    */
   getPause () {
-    return this._getStateChange()
+    const pause = this._getStateChange()
       .filter((e) => e.data === YT.PlayerState.PAUSED)
+
+    return Observable.merge(pause, this._emitter.toObservable('pause'))
   }
 
   /**
