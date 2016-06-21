@@ -122,25 +122,17 @@ namespace Jukebox\Backend\EventHandlers\Import
                 $title = $video['title'];
 
                 $isAudio = false;
-                if (strpos($video['title'], '(Audio)') !== false) {
-                    $isAudio = true;
+
+                $audioStrings = $this->getAudioStrings();
+
+                foreach ($audioStrings as $audioString) {
+                    if (strpos($video['title'], $audioString) !== false) {
+                        $isAudio = true;
+                        break;
+                    }
                 }
 
-                if (strpos($video['title'], '[Audio]') !== false) {
-                    $isAudio = true;
-                }
-
-                if (strpos($video['title'], '(AUDIO)') !== false) {
-                    $isAudio = true;
-                }
-
-                if (strpos($video['title'], '(Official Audio)') !== false) {
-                    $isAudio = true;
-                }
-
-                if (strpos($video['title'], '(Official Live Audio)') !== false) {
-                    $isAudio = true;
-                }
+                $title = str_replace($audioStrings, '', $title);
 
                 $isExplicit = false;
                 if (strpos($video['title'], '(Explicit Version)') !== false) {
@@ -153,11 +145,6 @@ namespace Jukebox\Backend\EventHandlers\Import
 
                 $replace = [
                     '[Official Video]',
-                    '[Audio]',
-                    '[audio]',
-                    '(Audio)',
-                    '(AUDIO)',
-                    '(audio)',
                     '(Explicit Video)',
                     '(Explicit)',
                     '(Explicit Version)',
@@ -167,6 +154,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                     '(Official Video)',
                     '(official video)',
                     '[Official Video]',
+                    '(Official video)',
                     '(Official Lyric Video)',
                     '(Official Music Video)',
                     '(Official Pseudo Video)',
@@ -192,8 +180,8 @@ namespace Jukebox\Backend\EventHandlers\Import
                     '[PARENTAL ADVISORY]',
                     '(Official Live)',
                     '(Official Live Video)',
-                    ' – Official Audio',
-                    '(Official Live Audio)',
+                    '(Official)',
+                    '[OFFICIAL]',
                     '[]',
                     '()',
                 ];
@@ -272,6 +260,21 @@ namespace Jukebox\Backend\EventHandlers\Import
 
                 $this->videoIds[] = $video['isrc'];
             }
+        }
+
+        private function getAudioStrings(): array
+        {
+            return [
+                '[Audio]',
+                '[audio]',
+                '(Audio)',
+                '(AUDIO)',
+                '(audio)',
+                '(Official Audio)',
+                ' – Official Audio',
+                '(Official Live Audio)',
+                '[Official Audio]',
+            ];
         }
     }
 }
