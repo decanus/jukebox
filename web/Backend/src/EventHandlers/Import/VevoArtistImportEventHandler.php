@@ -123,7 +123,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                         continue;
                     }
 
-                    if ($link['type'] === 'Official Website') {
+                    if ($type === 'Official Website') {
                         $uri = new Uri(trim($link['url']));
                         if ($uri->getHost() === 'facebook.com' || $uri->getHost() === 'www.facebook.com') {
                             $type = 'Facebook';
