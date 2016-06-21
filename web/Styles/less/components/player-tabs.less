@@ -1,19 +1,19 @@
 .player-tabs {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   margin-bottom: 6px;
 
   > .tab {
     cursor: pointer;
   }
 
+  > .tab[active] {
+    display: none;
+  }
+
   > .tab > .icon {
     width: 20px;
     height: 20px;
     transition: color .125s;
-  }
-
-  > .tab[active] > .icon {
-    color: @brand-color;
   }
 }
