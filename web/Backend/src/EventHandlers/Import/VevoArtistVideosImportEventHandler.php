@@ -161,6 +161,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                     '(Audio Only)',
                     '[Official]',
                     '(Clip officiel)',
+                    '(Clip Officiel)',
                     '(LYRIC VIDEO)',
                     '(lyric)',
                     '(Lyric Video)',
