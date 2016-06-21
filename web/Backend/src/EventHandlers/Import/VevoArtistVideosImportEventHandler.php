@@ -134,6 +134,14 @@ namespace Jukebox\Backend\EventHandlers\Import
                     $isAudio = true;
                 }
 
+                if (strpos($video['title'], '(Official Audio)') !== false) {
+                    $isAudio = true;
+                }
+
+                if (strpos($video['title'], '(Official Live Audio)') !== false) {
+                    $isAudio = true;
+                }
+
                 $isExplicit = false;
                 if (strpos($video['title'], '(Explicit Version)') !== false) {
                     $isExplicit = true;
@@ -182,6 +190,10 @@ namespace Jukebox\Backend\EventHandlers\Import
                     '(Live)',
                     'Lyric video',
                     '[PARENTAL ADVISORY]',
+                    '(Official Live)',
+                    '(Official Live Video)',
+                    ' – Official Audio',
+                    '(Official Live Audio)',
                     '[]',
                     '()',
                 ];
