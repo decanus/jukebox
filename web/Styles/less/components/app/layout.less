@@ -6,6 +6,7 @@
 
   > .header {
     flex-shrink: 0;
+    z-index: 10;
   }
 
   > .columns {
@@ -40,5 +41,28 @@
 
   > .columns > .content {
     flex-grow: 1;
+  }
+
+  @media (max-width: 900px) {
+
+    > .columns {
+      position: relative;
+    }
+
+    > .columns > .sidebar {
+      position: absolute;
+      max-width: 100%;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      margin-right: 0;
+      transform: translateX(100%);
+      transition: transform .25s cubic-bezier(0.860, 0.000, 0.070, 1.000);
+    }
+
+    &.-sidebar-visible > .columns > .sidebar {
+      transform: translateX(0);
+      margin-right: 0;
+    }
   }
 }

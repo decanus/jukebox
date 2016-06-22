@@ -150,6 +150,10 @@ export class PlayerDelegator {
   async next (automatic = false) {
     this._queue.next(automatic)
 
+    if (!this._queue.hasCurrentTrack()) {
+      return await this.stop()
+    }
+    
     await this._loadCurrentTrack()
 
     return await this.play()
@@ -160,7 +164,10 @@ export class PlayerDelegator {
    * @returns {Promise}
    */
   async prev () {
-    this._queue.prev()
+    
+    if (!this._queue.isFirst()) {
+      this._queue.prev()
+    }
 
     await this._loadCurrentTrack()
 
@@ -175,17 +182,6 @@ export class PlayerDelegator {
 
     this._queue.onStop()
     this._emitter.emit('stop')
-  }
-
-  /**
-   *
-   * @param {string} type
-   * @param {number} index
-   * @returns {Promise}
-   * @todo implement
-   */
-  setCurrent (type, index) {
-
   }
 
   async _loadCurrentTrack () {

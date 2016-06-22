@@ -96,6 +96,14 @@ export class PlayQueue {
   }
 
   /**
+   * 
+   * @returns {boolean}
+   */
+  isStopped () {
+    return this._current === -1
+  }
+
+  /**
    *
    * @returns {boolean}
    */
