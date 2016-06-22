@@ -1,29 +1,28 @@
 <?php
 
-namespace Jukebox\API\Endpoints\v1\Me
+namespace Jukebox\API\Endpoints\v1\Users\Playlists
 {
 
     use Jukebox\API\Endpoints\AbstractEndpoint;
     use Jukebox\Framework\Controllers\ControllerInterface;
     use Jukebox\Framework\Http\Request\RequestInterface;
-    use Jukebox\Framework\ParamterObjects\ControllerParameterObject;
 
-    class GetMyPlaylistsEndpoint extends AbstractEndpoint
+    class GetUserPlaylistEndpoint extends AbstractEndpoint
     {
 
         protected function doHandle(RequestInterface $request): ControllerInterface
         {
-            return $this->getFactory()->createGetMyPlaylistsController(new ControllerParameterObject($request->getUri()));
+            // TODO: Implement doHandle() method.
         }
 
         public function getApiEndpoint(): string
         {
-            return '/v1/me/playlists';
+            return '/v1/users/:user/playlists/:playlist';
         }
 
         public function requiresAccessToken(): bool
         {
-            return true;
+            return false;
         }
 
         public function getRequestType(): string

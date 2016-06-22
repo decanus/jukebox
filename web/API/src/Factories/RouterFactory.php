@@ -44,12 +44,5 @@ namespace Jukebox\API\Factories
             $router->addEndpointHandler(new \Jukebox\API\Endpoints\v1\AuthenticationEndpoint($this->getMasterFactory()));
             return $router;
         }
-
-        public function createMyRouter(): \Jukebox\API\Routers\MyRouter
-        {
-            $router = new \Jukebox\API\Routers\MyRouter($this->getMasterFactory()->createAccessControl());
-            $router->addEndpointHandler(new \Jukebox\API\Endpoints\v1\Me\GetMyPlaylistsEndpoint($this->getMasterFactory()));
-            return $router;
-        }
     }
 }
