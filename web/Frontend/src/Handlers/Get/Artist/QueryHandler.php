@@ -38,7 +38,7 @@ namespace Jukebox\Frontend\Handlers\Get\Artist
             }
 
             $model->setArtist($artist->getDecodedJsonResponse());
-            $model->setTracks($this->jukeboxRestManager->getTracksByArtistId($id)->getDecodedJsonResponse());
+            $model->setTracks($this->jukeboxRestManager->getTracksByArtistId($id, 1000)->getDecodedJsonResponse());
         }
     }
 }
