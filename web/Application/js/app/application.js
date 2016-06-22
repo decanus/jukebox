@@ -71,22 +71,6 @@ export class Application {
      * @private
      */
     this._modelRepository = createModelRepository(this._resolveCache)
-
-    /**
-     *
-     * @type {ModelStore}
-     * @private
-     * @deprecated
-     */
-    this._modelStore = this._modelRepository._store
-
-    /**
-     *
-     * @type {ModelLoader}
-     * @private
-     * @deprecated
-     */
-    this._modelLoader = this._modelRepository._loader
   }
 
   /**
@@ -139,26 +123,6 @@ export class Application {
 
   reloadCurrentRoute () {
     this._emitter.emit('route', this._route)
-  }
-
-  /**
-   * 
-   * @returns {ModelLoader}
-   * @deprecated
-   * @see modelBackend
-   */
-  getModelLoader () {
-    return this._modelLoader
-  }
-
-  /**
-   *
-   * @returns {ModelStore}
-   * @deprecated
-   * @see modelBackend
-   */
-  getModelStore () {
-    return this._modelStore
   }
 
   /**

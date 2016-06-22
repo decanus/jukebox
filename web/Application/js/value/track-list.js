@@ -44,6 +44,10 @@ export class TrackList {
     this._tracks.pop()
   }
 
+  removeFirst () {
+    this._tracks.shift()
+  }
+
   /**
    *
    * @param {Track} track

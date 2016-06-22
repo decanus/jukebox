@@ -28,7 +28,7 @@ export class UserQueue {
   }
 
   removeFirstTrack () {
-    this._queue.removeLast()
+    this._queue.removeFirst()
   }
 
   /**

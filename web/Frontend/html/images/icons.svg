@@ -141,5 +141,15 @@
                 </g>
             </g>
         </symbol>
+
+        <symbol id="close" width="128px" height="128px" viewBox="0 0 128 128">
+            <title>Close</title>
+
+            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g fill="currentColor">
+                    <polygon points="64 53.3636364 11.6363636 1 0.727272727 11.9090909 53.0909091 64.2727273 5.48105004e-14 117.363636 10.9090909 128.272727 64 75.1818182 117.090909 128.272727 128 117.363636 74.9090909 64.2727273 127.272727 11.9090909 116.363636 1 64 53.3636364" />
+                </g>
+            </g>
+        </symbol>
     </defs>
 </svg>

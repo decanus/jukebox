@@ -12,6 +12,7 @@ namespace Jukebox\API\Factories
             $router = new \Jukebox\API\Routers\ArtistsRouter($this->getMasterFactory()->createAccessControl());
             $router->addEndpointHandler(new \Jukebox\API\Endpoints\v1\Artists\GetArtistEndpoint($this->getMasterFactory()));
             $router->addEndpointHandler(new \Jukebox\API\Endpoints\v1\Artists\Tracks\GetArtistTracksEndpoint($this->getMasterFactory()));
+            $router->addEndpointHandler(new \Jukebox\API\Endpoints\v1\Artists\Images\GetArtistImagesEndpoint($this->getMasterFactory()));
             $router->addEndpointHandler(new \Jukebox\API\Endpoints\v1\Artists\WebProfiles\GetArtistWebProfilesEndpoint($this->getMasterFactory()));
             return $router;
         }

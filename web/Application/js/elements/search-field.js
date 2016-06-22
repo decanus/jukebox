@@ -22,14 +22,13 @@ export class SearchField extends HTMLInputElement {
     })
 
     app.getRoute()
+      .filter((route) => route.pathParts[0] === 'search')
       .forEach((route) => {
-        let value = ''
-
-        if (route.pathParts[ 0 ] === 'search') {
-          value = route.params.get('q') || ''
+        const params = route.params
+        
+        if (params.has('q')) {
+          this.value = route.params.get('q')
         }
-
-        this.value = value
       })
   }
 }
