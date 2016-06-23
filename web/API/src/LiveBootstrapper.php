@@ -40,7 +40,7 @@ namespace Jukebox\API
             $factory = new MasterFactory($this->getConfiguration());
 
             $factory->addFactory(new \Jukebox\API\Factories\RouterFactory);
-            $factory->addFactory(new \Jukebox\API\Factories\CommandFactory);
+            $factory->addFactory(new \Jukebox\API\Factories\CommandFactory($this->session->getSessionData()));
             $factory->addFactory(new \Jukebox\API\Factories\ControllerFactory);
             $factory->addFactory(new \Jukebox\API\Factories\HandlerFactory($this->session));
             $factory->addFactory(new \Jukebox\Framework\Factories\LoggerFactory);
