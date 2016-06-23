@@ -96,8 +96,7 @@ namespace Jukebox\API\Factories
         public function createAuthenticationCommandHandler(): \Jukebox\API\Handlers\Post\Authentication\CommandHandler
         {
             return new \Jukebox\API\Handlers\Post\Authentication\CommandHandler(
-                $this->getMasterFactory()->createAuthenticationCommand(),
-                $this->session->getSessionData()
+                $this->getMasterFactory()->createAuthenticationCommand()
             );
         }
 

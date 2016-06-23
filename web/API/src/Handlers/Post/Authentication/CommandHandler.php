@@ -20,30 +20,21 @@ namespace Jukebox\API\Handlers\Post\Authentication
          */
         private $authenticationCommand;
 
-        /**
-         * @var SessionData
-         */
-        private $sessionData;
-
-        public function __construct(
-            AuthenticationCommand $authenticationCommand,
-            SessionData $sessionData
-        )
+        public function __construct(AuthenticationCommand $authenticationCommand)
         {
             $this->authenticationCommand = $authenticationCommand;
-            $this->sessionData = $sessionData;
         }
 
         public function execute(RequestInterface $request, AbstractModel $model)
         {
             try {
 
-                if (!$this->authenticationCommand->execute(new Email($request->getParameter('email')), new Password($request->getParameter('password')))) {
-                    throw new \Exception('Authentication Failed');
-                }
+                $accessToken = $this->authenticationCommand->execute(
+                    new Email($request->getParameter('email')),
+                    new Password($request->getParameter('password'))
+                );
 
-                $this->sessionData->setAccount(new RegisteredAccount);
-                $model->setData(['access_token' => (string) $this->sessionData->getMap()->getSessionId()]);
+                $model->setData(['access_token' => (string) $accessToken]);
             } catch (\Throwable $e) {
                 $model->setData(['errors' => ['message' => 'Unauthorized']]);
                 $model->setStatusCode(new Unauthorized);
