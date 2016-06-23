@@ -2,6 +2,7 @@
 
 namespace Jukebox\Backend\Commands
 {
+
     use Jukebox\Framework\ValueObjects\ArtistRole;
 
     class InsertTrackArtistCommand extends AbstractDatabaseBackendCommand
