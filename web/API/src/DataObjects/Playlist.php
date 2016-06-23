@@ -25,13 +25,18 @@ namespace Jukebox\API\DataObjects
             return $this->name;
         }
 
+        public function getOwner(): string
+        {
+            return $this->owner;
+        }
+
         public function toArray(): array
         {
             return [
                 'name' => $this->getName(),
                 'private' => false,
                 'description' => null,
-                'owner' =>  $this->owner
+                'owner' =>  $this->getOwner()
             ];
         }
     }
