@@ -5,6 +5,7 @@ namespace Jukebox\API\Commands
 
     use Jukebox\API\DataObjects\Playlist;
     use Jukebox\Framework\Backends\MongoDatabaseBackend;
+    use MongoDB\InsertOneResult;
 
     class InsertPlaylistCommand
     {
@@ -18,9 +19,9 @@ namespace Jukebox\API\Commands
             $this->databaseBackend = $databaseBackend;
         }
 
-        public function execute(Playlist $playlist)
+        public function execute(Playlist $playlist): InsertOneResult
         {
-            $this->databaseBackend->insertOne('playlists', $playlist->toArray());
+            return $this->databaseBackend->insertOne('playlists', $playlist->toArray());
         }
     }
 }

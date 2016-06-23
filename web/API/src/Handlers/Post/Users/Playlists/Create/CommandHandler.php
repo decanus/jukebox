@@ -9,6 +9,9 @@ namespace Jukebox\API\Handlers\Post\Users\Playlists\Create
     use Jukebox\API\Session\SessionData;
     use Jukebox\Framework\Handlers\CommandHandlerInterface;
     use Jukebox\Framework\Http\Request\RequestInterface;
+    use Jukebox\Framework\Http\StatusCodes\Created;
+    use Jukebox\Framework\Http\StatusCodes\Forbidden;
+    use Jukebox\Framework\Http\StatusCodes\Unauthorized;
     use Jukebox\Framework\Models\AbstractModel;
 
     class CommandHandler implements CommandHandlerInterface
@@ -37,12 +40,24 @@ namespace Jukebox\API\Handlers\Post\Users\Playlists\Create
             $account = $this->sessionData->getAccount();
 
             if (!$account instanceof RegisteredAccount) {
-                // @todo set error
+                $model->setData(['errors' => ['message' => 'Unauthorized']]);
+                $model->setStatusCode(new Unauthorized);
+                return;
             }
 
-            $this->insertPlaylistCommand->execute(
+            if ($account->getId() !== $request->getUri()->getExplodedPath()[2]) {
+                $model->setData(['errors' => ['message' => 'Forbidden']]);
+                $model->setStatusCode(new Forbidden);
+                return;
+            }
+
+            $return = $this->insertPlaylistCommand->execute(
                 new Playlist($request->getParameter('name'), $account->getId())
             );
+
+            // @todo return playlist object
+            $model->setData(['id' => (string) $return->getInsertedId()]);
+            $model->setStatusCode(new Created);
         }
     }
 }

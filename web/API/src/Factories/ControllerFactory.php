@@ -164,5 +164,19 @@ namespace Jukebox\API\Factories
                 new JsonResponse
             );
         }
+
+        public function createCreatePlaylistController(ControllerParameterObject $parameterObject): PostController
+        {
+            return new PostController(
+                new \Jukebox\API\Models\APIModel($parameterObject->getUri()),
+                $this->getMasterFactory()->createPreHandler(),
+                $this->getMasterFactory()->createCreatePlaylistCommandHandler(),
+                $this->getMasterFactory()->createQueryHandler(),
+                $this->getMasterFactory()->createTransformationHandler(),
+                $this->getMasterFactory()->createResponseHandler(),
+                $this->getMasterFactory()->createPostHandler(),
+                new JsonResponse
+            );
+        }
     }
 }

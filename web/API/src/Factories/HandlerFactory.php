@@ -129,5 +129,13 @@ namespace Jukebox\API\Factories
             );
         }
 
+        public function createCreatePlaylistCommandHandler(): \Jukebox\API\Handlers\Post\Users\Playlists\Create\CommandHandler
+        {
+            return new \Jukebox\API\Handlers\Post\Users\Playlists\Create\CommandHandler(
+                $this->getMasterFactory()->createInsertPlaylistCommand(),
+                $this->session->getSessionData()
+            );
+        }
+
     }
 }

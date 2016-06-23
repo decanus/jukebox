@@ -58,6 +58,7 @@ namespace Jukebox\Framework\Bootstrap
             if (!isset($_SERVER['REQUEST_METHOD'])) {
                 throw new \InvalidArgumentException('Missing REQUEST_METHOD in $_SERVER');
             }
+            
             $requestMethod = $_SERVER['REQUEST_METHOD'];
             switch ($requestMethod) {
                 case 'GET':
