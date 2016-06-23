@@ -61,10 +61,10 @@ namespace Jukebox\Framework\Backends
             }
         }
 
-        public function findOne(string $collectionName, array $query)
+        public function findOne(string $collectionName, array $query, array $options = [])
         {
             try {
-                return $this->getDatabase()->selectCollection($collectionName)->findOne($query);
+                return $this->getDatabase()->selectCollection($collectionName)->findOne($query, $options);
             } catch (\Throwable $e) {
                 $this->getLogger()->emergency($e);
                 throw $e;
