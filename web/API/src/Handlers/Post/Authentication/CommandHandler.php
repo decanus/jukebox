@@ -4,8 +4,6 @@ namespace Jukebox\API\Handlers\Post\Authentication
 {
 
     use Jukebox\API\Commands\AuthenticationCommand;
-    use Jukebox\API\DataObjects\Accounts\RegisteredAccount;
-    use Jukebox\API\Session\SessionData;
     use Jukebox\Framework\Handlers\CommandHandlerInterface;
     use Jukebox\Framework\Http\Request\RequestInterface;
     use Jukebox\Framework\Http\StatusCodes\Unauthorized;

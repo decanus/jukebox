@@ -3,6 +3,7 @@
 namespace Jukebox\API
 {
 
+    use Jukebox\API\ErrorHandlers\ProductionErrorHandler;
     use Jukebox\API\Factories\SessionFactory;
     use Jukebox\API\Routers\MasterRouter;
     use Jukebox\API\Session\Session;
@@ -10,7 +11,6 @@ namespace Jukebox\API
     use Jukebox\Framework\Bootstrap\AbstractBootstrapper;
     use Jukebox\Framework\Configuration;
     use Jukebox\Framework\DataPool\RedisBackend;
-    use Jukebox\API\ErrorHandlers\ProductionErrorHandler;
     use Jukebox\Framework\Factories\MasterFactory;
     use Jukebox\Framework\ValueObjects\DataVersion;
 

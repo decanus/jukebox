@@ -3,13 +3,13 @@
 namespace Jukebox\Framework\Backends
 {
 
+    use Jukebox\Framework\Logging\LoggerAware;
+    use Jukebox\Framework\Logging\LoggerAwareTrait;
     use MongoDB\Client;
     use MongoDB\Database;
     use MongoDB\InsertOneResult;
     use MongoDB\Operation\FindOneAndUpdate;
     use MongoDB\UpdateResult;
-    use Jukebox\Framework\Logging\LoggerAware;
-    use Jukebox\Framework\Logging\LoggerAwareTrait;
 
     class MongoDatabaseBackend implements LoggerAware
     {

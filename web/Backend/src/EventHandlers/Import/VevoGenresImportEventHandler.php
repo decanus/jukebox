@@ -2,6 +2,7 @@
 
 namespace Jukebox\Backend\EventHandlers\Import
 {
+
     use Jukebox\Backend\Commands\InsertGenreCommand;
     use Jukebox\Backend\EventHandlers\EventHandlerInterface;
     use Jukebox\Backend\Services\Vevo;
