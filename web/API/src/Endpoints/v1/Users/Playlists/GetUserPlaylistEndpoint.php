@@ -6,13 +6,14 @@ namespace Jukebox\API\Endpoints\v1\Users\Playlists
     use Jukebox\API\Endpoints\AbstractEndpoint;
     use Jukebox\Framework\Controllers\ControllerInterface;
     use Jukebox\Framework\Http\Request\RequestInterface;
+    use Jukebox\Framework\ParamterObjects\ControllerParameterObject;
 
     class GetUserPlaylistEndpoint extends AbstractEndpoint
     {
 
         protected function doHandle(RequestInterface $request): ControllerInterface
         {
-            // TODO: Implement doHandle() method.
+            return $this->getFactory()->createGetUserPlaylistController(new ControllerParameterObject($request->getUri()));
         }
 
         public function getApiEndpoint(): string
