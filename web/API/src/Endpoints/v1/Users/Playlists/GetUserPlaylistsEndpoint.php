@@ -13,7 +13,7 @@ namespace Jukebox\API\Endpoints\v1\Users\Playlists
 
         protected function doHandle(RequestInterface $request): ControllerInterface
         {
-            return $this->getFactory()->createGetPlaylistController(new ControllerParameterObject($request->getUri()));
+            return $this->getFactory()->createGetUserPlaylistsController(new ControllerParameterObject($request->getUri()));
         }
 
         public function getApiEndpoint(): string

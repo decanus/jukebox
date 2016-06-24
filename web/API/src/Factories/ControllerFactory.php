@@ -179,13 +179,27 @@ namespace Jukebox\API\Factories
             );
         }
 
-        public function createGetPlaylistController(ControllerParameterObject $parameterObject): GetController
+        public function createGetUserPlaylistsController(ControllerParameterObject $parameterObject): GetController
         {
             return new GetController(
                 new \Jukebox\API\Models\APIModel($parameterObject->getUri()),
                 $this->getMasterFactory()->createPreHandler(),
                 $this->getMasterFactory()->createCommandHandler(),
                 $this->getMasterFactory()->createGetUserPlaylistsQueryHandler(),
+                $this->getMasterFactory()->createTransformationHandler(),
+                $this->getMasterFactory()->createResponseHandler(),
+                $this->getMasterFactory()->createPostHandler(),
+                new JsonResponse
+            );
+        }
+
+        public function createGetUserPlaylistController(ControllerParameterObject $parameterObject): GetController
+        {
+            return new GetController(
+                new \Jukebox\API\Models\APIModel($parameterObject->getUri()),
+                $this->getMasterFactory()->createPreHandler(),
+                $this->getMasterFactory()->createCommandHandler(),
+                $this->getMasterFactory()->createGetUserPlaylistQueryHandler(),
                 $this->getMasterFactory()->createTransformationHandler(),
                 $this->getMasterFactory()->createResponseHandler(),
                 $this->getMasterFactory()->createPostHandler(),
