@@ -4,7 +4,7 @@
 
 import { app } from '../../app'
 import { Observable } from '../../observable'
-import { renderTemplate } from '../../render-template'
+import { renderTemplate } from '../../template/render'
 
 export class PlayerQueue extends HTMLElement {
   // todo: move subscriptions to attached/detached callback

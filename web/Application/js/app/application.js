@@ -10,6 +10,7 @@ import { ModelRepository } from './../model/model-repository'
 import { ModelFetcher } from './../model/model-fetcher'
 import { Route } from './route'
 import { ResolveCache } from '../views/resolve-cache'
+import { trackPageView } from './analytics'
 
 /**
  *
@@ -42,7 +43,7 @@ export class Application {
      *
      * @type {Route} route
      */
-    this._route = new Route('/')
+    this._route = new Route.fromLocation(window.location)
 
     /**
      *
@@ -113,12 +114,18 @@ export class Application {
    * @param {boolean} silent
    */
   setRoute(route, { replace = false, silent = false } = {}) {
+    if (route.isSameValue(this._route)) {
+      return
+    }
+
     this._route = route
     this._emitter.emit('route', route)
 
     if (!silent) {
       updatePath(route, replace)
     }
+
+    trackPageView(route)
   }
 
   reloadCurrentRoute () {

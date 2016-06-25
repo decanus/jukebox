@@ -6,7 +6,7 @@ import { app } from '../app'
 import { PlayerState } from '../players/player-state'
 
 let state = PlayerState.STOPPED
-const player = app.getPlayer()
+const player = app.player
 
 player.getState().forEach((value) => (state = value))
 

@@ -3,42 +3,46 @@
  */
 
 import { resolveView } from '../../views/resolve'
-import { renderTemplate } from '../../render-template'
+import { renderTemplate } from '../../template/render'
 
 import { app } from '../../app'
-import { Route } from '../../app/route'
 import { sendException } from '../../app/analytics'
 import { AppView } from '../../app/elements'
 
 export class AppMount extends HTMLElement {
 
   createdCallback () {
-    app.getRoute().forEach(async (route) => {
-      try {
+    app.getRoute()
+      .forEach((route) => this._handleRoute(route))
 
-        this.innerHTML = '<div class="loading-animation -center"></div>'
+    this._handleRoute(app.getCurrentRoute())
+  }
 
-        const resolved = await resolveView(route)
-        const view = new AppView()
+  /**
+   * 
+   * @param {Route} route
+   * @private
+   */
+  async _handleRoute (route) {
+    try {
 
-        view.data = resolved.data
-        view.name = resolved.name
-        view.root = true
+      this.innerHTML = '<div class="loading-animation -center"></div>'
 
-        this.innerHTML = ''
-        this.appendChild(view)
+      const resolved = await resolveView(route)
+      const view = new AppView()
 
-      } catch (error) {
-        // todo: change this
+      view.data = resolved.data
+      view.name = resolved.name
+      view.root = true
 
-        sendException(error)
+      this.innerHTML = ''
+      this.appendChild(view)
 
-        if (app.getCurrentRoute().path === '/error') {
-          return
-        }
+    } catch (error) {
+      sendException(error)
 
-        app.setRoute(new Route('/error'), { silent: true })
-      }
-    })
+      this.innerHTML = ''
+      this.appendChild(renderTemplate('error', this.ownerDocument))
+    }
   }
 }
