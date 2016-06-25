@@ -147,9 +147,8 @@ namespace Jukebox\API\Factories
 
         public function createGetUserPlaylistQueryHandler(): \Jukebox\API\Handlers\Get\Users\Playlist\QueryHandler
         {
-            return new \Jukebox\API\Handlers\Get\Users\Playlists\QueryHandler(
-                $this->getMasterFactory()->createFetchUserPlaylistQuery(),
-                $this->getMasterFactory()->createFetchPublicUserQuery()
+            return new \Jukebox\API\Handlers\Get\Users\Playlist\QueryHandler(
+                $this->getMasterFactory()->createFetchUserPlaylistQuery()
             );
         }
 
