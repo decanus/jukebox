@@ -21,7 +21,7 @@ export class SearchField extends HTMLInputElement {
       app.setRoute(new Route('/search', params))
     })
 
-    app.getRoute()
+    app.getRouteObservable()
       .filter((route) => route.pathParts[0] === 'search')
       .forEach((route) => {
         const params = route.params

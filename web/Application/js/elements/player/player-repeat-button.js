@@ -38,7 +38,7 @@ function getIcon (mode) {
   return 'repeat'
 }
 
-const player = app.getPlayer()
+const player = app.player
 
 export class PlayerRepeatButton extends HTMLElement {
   createdCallback() {

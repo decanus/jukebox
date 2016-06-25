@@ -77,15 +77,6 @@ export class Application {
   /**
    * 
    * @returns {PlayerDelegator}
-   * @deprecated
-   */
-  getPlayer() {
-    return this._player
-  }
-
-  /**
-   * 
-   * @returns {PlayerDelegator}
    */
   get player () {
     return this._player
@@ -93,18 +84,18 @@ export class Application {
 
   /**
    *
-   * @returns {Observable<Route>}
+   * @returns {Route}
    */
-  getRoute() {
-    return this._emitter.toObservable('route')
+  get route () {
+    return this._route
   }
 
   /**
    *
-   * @returns {Route}
+   * @returns {Observable<Route>}
    */
-  getCurrentRoute () {
-    return this._route
+  getRouteObservable () {
+    return this._emitter.toObservable('route')
   }
   
   /**

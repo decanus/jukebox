@@ -12,10 +12,10 @@ import { AppView } from '../../app/elements'
 export class AppMount extends HTMLElement {
 
   createdCallback () {
-    app.getRoute()
+    app.getRouteObservable()
       .forEach((route) => this._handleRoute(route))
 
-    this._handleRoute(app.getCurrentRoute())
+    this._handleRoute(app.route)
   }
 
   /**

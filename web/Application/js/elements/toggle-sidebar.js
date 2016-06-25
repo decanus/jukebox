@@ -5,7 +5,7 @@
 import { app } from '../app'
 import { PlayerState } from '../players/player-state'
 
-const player = app.getPlayer()
+const player = app.player
 
 export class ToggleSidebar extends HTMLButtonElement {
   createdCallback () {
