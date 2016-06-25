@@ -2,6 +2,7 @@
 
 namespace Jukebox\API\Handlers\Get\Search
 {
+
     use Jukebox\API\Backends\SearchBackend;
     use Jukebox\Framework\Handlers\QueryHandlerInterface;
     use Jukebox\Framework\Http\Request\RequestInterface;
@@ -34,20 +35,13 @@ namespace Jukebox\API\Handlers\Get\Search
 
             $params = [
                 'query' => [
-                    'multi_match' => [
-                        'query' => $request->getParameter('query'),
-                        'fields' => [
-                            'name^50',
-                            'title^10',
-                            'title.snowball^2',
-                            'title.shingle^2',
-                            'title.ngram^2',
-                            'artists.name^2',
-                            'artists.name.ngrams^2',
-                            'name.snowball^2',
-                            'name.shingle^2',
-                            'name.ngram^5',
-                        ],
+                    'bool' => [
+                        'should' => [
+                            'multi_match' => [
+                                'query' => $request->getParameter('query'),
+                                'fields' => ['name^100', 'title^10', 'artists.name']
+                            ]
+                        ]
                     ]
                 ]
             ];

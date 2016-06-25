@@ -2,13 +2,12 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { Route } from '../app/route'
+import { Route } from '../value/route'
 
 /**
  *
  * @param {Route} route
  * @param {boolean} replace
- * @todo: allow passing in the window instance
  */
 export function updatePath (route, replace = false) {
   const currentState = Route.fromLocation(window.location)

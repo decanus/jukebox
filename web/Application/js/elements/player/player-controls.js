@@ -7,7 +7,7 @@ import { createElement } from '../../dom/create-element'
 import { PlayerState } from '../../players/player-state'
 import { InsertIcon } from '../../app/elements'
 
-const player = app.getPlayer()
+const player = app.player
 
 /**
  *

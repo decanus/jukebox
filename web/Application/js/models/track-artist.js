@@ -2,6 +2,9 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
+/**
+ * Todo: does not belong into /model, -> /value
+ */
 export class TrackArtist {
   /**
    *

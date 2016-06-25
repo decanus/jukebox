@@ -14,7 +14,7 @@ const getProperties = Object.getOwnPropertyNames
  * @param {string} tagName
  * @param {string} [innerText]
  * @param {{}} [attributes]
- *
+ * @deprecated
  * @returns {Element}
  */
 export function createElement (document, tagName, innerText = '', attributes = {}) {

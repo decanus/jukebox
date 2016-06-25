@@ -3,6 +3,7 @@
 namespace Jukebox\API
 {
 
+    use Jukebox\API\ErrorHandlers\ProductionErrorHandler;
     use Jukebox\API\Factories\SessionFactory;
     use Jukebox\API\Routers\MasterRouter;
     use Jukebox\API\Session\Session;
@@ -10,7 +11,6 @@ namespace Jukebox\API
     use Jukebox\Framework\Bootstrap\AbstractBootstrapper;
     use Jukebox\Framework\Configuration;
     use Jukebox\Framework\DataPool\RedisBackend;
-    use Jukebox\API\ErrorHandlers\ProductionErrorHandler;
     use Jukebox\Framework\Factories\MasterFactory;
     use Jukebox\Framework\ValueObjects\DataVersion;
 
@@ -40,7 +40,7 @@ namespace Jukebox\API
             $factory = new MasterFactory($this->getConfiguration());
 
             $factory->addFactory(new \Jukebox\API\Factories\RouterFactory);
-            $factory->addFactory(new \Jukebox\API\Factories\CommandFactory);
+            $factory->addFactory(new \Jukebox\API\Factories\CommandFactory($this->session->getSessionData()));
             $factory->addFactory(new \Jukebox\API\Factories\ControllerFactory);
             $factory->addFactory(new \Jukebox\API\Factories\HandlerFactory($this->session));
             $factory->addFactory(new \Jukebox\Framework\Factories\LoggerFactory);
@@ -62,6 +62,7 @@ namespace Jukebox\API
             $router->addRouter($this->getFactory()->createRegistrationRouter());
             $router->addRouter($this->getFactory()->createSearchRouter());
             $router->addRouter($this->getFactory()->createTracksRouter());
+            $router->addRouter($this->getFactory()->createMeRouter());
 
             return $router;
         }

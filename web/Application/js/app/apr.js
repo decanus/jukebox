@@ -37,6 +37,24 @@ export function fetchSearch (query, page = 1) {
  * @param {number} artistId
  * @returns {Promise}
  */
+export function fetchArtist (artistId) {
+  return _fetch('/artist', [ [ 'id', artistId ] ])
+}
+
+/**
+ *
+ * @param {number} trackId
+ * @returns {Promise}
+ */
+export function fetchTrack (trackId) {
+  return _fetch('/track', [ [ 'id', trackId ] ])
+}
+
+/**
+ *
+ * @param {number} artistId
+ * @returns {Promise}
+ */
 export function fetchArtistProfiles (artistId) {
   return _fetch('/artist-web-profiles', [ [ 'artistId', artistId ] ])
 }

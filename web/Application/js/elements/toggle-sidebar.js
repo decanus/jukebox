@@ -5,7 +5,7 @@
 import { app } from '../app'
 import { PlayerState } from '../players/player-state'
 
-const player = app.getPlayer()
+const player = app.player
 
 export class ToggleSidebar extends HTMLButtonElement {
   createdCallback () {
@@ -15,9 +15,14 @@ export class ToggleSidebar extends HTMLButtonElement {
       app.toggleSidebar()
     })
 
-    player.getState()
+    const firstPlay = player
+      .getState()
       .filter((state) => state !== PlayerState.STOPPED)
       .once()
+
+    const queueChange = player.getQueueChange().once()
+
+    Promise.race([ firstPlay, queueChange ])
       .then(() => {
         app.showSidebar()
         this.hidden = false

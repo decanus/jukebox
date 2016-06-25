@@ -2,6 +2,7 @@
 
 namespace Jukebox\Backend\Factories
 {
+
     use Jukebox\Framework\Factories\AbstractFactory;
 
     class CommandFactory extends AbstractFactory

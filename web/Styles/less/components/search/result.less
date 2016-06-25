@@ -1,5 +1,7 @@
 .search-result {
-  padding: 16px 0;
+  padding: 16px;
+  margin-bottom: 8px;
+  background-color: #fff;
   border-bottom: 1px solid #f5f5f5;
   display: flex;
   align-items: center;
@@ -15,11 +17,6 @@
     text-overflow: ellipsis;
   }
 
-  > .text > .title {
-    display: flex;
-    align-items: center;
-  }
-
   > .text > .title > .label {
     color: #000;
     white-space: normal;
@@ -27,10 +24,6 @@
 
   &.-active  > .text > .title > .label {
     color: @brand-color;
-  }
-
-  > .text > .title > .item {
-    margin-left: 10px;
   }
 
   > .text > .artists {

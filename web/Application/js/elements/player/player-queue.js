@@ -3,31 +3,29 @@
  */
 
 import { app } from '../../app'
-import { PlayerQueueItem } from '../../app/elements'
-
-const player = app.getPlayer()
+import { Observable } from '../../event/observable'
+import { renderTemplate } from '../../template/render'
 
 export class PlayerQueue extends HTMLElement {
+  // todo: move subscriptions to attached/detached callback
   createdCallback () {
-    player.getQueueChange()
-      .forEach(() => this.updateDom())
+    const update = Observable.merge(
+      app.player.getQueueChange(),
+      app.player.getTrack()
+    )
 
-    player.getTrack()
-      .forEach(() => {
-        this.updateDom()
-      })
+    update.forEach(() => this.updateDom())
   }
   
   updateDom () {
+    const queue = app.player.getQueue()
+
     this.innerHTML = ''
     
-    player.getTracks()
-      .forEach((track, index) => {
-        const $queueItem = new PlayerQueueItem()
-        
-        $queueItem.init(track, index)
-        
-        this.appendChild($queueItem)
-      })
+    this.appendChild(renderTemplate('partials/player-queue', this.ownerDocument, {
+      currentTrack: app.player.getCurrentTrack(),
+      userQueue: queue.getNextUserQueueTracks(),
+      playQueue: queue.getNextPlayQueueTracks()
+    }))
   }
 }

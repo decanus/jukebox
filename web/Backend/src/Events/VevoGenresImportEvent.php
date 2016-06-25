@@ -2,6 +2,7 @@
 
 namespace Jukebox\Backend\Events
 {
+
     use Jukebox\Framework\Events\EventInterface;
 
     class VevoGenresImportEvent implements EventInterface
