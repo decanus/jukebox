@@ -3,7 +3,7 @@
  */
 
 import { app } from '../../app'
-import { Observable } from '../../observable'
+import { Observable } from '../../event/observable'
 import { renderTemplate } from '../../template/render'
 
 export class PlayerQueue extends HTMLElement {

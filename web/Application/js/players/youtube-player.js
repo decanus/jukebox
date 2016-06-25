@@ -5,7 +5,7 @@
 import { Emitter } from '../event/emitter'
 import { createObservable } from '../dom/events/create-observable'
 import { getInterval } from '../dom/time/get-interval'
-import { Observable } from '../observable'
+import { Observable } from '../event/observable'
 
 /**
  *
