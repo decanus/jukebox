@@ -100,8 +100,6 @@ export class QueueDelegate {
     if (!this.playQueue.isEmpty()) {
       this._current = this.playQueue
     }
-    
-    console.log(this._current)
   }
 
   prev () {
