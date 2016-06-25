@@ -3,7 +3,7 @@
  */
 
 import { app } from '../app'
-import { Route } from '../app/route'
+import { Route } from '../value/route'
 
 export class SearchField extends HTMLInputElement {
   createdCallback () {
@@ -21,14 +21,21 @@ export class SearchField extends HTMLInputElement {
       app.setRoute(new Route('/search', params))
     })
 
-    app.getRoute()
-      .filter((route) => route.pathParts[0] === 'search')
-      .forEach((route) => {
-        const params = route.params
-        
-        if (params.has('q')) {
-          this.value = route.params.get('q')
-        }
-      })
+    app.getRouteObservable()
+      .forEach((route) => this._updateValue(route))
+
+    this._updateValue(app.route)
+  }
+
+  _updateValue (route) {
+    if (route.pathParts[0] !== 'search') {
+      return
+    }
+
+    const params = route.params
+
+    if (params.has('q')) {
+      this.value = route.params.get('q')
+    }
   }
 }

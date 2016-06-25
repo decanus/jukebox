@@ -4,7 +4,7 @@
 
 import { YoutubePlayer } from './youtube-player'
 import { Emitter } from '../event/emitter'
-import { Observable } from '../observable'
+import { Observable } from '../event/observable'
 import { PlayerState } from './player-state'
 import { QueueDelegate } from './queue/queue-delegate'
 

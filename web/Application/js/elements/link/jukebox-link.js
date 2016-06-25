@@ -3,7 +3,7 @@
  */
 
 import { app } from '../../app'
-import { Route } from '../../app/route'
+import { Route } from '../../value/route'
 
 export class JukeboxLink extends HTMLAnchorElement {
   createdCallback() {

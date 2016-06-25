@@ -8,8 +8,9 @@ import { ModelStore } from './../model/model-store'
 import { ModelLoader } from './../model/model-loader'
 import { ModelRepository } from './../model/model-repository'
 import { ModelFetcher } from './../model/model-fetcher'
-import { Route } from './route'
+import { Route } from './../value/route'
 import { ResolveCache } from '../views/resolve-cache'
+import { trackPageView } from './analytics'
 
 /**
  *
@@ -42,7 +43,7 @@ export class Application {
      *
      * @type {Route} route
      */
-    this._route = new Route('/')
+    this._route = new Route.fromLocation(window.location)
 
     /**
      *
@@ -76,15 +77,6 @@ export class Application {
   /**
    * 
    * @returns {PlayerDelegator}
-   * @deprecated
-   */
-  getPlayer() {
-    return this._player
-  }
-
-  /**
-   * 
-   * @returns {PlayerDelegator}
    */
   get player () {
     return this._player
@@ -92,18 +84,18 @@ export class Application {
 
   /**
    *
-   * @returns {Observable<Route>}
+   * @returns {Route}
    */
-  getRoute() {
-    return this._emitter.toObservable('route')
+  get route () {
+    return this._route
   }
 
   /**
    *
-   * @returns {Route}
+   * @returns {Observable<Route>}
    */
-  getCurrentRoute () {
-    return this._route
+  getRouteObservable () {
+    return this._emitter.toObservable('route')
   }
   
   /**
@@ -113,12 +105,18 @@ export class Application {
    * @param {boolean} silent
    */
   setRoute(route, { replace = false, silent = false } = {}) {
+    if (route.isSameValue(this._route)) {
+      return
+    }
+
     this._route = route
     this._emitter.emit('route', route)
 
     if (!silent) {
       updatePath(route, replace)
     }
+
+    trackPageView(route)
   }
 
   reloadCurrentRoute () {

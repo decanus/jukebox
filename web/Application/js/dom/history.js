@@ -2,7 +2,7 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { Route } from '../app/route'
+import { Route } from '../value/route'
 
 /**
  *

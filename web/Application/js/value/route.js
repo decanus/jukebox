@@ -36,6 +36,7 @@ export class Route {
     if (query.length > 0) {
       return `${path}?${query}`
     }
+    
 
     return path
   }
@@ -46,7 +47,7 @@ export class Route {
    * @returns {boolean}
    */
   isSameValue(other) {
-    return this.toString() === other.toString()
+    return this.toString() === other.toString() && other instanceof Route
   }
   
   /**

@@ -4,7 +4,7 @@
 
 import { locateView } from '../../views/locate'
 import { sendException } from '../../app/analytics'
-import { renderTemplate } from '../../render-template'
+import { renderTemplate } from '../../template/render'
 
 /**
  *
