@@ -3,6 +3,7 @@
 namespace Jukebox\API\Handlers\Get\Users\Playlist
 {
 
+    use Jukebox\API\Queries\FetchPublicUserQuery;
     use Jukebox\API\Queries\FetchUserPlaylistQuery;
     use Jukebox\Framework\Handlers\QueryHandlerInterface;
     use Jukebox\Framework\Http\Request\RequestInterface;
@@ -16,9 +17,18 @@ namespace Jukebox\API\Handlers\Get\Users\Playlist
          */
         private $fetchUserPlaylistQuery;
 
-        public function __construct(FetchUserPlaylistQuery $fetchUserPlaylistQuery)
+        /**
+         * @var FetchPublicUserQuery
+         */
+        private $fetchPublicUserQuery;
+
+        public function __construct(
+            FetchUserPlaylistQuery $fetchUserPlaylistQuery,
+            FetchPublicUserQuery $fetchPublicUserQuery
+        )
         {
             $this->fetchUserPlaylistQuery = $fetchUserPlaylistQuery;
+            $this->fetchPublicUserQuery = $fetchPublicUserQuery;
         }
 
         public function execute(RequestInterface $request, AbstractModel $model)
@@ -27,13 +37,19 @@ namespace Jukebox\API\Handlers\Get\Users\Playlist
 
 
             $playlist = $this->fetchUserPlaylistQuery->execute($explodedPath[2], $explodedPath[4]);
+            $user = $this->fetchPublicUserQuery->execute($explodedPath[2]);
 
             if ($playlist === null) {
                 $model->setStatusCode(new NotFound);
                 return;
             }
 
-            $model->setData($playlist->getArrayCopy());
+            $playlist = $playlist->getArrayCopy();
+            $playlist['owner'] = $user;
+            $playlist['id'] = (string) $playlist['_id'];
+            unset($playlist['_id']);
+
+            $model->setData($playlist);
         }
     }
 }
