@@ -6,7 +6,7 @@ import 'whatwg-fetch'
 
 import { app } from './app'
 import { getInterval } from './dom/time/get-interval'
-import { Route } from './app/route'
+import { Route } from './value/route'
 import { sendPlayTrack } from './app/analytics'
 import config from '../data/config.json'
 

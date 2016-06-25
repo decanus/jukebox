@@ -8,7 +8,7 @@ import { ModelStore } from './../model/model-store'
 import { ModelLoader } from './../model/model-loader'
 import { ModelRepository } from './../model/model-repository'
 import { ModelFetcher } from './../model/model-fetcher'
-import { Route } from './route'
+import { Route } from './../value/route'
 import { ResolveCache } from '../views/resolve-cache'
 import { trackPageView } from './analytics'
 
