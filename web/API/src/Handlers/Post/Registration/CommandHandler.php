@@ -14,6 +14,7 @@ namespace Jukebox\API\Handlers\Post\Registration
     use Jukebox\Framework\Models\AbstractModel;
     use Jukebox\Framework\ValueObjects\Email;
     use Jukebox\Framework\ValueObjects\Password;
+    use Jukebox\Framework\ValueObjects\Username;
 
     class CommandHandler implements CommandHandlerInterface
     {
@@ -52,6 +53,14 @@ namespace Jukebox\API\Handlers\Post\Registration
                 $password = new Password($request->getParameter('password'));
             } catch (\Exception $e) {
                 $this->setError(new BadRequest, 'Invalid Password');
+                return;
+            }
+
+
+            try {
+                $username = new Username($request->getParameter('username'));
+            } catch (\Exception $e) {
+                $this->setError(new BadRequest, 'Invalid Username');
                 return;
             }
 

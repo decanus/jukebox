@@ -76,7 +76,7 @@ namespace Jukebox\API\Session
         private function loadMap($id)
         {
             if ($id === null) {
-                return new Map();
+                return new Map;
             }
 
             return $this->sessionStore->loadById($id);

@@ -11,6 +11,7 @@ namespace Jukebox\API\Commands
     use Jukebox\Framework\ValueObjects\Email;
     use Jukebox\Framework\ValueObjects\Password;
     use Jukebox\Framework\ValueObjects\Token;
+    use Jukebox\Framework\ValueObjects\Username;
 
     class AuthenticationCommand
     {
@@ -48,7 +49,9 @@ namespace Jukebox\API\Commands
                 throw new \Exception('Invalid login data');
             }
 
-            $this->sessionData->setAccount(new RegisteredAccount((string) $user['_id']));
+            $this->sessionData->setAccount(
+                new RegisteredAccount((string) $user['_id'], new Username($user['username']))
+            );
 
             return $this->sessionData->getMap()->getSessionId();
         }
