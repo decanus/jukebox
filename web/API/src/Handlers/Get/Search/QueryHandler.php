@@ -38,7 +38,6 @@ namespace Jukebox\API\Handlers\Get\Search
                     'multi_match' => [
                         'query' => $request->getParameter('query'),
                         'fields' => [
-//                            'name',
                             'name.name^100',
                             'artists.name.name^20',
                             'title.title^10'
