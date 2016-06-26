@@ -35,8 +35,7 @@
           "name": {
             "type": "string",
             "fields": {
-              "name": {"type": "string", "analyzer": "default_analyzer"},
-              "ngrams": {"type": "text", "analyzer": "ngram_analyzer", "search_analyzer": "search_analyzer"}
+              "name": {"type": "string", "analyzer": "default_analyzer"}
             }
           },
           "permalink": {"type": "string", "index": "no"},
