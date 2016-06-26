@@ -21,7 +21,7 @@ export class ResultId {
    * @returns {ResultId}
    */
   static fromString (string) {
-    const [ query, ...includes ] = string.split(':')
+    const [ query, ...includes ] = btoa(string).split(':')
 
     return new ResultId(query, includes)
   }
@@ -31,6 +31,10 @@ export class ResultId {
    * @returns {string}
    */
   toString () {
-    return `${this.query}:${this.includes.join(':')}`
+    if (this.includes.length < 1) {
+      return btoa(this.query)
+    }
+
+    return btoa(`${this.query}:${this.includes.join(':')}`)
   }
 }
