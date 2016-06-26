@@ -6,6 +6,7 @@ import { app } from '../app'
 import { Page } from './page'
 import { ViewRepository } from './view-repository'
 import { ResultId } from '../value/result-id'
+import { encodeValue } from '../url/value'
 
 /**
  *
@@ -23,8 +24,33 @@ export function SearchView ({ query, includes }) {
      */
     async fetch () {
       const result = await app.modelRepository.getResult(new ResultId(query, includes))
+      const encodedQuery = encodeValue(query)
 
-      return new Page({ title: 'Jukebox Ninja - Search', template: 'search', data: result })
+      const filters = [
+        {
+          name: 'Everything',
+          type: 'everything',
+          active: includes.length === 0 || includes.indexOf('everything') !== -1
+        },
+        {
+          name: 'Tracks',
+          type: 'tracks',
+          active: includes.indexOf('tracks') !== -1
+        },
+        {
+          name: 'Artists',
+          type: 'artists',
+          active: includes.indexOf('artists') !== -1
+        }
+      ]
+
+      return new Page({
+        title: 'Jukebox Ninja - Search', template: 'search', data: {
+          result,
+          encodedQuery,
+          filters
+        }
+      })
     },
     /**
      *
@@ -33,9 +59,9 @@ export function SearchView ({ query, includes }) {
      */
     handle (page) {
       const repository = new ViewRepository(app.modelRepository)
-      const models = page.data.results
+      const models = page.data.result.results
 
-      repository.hold(page.data)
+      repository.hold(page.data.result)
 
       models.forEach((model) => {
         repository.hold(model)
