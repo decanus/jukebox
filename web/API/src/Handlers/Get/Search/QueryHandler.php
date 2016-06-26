@@ -35,12 +35,12 @@ namespace Jukebox\API\Handlers\Get\Search
 
             $params = [
                 'query' => [
-                    'bool' => [
-                        'should' => [
-                            'multi_match' => [
-                                'query' => $request->getParameter('query'),
-                                'fields' => ['name^100', 'title^10', 'artists.name']
-                            ]
+                    'multi_match' => [
+                        'query' => $request->getParameter('query'),
+                        'fields' => [
+                            'name^100',
+                            'artists.name^20',
+                            'title^10'
                         ]
                     ]
                 ]
