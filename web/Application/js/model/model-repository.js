@@ -73,7 +73,7 @@ export class ModelRepository {
 
   /**
    *
-   * @param {number} artistId
+   * @param {ResultId} artistId
    */
   getArtistTracks (artistId) {
     return this.get({ id: artistId, type: 'artist-tracks' })

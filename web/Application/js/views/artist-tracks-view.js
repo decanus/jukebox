@@ -5,6 +5,7 @@
 import { app } from '../app'
 import { Page } from './page'
 import { ViewRepository } from './view-repository'
+import { ResultId } from '../value/result-id'
 
 /**
  *
@@ -18,7 +19,7 @@ export function ArtistTracksView (artistId) {
      * @returns {Page}
      */
     async fetch () {
-      const tracks = await app.modelRepository.getArtistTracks(artistId)
+      const tracks = await app.modelRepository.getArtistTracks(new ResultId(artistId))
 
       return new Page({ title: '', template: 'artist-tracks', data: { tracks, artistId } })
     },

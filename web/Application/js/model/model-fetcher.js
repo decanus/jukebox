@@ -57,14 +57,14 @@ export class ModelFetcher {
 
   /**
    *
-   * @param {number} artistId
+   * @param {ResultId} id
    * @returns {Promise<{ type: string, id: number }>}
    */
-  async fetchArtistTracks (artistId) {
-    const result = await fetchArtistTracks(artistId)
+  async fetchArtistTracks (id) {
+    const result = await fetchArtistTracks(id.query)
 
     result.type = 'artist-tracks'
-    result.id = artistId
+    result.id = id
 
     return result
   }

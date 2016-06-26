@@ -5,6 +5,7 @@
 import { app } from '../app'
 import { fetchResults } from '../app/apr'
 import { findView } from '../dom/find-view'
+import { ResultId } from '../value/result-id'
 
 const state = new WeakMap()
 const listener = new WeakMap()
@@ -51,7 +52,7 @@ async function onScroll ($element) {
 
   result.pagination = newResult.pagination
   result.results = result.results.concat(newResults)
-
+  
   await findView($element).reloadView()
 
   state.set($element, 'ready')
@@ -78,10 +79,10 @@ export class SearchPaginator extends HTMLElement {
 
   /**
    *
-   * @returns {string}
+   * @returns {ResultId}
    */
   get resultId () {
-    return this.getAttribute('result-id')
+    return ResultId.fromString(this.getAttribute('result-id'))
   }
 
   /**
