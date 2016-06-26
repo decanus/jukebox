@@ -10,6 +10,8 @@ import {
   fetchTrack
 } from '../app/apr'
 
+import { ResultId } from '../value/result-id'
+
 export class ModelFetcher {
   /**
    *
@@ -36,18 +38,19 @@ export class ModelFetcher {
 
   /**
    *
-   * @param {string} query
+   * @param {ResultId} id
    * @returns {Promise<{ type: string, id: number }>}
    */
-  async fetchResult (query) {
-    const result = await fetchSearch(query)
+  async fetchResult (id) {
+    // todo: add support for multiple includes
+    const result = await fetchSearch(id.query, 1, id.includes[0])
 
     if (Array.isArray(result)) {
-      return { type: 'results', id: query, results: [], pagination: { size: 20, page: 1, pages: 1 } }
+      return { type: 'results', id: query, results: [], includes: [], pagination: { size: 20, page: 1, pages: 1 } }
     }
 
     result.type = 'results'
-    result.id = query
+    result.id = new ResultId(id.query, Array.from(id.includes))
 
     return result
   }
