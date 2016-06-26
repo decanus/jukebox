@@ -5,13 +5,15 @@
 import { app } from '../app'
 import { Page } from './page'
 import { ViewRepository } from './view-repository'
+import { ResultId } from '../value/result-id'
 
 /**
  *
  * @param {string} query
+ * @param {Array<string>} includes
  * @returns {View}
  */
-export function SearchView (query) {
+export function SearchView ({ query, includes }) {
   query = query.trim()
 
   return {
@@ -20,7 +22,7 @@ export function SearchView (query) {
      * @returns {Page}
      */
     async fetch () {
-      const result = await app.modelRepository.getResult(query)
+      const result = await app.modelRepository.getResult(new ResultId(query, includes))
 
       return new Page({ title: 'Jukebox Ninja - Search', template: 'search', data: result })
     },

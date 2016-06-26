@@ -46,11 +46,11 @@ export class ModelRepository {
 
   /**
    *
-   * @param {string} query
+   * @param {ResultId} id
    * @returns {Promise<Result>}
    */
-  getResult (query) {
-    return this.get({ id: query, type: 'results' })
+  getResult (id) {
+    return this.get({ id, type: 'results' })
   }
 
   /**

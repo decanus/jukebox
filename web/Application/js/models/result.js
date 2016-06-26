@@ -5,7 +5,7 @@
 export class Result {
   /**
    *
-   * @param {string} id
+   * @param {ResultId} id
    * @param {Array<Track|Artist>} results
    * @param {{ size: number, page: number, pages: number }} pagination
    * @param {string} type
@@ -28,7 +28,7 @@ export class Result {
    * @returns {string}
    */
   get query () {
-    return this.id
+    return this.id.query
   }
 
   /**

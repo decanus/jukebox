@@ -1,40 +1,53 @@
 <section class="page-content">
     <div class="container">
-        <div class="search-container">
-            <h2>Search for "{{query}}"</h2>
-            {{#if results.length}}
-                {{#each results as |result|}}
+        <div class="search-layout">
 
-                    {{#if result.isArtist}}
-                        <div class="search-result">
-                            <div class="text">
-                                <div class="title">
-                                    <a is="jukebox-link" href="{{result.permalink}}" class="label">{{result.name}}</a>
+            <div class="sidebar">
+                <nav class="search-filter">
+                    <search-filter-link query="{{query}}">
+
+                    </search-filter-link>
+                </nav>
+            </div>
+
+            <div class="content">
+                <h2>Search results for "{{query}}"</h2>
+                {{#if results.length}}
+                    {{#each results as |result|}}
+
+                        {{#if result.isArtist}}
+                            <div class="search-result">
+                                <div class="text">
+                                    <div class="title">
+                                        <a is="jukebox-link" href="{{result.permalink}}"
+                                           class="label">{{result.name}}</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        {{/if}}
+
+                        {{#if result.isTrack}}
+                            <list-track track-id="{{result.id}}" result-id="{{@root.id}}"
+                                        result-type="results"></list-track>
+                        {{/if}}
+                    {{/each}}
+
+                    {{#if isCompletelyLoaded}}
+                    {{else}}
+                        <search-paginator result-id="{{id}}" result-type="results">
+                            <div class="loading-animation"></div>
+                        </search-paginator>
                     {{/if}}
 
-                    {{#if result.isTrack}}
-                        <list-track track-id="{{result.id}}" result-id="{{@root.query}}" result-type="results"></list-track>
-                    {{/if}}
-                {{/each}}
-
-                {{#if isCompletelyLoaded}}
                 {{else}}
-                    <search-paginator result-id="{{id}}" result-type="results">
-                        <div class="loading-animation"></div>
-                    </search-paginator>
+                    <p>
+                        <b>Sorry.</b> We couldn't find anything matching "{{query}}".
+                    </p>
+                    <p>
+                        Maybe you were looking for <a is="jukebox-link" href="/search?q=Adele">Adele</a>?
+                    </p>
                 {{/if}}
-
-            {{else}}
-                <p>
-                    <b>Sorry.</b> We couldn't find anything matching "{{query}}".
-                </p>
-                <p>
-                    Maybe you were looking for <a is="jukebox-link" href="/search?q=Adele">Adele</a>?
-                </p>
-            {{/if}}
+            </div>
         </div>
     </div>
 </section>
