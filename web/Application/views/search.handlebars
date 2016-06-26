@@ -1,5 +1,7 @@
 <section class="page-content">
     <div class="container">
+        <h2>Search results for "{{result.query}}"</h2>
+
         <div class="search-layout">
 
             <div class="sidebar">
@@ -15,7 +17,6 @@
             </div>
 
             <div class="content">
-                <h2>Search results for "{{result.query}}"</h2>
                 {{#if result.results.length}}
                     {{#each result.results as |result|}}
 
