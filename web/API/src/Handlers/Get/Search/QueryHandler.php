@@ -33,34 +33,6 @@ namespace Jukebox\API\Handlers\Get\Search
                 return;
             }
 
-//            $params = [
-//                'query' => [
-//                    'multi_match' => [
-//                        'query' => $request->getParameter('query'),
-//                        'fields' => [
-//                            'name^50',
-//                            'title^10',
-//                            'title.snowball^2',
-//                            'title.shingle^2',
-//                            'title.ngram^2',
-//                            'artists.name^2',
-//                            'artists.name.ngrams^2',
-//                            'name.snowball^2',
-//                            'name.shingle^2',
-//                            'name.ngram^5',
-//                        ],
-//                    ]
-//                ]
-//            ];
-
-//            $params = [
-//                'query' => [
-//                    'match' => [
-//                        'name' => $request->getParameter('query')
-//                    ]
-//                ]
-//            ];
-
             $params = [
                 'query' => [
                     'multi_match' => [
@@ -69,7 +41,7 @@ namespace Jukebox\API\Handlers\Get\Search
 //                            'name',
                             'name.name^100',
                             'artists.name.name^20',
-                            'title^10'
+                            'title.title^10'
                         ]
                     ]
                 ]
