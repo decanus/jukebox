@@ -6,7 +6,7 @@ Release: jukebox.1
 Group: System Environment/Libraries
 License: jukebox.ninja
 Vendor: jukebox.ninja
-Version: 0.1.8
+Version: 0.1.9
 Url: http://www.jukebox.ninja/
 
 #Source:
