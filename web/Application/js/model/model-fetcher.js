@@ -46,7 +46,7 @@ export class ModelFetcher {
     const result = await fetchSearch(id.query, 1, id.includes[0])
 
     if (Array.isArray(result)) {
-      return { type: 'results', id: query, results: [], includes: [], pagination: { size: 20, page: 1, pages: 1 } }
+      return { type: 'results', id, results: [], includes: [], pagination: { size: 20, page: 1, pages: 1 } }
     }
 
     result.type = 'results'
