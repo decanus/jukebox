@@ -10,7 +10,8 @@
                         <a is="jukebox-link"
                            href="/search?q={{@root.encodedQuery}}&type={{type}}"
                            class="filter {{#active}}-active{{/active}}">
-                            {{name}}
+                            <insert-icon icon-name="{{icon}}" class="icon"></insert-icon>
+                            <span>{{name}}</span>
                         </a>
                     {{/each}}
                 </nav>

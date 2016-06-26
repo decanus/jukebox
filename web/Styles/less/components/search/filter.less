@@ -4,14 +4,32 @@
 
   > .filter {
     color: @color-gray;
-  }
-
-  > .filter:not(:last-child) {
-    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
   }
 
   > .filter.-active {
-    color: #000;
+    color: #fff;
+    background-color: @brand-color;
+    position: relative;
   }
 
+  > .filter.-active:after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: -38px;
+    height: 0;
+    width: 0;
+    border: 19px solid transparent;
+    border-left-color: @brand-color;
+  }
+
+  > .filter > .icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 16px;
+  }
 }

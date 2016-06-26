@@ -30,16 +30,19 @@ export function SearchView ({ query, includes }) {
         {
           name: 'Everything',
           type: 'everything',
+          icon: 'search',
           active: includes.length === 0 || includes.indexOf('everything') !== -1
         },
         {
           name: 'Tracks',
           type: 'tracks',
+          icon: 'disc',
           active: includes.indexOf('tracks') !== -1
         },
         {
           name: 'Artists',
           type: 'artists',
+          icon: 'person',
           active: includes.indexOf('artists') !== -1
         }
       ]
