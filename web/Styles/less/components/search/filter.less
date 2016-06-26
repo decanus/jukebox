@@ -10,9 +10,12 @@
   }
 
   > .filter.-active {
-    color: #fff;
-    background-color: @brand-color;
+    background-color: #fff;
     position: relative;
+  }
+
+  > .filter.-active > .icon {
+    color: @brand-color;
   }
 
   > .filter.-active:after {
@@ -24,7 +27,7 @@
     height: 0;
     width: 0;
     border: 19px solid transparent;
-    border-left-color: @brand-color;
+    border-left-color: #fff;
   }
 
   > .filter > .icon {
