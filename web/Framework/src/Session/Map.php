@@ -1,6 +1,6 @@
 <?php
 
-namespace Jukebox\API\Session
+namespace Jukebox\Framework\Session
 {
 
     use Jukebox\Framework\ValueObjects\Token;
@@ -8,12 +8,12 @@ namespace Jukebox\API\Session
     class Map extends \Jukebox\Framework\Map
     {
         private $sessionId;
-        
+
         public function setSessionId(Token $sessionId)
         {
             $this->sessionId = $sessionId;
         }
-        
+
         public function getSessionId(): Token
         {
             return $this->sessionId;

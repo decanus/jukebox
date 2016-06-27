@@ -67,7 +67,7 @@ namespace Jukebox\API\Handlers\Post\Registration
             $salt = new Salt;
             $hash = new Hash((string) $password, $salt);
 
-            $this->registrationCommand->execute($email, $salt, $hash);
+            $this->registrationCommand->execute($email, $username, $salt, $hash);
 
             $model->setData(['message' => 'Created']);
             $model->setStatusCode(new Created);
