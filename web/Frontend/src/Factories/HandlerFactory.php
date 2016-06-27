@@ -4,6 +4,7 @@ namespace Jukebox\Frontend\Factories
 {
 
     use Jukebox\Framework\Factories\AbstractFactory;
+    use Jukebox\Frontend\Session\Session;
     use TheSeer\fDOM\fDOMDocument;
 
     class HandlerFactory extends AbstractFactory
@@ -12,6 +13,16 @@ namespace Jukebox\Frontend\Factories
          * @var fDomDocument
          */
         private $template;
+
+        /**
+         * @var Session
+         */
+        private $session;
+
+        public function __construct(Session $session)
+        {
+            $this->session = $session;
+        }
 
         public function createGenericPageTransformationHandler(): \Jukebox\Frontend\Handlers\Get\GenericPageTransformationHandler
         {
@@ -45,7 +56,9 @@ namespace Jukebox\Frontend\Factories
 
         public function createResponseHandler(): \Jukebox\Frontend\Handlers\ResponseHandler
         {
-            return new \Jukebox\Frontend\Handlers\ResponseHandler;
+            return new \Jukebox\Frontend\Handlers\ResponseHandler(
+                $this->session
+            );
         }
 
         public function createTransformationHandler(): \Jukebox\Frontend\Handlers\TransformationHandler
