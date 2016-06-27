@@ -3,6 +3,7 @@
  */
 
 import { app } from '../../app'
+import { ResultId } from '../../value/result-id'
 
 export class PlayTrackLink extends HTMLElement {
   /**
@@ -11,7 +12,7 @@ export class PlayTrackLink extends HTMLElement {
   createdCallback () {
     this.addEventListener('click', async () => {
       const player = app.player
-
+      
       const [ track, result ] = await Promise.all([
         app.modelRepository.getTrack(this.trackId),
         app.modelRepository.get({ type: this.resultType, id: this.resultId })
@@ -31,10 +32,10 @@ export class PlayTrackLink extends HTMLElement {
 
   /**
    *
-   * @returns {string}
+   * @returns {ResultId}
    */
   get resultId () {
-    return this.getAttribute('result-id')
+    return ResultId.fromString(this.getAttribute('result-id'))
   }
 
   /**

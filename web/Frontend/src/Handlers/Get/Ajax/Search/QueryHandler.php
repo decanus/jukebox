@@ -40,8 +40,13 @@ namespace Jukebox\Frontend\Handlers\Get\Ajax\Search
                 $page = $request->getParameter('page');
             }
 
+            $type = 'everything';
+            if ($request->hasParameter('type')) {
+                $type = $request->getParameter('type');
+            }
+
             try {
-                $response = $this->jukeboxRestManager->search($request->getParameter('query'), $size, $page);
+                $response = $this->jukeboxRestManager->search($request->getParameter('query'), $size, $page, $type);
 
                 if ($response->getResponseCode() !== 200) {
                     throw new \Exception('Non 200 response');
