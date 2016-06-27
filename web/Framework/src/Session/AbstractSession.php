@@ -53,13 +53,13 @@ namespace Jukebox\Framework\Session
 
         public function loadSessionData(): AbstractSessionData
         {
-            return $this->sessionDataFactory->createSessionData($this->loadMap($this->secureId));
+            return $this->sessionDataFactory->createSessionData($this->loadMap($this->getSecureId()));
         }
 
         public function commit()
         {
-            $this->sessionStore->save((string) $this->secureId, $this->data->getMap());
-            $this->sessionStore->expire((string) $this->secureId, $this->expireInSeconds);
+            $this->sessionStore->save((string) $this->getSecureId(), $this->data->getMap());
+            $this->sessionStore->expire((string) $this->getSecureId(), $this->expireInSeconds);
         }
 
         private function loadMap($id): Map
@@ -69,6 +69,16 @@ namespace Jukebox\Framework\Session
             }
 
             return $this->sessionStore->loadById($id);
+        }
+
+        protected function setSecureId(Token $token)
+        {
+            $this->secureId = $token;
+        }
+
+        protected function getSecureId(): Token
+        {
+            return $this->secureId;
         }
     }
 }
