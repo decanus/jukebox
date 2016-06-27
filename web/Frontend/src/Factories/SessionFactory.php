@@ -20,15 +20,25 @@ namespace Jukebox\Frontend\Factories
          */
         private $sessionStore;
 
-        public function __construct(SessionStore $sessionStore)
+        /**
+         * @var bool
+         */
+        private $isDevelopmentMode;
+
+        public function __construct(SessionStore $sessionStore, $isDevelopmentMode = false)
         {
             $this->sessionStore = $sessionStore;
+            $this->isDevelopmentMode = $isDevelopmentMode;
         }
 
         public function createSession(): Session
         {
             if ($this->session === null) {
-                $this->session = new Session($this->sessionStore, $this->createSessionDataFactory());
+                $this->session = new Session(
+                    $this->sessionStore,
+                    $this->createSessionDataFactory(),
+                    $this->isDevelopmentMode
+                );
             }
 
             return $this->session;

@@ -6,12 +6,27 @@ namespace Jukebox\Frontend\Session
     use Jukebox\Framework\Http\Request\RequestInterface;
     use Jukebox\Framework\Session\AbstractSession;
     use Jukebox\Framework\Session\AbstractSessionData;
+    use Jukebox\Framework\Session\SessionStoreInterface;
     use Jukebox\Framework\ValueObjects\Cookie;
     use Jukebox\Framework\ValueObjects\SessionToken;
 
     class Session extends AbstractSession
     {
         private $isSessionStarted = false;
+        /**
+         * @var bool
+         */
+        private $isDevelopment;
+
+        public function __construct(
+            SessionStoreInterface $sessionStore,
+            SessionDataFactory $sessionDataFactory,
+            bool $isDevelopment = false
+        )
+        {
+            parent::__construct($sessionStore, $sessionDataFactory);
+            $this->isDevelopment = $isDevelopment;
+        }
 
         public function load(RequestInterface $request): AbstractSessionData
         {
@@ -34,8 +49,7 @@ namespace Jukebox\Frontend\Session
                 '/',
                 time() + $this->getExpire(),
                 '.jukebox.ninja',
-                false,
-                true
+                !$this->isDevelopment
             );
         }
 

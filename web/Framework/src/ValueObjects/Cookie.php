@@ -44,7 +44,7 @@ namespace Jukebox\Framework\ValueObjects
             string $value,
             string $path = '/',
             int $expires,
-            string $domain = 'www.jukebox.ninja',
+            string $domain = '.jukebox.ninja',
             bool $secure = true,
             bool $httpOnly = true
         )

@@ -89,7 +89,7 @@ namespace Jukebox\Frontend
                 )
             );
 
-            $this->sessionFactory = new SessionFactory($sessionStore);
+            $this->sessionFactory = new SessionFactory($sessionStore, $this->isDevelopmentMode());
             $this->session = $this->sessionFactory->createSession();
             $this->session->load($this->getRequest());
         }
