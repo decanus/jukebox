@@ -80,5 +80,10 @@ namespace Jukebox\Framework\Session
         {
             return $this->secureId;
         }
+
+        protected function getExpire(): int
+        {
+            return $this->expireInSeconds;
+        }
     }
 }
