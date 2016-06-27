@@ -8,6 +8,7 @@ namespace Jukebox\API\Handlers\Get\Search
     use Jukebox\Framework\Http\Request\RequestInterface;
     use Jukebox\Framework\Http\StatusCodes\BadRequest;
     use Jukebox\Framework\Models\AbstractModel;
+    use Jukebox\Framework\ValueObjects\Uri;
 
     class QueryHandler implements QueryHandlerInterface
     {
@@ -35,12 +36,12 @@ namespace Jukebox\API\Handlers\Get\Search
 
             $params = [
                 'query' => [
-                    'bool' => [
-                        'should' => [
-                            'multi_match' => [
-                                'query' => $request->getParameter('query'),
-                                'fields' => ['name^100', 'title^10', 'artists.name']
-                            ]
+                    'multi_match' => [
+                        'query' => $request->getParameter('query'),
+                        'fields' => [
+                            'name.name^100',
+                            'artists.name.name^20',
+                            'title.title^10'
                         ]
                     ]
                 ]
@@ -56,7 +57,24 @@ namespace Jukebox\API\Handlers\Get\Search
                 $page = $request->getParameter('page');
             }
 
-            $model->setData($this->searchBackend->search('tracks,artists', $params, $size, $page));
+            $model->setData(
+                $this->searchBackend->search($this->getType($request->getUri()), $params, $size, $page)
+            );
+        }
+
+        private function getType(Uri $uri): string
+        {
+            if (!$uri->hasParameter('type')) {
+                return 'tracks,artists';
+            }
+
+            switch ($uri->getParameter('type')) {
+                case 'tracks':
+                case 'artists':
+                    return $uri->getParameter('type');
+                default:
+                    return 'tracks,artists';
+            }
         }
     }
 }

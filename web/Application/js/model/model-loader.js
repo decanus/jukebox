@@ -9,6 +9,7 @@ import { Artist } from '../models/artist'
 import { ArtistProfiles } from '../models/artist-profiles'
 import { Result } from '../models/result'
 import { ArtistProfile } from '../value/artist-profile'
+import { ResultId } from '../value/result-id'
 
 export class ModelLoader {
   /**
@@ -103,11 +104,16 @@ export class ModelLoader {
 
   /**
    *
-   * @param {{ id: string, results: Array, pagination: {} }} data
+   * @param {{ id: string|ResultId, results: Array, pagination: {}, includes: Array<string> }} data
    * @param {string} type
    */
   loadResult (data, type) {
     const results = data.results.map((model) => this.load(model))
+
+    if (!(data.id instanceof ResultId)) {
+      data.id = new ResultId(data.id)
+    }
+
     const result = new Result({ id: data.id, results, pagination: data.pagination, type })
 
     this._store.put(result)

@@ -32,7 +32,12 @@ namespace Jukebox\Frontend\Handlers\Get\Search
                     return;
                 }
 
-                $response = $this->jukeboxRestManager->search($request->getParameter('q'), 20, 1);
+                $type = 'everything';
+                if ($request->hasParameter('type')) {
+                    $type = $request->getParameter('type');
+                }
+
+                $response = $this->jukeboxRestManager->search($request->getParameter('q'), 20, 1, $type);
 
                 if ($response->getResponseCode() !== 200) {
                     return;

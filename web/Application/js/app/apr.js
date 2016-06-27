@@ -9,12 +9,13 @@ import { buildQuery } from '../url/query'
  * @param {string} type
  * @param {string|number} id
  * @param {number} page
+ * @param {string} include
  * @returns {Promise}
  */
-export function fetchResults (type, id, page = 1) {
+export function fetchResults (type, id, page = 1, include = 'everything') {
   switch (type) {
     case 'results':
-      return fetchSearch(id, page)
+      return fetchSearch(id, page, include)
     case 'artist-tracks':
       return fetchArtistTracks(id, page)
   }
@@ -26,13 +27,14 @@ export function fetchResults (type, id, page = 1) {
  *
  * @param {string} query
  * @param {number} page
+ * @param {string} include
  * @returns {Promise}
  */
-export function fetchSearch (query, page = 1) {
-  return _fetch('/search', [ [ 'query', query ], [ 'page', page ] ])
+export function fetchSearch (query, page = 1, include = 'everything') {
+  return _fetch('/search', [ [ 'query', query ], [ 'page', page ], [ 'type', include ] ])
 }
 
-/**
+/**a
  *
  * @param {number} artistId
  * @returns {Promise}

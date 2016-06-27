@@ -82,7 +82,10 @@ export async function resolveView (route) {
   }
 
   if (route.pathParts[ 0 ] === 'search') {
-    return { name: 'search', data: route.params.get('q') || '' }
+    return { name: 'search', data: {
+      query: route.params.get('q') || '',
+      includes: [route.params.get('type') || 'everything']
+    }}
   }
 
   const special = await resolveSpecial(route.path)
