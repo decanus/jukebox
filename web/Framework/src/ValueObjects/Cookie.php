@@ -48,7 +48,7 @@ namespace Jukebox\Framework\ValueObjects
          * @param bool   $secure
          * @param bool   $httpOnly
          */
-        public function __construct($name, $value, $path = '/', $expires, $domain = '.Jukebox.me', $secure = true, $httpOnly = true)
+        public function __construct($name, $value, $path = '/', $expires, $domain = 'www.jukebox.ninja', $secure = true, $httpOnly = true)
         {
             $this->name = $name;
             $this->value = $value;
