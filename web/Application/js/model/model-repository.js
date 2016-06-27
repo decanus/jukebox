@@ -105,7 +105,7 @@ export class ModelRepository {
    */
   hold ({ type, id }) {
     const key = { type, id }
-
+    
     this._store.hold(key)
 
     return () => {

@@ -2,13 +2,17 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
+import { app } from '../app'
+
 export class TrackList {
   /**
    *
    * @param {Array<Track>} [tracks]
    */
   constructor (tracks = []) {
-    this._tracks = tracks
+    this._tracks = []
+
+    tracks.forEach((track) => this.append(track))
   }
 
   /**
@@ -19,7 +23,7 @@ export class TrackList {
   static fromResult (result) {
     const tracks = result.results
       .filter(($model) => $model.type === 'tracks')
-    
+
     return new TrackList(tracks)
   }
 
@@ -29,7 +33,7 @@ export class TrackList {
    * @returns {Track}
    */
   get (index) {
-    return this._tracks[ index ]
+    return this._tracks[ index ] && this._tracks[ index ].track
   }
 
   /**
@@ -37,15 +41,22 @@ export class TrackList {
    * @param {Track} track
    */
   append (track) {
-    this._tracks.push(track)
+    this._tracks.push({
+      track,
+      cleanup: app.modelRepository.hold(track, this)
+    })
   }
 
   removeLast () {
-    this._tracks.pop()
+    const { cleanup } = this._tracks.pop()
+    
+    cleanup()
   }
 
   removeFirst () {
-    this._tracks.shift()
+    const { cleanup } = this._tracks.shift()
+
+    cleanup()
   }
 
   /**
@@ -58,12 +69,12 @@ export class TrackList {
   }
 
   /**
-   * 
+   *
    * @param {Track} track
    * @returns {number}
    */
   indexOfTrack (track) {
-    const result = this._tracks
+    const result = this.tracks
       .map(($track, $idx) => ({ $track, $idx }))
       .find(({ $track }) => $track.id === track.id)
 
@@ -74,6 +85,14 @@ export class TrackList {
     return result.$idx
   }
 
+  cleanup () {
+    this._tracks.forEach((item) => {
+      item.cleanup()
+    })
+
+    this._tracks = []
+  }
+
   /**
    *
    * @param {number} id
@@ -81,19 +100,19 @@ export class TrackList {
    * @private
    */
   _getTracksById (id) {
-    return this._tracks.filter(($track) => $track.id === id)
+    return this.tracks.filter(($track) => $track.id === id)
   }
 
   /**
-   * 
+   *
    * @returns {Array<Track>}
    */
   get tracks () {
-    return this._tracks
+    return this._tracks.map(({ track }) => track)
   }
 
   /**
-   * 
+   *
    * @returns {Number}
    */
   get size () {
