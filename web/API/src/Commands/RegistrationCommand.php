@@ -23,10 +23,10 @@ namespace Jukebox\API\Commands
             $this->postgreDatabaseBackend->insert(
                 'INSERT INTO users (username, email, hash, salt) VALUES (:username, :email, :hash, :salt)',
                 [
-                    'email' => (string) $email,
-                    'username' => (string) $username,
-                    'salt' => (string) $salt,
-                    'hash' => (string) $hash
+                    ':email' => (string) $email,
+                    ':username' => (string) $username,
+                    ':salt' => (string) $salt,
+                    ':hash' => (string) $hash
                 ]
             );
         }

@@ -40,7 +40,7 @@ namespace Jukebox\API\Handlers\Post\Registration
             }
             
             $user = $this->fetchUserByEmailQuery->execute($email);
-            if ($user !== null) {
+            if ($user !== false) {
                 $this->setError(new BadRequest, 'User already exists with email');
                 return;
             }

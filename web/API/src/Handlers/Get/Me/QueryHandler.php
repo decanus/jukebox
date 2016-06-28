@@ -4,7 +4,7 @@ namespace Jukebox\API\Handlers\Get\Me
 {
 
     use Jukebox\API\Session\SessionData;
-    use Jukebox\Framework\Backends\MongoDatabaseBackend;
+    use Jukebox\Framework\Backends\PostgreDatabaseBackend;
     use Jukebox\Framework\Handlers\QueryHandlerInterface;
     use Jukebox\Framework\Http\Request\RequestInterface;
     use Jukebox\Framework\Models\AbstractModel;
@@ -13,9 +13,9 @@ namespace Jukebox\API\Handlers\Get\Me
     class QueryHandler implements QueryHandlerInterface
     {
         /**
-         * @var MongoDatabaseBackend
+         * @var PostgreDatabaseBackend
          */
-        private $mongoDatabaseBackend;
+        private $postgreDatabaseBackend;
         
         /**
          * @var SessionData
@@ -23,26 +23,21 @@ namespace Jukebox\API\Handlers\Get\Me
         private $sessionData;
 
         public function __construct(
-            MongoDatabaseBackend $mongoDatabaseBackend,
+            PostgreDatabaseBackend $postgreDatabaseBackend,
             SessionData $sessionData
         )
         {
-            $this->mongoDatabaseBackend = $mongoDatabaseBackend;
+            $this->postgreDatabaseBackend = $postgreDatabaseBackend;
             $this->sessionData = $sessionData;
         }
 
         public function execute(RequestInterface $request, AbstractModel $model)
         {
-            $user = (array) $this->mongoDatabaseBackend->findOne(
-                'users',
-                ['_id' => new ObjectID($this->sessionData->getAccount()->getId())],
-                ['projection' => ['email' => 1]]
+            $user = (array) $this->postgreDatabaseBackend->fetch(
+                'SELECT email, username FROM users WHERE id = :id',
+                [':id' => $this->sessionData->getAccount()->getId()]
             );
-
-            $id = $user['_id'];
-            unset($user['_id']);
-            $user['id'] = (string) $id;
-
+            
             $model->setData($user);
         }
     }

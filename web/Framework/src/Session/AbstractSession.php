@@ -53,7 +53,7 @@ namespace Jukebox\Framework\Session
 
         public function loadSessionData(): AbstractSessionData
         {
-            return $this->sessionDataFactory->createSessionData($this->loadMap($this->getSecureId()));
+            return $this->sessionDataFactory->createSessionData($this->loadMap($this->secureId));
         }
 
         public function commit()

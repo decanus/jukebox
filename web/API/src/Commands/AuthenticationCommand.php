@@ -38,7 +38,7 @@ namespace Jukebox\API\Commands
         {
             $user = $this->postgreDatabaseBackend->fetch(
                 'SELECT * FROM users WHERE email = :email',
-                ['email' => (string) $email]
+                [':email' => (string) $email]
             );
 
             if ($user === null) {
@@ -53,7 +53,7 @@ namespace Jukebox\API\Commands
             }
 
             $this->sessionData->setAccount(
-                new RegisteredAccount((string) $user['_id'], new Username($user['username']))
+                new RegisteredAccount((string) $user['id'], new Username($user['username']))
             );
 
             return $this->sessionData->getMap()->getSessionId();
