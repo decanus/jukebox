@@ -7,7 +7,7 @@ namespace Jukebox\API\Commands
     use Jukebox\API\Session\SessionData;
     use Jukebox\API\ValueObjects\Hash;
     use Jukebox\API\ValueObjects\Salt;
-    use Jukebox\Framework\Backends\MongoDatabaseBackend;
+    use Jukebox\Framework\Backends\PostgreDatabaseBackend;
     use Jukebox\Framework\ValueObjects\Email;
     use Jukebox\Framework\ValueObjects\Password;
     use Jukebox\Framework\ValueObjects\Token;
@@ -16,9 +16,9 @@ namespace Jukebox\API\Commands
     class AuthenticationCommand
     {
         /**
-         * @var MongoDatabaseBackend
+         * @var PostgreDatabaseBackend
          */
-        private $mongoDatabaseBackend;
+        private $postgreDatabaseBackend;
 
         /**
          * @var SessionData
@@ -26,17 +26,20 @@ namespace Jukebox\API\Commands
         private $sessionData;
 
         public function __construct(
-            MongoDatabaseBackend $mongoDatabaseBackend,
+            PostgreDatabaseBackend $postgreDatabaseBackend,
             SessionData $sessionData
         )
         {
-            $this->mongoDatabaseBackend = $mongoDatabaseBackend;
+            $this->postgreDatabaseBackend = $postgreDatabaseBackend;
             $this->sessionData = $sessionData;
         }
 
         public function execute(Email $email, Password $password): Token
         {
-            $user = $this->mongoDatabaseBackend->findOne('users', ['email' => (string) $email]);
+            $user = $this->postgreDatabaseBackend->fetch(
+                'SELECT * FROM users WHERE email = :email',
+                ['email' => (string) $email]
+            );
 
             if ($user === null) {
                 return false;
