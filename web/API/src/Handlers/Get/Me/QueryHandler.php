@@ -8,7 +8,6 @@ namespace Jukebox\API\Handlers\Get\Me
     use Jukebox\Framework\Handlers\QueryHandlerInterface;
     use Jukebox\Framework\Http\Request\RequestInterface;
     use Jukebox\Framework\Models\AbstractModel;
-    use MongoDB\BSON\ObjectID;
 
     class QueryHandler implements QueryHandlerInterface
     {
