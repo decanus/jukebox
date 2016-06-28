@@ -65,3 +65,11 @@ CREATE TABLE IF NOT EXISTS artist_web_profiles (
   CHECK (profile IN ('facebook', 'twitter', 'itunes', 'amazon', 'official_website')),
   FOREIGN KEY (artist) REFERENCES artists(id)
 );
+
+CREATE TABLE IF NOT EXISTS users (
+  id SERIAL PRIMARY KEY,
+  username VARCHAR(100) NOT NULL,
+  email VARCHAR(254) NOT NULL,
+  hash VARCHAR(64) NOT NULL,
+  salt VARCHAR(32) NOT NULL
+);
