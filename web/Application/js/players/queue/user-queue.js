@@ -23,8 +23,11 @@ export class UserQueue {
    */
   setTrack (track) {
     const index = this._queue.indexOfTrack(track)
+    const tracks = this.tracks.slice(index)
 
-    this._queue = new TrackList(this.tracks.slice(index))
+    this._queue.cleanup()
+
+    this._queue = new TrackList(tracks)
   }
 
   removeFirstTrack () {

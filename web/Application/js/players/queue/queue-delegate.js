@@ -41,6 +41,10 @@ export class QueueDelegate {
    * @param {Result} results
    */
   playTrack (track, results) {
+    if (this.playQueue) {
+      this.playQueue.tracks.cleanup()
+    }
+
     this.playQueue = PlayQueue.fromContext(track, results)
     this._current = this.playQueue
   }
