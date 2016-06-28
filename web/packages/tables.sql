@@ -65,3 +65,21 @@ CREATE TABLE IF NOT EXISTS artist_web_profiles (
   CHECK (profile IN ('facebook', 'twitter', 'itunes', 'amazon', 'official_website')),
   FOREIGN KEY (artist) REFERENCES artists(id)
 );
+
+CREATE TABLE IF NOT EXISTS playlists (
+  id SERIAL PRIMARY KEY,
+  owner INT NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  description VARCHAR(144) NULL DEFAULT NULL,
+  private BOOL DEFAULT FALSE
+);
+
+CREATE TABLE IF NOT EXISTS playlist_tracks (
+  id SERIAL PRIMARY KEY,
+  track INT NOT NULL,
+  playlist INT NOT NULL,
+  added_at DATETIME NOT NULL,
+  added_by INT NOT NULL,
+  FOREIGN KEY (track) REFERENCES tracks(id),
+  FOREIGN KEY (playlist) REFERENCES playlists(id)
+)
