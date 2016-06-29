@@ -41,7 +41,9 @@ namespace Jukebox\Frontend\Factories
 
         public function createPostHandler(): \Jukebox\Frontend\Handlers\PostHandler
         {
-            return new \Jukebox\Frontend\Handlers\PostHandler;
+            return new \Jukebox\Frontend\Handlers\PostHandler(
+                $this->session
+            );
         }
 
         public function createPreHandler(): \Jukebox\Frontend\Handlers\PreHandler
