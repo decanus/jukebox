@@ -43,6 +43,7 @@ namespace Jukebox\Frontend\Handlers
                 $responseInterface->setRedirect($model->getRedirect());
             }
 
+            // @todo only set cookie after a login.
             if (!$this->session->isSessionStarted()) {
                 $this->getResponse()->setCookie($this->session->getCookie());
             }
