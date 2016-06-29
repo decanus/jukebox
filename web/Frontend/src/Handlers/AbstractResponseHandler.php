@@ -6,6 +6,7 @@ namespace Jukebox\Frontend\Handlers
     use Jukebox\Framework\Handlers\ResponseHandlerInterface;
     use Jukebox\Framework\Http\Response\ResponseInterface;
     use Jukebox\Framework\Models\AbstractModel;
+    use Jukebox\Frontend\DataObjects\Accounts\RegisteredAccount;
     use Jukebox\Frontend\Session\Session;
 
     abstract class AbstractResponseHandler implements ResponseHandlerInterface
@@ -43,8 +44,7 @@ namespace Jukebox\Frontend\Handlers
                 $responseInterface->setRedirect($model->getRedirect());
             }
 
-            // @todo only set cookie after a login.
-            if (!$this->session->isSessionStarted()) {
+            if (!$this->session->isSessionStarted() && $this->session->getSessionData() instanceof RegisteredAccount) {
                 $this->getResponse()->setCookie($this->session->getCookie());
             }
         }
