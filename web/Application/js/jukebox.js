@@ -29,13 +29,6 @@ window.__$loadModel = function (model) {
 // todo: figure out an optimal interval for cleanup
 getInterval(180000)
   .forEach(() => {
-
-    if (window.localStorage.getItem('--no-cleanup') === '1') {
-      //noinspection JSAccessibilityCheck
-      console.info(`reaching a model count of ${Object.keys(app.modelRepository._store._store).length}`)
-      return
-    }
-
     console.info('it\'s time to clean')
     app.modelRepository.cleanup()
   })
