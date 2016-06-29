@@ -23,6 +23,10 @@
 
                         {{#if result.isArtist}}
                             <div class="search-result">
+                                <a is="jukebox-link"
+                                   href="{{result.permalink}}"
+                                   style="background-image: url('{{result.imageUrl}}')"
+                                   class="image"></a>
                                 <div class="text">
                                     <div class="title">
                                         <a is="jukebox-link" href="{{result.permalink}}"

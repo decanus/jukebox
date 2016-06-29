@@ -22,6 +22,7 @@ import { ListTrack } from  '../elements/list-track'
 import { InsertIcon as _InsertIcon } from  '../elements/insert-icon'
 import { TabLink } from  '../elements/tab/tab-link'
 import { TabContent } from  '../elements/tab/tab-content'
+import { SearchForm } from '../elements/search-form'
 
 /**
  * @type {Function}
@@ -56,6 +57,11 @@ document.registerElement('search-paginator', SearchPaginator)
 document.registerElement('list-track', ListTrack)
 document.registerElement('tab-link', TabLink)
 document.registerElement('tab-content', TabContent)
+
+document.registerElement('search-form', {
+  'extends': 'form',
+  prototype: SearchForm.prototype
+})
 
 document.registerElement('toggle-sidebar', {
   'extends': 'button',
