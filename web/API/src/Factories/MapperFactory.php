@@ -9,7 +9,9 @@ namespace Jukebox\API\Factories
     {
         public function createSearchResultMapper(): \Jukebox\API\Mappers\SearchResultMapper
         {
-            return new \Jukebox\API\Mappers\SearchResultMapper;
+            return new \Jukebox\API\Mappers\SearchResultMapper(
+                $this->getMasterFactory()->createDataPoolReader()
+            );
         }
     }
 }
