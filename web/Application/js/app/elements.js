@@ -16,13 +16,13 @@ import { PlayerScrobbleBar } from  '../elements/player/player-scrobble-bar'
 import { PlayerQueue } from  '../elements/player/player-queue'
 import { PlayerControls } from  '../elements/player/player-controls'
 import { PlayerQueueItem as _PlayerQueueItem} from  '../elements/player/player-queue-item'
-import { SearchField } from  '../elements/search-field'
-import { SearchPaginator } from  '../elements/search-paginator'
+import { SearchField } from  '../elements/search/search-field'
+import { SearchPaginator } from  '../elements/search/search-paginator'
 import { ListTrack } from  '../elements/list-track'
 import { InsertIcon as _InsertIcon } from  '../elements/insert-icon'
 import { TabLink } from  '../elements/tab/tab-link'
 import { TabContent } from  '../elements/tab/tab-content'
-import { SearchForm } from '../elements/search-form'
+import { SearchForm } from '../elements/search/search-form'
 
 /**
  * @type {Function}

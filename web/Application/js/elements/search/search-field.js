@@ -2,8 +2,8 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { app } from '../app'
-import { Route } from '../value/route'
+import { app } from '../../app'
+import { Route } from '../../value/route'
 
 export class SearchField extends HTMLInputElement {
   createdCallback () {

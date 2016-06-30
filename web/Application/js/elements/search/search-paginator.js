@@ -2,11 +2,11 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { app } from '../app'
-import { fetchResults } from '../app/apr'
-import { findView } from '../dom/find-view'
-import { ResultId } from '../value/result-id'
-import { isElementInViewport } from '../dom/viewport'
+import { app } from '../../app'
+import { fetchResults } from '../../app/apr'
+import { findView } from '../../dom/find-view'
+import { ResultId } from '../../value/result-id'
+import { isElementInViewport } from '../../dom/viewport'
 
 const state = new WeakMap()
 const listener = new WeakMap()
