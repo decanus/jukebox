@@ -6,25 +6,10 @@ import { app } from '../app'
 import { fetchResults } from '../app/apr'
 import { findView } from '../dom/find-view'
 import { ResultId } from '../value/result-id'
+import { isElementInViewport } from '../dom/viewport'
 
 const state = new WeakMap()
 const listener = new WeakMap()
-
-/**
- *
- * @param {HTMLElement} $element
- * @returns {boolean}
- */
-function isElementInViewport ($element) {
-  var rect = $element.getBoundingClientRect()
-
-  return (
-    rect.bottom > 0 &&
-    rect.right > 0 &&
-    rect.left < $element.ownerDocument.defaultView.innerWidth &&
-    rect.top < $element.ownerDocument.defaultView.innerHeight
-  )
-}
 
 /**
  *
@@ -47,7 +32,10 @@ async function onScroll ($element) {
 
   state.set($element, 'loading')
 
-  const newResult = await fetchResults($element.resultType, result.query, pagination.page + 1)
+  /** @type {ResultId} */
+  const id = result.id
+
+  const newResult = await fetchResults($element.resultType, id.query, pagination.page + 1, id.includes)
   const newResults = newResult.results.map((data) => repository.add(data))
 
   result.pagination = newResult.pagination
@@ -68,13 +56,11 @@ export class SearchPaginator extends HTMLElement {
     const _listener = () => onScroll(this)
 
     listener.set(this, _listener)
-    // todo: this is extremly ugly, need a better way to find the scrolling container
-    document.querySelector('main').addEventListener('scroll', _listener)
+    app.$main.addEventListener('scroll', _listener)
   }
 
   detachedCallback () {
-    // todo: this is extremly ugly, need a better way to find the scrolling container
-    document.querySelector('main').removeEventListener('scroll', listener.get(this))
+    app.$main.removeEventListener('scroll', listener.get(this))
   }
 
   /**
