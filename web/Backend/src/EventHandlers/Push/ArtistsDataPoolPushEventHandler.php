@@ -30,6 +30,7 @@ namespace Jukebox\Backend\EventHandlers\Push
             $artists = $this->fetchArtistsQuery->execute();
 
             foreach ($artists as $artist) {
+                $artist['type'] = 'artists';
                 $this->dataPoolWriter->setArtist($artist['id'], $artist);
             }
         }

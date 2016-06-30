@@ -75,7 +75,8 @@ namespace Jukebox\Backend\EventHandlers\Push
                     'release_date' => $track['release_date'],
                     'artists' => $artists,
                     'genres' => $genres,
-                    'sources' => $sources
+                    'sources' => $sources,
+                    'type' => 'artists'
                 ];
 
                 $this->dataPoolWriter->setTrack($track['id'], $data);
