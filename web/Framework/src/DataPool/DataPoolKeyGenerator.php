@@ -13,5 +13,15 @@ namespace Jukebox\Framework\DataPool
         {
             return 'aidfp_' . $path;
         }
+
+        public function generateArtistKey(string $id): string
+        {
+            return 'ak_' . $id;
+        }
+
+        public function generateTrackKey(string $id): string
+        {
+            return 'tk_' . $id;
+        }
     }
 }
