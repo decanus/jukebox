@@ -43,6 +43,8 @@ namespace Jukebox\Backend\Locators
                     return new \Jukebox\Backend\Events\OldDataVersionDeleteEvent($request->getDataVersion());
                 case 'ArtistsDataPoolPush':
                     return new \Jukebox\Backend\Events\ArtistsDataPoolPushEvent($request->getDataVersion());
+                case 'TracksDataPoolPush':
+                    return new \Jukebox\Backend\Events\TracksDataPoolPushEvent($request->getDataVersion());
                 default:
                     throw new \InvalidArgumentException('Event "' . $request->getAction() . '" does not exist');
             }

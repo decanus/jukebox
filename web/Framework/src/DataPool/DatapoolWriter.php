@@ -22,5 +22,14 @@ namespace Jukebox\Framework\DataPool
                 json_encode($artist)
             );
         }
+
+        public function setTrack(string $id, array $track)
+        {
+            $this->hset(
+                (string) $this->getVersion(),
+                $this->getKeyGenerator()->generateTrackKey($id),
+                json_encode($track)
+            );
+        }
     }
 }

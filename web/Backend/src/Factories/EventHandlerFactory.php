@@ -77,9 +77,7 @@ namespace Jukebox\Backend\Factories
                 $event,
                 $this->getMasterFactory()->createElasticsearchClient(),
                 $this->getMasterFactory()->createFetchTracksQuery(),
-                $this->getMasterFactory()->createFetchTrackArtistsQuery(),
-                $this->getMasterFactory()->createFetchTrackGenresQuery(),
-                $this->getMasterFactory()->createFetchTrackSourcesQuery()
+                $this->getMasterFactory()->createFetchTrackArtistsQuery()
             );
         }
 
@@ -104,6 +102,17 @@ namespace Jukebox\Backend\Factories
             return new \Jukebox\Backend\EventHandlers\Push\ArtistsDataPoolPushEventHandler(
                 $this->getMasterFactory()->createDataPoolWriter($event->getDataVersion()),
                 $this->getMasterFactory()->createFetchArtistsQuery()
+            );
+        }
+
+        public function createTracksDataPoolPushEventHandler(\Jukebox\Backend\Events\TracksDataPoolPushEvent $event): \Jukebox\Backend\EventHandlers\Push\TracksDataPoolPushEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\Push\TracksDataPoolPushEventHandler(
+                $this->getMasterFactory()->createDataPoolWriter($event->getDataVersion()),
+                $this->getMasterFactory()->createFetchTracksQuery(),
+                $this->getMasterFactory()->createFetchTrackArtistsQuery(),
+                $this->getMasterFactory()->createFetchTrackGenresQuery(),
+                $this->getMasterFactory()->createFetchTrackSourcesQuery()
             );
         }
         
