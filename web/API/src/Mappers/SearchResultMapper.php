@@ -23,7 +23,14 @@ namespace Jukebox\API\Mappers
             $response = [];
 
             if ($searchResult->found()) {
-                return $this->normalize($searchResult->getResponse());
+                $hit = $searchResult->getResponse();
+                if ($hit['_type'] === 'artists') {
+                    return $this->dataPoolReader->getArtist($hit['_id']);
+                }
+
+                if ($hit['_type'] === 'tracks') {
+                    return $this->dataPoolReader->getTrack($hit['_id']);
+                }
             }
 
 

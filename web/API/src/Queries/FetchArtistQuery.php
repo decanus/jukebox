@@ -3,7 +3,6 @@
 namespace Jukebox\API\Queries
 {
 
-    use Jukebox\API\Backends\SearchBackend;
     use Jukebox\Framework\DataPool\DataPoolReader;
 
     class FetchArtistQuery
