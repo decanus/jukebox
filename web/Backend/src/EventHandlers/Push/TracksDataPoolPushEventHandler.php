@@ -62,6 +62,7 @@ namespace Jukebox\Backend\EventHandlers\Push
                 $sources = $this->fetchTrackSourcesQuery->execute($track['id']);
 
                 $data = [
+                    'id' => $track['id'],
                     'title' => $track['title'],
                     'duration' => $track['duration'],
                     'isrc' => $track['isrc'],
