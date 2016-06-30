@@ -8,7 +8,7 @@ namespace Jukebox\Backend\Queries
         {
             $fields = 'artists.id, artists.name, artists.permalink, track_artists.role';
             if ($nameOnly) {
-                $fields = 'artists.name';
+                $fields = 'artists.id, artists.name';
             }
 
             return $this->getDatabaseBackend()->fetchAll(
