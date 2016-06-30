@@ -98,6 +98,14 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createDataPoolWriter($event->getDataVersion())
             );
         }
+
+        public function createArtistsDataPoolPushEventHandler(\Jukebox\Backend\Events\ArtistsDataPoolPushEvent $event): \Jukebox\Backend\EventHandlers\Push\ArtistsDataPoolPushEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\Push\ArtistsDataPoolPushEventHandler(
+                $this->getMasterFactory()->createDataPoolWriter($event->getDataVersion()),
+                $this->getMasterFactory()->createFetchArtistsQuery()
+            );
+        }
         
         public function createArtistPathsPushEventHandler(\Jukebox\Backend\Events\ArtistPathsPushEvent $event): \Jukebox\Backend\EventHandlers\Push\ArtistPathsPushEventHandler
         {

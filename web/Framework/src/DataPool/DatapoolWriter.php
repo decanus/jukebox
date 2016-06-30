@@ -13,5 +13,14 @@ namespace Jukebox\Framework\DataPool
         {
             $this->hset((string) $this->getVersion(), $this->getKeyGenerator()->generateArtistIdFromPathKey($path), $id);
         }
+
+        public function setArtist(string $id, array $artist)
+        {
+            $this->hset(
+                (string) $this->getVersion(),
+                $this->getKeyGenerator()->generateArtistKey($id),
+                json_encode($artist)
+            );
+        }
     }
 }

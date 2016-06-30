@@ -35,6 +35,7 @@ namespace Jukebox\API\Mappers
             foreach ($searchResult->getHits() as $hit) {
                 if ($hit['_type'] === 'artists') {
                     $result[] = $this->dataPoolReader->getArtist($hit['_id']);
+                    continue;
                 }
 
 
