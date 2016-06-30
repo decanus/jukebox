@@ -60,7 +60,7 @@ namespace Jukebox\Backend\EventHandlers\Push
                     ]
                 ];
 
-                $artists = $this->fetchTrackArtistsQuery->execute($track['id']);
+                $artists = $this->fetchTrackArtistsQuery->execute($track['id'], true);
 
                 $params['body'][] = [
                     'title' => $track['title'],

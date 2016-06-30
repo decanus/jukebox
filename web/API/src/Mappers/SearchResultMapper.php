@@ -42,7 +42,7 @@ namespace Jukebox\API\Mappers
                     continue;
                 }
 
-                if ($hit['type'] === 'tracks') {
+                if ($hit['_type'] === 'tracks') {
                     try {
                         $result[] = $this->dataPoolReader->getTrack($hit['_id']);
                     } catch (\Exception $e) {

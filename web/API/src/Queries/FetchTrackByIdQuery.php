@@ -3,23 +3,23 @@
 namespace Jukebox\API\Queries
 {
 
-    use Jukebox\API\Backends\SearchBackend;
+    use Jukebox\Framework\DataPool\DataPoolReader;
 
     class FetchTrackByIdQuery
     {
         /**
-         * @var SearchBackend
+         * @var DataPoolReader
          */
-        private $searchBackend;
+        private $dataPoolReader;
 
-        public function __construct(SearchBackend $searchBackend)
+        public function __construct(DataPoolReader $dataPoolReader)
         {
-            $this->searchBackend = $searchBackend;
+            $this->dataPoolReader = $dataPoolReader;
         }
 
         public function execute(string $id)
         {
-            return $this->searchBackend->getTrack($id);
+            return $this->dataPoolReader->getTrack($id);
         }
     }
 }
