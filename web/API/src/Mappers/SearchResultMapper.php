@@ -4,9 +4,20 @@ namespace Jukebox\API\Mappers
 {
 
     use Jukebox\API\Search\SearchResult;
+    use Jukebox\Framework\DataPool\DataPoolReader;
 
     class SearchResultMapper
     {
+        /**
+         * @var DataPoolReader
+         */
+        private $dataPoolReader;
+
+        public function __construct(DataPoolReader $dataPoolReader)
+        {
+            $this->dataPoolReader = $dataPoolReader;
+        }
+
         public function map(SearchResult $searchResult): array
         {
             $response = [];
@@ -22,6 +33,11 @@ namespace Jukebox\API\Mappers
 
             $result = [];
             foreach ($searchResult->getHits() as $hit) {
+                if ($hit['_type'] === 'artists') {
+                    $result[] = $this->dataPoolReader->getArtist($hit['_id']);
+                }
+
+
                 $result[] = $this->normalize($hit);
             }
 
