@@ -34,12 +34,22 @@ namespace Jukebox\API\Mappers
             $result = [];
             foreach ($searchResult->getHits() as $hit) {
                 if ($hit['_type'] === 'artists') {
-                    $result[] = $this->dataPoolReader->getArtist($hit['_id']);
+                    try {
+                        $result[] = $this->dataPoolReader->getArtist($hit['_id']);
+                    } catch (\Throwable $e) {
+                        // @todo
+                    }
                     continue;
                 }
 
+                if ($hit['type'] === 'tracks') {
+                    try {
+                        $result[] = $this->dataPoolReader->getTrack($hit['_id']);
+                    } catch (\Exception $e) {
 
-                $result[] = $this->normalize($hit);
+                    }
+                }
+
             }
 
             if ($searchResult->hasPagination()) {
