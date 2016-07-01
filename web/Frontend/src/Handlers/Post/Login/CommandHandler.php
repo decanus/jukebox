@@ -31,8 +31,10 @@ namespace Jukebox\Frontend\Handlers\Post\Login
                     new Password($request->getParameter('password'))
                 );
 
-            } catch (\Exception $e) {
+                $model->setData(['user' => $result]);
 
+            } catch (\Exception $e) {
+                $model->setData(['error' => 'invalid_credentials']);
             }
         }
     }
