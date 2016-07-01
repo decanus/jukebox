@@ -3,7 +3,6 @@
 namespace Jukebox\API\Handlers\Get\Track
 {
 
-    use Elasticsearch\Common\Exceptions\Missing404Exception;
     use Jukebox\API\Queries\FetchTrackByIdQuery;
     use Jukebox\Framework\Handlers\QueryHandlerInterface;
     use Jukebox\Framework\Http\Request\RequestInterface;
@@ -26,7 +25,7 @@ namespace Jukebox\API\Handlers\Get\Track
         {
             try {
                 $model->setData($this->fetchTrackByIdQuery->execute($request->getUri()->getExplodedPath()[2]));
-            } catch (Missing404Exception $e) {
+            } catch (\Throwable $e) {
                 $model->setStatusCode(new NotFound);
             }
         }

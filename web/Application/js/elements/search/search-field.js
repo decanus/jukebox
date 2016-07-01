@@ -2,8 +2,7 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { app } from '../app'
-import { Route } from '../value/route'
+import { app } from '../../app'
 
 export class SearchField extends HTMLInputElement {
   createdCallback () {
@@ -14,7 +13,7 @@ export class SearchField extends HTMLInputElement {
   }
 
   _updateValue (route) {
-    if (route.pathParts[0] !== 'search') {
+    if (route.pathParts[ 0 ] !== 'search') {
       return
     }
 
