@@ -35,8 +35,11 @@ namespace Jukebox\Frontend\Commands
         {
             $loginResponse = $this->jukeboxRestManager->login($email, $password);
 
+            if ($loginResponse->getResponseCode() === 500) {
+                throw new \Exception('Login Failed');
+            }
             if ($loginResponse->getResponseCode() !== 200) {
-                throw new \InvalidArgumentException('Login Failed');
+                throw new \InvalidArgumentException('Invalid login Credentials');
             }
 
             $decodedResponse = $loginResponse->getDecodedJsonResponse();
