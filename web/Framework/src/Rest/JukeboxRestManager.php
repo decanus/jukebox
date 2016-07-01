@@ -5,7 +5,9 @@ namespace Jukebox\Framework\Rest
 
     use Jukebox\Framework\Curl\Curl;
     use Jukebox\Framework\Curl\Response;
+    use Jukebox\Framework\ValueObjects\AccessToken;
     use Jukebox\Framework\ValueObjects\Email;
+    use Jukebox\Framework\ValueObjects\Password;
     use Jukebox\Framework\ValueObjects\Uri;
 
     class JukeboxRestManager
@@ -24,6 +26,11 @@ namespace Jukebox\Framework\Rest
          * @var string
          */
         private $key;
+
+        /**
+         * @var AccessToken
+         */
+        private $accessToken = null;
 
         public function __construct(Curl $curl, Uri $uri, string $key)
         {
@@ -60,12 +67,38 @@ namespace Jukebox\Framework\Rest
             );
         }
 
-        public function login(Email $email, string $password): Response
+        public function login(Email $email, Password $password): Response
         {
             return $this->curl->post(
                 $this->buildUri('/v1/authentication'),
-                ['key' => $this->key, 'email' => (string) $email, 'password' => $password]
+                ['key' => $this->key, 'email' => (string) $email, 'password' => (string) $password]
             );
+        }
+
+        public function me(AccessToken $accessToken = null): Response
+        {
+            $token = null;
+            if ($this->accessToken !== null) {
+                $token = $this->accessToken;
+            }
+
+            if ($accessToken !== null) {
+                $token = $accessToken;
+            }
+
+            if ($token === null) {
+                throw new \Exception('No access token provided');
+            }
+
+            return $this->curl->get(
+                $this->buildUri('/v1/me'),
+                ['key' => $this->key, 'access_token' => (string) $token]
+            );
+        }
+
+        public function setAccessToken(AccessToken $accessToken)
+        {
+            $this->accessToken = $accessToken;
         }
 
         private function buildUri(string $path): Uri

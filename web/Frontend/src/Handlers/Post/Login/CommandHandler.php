@@ -33,8 +33,10 @@ namespace Jukebox\Frontend\Handlers\Post\Login
 
                 $model->setData(['user' => $result]);
 
-            } catch (\Exception $e) {
+            } catch (\InvalidArgumentException $e) {
                 $model->setData(['error' => 'invalid_credentials']);
+            } catch (\Throwable $e) {
+                $model->setData(['error' => 'login_failed']);
             }
         }
     }
