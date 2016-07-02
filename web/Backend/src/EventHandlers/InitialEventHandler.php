@@ -5,11 +5,13 @@ namespace Jukebox\Backend\EventHandlers
 
     use Jukebox\Backend\Events\ArtistPathsPushEvent;
     use Jukebox\Backend\Events\ArtistsToElasticsearchPushEvent;
+    use Jukebox\Backend\Events\ArtistsDataPoolPushEvent;
     use Jukebox\Backend\Events\DataVersionPushEvent;
     use Jukebox\Backend\Events\ElasticsearchIndexDeleteEvent;
     use Jukebox\Backend\Events\ElasticsearchIndexPushEvent;
     use Jukebox\Backend\Events\OldDataVersionDeleteEvent;
     use Jukebox\Backend\Events\TrackPathsPushEvent;
+    use Jukebox\Backend\Events\TracksDataPoolPushEvent;
     use Jukebox\Backend\Events\TracksToElasticsearchPushEvent;
     use Jukebox\Backend\Writers\EventQueueWriter;
     use Jukebox\Framework\ValueObjects\DataVersion;
@@ -41,6 +43,8 @@ namespace Jukebox\Backend\EventHandlers
             $this->eventQueueWriter->add(new TracksToElasticsearchPushEvent($dataVersion));
             $this->eventQueueWriter->add(new TrackPathsPushEvent($dataVersion));
             $this->eventQueueWriter->add(new ArtistPathsPushEvent($dataVersion));
+            $this->eventQueueWriter->add(new ArtistsDataPoolPushEvent($dataVersion));
+            $this->eventQueueWriter->add(new TracksDataPoolPushEvent($dataVersion));
 
             if ($this->validateDataVersionPushFinished) {
                 $this->wait();

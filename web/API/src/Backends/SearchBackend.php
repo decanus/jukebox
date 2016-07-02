@@ -36,16 +36,6 @@ namespace Jukebox\API\Backends
             $this->searchResultMapper = $searchResultMapper;
         }
 
-        public function getArtist(string $id): array
-        {
-            return $this->getDocument('artists', $id);
-        }
-
-        public function getTrack(string $id): array
-        {
-            return $this->getDocument('tracks', $id);
-        }
-
         public function search(string $type, array $query, int $size = 20, int $page = 1): array
         {
             $from = 0;
@@ -59,11 +49,6 @@ namespace Jukebox\API\Backends
                     $page
                 )
             );
-        }
-
-        private function getDocument(string $type, string $id): array
-        {
-            return $this->searchResultMapper->map(new SearchResult($this->client->get(['index' => $this->dataVersion, 'type' => $type, 'id' => $id])));
         }
     }
 }

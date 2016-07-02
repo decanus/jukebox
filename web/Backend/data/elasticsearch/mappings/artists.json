@@ -13,9 +13,7 @@
           "shingle": {"type": "string", "analyzer": "shingle_analyzer"},
           "ngrams": {"type": "text", "analyzer": "ngram_analyzer", "search_analyzer": "search_analyzer"}
         }
-      },
-      "permalink": {"type": "string", "index": "no"},
-      "image": {"type": "string", "index": "no"}
+      }
     }
   }
 }
