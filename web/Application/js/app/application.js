@@ -139,6 +139,14 @@ export class Application {
     return this._resolveCache
   }
 
+  /**
+   *
+   * @returns {HTMLElement}
+   */
+  get $main () {
+    return this._document.querySelector('main')
+  }
+
   showSidebar() {
     this._getAppLayout().classList.add('-sidebar-visible')
   }

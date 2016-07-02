@@ -35,6 +35,7 @@ namespace Jukebox\API\Handlers\Get\Search
             }
 
             $params = [
+                'fields' => ['_type', '_id'],
                 'query' => [
                     'multi_match' => [
                         'query' => $request->getParameter('query'),
