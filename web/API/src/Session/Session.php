@@ -13,7 +13,7 @@ namespace Jukebox\API\Session
          */
         private $data;
 
-        private $expireInSeconds = 2592000; // 1 month
+        private $expireInSeconds = 864000; // 10 days
 
         /**
          * @var AccessToken
