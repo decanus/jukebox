@@ -1,0 +1,92 @@
+@keyframes dialog-content__open {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dialog-content__close {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes dialog-content__content__open {
+  from {
+    transform: scale(1.1);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes dialog-content__content__close {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(.8);
+  }
+}
+
+dialog-content {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 20px;
+
+  &[open] {
+    display: flex;
+  }
+
+  &.__open {
+    animation: dialog-content__open .2s ease-in-out;
+  }
+
+  &.__open > .__content {
+    animation: dialog-content__content__open .125s ease-in-out;
+  }
+
+  &.__close {
+    animation: dialog-content__close .2s ease-in-out;
+  }
+
+  &.__close > .__content {
+    animation: dialog-content__content__close .125s ease-in-out;
+  }
+
+  > .__backdrop {
+    background-color: rgba(0, 0, 0, .5);
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  > .__content {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 40px;
+    width: 600px;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: auto;
+  }
+}
