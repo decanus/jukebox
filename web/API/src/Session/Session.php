@@ -5,6 +5,7 @@ namespace Jukebox\API\Session
 
     use Jukebox\Framework\Http\Request\RequestInterface;
     use Jukebox\Framework\ValueObjects\AccessToken;
+    use Jukebox\Framework\ValueObjects\RefreshToken;
 
     class Session
     {
@@ -52,6 +53,7 @@ namespace Jukebox\API\Session
             if ($this->data->isEmpty()) {
                 $this->secureId = new AccessToken;
                 $this->data->getMap()->setSessionId($this->secureId);
+                $this->data->getMap()->setRefreshToken(new RefreshToken);
             }
 
             return $this->data;
