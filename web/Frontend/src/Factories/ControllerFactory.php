@@ -4,6 +4,7 @@ namespace Jukebox\Frontend\Factories
 {
 
     use Jukebox\Framework\Controllers\GetController;
+    use Jukebox\Framework\Controllers\PostController;
     use Jukebox\Framework\Factories\AbstractFactory;
     use Jukebox\Framework\Http\Response\HtmlResponse;
     use Jukebox\Framework\Http\Response\JsonResponse;
@@ -165,6 +166,20 @@ namespace Jukebox\Frontend\Factories
                 $this->getMasterFactory()->createPreHandler(),
                 $this->getMasterFactory()->createCommandHandler(),
                 $this->getMasterFactory()->createGetTrackQueryHandler(),
+                $this->getMasterFactory()->createAjaxTransformationHandler(),
+                $this->getMasterFactory()->createResponseHandler(),
+                $this->getMasterFactory()->createPostHandler(),
+                new JsonResponse
+            );
+        }
+
+        public function createLoginRequestController(ControllerParameterObject $parameterObject): PostController
+        {
+            return new PostController(
+                new AjaxModel($parameterObject->getUri()),
+                $this->getMasterFactory()->createPreHandler(),
+                $this->getMasterFactory()->createLoginCommandHandler(),
+                $this->getMasterFactory()->createQueryHandler(),
                 $this->getMasterFactory()->createAjaxTransformationHandler(),
                 $this->getMasterFactory()->createResponseHandler(),
                 $this->getMasterFactory()->createPostHandler(),

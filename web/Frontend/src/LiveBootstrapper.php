@@ -46,6 +46,7 @@ namespace Jukebox\Frontend
             $factory->addFactory(new \Jukebox\Frontend\Factories\RouterFactory);
             $factory->addFactory(new \Jukebox\Frontend\Factories\ControllerFactory);
             $factory->addFactory(new \Jukebox\Frontend\Factories\HandlerFactory($this->session));
+            $factory->addFactory(new \Jukebox\Frontend\Factories\CommandFactory($this->session));
             $factory->addFactory(new \Jukebox\Frontend\Factories\TransformationFactory);
 
             return $factory;

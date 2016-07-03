@@ -189,6 +189,13 @@ namespace Jukebox\Frontend\Factories
                 $this->getMasterFactory()->createJukeboxRestManager()
             );
         }
+        
+        public function createLoginCommandHandler(): \Jukebox\Frontend\Handlers\Post\Login\CommandHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Post\Login\CommandHandler(
+                $this->getMasterFactory()->createLoginCommand()
+            );
+        }
 
         /**
          * @return fDOMDocument
