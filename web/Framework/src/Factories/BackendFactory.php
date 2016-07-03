@@ -19,14 +19,6 @@ namespace Jukebox\Framework\Factories
             );
         }
 
-        public function createMongoDatabaseBackend(): \Jukebox\Framework\Backends\MongoDatabaseBackend
-        {
-            return new \Jukebox\Framework\Backends\MongoDatabaseBackend(
-                new \MongoDB\Client($this->getMasterFactory()->getConfiguration()->get('mongoServer')),
-                $this->getMasterFactory()->getConfiguration()->get('mongoDatabase')
-            );
-        }
-
         public function createPostgreDatabaseBackend(): \Jukebox\Framework\Backends\PostgreDatabaseBackend
         {
             return new \Jukebox\Framework\Backends\PostgreDatabaseBackend(
