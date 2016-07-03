@@ -3,23 +3,26 @@
 namespace Jukebox\API\Queries
 {
 
-    use Jukebox\Framework\Backends\MongoDatabaseBackend;
+    use Jukebox\Framework\Backends\PostgreDatabaseBackend;
 
     class FetchUserPlaylistsQuery
     {
         /**
-         * @var MongoDatabaseBackend
+         * @var PostgreDatabaseBackend
          */
-        private $mongoDatabaseBackend;
+        private $postgreDatabaseBackend;
 
-        public function __construct(MongoDatabaseBackend $mongoDatabaseBackend)
+        public function __construct(PostgreDatabaseBackend $postgreDatabaseBackend)
         {
-            $this->mongoDatabaseBackend = $mongoDatabaseBackend;
+            $this->postgreDatabaseBackend = $postgreDatabaseBackend;
         }
 
         public function execute(string $userId): array
         {
-            return $this->mongoDatabaseBackend->find('playlists', ['owner' => $userId]);
+            return $this->postgreDatabaseBackend->fetchAll(
+                'SELECT * FROM playlists WHERE owner = :owner',
+                [':owner' => $userId]
+            );
         }
     }
 }

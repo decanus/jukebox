@@ -3,19 +3,18 @@
 namespace Jukebox\API\Queries
 {
 
-    use Jukebox\Framework\Backends\MongoDatabaseBackend;
-    use MongoDB\BSON\ObjectID;
+    use Jukebox\Framework\Backends\PostgreDatabaseBackend;
 
     class FetchUserPlaylistQuery
     {
         /**
-         * @var MongoDatabaseBackend
+         * @var PostgreDatabaseBackend
          */
-        private $mongoDatabaseBackend;
+        private $postgreDatabaseBackend;
 
-        public function __construct(MongoDatabaseBackend $mongoDatabaseBackend)
+        public function __construct(PostgreDatabaseBackend $postgreDatabaseBackend)
         {
-            $this->mongoDatabaseBackend = $mongoDatabaseBackend;
+            $this->postgreDatabaseBackend = $postgreDatabaseBackend;
         }
 
         /**
@@ -27,9 +26,9 @@ namespace Jukebox\API\Queries
          */
         public function execute(string $userId, string $playlistId)
         {
-            return $this->mongoDatabaseBackend->findOne(
-                'playlists',
-                ['owner' => $userId, '_id' => new ObjectID($playlistId)]
+            return $this->postgreDatabaseBackend->fetch(
+                'SELECT * FROM playlists WHERE owner = :owner AND id = :id',
+                ['owner' => $userId, 'id' => $playlistId]
             );
         }
     }

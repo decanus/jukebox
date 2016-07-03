@@ -39,8 +39,6 @@ namespace Jukebox\API\Handlers\Get\Users\Playlists
 
             foreach ($playlists as $key => $playlist) {
                 $playlists[$key]['owner'] = $user;
-                $playlists[$key]['id'] = (string) $playlist['_id'];
-                unset($playlists[$key]['_id']);
             }
 
             $model->setData($playlists);
