@@ -39,6 +39,9 @@ namespace Jukebox\Backend\EventHandlers
             $oldDataVersion = $this->eventQueueWriter->getDataVersion();
             $dataVersion = new DataVersion('now');
             $this->eventQueueWriter->add(new ElasticsearchIndexPushEvent($dataVersion));
+
+            $this->sleep();
+
             $this->eventQueueWriter->add(new ArtistsToElasticsearchPushEvent($dataVersion));
             $this->eventQueueWriter->add(new TracksToElasticsearchPushEvent($dataVersion));
             $this->eventQueueWriter->add(new TrackPathsPushEvent($dataVersion));
@@ -58,8 +61,13 @@ namespace Jukebox\Backend\EventHandlers
         private function wait()
         {
             while ($this->eventQueueWriter->count() > 0) {
-                sleep(15);
+                $this->sleep();
             }
+        }
+
+        private function sleep()
+        {
+            sleep(15);
         }
     }
 }
