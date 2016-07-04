@@ -45,7 +45,7 @@ namespace Jukebox\Frontend\Handlers
             }
 
             //@todo move to login response handler
-            if (!$this->session->isSessionStarted() && $this->session->getSessionData() instanceof RegisteredAccount) {
+            if (!$this->session->isSessionStarted() && $this->session->getSessionData()->getAccount() instanceof RegisteredAccount) {
                 $this->getResponse()->setCookie($this->session->getCookie());
             }
         }
