@@ -12,6 +12,7 @@ import config from '../data/config.json'
 
 import './app/elements'
 import './app/media-keys'
+import './app/notifications'
 
 window.addEventListener('popstate', () => {
   app.setRoute(Route.fromLocation(window.location))
