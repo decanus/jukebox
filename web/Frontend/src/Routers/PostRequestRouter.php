@@ -25,7 +25,7 @@ namespace Jukebox\Frontend\Routers
         public function route(RequestInterface $request): ControllerInterface
         {
             if (!$request instanceof PostRequest) {
-                return;
+                throw new \InvalidArgumentException('No route found');
             }
 
             $uri = $request->getUri();

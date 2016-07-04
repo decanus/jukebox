@@ -62,6 +62,7 @@ namespace Jukebox\Frontend
             $router = new Router;
 
             $router->addRouter($this->getFactory()->createAjaxRequestRouter());
+            $router->addRouter($this->getFactory()->createPostRequestRouter());
             $router->addRouter($this->getFactory()->createTrackPageRouter());
             $router->addRouter($this->getFactory()->createArtistPageRouter());
             $router->addRouter($this->getFactory()->createSearchPageRouter());
