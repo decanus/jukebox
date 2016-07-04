@@ -2,6 +2,7 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
+
 import { AppMount } from '../elements/app/app-mount'
 import { AppView as _AppView } from '../elements/app/app-view'
 import { PlayerTitle } from '../elements/player/player-title'
@@ -25,6 +26,7 @@ import { TabContent } from  '../elements/tab/tab-content'
 import { SearchForm } from '../elements/search/search-form'
 import { DialogLink } from '../elements/dialog/dialog-link'
 import { DialogContent } from '../elements/dialog/dialog-content'
+import { InputField } from '../elements/input-field'
 
 /**
  * @type {Function}
@@ -60,6 +62,7 @@ document.registerElement('list-track', ListTrack)
 document.registerElement('tab-link', TabLink)
 document.registerElement('tab-content', TabContent)
 document.registerElement('dialog-content', DialogContent)
+document.registerElement('input-field', InputField)
 
 document.registerElement('search-form', {
   'extends': 'form',

@@ -1,0 +1,36 @@
+input-field {
+  display: inline-flex;
+  align-items: center;
+  border-bottom: 1px solid @color-gray;
+  transition: border-color .125s cubic-bezier(.4, 0, .6, 1);
+
+  &.-block {
+    display: flex;
+    margin-bottom: 24px;
+    width: 300px;
+  }
+
+  &.-center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &.-focus {
+    border-color: @brand-color;
+  }
+
+  > label {
+    padding-right: 10px;
+    flex-shrink: 0;
+  }
+
+  > label > .icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  > input {
+    padding: 6px 0;
+    flex-grow: 1;
+  }
+}

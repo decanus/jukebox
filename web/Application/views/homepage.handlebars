@@ -5,14 +5,40 @@
         <h1>Introducing Jukebox Ninja</h1>
         <p class="teaser-text _margin-bottom-40">All Of Your Music In One Place</p>
 
-        <a class="link-button" open-dialog="hello-world" href="/signup" is="dialog-link">
-            <span class="text">Sign Up</span>
+        <a class="link-button" open-dialog="hello-world" href="/signin" is="dialog-link">
+            <span class="text">Log In</span>
         </a>
     </div>
 
-    <dialog-content id="hello-world">
+    <dialog-content id="hello-world" open>
 
-        <p class="_last">not found</p>
+        <h2>Log In</h2>
+
+        <form action="/session" is="ajax-form">
+
+            <fieldset class="field-group">
+                <input-field class="-block -center">
+                    <label for="username-field">
+                        <insert-icon icon-name="person" class="icon">Username</insert-icon>
+                    </label>
+
+                    <input type="text" name="username" placeholder="Username" id="username-field">
+                </input-field>
+
+                <input-field class="-block -center">
+                    <label for="username-field">
+                        <insert-icon icon-name="person" class="icon">Password</insert-icon>
+                    </label>
+
+                    <input type="text" name="password" placeholder="Password" id="username-field">
+                </input-field>
+            </fieldset>
+
+            <button type="submit" class="general-button">
+                Log In
+            </button>
+
+        </form>
 
     </dialog-content>
 

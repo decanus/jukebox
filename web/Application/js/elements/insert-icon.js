@@ -5,7 +5,8 @@
 export class InsertIcon extends HTMLElement {
 
   createdCallback () {
-
+    this.innerHTML = ''
+    
     const svg = this.ownerDocument.createElementNS('http://www.w3.org/2000/svg', 'svg')
     const use = this.ownerDocument.createElementNS('http://www.w3.org/2000/svg', 'use')
 
