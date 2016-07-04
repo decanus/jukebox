@@ -33,7 +33,21 @@ getInterval(180000)
     app.modelRepository.cleanup()
   })
 
-//noinspection JSUnresolvedVariable
+//noinspection JSUnresolvedVariable 
 if (config.isDevelopmentMode === true) {
   window.__$app = app
 }
+
+const ws = new WebSocket('ws://localhost:8081')
+
+ws.addEventListener('open', () => {
+  ws.addEventListener('message', (msg) => {
+    const data = JSON.parse(msg.data)
+
+    console.info(data.event)
+
+    if (data.event === 'build-complete') {
+      window.location.reload()
+    }
+  })
+})
