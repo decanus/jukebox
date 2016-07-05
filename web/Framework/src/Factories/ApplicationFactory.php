@@ -24,7 +24,7 @@ namespace Jukebox\Framework\Factories
 
         public function createElasticsearchClient(): \Elasticsearch\Client
         {
-            return (new \Elasticsearch\ClientBuilder())->build();
+            return (new \Elasticsearch\ClientBuilder())->setHosts([$this->getMasterFactory()->getConfiguration()->get('elasticServer')])->build();
         }
 
         public function createDataPoolWriter(DataVersion $dataVersion = null): \Jukebox\Framework\DataPool\DataPoolWriter
