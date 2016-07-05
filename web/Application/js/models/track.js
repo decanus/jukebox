@@ -45,6 +45,18 @@ export class Track {
 
   /**
    *
+   * @returns {Artist}
+   */
+  get mainArtist () {
+    const mainArtists = this.artists
+      .filter((artist) => artist.role === 'main')
+      .map((artist) => artist.artist)
+
+    return mainArtists[ 0 ]
+  }
+
+  /**
+   *
    * @returns {string}
    */
   get artistsString () {
