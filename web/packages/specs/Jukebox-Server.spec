@@ -8,7 +8,7 @@ Vendor: Jukebox
 Url: https://www.jukebox.ninja/
 
 Provides: jukebox-server-%{version}-%{release}
-Requires: nginx php-fpm redis python-setuptools mongodb-org postgresql-server postgresql-contrib
+Requires: nginx php-fpm redis python-setuptools mongodb-org
 
 %description
 System Configuration for Servers
