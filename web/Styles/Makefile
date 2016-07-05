@@ -12,4 +12,4 @@ deps:
 
 css/jukebox.css: $(LESS_FILES)
 	mkdir -p $(dir $@)
-	lessc less/jukebox.less | postcss -u autoprefixer -o $@
+	lessc less/jukebox.less | postcss -u autoprefixer -u postcss-selector-matches -o $@

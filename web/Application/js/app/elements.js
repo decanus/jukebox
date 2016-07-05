@@ -23,6 +23,8 @@ import { InsertIcon as _InsertIcon } from  '../elements/insert-icon'
 import { TabLink } from  '../elements/tab/tab-link'
 import { TabContent } from  '../elements/tab/tab-content'
 import { SearchForm } from '../elements/search/search-form'
+import { DialogLink } from '../elements/dialog/dialog-link'
+import { DialogContent } from '../elements/dialog/dialog-content'
 
 /**
  * @type {Function}
@@ -57,6 +59,7 @@ document.registerElement('search-paginator', SearchPaginator)
 document.registerElement('list-track', ListTrack)
 document.registerElement('tab-link', TabLink)
 document.registerElement('tab-content', TabContent)
+document.registerElement('dialog-content', DialogContent)
 
 document.registerElement('search-form', {
   'extends': 'form',
@@ -71,6 +74,11 @@ document.registerElement('toggle-sidebar', {
 document.registerElement('jukebox-link', {
   'extends': 'a',
   prototype: JukeboxLink.prototype
+})
+
+document.registerElement('dialog-link', {
+  'extends': 'a',
+  prototype: DialogLink.prototype
 })
 
 document.registerElement('search-field', {
