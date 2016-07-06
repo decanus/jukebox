@@ -10,6 +10,7 @@ import { Route } from './value/route'
 import { sendPlayTrack } from './app/analytics'
 import config from '../data/config.json'
 
+import './app/init'
 import './app/elements'
 import './app/media-keys'
 
@@ -28,12 +29,6 @@ getInterval(180000)
     console.info('it\'s time to clean')
     app.modelRepository.cleanup()
   })
-
-//noinspection JSUnresolvedVariable
-if (window.__$models) {
-  //noinspection JSUnresolvedVariable
-  window.__$models.forEach((model) => app.modelRepository.add(model))
-}
 
 //noinspection JSUnresolvedVariable
 if (config.isDevelopmentMode === true) {
