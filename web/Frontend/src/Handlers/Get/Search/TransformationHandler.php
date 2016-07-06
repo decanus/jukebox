@@ -45,7 +45,9 @@ namespace Jukebox\Frontend\Handlers\Get\Search
                 $searchResults['type'] = 'results';
                 $searchResults['id'] = $requestUri->getParameter('q') . ':' . $searchType;
 
-                $template->queryOne('//html:script[@id="models"]')->nodeValue = 'window.__$models = ' . json_encode([$searchResults]);
+                $template->queryOne('//html:script[@id="models"]')->appendChild(
+                    $template->createTextNode('window.__$models = ' . json_encode([$searchResults]))
+                );
             } catch (\Throwable $e) {
                 // do nothing
             }
