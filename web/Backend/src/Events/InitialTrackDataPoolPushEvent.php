@@ -6,8 +6,11 @@ namespace Jukebox\Backend\Events
     use Jukebox\Framework\Events\EventInterface;
     use Jukebox\Framework\ValueObjects\DataVersion;
 
-    class TracksDataPoolPushEvent implements EventInterface
+    class InitialTrackDataPoolPushEvent implements EventInterface
     {
+        /**
+         * @var DataVersion
+         */
         private $dataVersion;
 
         public function __construct(DataVersion $dataVersion)
@@ -17,7 +20,7 @@ namespace Jukebox\Backend\Events
 
         public function getName(): string
         {
-            return 'TracksDataPoolPush';
+            return 'InitialTrackDataPoolPush';
         }
 
         public function getDataVersion(): DataVersion
