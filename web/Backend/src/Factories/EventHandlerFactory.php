@@ -104,17 +104,6 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createFetchArtistsQuery()
             );
         }
-
-        public function createTracksDataPoolPushEventHandler(\Jukebox\Backend\Events\TracksDataPoolPushEvent $event): \Jukebox\Backend\EventHandlers\Push\TracksDataPoolPushEventHandler
-        {
-            return new \Jukebox\Backend\EventHandlers\Push\TracksDataPoolPushEventHandler(
-                $this->getMasterFactory()->createDataPoolWriter($event->getDataVersion()),
-                $this->getMasterFactory()->createFetchTracksQuery(),
-                $this->getMasterFactory()->createFetchTrackArtistsQuery(),
-                $this->getMasterFactory()->createFetchTrackGenresQuery(),
-                $this->getMasterFactory()->createFetchTrackSourcesQuery()
-            );
-        }
         
         public function createArtistPathsPushEventHandler(\Jukebox\Backend\Events\ArtistPathsPushEvent $event): \Jukebox\Backend\EventHandlers\Push\ArtistPathsPushEventHandler
         {

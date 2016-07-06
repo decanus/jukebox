@@ -10,9 +10,13 @@ namespace Jukebox\Backend\EventHandlers\Push
     use Jukebox\Backend\Queries\FetchTrackGenresQuery;
     use Jukebox\Backend\Queries\FetchTrackSourcesQuery;
     use Jukebox\Framework\DataPool\DataPoolWriter;
+    use Jukebox\Framework\Logging\LoggerAware;
+    use Jukebox\Framework\Logging\LoggerAwareTrait;
 
-    class TrackDataPoolPushEventHandler implements EventHandlerInterface
+    class TrackDataPoolPushEventHandler implements EventHandlerInterface, LoggerAware
     {
+        use LoggerAwareTrait;
+
         /**
          * @var TrackDataPoolPushEvent
          */
@@ -62,31 +66,35 @@ namespace Jukebox\Backend\EventHandlers\Push
 
         public function execute()
         {
-            $track = $this->fetchTrackByIdQuery->execute($this->event->getTrackId());
+            try {
+                $track = $this->fetchTrackByIdQuery->execute($this->event->getTrackId());
 
-            $artists = $this->fetchTrackArtistsQuery->execute($track['id']);
-            $genres = $this->fetchTrackGenresQuery->execute($track['id']);
-            $sources = $this->fetchTrackSourcesQuery->execute($track['id']);
+                $artists = $this->fetchTrackArtistsQuery->execute($track['id']);
+                $genres = $this->fetchTrackGenresQuery->execute($track['id']);
+                $sources = $this->fetchTrackSourcesQuery->execute($track['id']);
 
-            $data = [
-                'id' => $track['id'],
-                'title' => $track['title'],
-                'duration' => $track['duration'],
-                'isrc' => $track['isrc'],
-                'is_live' => $track['is_live'],
-                'is_lyric' => $track['is_lyric'],
-                'is_music_video' => $track['is_music_video'],
-                'is_audio' => $track['is_audio'],
-                'is_explicit' => $track['is_explicit'],
-                'permalink' => $track['permalink'],
-                'release_date' => $track['release_date'],
-                'artists' => $artists,
-                'genres' => $genres,
-                'sources' => $sources,
-                'type' => 'tracks'
-            ];
+                $data = [
+                    'id' => $track['id'],
+                    'title' => $track['title'],
+                    'duration' => $track['duration'],
+                    'isrc' => $track['isrc'],
+                    'is_live' => $track['is_live'],
+                    'is_lyric' => $track['is_lyric'],
+                    'is_music_video' => $track['is_music_video'],
+                    'is_audio' => $track['is_audio'],
+                    'is_explicit' => $track['is_explicit'],
+                    'permalink' => $track['permalink'],
+                    'release_date' => $track['release_date'],
+                    'artists' => $artists,
+                    'genres' => $genres,
+                    'sources' => $sources,
+                    'type' => 'tracks'
+                ];
 
-            $this->dataPoolWriter->setTrack($track['id'], $data);
+                $this->dataPoolWriter->setTrack($track['id'], $data);
+            } catch (\Throwable $e) {
+                $this->getLogger()->critical($e);
+            }
         }
     }
 }
