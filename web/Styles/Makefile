@@ -11,5 +11,5 @@ deps:
 	npm install
 
 css/jukebox.css: $(LESS_FILES)
-	mkdir -p $(dir $@)
-	lessc less/jukebox.less | postcss -u autoprefixer -u postcss-selector-matches -o $@
+	@mkdir -p $(@D)
+	lessc -clean-css less/jukebox.less | postcss -u autoprefixer -u postcss-selector-matches -o $@
