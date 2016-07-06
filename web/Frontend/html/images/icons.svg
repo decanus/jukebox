@@ -40,6 +40,16 @@
                   stroke="none" fill="currentColor" fill-rule="evenodd"/>
         </symbol>
 
+        <symbol id="play-filled" width="128px" height="128px" viewBox="0 0 128 128">
+            <title>Play</title>
+
+            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g fill="currentColor">
+                    <polygon points="128.139393 64 20 128 20 -4.54747351e-13"/>
+                </g>
+            </g>
+        </symbol>
+
         <symbol id="plus" width="128px" height="128px" viewBox="0 0 128 128">
             <title>Plus</title>
 
