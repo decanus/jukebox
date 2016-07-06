@@ -50,7 +50,7 @@ namespace Jukebox\Frontend\Handlers\Get\Track
                     }
                 }
 
-                $template->queryOne('//html:body')->appendElement('script', '__$loadModel(' . json_encode($track) . ')');
+                $template->queryOne('//html:script[@id="models"]')->nodeValue = 'window.__$models = ' . json_encode([$track]);
 
             } catch (\Throwable $e) {
                 // @todo

@@ -35,9 +35,17 @@ namespace Jukebox\Frontend\Handlers\Get\Search
 
                 }
 
+                $requestUri = $this->getModel()->getRequestUri();
+                $searchType = 'everything';
+
+                if ($requestUri->hasParameter('type')) {
+                    $searchType = $requestUri->getParameter('type');
+                }
+
                 $searchResults['type'] = 'results';
-                $searchResults['id'] = $this->getModel()->getRequestUri()->getParameter('q');
-                $template->queryOne('//html:body')->appendElement('script', '__$loadModel(' . json_encode($searchResults) . ')');
+                $searchResults['id'] = $requestUri->getParameter('q') . ':' . $searchType;
+
+                $template->queryOne('//html:script[@id="models"]')->nodeValue = 'window.__$models = ' . json_encode([$searchResults]);
             } catch (\Throwable $e) {
                 // do nothing
             }
