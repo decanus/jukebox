@@ -96,6 +96,7 @@ export class ModelFetcher {
 
     return {
       id: artistId,
+      type: 'artist-images',
       name: artist[ 'image' ]
     }
   }
