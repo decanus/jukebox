@@ -3,16 +3,30 @@
  */
 
 import { app } from '../../app'
-import { InsertIcon } from '../../app/elements'
+import { InsertIcon, ScrobbleBar } from '../../app/elements'
 
 export class PlayerVolumeButton extends HTMLElement {
-  createdCallback() {
-    this.$icon = new InsertIcon()
-    this.$icon.className = '-normal'
-    this.$icon.iconName = 'volume'
+  createdCallback () {
 
-    this.appendChild(this.$icon)
+    const $icon = new InsertIcon()
 
-    this.updateDom()
+    $icon.className = '-normal'
+    $icon.iconName = 'volume'
+
+    const $volume = new ScrobbleBar()
+
+    $volume.setTotal(100)
+    $volume.setValue(app.player.getCurrentVolume())
+
+    app.player.getVolume().forEach((value) => {
+      $volume.setValue(value)
+    })
+
+    $volume.addEventListener('change', (event) => {
+      app.player.setVolume(event.detail.value)
+    })
+
+    this.appendChild($volume)
+    this.appendChild($icon)
   }
 }
