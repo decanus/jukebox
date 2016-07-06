@@ -22,16 +22,18 @@ app.player
   .getTrack()
   .forEach((track) => sendPlayTrack(track))
 
-window.__$loadModel = function (model) {
-  app.modelRepository.add(model)
-}
-
 // todo: figure out an optimal interval for cleanup
 getInterval(180000)
   .forEach(() => {
     console.info('it\'s time to clean')
     app.modelRepository.cleanup()
   })
+
+//noinspection JSUnresolvedVariable
+if (window.__$models) {
+  //noinspection JSUnresolvedVariable
+  window.__$models.forEach((model) => app.modelRepository.add(model))
+}
 
 //noinspection JSUnresolvedVariable
 if (config.isDevelopmentMode === true) {

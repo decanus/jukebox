@@ -111,7 +111,7 @@ export class ModelLoader {
     const results = data.results.map((model) => this.load(model))
 
     if (!(data.id instanceof ResultId)) {
-      data.id = new ResultId(data.id)
+      data.id = ResultId.fromString(data.id)
     }
 
     const result = new Result({ id: data.id, results, pagination: data.pagination, type })
