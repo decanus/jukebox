@@ -50,7 +50,7 @@ build/js/polyfills.js: $(POLYFILLS)
 
 data/config.json:
 ifeq ($(JUKEBOX_ENV),production)
-	cd data && ln -sf prod.json config.json
+	cd data && ln -sf config.live.json config.json
 else
-	cd data && ln -sf dev.json config.json
+	cd data && ln -sf config.dev.json config.json
 endif
