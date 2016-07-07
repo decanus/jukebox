@@ -28,6 +28,7 @@ import { DialogLink } from '../elements/dialog/dialog-link'
 import { DialogContent } from '../elements/dialog/dialog-content'
 import { InputField } from '../elements/input-field'
 import { PlayerVolumeButton } from '../elements/player/player-volume-button'
+import { AjaxForm } from '../elements/ajax-form'
 
 /**
  * @type {Function}
@@ -89,4 +90,9 @@ document.registerElement('dialog-link', {
 document.registerElement('search-field', {
   'extends': 'input',
   prototype: SearchField.prototype
+})
+
+document.registerElement('ajax-form', {
+  'extends': 'form',
+  prototype: AjaxForm.prototype
 })
