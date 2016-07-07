@@ -18,12 +18,12 @@ JS_BUILDS := $(subst ./js/,./js-build/,$(JS_SOURCES))
 all: $(BUNDLE)
 
 clean:
-	rm -rf build/ $(BUNDLE)
+	rm -rf build/ js-build/ $(BUNDLE)
 
 lint:
 	standard "js/**/*.js"
 
-install-deps:
+deps:
 	npm install
 
 build/js/jukebox.js: data/config.json $(JS_BUILDS)
