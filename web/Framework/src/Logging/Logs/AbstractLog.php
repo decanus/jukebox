@@ -24,14 +24,11 @@ namespace Jukebox\Framework\Logging\Logs
             $string = '';
             $e = $this->exception;
             do {
-                $string .= 'Exception "' . get_class($e) . '"' .
-                    ' thrown in: "' . $e->getFile() . '"' .
-                    ' on line ' . $e->getLine() .
-                    ' with message: "' . $e->getMessage() . '"' .
-                    ' and errorcode ' . $e->getCode() . '.' .
-                    PHP_EOL . 'Backtrace:' . PHP_EOL .
-                    $e->getTraceAsString() . PHP_EOL .
-                    '---------PREVIOUS--MARKER---------'. PHP_EOL;
+                $string .= get_class($e) . '(code: ' . $e->getCode() . '): ' . $e->getMessage() . ' at ' .
+                    $e->getFile() . ':' . $e->getLine() .
+                    PHP_EOL . 'Stacktrace:' . PHP_EOL .
+                    $e->getTraceAsString() . PHP_EOL;
+
                 $e = $e->getPrevious();
             } while ($e !== null);
             return $string;
