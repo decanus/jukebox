@@ -33,8 +33,10 @@ namespace Jukebox\Frontend\Handlers\Get\Artist
                 $link->setAttribute('href', $artist['permalink']);
                 $link->appendTextNode($artist['name']);
 
-                $template->queryOne('//html:body')->appendElement('script', '__$loadModel(' . json_encode($artist) . ')');
-
+                $template->queryOne('//html:script[@id="models"]')->appendChild(
+                    $template->createTextNode('window.__$models = ' . json_encode([$artist]))
+                );
+                
                 $tracks = $this->getModel()->getTracks();
 
                 if (!isset($tracks['results'])) {

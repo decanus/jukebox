@@ -10,6 +10,7 @@ import { Route } from './value/route'
 import { sendPlayTrack } from './app/analytics'
 import config from '../data/config.json'
 
+import './app/init'
 import './app/elements'
 import './app/media-keys'
 
@@ -21,10 +22,6 @@ window.addEventListener('popstate', () => {
 app.player
   .getTrack()
   .forEach((track) => sendPlayTrack(track))
-
-window.__$loadModel = function (model) {
-  app.modelRepository.add(model)
-}
 
 // todo: figure out an optimal interval for cleanup
 getInterval(180000)

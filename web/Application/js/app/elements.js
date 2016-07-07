@@ -25,6 +25,7 @@ import { TabContent } from  '../elements/tab/tab-content'
 import { SearchForm } from '../elements/search/search-form'
 import { DialogLink } from '../elements/dialog/dialog-link'
 import { DialogContent } from '../elements/dialog/dialog-content'
+import { PlayerVolumeButton } from '../elements/player/player-volume-button'
 
 /**
  * @type {Function}
@@ -60,6 +61,7 @@ document.registerElement('list-track', ListTrack)
 document.registerElement('tab-link', TabLink)
 document.registerElement('tab-content', TabContent)
 document.registerElement('dialog-content', DialogContent)
+document.registerElement('player-volume-button', PlayerVolumeButton)
 
 document.registerElement('search-form', {
   'extends': 'form',

@@ -43,34 +43,47 @@ export class YoutubePlayer {
      * @type {Promise}
      * @private
      */
-    this._ready = loadYoutubeApi()
-      .then(() => {
-        return new Promise((resolve) => {
-          /**
-           *
-           * @type {YT.Player}
-           * @private
-           */
-          this._player = new YT.Player('youtube-player', {
-            height: '100%',
-            width: '100%',
-            events: {
-              onReady: resolve
-            },
-            playerVars: {
-              controls: 0,
-              rel: 0,
-              showinfo: 0,
-              modestbranding: 1,
-              disablekb: 0,
-              autoplay: 0,
-              autohide: 1,
-              iv_load_policy: 3,
-              playsinline: 1
-            }
-          })
-        })
+    this._ready = null
+
+    /**
+     *
+     * @type {boolean}
+     * @private
+     */
+    this._isReady = false
+  }
+
+  async _load () {
+    await loadYoutubeApi()
+
+    return new Promise((resolve) => {
+      /**
+       *
+       * @type {YT.Player}
+       * @private
+       */
+      this._player = new YT.Player('youtube-player', {
+        height: '100%',
+        width: '100%',
+        events: {
+          onReady: () => {
+            this._isReady = true
+            resolve()
+          }
+        },
+        playerVars: {
+          controls: 0,
+          rel: 0,
+          showinfo: 0,
+          modestbranding: 1,
+          disablekb: 0,
+          autoplay: 0,
+          autohide: 1,
+          iv_load_policy: 3,
+          playsinline: 1
+        }
       })
+    })
   }
 
   /**
@@ -78,8 +91,11 @@ export class YoutubePlayer {
    * @returns {Promise<YoutubePlayer>}
    */
   ready () {
-    return this._ready
-      .then(() => this)
+    if (!this._ready) {
+      this._ready = this._load()
+    }
+
+    return this._ready.then(() => this)
   }
 
   /**
@@ -95,6 +111,10 @@ export class YoutubePlayer {
    * @returns {Promise}
    */
   play () {
+    if (!this._isReady) {
+      return Promise.resolve()
+    }
+    
     let play = this.getPlay().once()
 
     if (this._player.getPlayerState() === YT.PlayerState.BUFFERING) {
@@ -113,6 +133,10 @@ export class YoutubePlayer {
    * @returns {Promise}
    */
   pause () {
+    if (!this._isReady) {
+      return Promise.resolve()
+    }
+    
     const state = this._player.getPlayerState()
 
     if (state !== YT.PlayerState.PLAYING && state !== YT.PlayerState.BUFFERING) {
@@ -133,10 +157,14 @@ export class YoutubePlayer {
   }
 
   /**
-   * 
+   *
    * @returns {Promise}
    */
-  stop() {
+  stop () {
+    if (!this._isReady) {
+      return Promise.resolve()
+    }
+    
     let stopped = this._getStateChange()
       .filter((e) => e.data !== YT.PlayerState.PLAYING)
       .once()
