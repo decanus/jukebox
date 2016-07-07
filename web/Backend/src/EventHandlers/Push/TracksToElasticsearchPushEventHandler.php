@@ -83,7 +83,7 @@ namespace Jukebox\Backend\EventHandlers\Push
                     'index' => (string) $this->event->getDataVersion(),
                     'body' => [
                         'settings' => [
-                            'refresh_interval' => '-1'
+                            'refresh_interval' => '1s'
                         ]
                     ]
                 ]
