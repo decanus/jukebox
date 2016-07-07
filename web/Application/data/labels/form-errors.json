@@ -1,3 +1,4 @@
 {
-  "login_failed": "Invalid username or password"
+  "invalid_credentials": "Invalid username or password",
+  "login_failed": "There was an error trying to sign you in, please try again later."
 }

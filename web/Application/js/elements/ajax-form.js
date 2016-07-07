@@ -3,6 +3,7 @@
  */
 
 import errors from '../../data/labels/form-errors.json'
+import { findView } from '../dom/find-view'
 
 export class AjaxForm extends HTMLFormElement {
   attachedCallback () {
@@ -21,7 +22,10 @@ export class AjaxForm extends HTMLFormElement {
 
       if (data.error) {
         this._setErrorCode(data.error)
+        return
       }
+      
+      findView(this).reloadView()
     })
   }
 
