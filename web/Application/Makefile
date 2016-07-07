@@ -6,7 +6,6 @@ SHELL := /bin/bash
 PATH  := ./node_modules/.bin:$(PATH)
 
 BUNDLE := build/js/jukebox.js build/js/polyfills.js build/js/views.js
-JS_FILES := $(shell find js -name "*.js")
 POLYFILLS := $(wildcard polyfills/*.js)
 VIEWS := $(shell find views -name "*.handlebars")
 
