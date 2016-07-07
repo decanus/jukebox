@@ -55,7 +55,12 @@ namespace Jukebox\Backend
                         continue;
                     }
 
-                    $event = $this->eventQueueReader->getEvent();
+                    try {
+                        $event = $this->eventQueueReader->getEvent();
+                    } catch (\Throwable $e) {
+                        $this->sleep();
+                        continue;
+                    }
 
                     $handler = $this->eventHandlerLocator->locate($event);
                     

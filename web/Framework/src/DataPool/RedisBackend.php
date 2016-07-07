@@ -71,7 +71,14 @@ namespace Jukebox\Framework\DataPool
         public function fetchFromQueue(string $queueName): EventInterface
         {
             $this->connect();
-            return unserialize($this->redis->blPop($queueName, 0)[1]);
+
+            $event = unserialize($this->redis->blPop($queueName, 0)[1]);
+
+            if (!$event instanceof EventInterface) {
+                throw new \Exception('"' . $event . '" does not implement EventInterface');
+            }
+
+            return $event;
         }
 
         public function addToQueue(string $queueName, EventInterface $event): int
