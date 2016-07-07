@@ -15,7 +15,8 @@ export class AjaxForm extends HTMLFormElement {
       const response = await fetch(this.action, {
         method: 'POST',
         mode: 'same-origin',
-        credentials: 'same-origin'
+        credentials: 'same-origin',
+        body: new FormData(this)
       })
 
       const data = await response.json()
