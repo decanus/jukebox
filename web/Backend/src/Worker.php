@@ -58,8 +58,8 @@ namespace Jukebox\Backend
                     try {
                         $event = $this->eventQueueReader->getEvent();
                     } catch (\Throwable $e) {
-                        $this->sleep();
-                        continue;
+                        $this->shutdown();
+                        return;
                     }
 
                     $handler = $this->eventHandlerLocator->locate($event);
