@@ -20,8 +20,9 @@ export function ArtistView (artistId) {
     async fetch () {
       const repository = app.modelRepository
       const artist = await repository.getArtist(artistId)
+      const artistImage = await repository.getArtistImage(artistId)
 
-      return new Page({ title: `Jukebox Ninja - ${artist.name}`, template: 'artist', data: { artist } })
+      return new Page({ title: `Jukebox Ninja - ${artist.name}`, template: 'artist', data: { artist, artistImage } })
     },
     /**
      *
@@ -33,6 +34,7 @@ export function ArtistView (artistId) {
       const data = page.data
 
       repository.hold(data.artist)
+      repository.hold(data.artistImage)
 
       return () => repository.releaseAll()
     }

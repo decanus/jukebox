@@ -71,8 +71,12 @@
             <player-title/>
             <player-scrobble-bar />
             <player-controls />
-            <player-volume />
-            <player-repeat-button class="player-action-button"/>
+
+            <div class="player-action-buttons">
+                <player-repeat-button class="button"/>
+                <player-volume-button class="button" />
+            </div>
+
         </tab-content>
 
         <tab-content tab-name="queue" tab-group="player" hidden="hidden">
@@ -83,9 +87,11 @@
     </aside>
 </div>
 
+<script type="application/javascript" id="models"/>
+<script type="application/javascript" id="version"/>
 <script type="application/javascript" src="/js/polyfills.js"></script>
 <script type="application/javascript" src="/js/views.js"></script>
-<script type="application/javascript" src="/js/jukebox.js"></script>
+<script type="application/javascript" src="/js/jukebox.js" async="async"></script>
 
 </body>
 </html>

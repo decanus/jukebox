@@ -73,6 +73,15 @@ export class ModelRepository {
 
   /**
    *
+   * @param {number} id
+   * @returns {Promise<ArtistImage>}
+   */
+  getArtistImage (id) {
+    return this.get({ id, type: 'artist-images' })
+  }
+
+  /**
+   *
    * @param {ResultId} artistId
    */
   getArtistTracks (artistId) {

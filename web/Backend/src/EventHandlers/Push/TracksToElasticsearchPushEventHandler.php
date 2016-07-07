@@ -77,6 +77,19 @@ namespace Jukebox\Backend\EventHandlers\Push
             if (!empty($params['body'])) {
                 $this->client->bulk($params);
             }
+
+            $this->client->indices()->putSettings(
+                [
+                    'index' => (string) $this->event->getDataVersion(),
+                    'body' => [
+                        'settings' => [
+                            'refresh_interval' => '1s'
+                        ]
+                    ]
+                ]
+            );
+
+            $this->client->indices()->forceMerge(['index' => (string) $this->event->getDataVersion()]);
         }
     }
 }

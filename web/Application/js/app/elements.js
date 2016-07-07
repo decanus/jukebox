@@ -27,6 +27,7 @@ import { SearchForm } from '../elements/search/search-form'
 import { DialogLink } from '../elements/dialog/dialog-link'
 import { DialogContent } from '../elements/dialog/dialog-content'
 import { InputField } from '../elements/input-field'
+import { PlayerVolumeButton } from '../elements/player/player-volume-button'
 
 /**
  * @type {Function}
@@ -63,6 +64,7 @@ document.registerElement('tab-link', TabLink)
 document.registerElement('tab-content', TabContent)
 document.registerElement('dialog-content', DialogContent)
 document.registerElement('input-field', InputField)
+document.registerElement('player-volume-button', PlayerVolumeButton)
 
 document.registerElement('search-form', {
   'extends': 'form',

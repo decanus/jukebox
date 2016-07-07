@@ -8,6 +8,7 @@ web/Styles/node_modules/
 /web/Application/build/
 /web/Application/data/config.json
 /web/Application/node_modules/
+/web/Application/js-build/
 web/CDN/artists/*.jpeg
 web/CDN/artists/*.jpg
 web/CDN/artists/*.png

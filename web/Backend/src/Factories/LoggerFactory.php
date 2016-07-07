@@ -9,11 +9,6 @@ namespace Jukebox\Backend\Factories
         {
             $logger = $this->createLogger();
             $logger->addLogger($this->createSlackLogger());
-
-            if ($this->getMasterFactory()->getConfiguration()->isDevelopmentMode()) {
-                $logger->addLogger($this->createCLILogger());
-            }
-
             return $logger;
         }
 

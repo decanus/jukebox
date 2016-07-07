@@ -29,11 +29,6 @@ namespace Jukebox\Framework\Factories
             return $logger;
         }
 
-        public function createCLILogger(): \Jukebox\Framework\Logging\Loggers\CLILogger
-        {
-            return new \Jukebox\Framework\Logging\Loggers\CLILogger;
-        }
-
         public function createNSALogger(): \Jukebox\Framework\Logging\Loggers\NSALogger
         {
             return new \Jukebox\Framework\Logging\Loggers\NSALogger;

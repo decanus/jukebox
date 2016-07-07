@@ -6,7 +6,7 @@ Release: jukebox.1
 Group: System Environment/Libraries
 License: jukebox.ninja
 Vendor: jukebox.ninja
-Version: 0.2.2
+Version: 0.2.5
 Url: http://www.jukebox.ninja/
 
 #Source:
@@ -46,6 +46,7 @@ install -m 755 -d $RPM_BUILD_ROOT%{_wwwDir}Backend/{config,src,data}
 install -m 644 %{_sourcedir}Backend/config/backend.cron $RPM_BUILD_ROOT/etc/cron.d/backend.cron
 
 cp -R %{_sourcedir}Frontend/html/images/* $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/images/
+mv $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/images/icons.svg $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/images/icons-%{version}-%{release}.svg
 cp -R %{_sourcedir}Frontend/html/favicon.ico $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/favicon.ico
 cp -R %{_sourcedir}Frontend/html/robots.txt $RPM_BUILD_ROOT%{_wwwDir}Frontend/html/robots.txt
 
