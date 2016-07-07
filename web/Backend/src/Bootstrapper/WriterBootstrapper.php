@@ -3,6 +3,7 @@
 namespace Jukebox\Backend\Bootstrapper
 {
 
+    use competec\Library\CliErrorHandler;
     use Jukebox\Backend\CLI\ParameterParser;
     use Jukebox\Backend\CLI\Request;
     use Jukebox\Framework\Bootstrap\AbstractBootstrapper;
@@ -72,12 +73,7 @@ namespace Jukebox\Backend\Bootstrapper
 
         protected function registerErrorHandler()
         {
-            if ($this->isDevelopmentMode()) {
-                $errorHandler = new DevelopmentErrorHandler;
-            } else {
-                $errorHandler = new ProductionErrorHandler;
-            }
-
+            $errorHandler = new CliErrorHandler;
             $errorHandler->register();
         }
 
