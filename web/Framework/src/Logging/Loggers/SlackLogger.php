@@ -48,8 +48,8 @@ namespace Jukebox\Framework\Logging\Loggers
                 $this->curl->post(
                     $this->slackEndpoint,
                     ['payload' => json_encode([
-                            'channel' => '#Jukeboxly-logging',
-                            'username' => 'Jukeboxly',
+                            'channel' => '#logging',
+                            'username' => 'Logging Master',
                             'text' => $log->getMessage()
                         ])
                     ]
