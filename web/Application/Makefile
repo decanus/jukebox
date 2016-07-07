@@ -10,6 +10,9 @@ JS_FILES := $(shell find js -name "*.js")
 POLYFILLS := $(wildcard polyfills/*.js)
 VIEWS := $(shell find views -name "*.handlebars")
 
+JS_SOURCES := $(shell find ./js -name "*.js")
+JS_BUILDS := $(subst ./js/,./js-build/,$(JS_SOURCES))
+
 .PHONY: all clean lint install-deps
 
 all: $(BUNDLE)
@@ -23,13 +26,17 @@ lint:
 install-deps:
 	npm install
 
-build/js/jukebox.js: data/config.json $(JS_FILES)
+build/js/jukebox.js: data/config.json $(JS_BUILDS)
 	@mkdir -p $(dir $@)
 ifeq ($(JUKEBOX_ENV),production)
-	browserify -t [ babelify ] -g [ uglifyify --no-sourcemap ] -p bundle-collapser/plugin js/jukebox.js | uglifyjs --screw-ie8 --mangle -o $@
+	browserify --dg=false --no-bundle-external -g [ uglifyify --no-sourcemap ] -p bundle-collapser/plugin js-build/jukebox.js | uglifyjs --screw-ie8 --mangle -o $@
 else
-	browserify -t [ babelify ] js/jukebox.js > $@
+	browserify --dg=false --no-bundle-external js-build/jukebox.js > $@
 endif
+
+js-build/%: js/%
+	@mkdir -p $(dir $@)
+	babel $< > $@
 
 build/js/views.js: $(VIEWS)
 ifeq ($(JUKEBOX_ENV),production)

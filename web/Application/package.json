@@ -28,8 +28,10 @@
     "babelify": "^7.3.0",
     "browserify": "^13.0.1",
     "bundle-collapser": "^1.2.1",
+    "es6-promise": "^3.2.1",
     "handlebars": "^4.0.5",
     "query-string": "^4.2.2",
+    "regenerator-runtime": "^0.9.5",
     "standard": "^7.1.2",
     "uglify-js": "^2.6.2",
     "uglifyify": "^3.0.1",
@@ -45,5 +47,8 @@
     "globals": [
       "YT"
     ]
+  },
+  "jspm": {
+    "devDependencies": {}
   }
 }
