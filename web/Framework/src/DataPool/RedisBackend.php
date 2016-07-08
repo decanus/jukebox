@@ -123,7 +123,7 @@ namespace Jukebox\Framework\DataPool
                 return;
             }
 
-            $this->redis->connect($this->host, $this->port);
+            $this->redis->connect($this->host, $this->port, 1.0);
         }
 
         public function hhas(string $key, string $hashKey): bool

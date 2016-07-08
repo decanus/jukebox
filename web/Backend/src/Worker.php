@@ -35,7 +35,7 @@ namespace Jukebox\Backend
             $this->eventHandlerLocator = $eventHandlerLocator;
         }
 
-        public function process($maxNumberOfEvents = 1000)
+        public function process($maxNumberOfEvents = 500)
         {
             $loopCount = 0;
             /**
