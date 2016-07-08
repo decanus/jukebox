@@ -17,7 +17,6 @@ namespace Jukebox\Framework\DataPool
             $this->redis = $redis;
         }
 
-
         public function set(string $key, string $value)
         {
             $this->connect();
