@@ -9,9 +9,19 @@ namespace Jukebox\Frontend\Handlers\Post\Registration
     use Jukebox\Framework\ValueObjects\Email;
     use Jukebox\Framework\ValueObjects\Password;
     use Jukebox\Framework\ValueObjects\Username;
+    use Jukebox\Frontend\Commands\RegistrationCommand;
 
     class CommandHandler implements CommandHandlerInterface
     {
+        /**
+         * @var RegistrationCommand
+         */
+        private $registrationCommand;
+
+        public function __construct(RegistrationCommand $registrationCommand)
+        {
+            $this->registrationCommand = $registrationCommand;
+        }
 
         public function execute(RequestInterface $request, AbstractModel $model)
         {
