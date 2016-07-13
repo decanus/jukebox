@@ -45,6 +45,30 @@ namespace Jukebox\Frontend\Handlers\Post\Registration
                 $model->setData(['error' => 'invalid_password']);
                 return;
             }
+
+            try {
+                $result = $this->registrationCommand->execute($email, $username, $password);
+            } catch (\InvalidArgumentException $e) {
+                if ($e->getMessage() === 'User already exists with username') {
+                    $model->setData(['error' => 'username_in_use']);
+                }
+
+                if ($e->getMessage() === 'User already exists with email') {
+                    $model->setData(['error' => 'email_in_use']);
+                }
+
+                return;
+            } catch (\Throwable $e) {
+                $model->setData(['error' => 'something_went_wrong']);
+                return;
+            }
+
+            if (!$result) {
+                $model->setData(['error' => 'something_went_wrong']);
+                return;
+            }
+
+            $model->setData(['message' => 'success']);
         }
     }
 }

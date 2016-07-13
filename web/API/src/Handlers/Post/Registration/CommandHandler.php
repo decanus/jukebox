@@ -30,7 +30,6 @@ namespace Jukebox\API\Handlers\Post\Registration
 
         public function __construct(RegistrationCommand $registrationCommand)
         {
-
             $this->registrationCommand = $registrationCommand;
         }
 

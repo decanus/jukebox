@@ -9,6 +9,7 @@ namespace Jukebox\Framework\Rest
     use Jukebox\Framework\ValueObjects\Email;
     use Jukebox\Framework\ValueObjects\Password;
     use Jukebox\Framework\ValueObjects\Uri;
+    use Jukebox\Framework\ValueObjects\Username;
 
     class JukeboxRestManager
     {
@@ -72,6 +73,15 @@ namespace Jukebox\Framework\Rest
             return $this->curl->post(
                 $this->buildUri('/v1/authentication'),
                 ['key' => $this->key, 'email' => (string) $email, 'password' => (string) $password]
+            );
+        }
+
+        public function register(Email $email, Username $username, Password $password): Response
+        {
+
+            return $this->curl->post(
+                $this->buildUri('/v1/authentication'),
+                ['key' => $this->key, 'email' => (string) $email, 'password' => (string) $password, 'username' => $username]
             );
         }
 
