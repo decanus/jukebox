@@ -47,12 +47,7 @@ namespace Jukebox\Framework\Logging\Loggers
             try {
                 $this->curl->post(
                     $this->slackEndpoint,
-                    ['payload' => json_encode([
-                            'channel' => '#Jukeboxly-logging',
-                            'username' => 'Jukeboxly',
-                            'text' => $log->getMessage()
-                        ])
-                    ]
+                    ['payload' => json_encode(['channel' => '#logging', 'username' => 'Logging Master', 'text' => (string) $log])]
                 );
             } catch (\Throwable $e) {
                 // dont do shit

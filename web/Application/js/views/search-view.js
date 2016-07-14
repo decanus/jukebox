@@ -72,6 +72,10 @@ export function SearchView ({ query, includes }) {
         if (model.type === 'tracks') {
           model.artists.forEach((artist) => repository.hold(artist.artist))
         }
+
+        if (model.type === 'artists') {
+          repository.hold(model.image)
+        }
       })
 
       return () => repository.releaseAll()

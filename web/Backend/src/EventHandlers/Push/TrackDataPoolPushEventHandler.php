@@ -4,23 +4,28 @@ namespace Jukebox\Backend\EventHandlers\Push
 {
 
     use Jukebox\Backend\EventHandlers\EventHandlerInterface;
+    use Jukebox\Backend\Events\TrackDataPoolPushEvent;
     use Jukebox\Backend\Queries\FetchTrackArtistsQuery;
+    use Jukebox\Backend\Queries\FetchTrackByIdQuery;
     use Jukebox\Backend\Queries\FetchTrackGenresQuery;
     use Jukebox\Backend\Queries\FetchTrackSourcesQuery;
-    use Jukebox\Backend\Queries\FetchTracksQuery;
     use Jukebox\Framework\DataPool\DataPoolWriter;
+    use Jukebox\Framework\Logging\LoggerAware;
+    use Jukebox\Framework\Logging\LoggerAwareTrait;
 
-    class TracksDataPoolPushEventHandler implements EventHandlerInterface
+    class TrackDataPoolPushEventHandler implements EventHandlerInterface, LoggerAware
     {
-        /**
-         * @var DataPoolWriter
-         */
-        private $dataPoolWriter;
+        use LoggerAwareTrait;
 
         /**
-         * @var FetchTracksQuery
+         * @var TrackDataPoolPushEvent
          */
-        private $fetchTracksQuery;
+        private $event;
+
+        /**
+         * @var FetchTrackByIdQuery
+         */
+        private $fetchTrackByIdQuery;
 
         /**
          * @var FetchTrackArtistsQuery
@@ -37,26 +42,33 @@ namespace Jukebox\Backend\EventHandlers\Push
          */
         private $fetchTrackSourcesQuery;
 
+        /**
+         * @var DataPoolWriter
+         */
+        private $dataPoolWriter;
+
         public function __construct(
-            DataPoolWriter $dataPoolWriter,
-            FetchTracksQuery $fetchTracksQuery,
+            TrackDataPoolPushEvent $event,
+            FetchTrackByIdQuery $fetchTrackByIdQuery,
             FetchTrackArtistsQuery $fetchTrackArtistsQuery,
             FetchTrackGenresQuery $fetchTrackGenresQuery,
-            FetchTrackSourcesQuery $fetchTrackSourcesQuery
+            FetchTrackSourcesQuery $fetchTrackSourcesQuery,
+            DataPoolWriter $dataPoolWriter
         )
         {
-            $this->dataPoolWriter = $dataPoolWriter;
-            $this->fetchTracksQuery = $fetchTracksQuery;
+            $this->event = $event;
+            $this->fetchTrackByIdQuery = $fetchTrackByIdQuery;
             $this->fetchTrackArtistsQuery = $fetchTrackArtistsQuery;
             $this->fetchTrackGenresQuery = $fetchTrackGenresQuery;
             $this->fetchTrackSourcesQuery = $fetchTrackSourcesQuery;
+            $this->dataPoolWriter = $dataPoolWriter;
         }
 
         public function execute()
         {
-            $tracks = $this->fetchTracksQuery->execute();
+            try {
+                $track = $this->fetchTrackByIdQuery->execute($this->event->getTrackId());
 
-            foreach ($tracks as $key => $track) {
                 $artists = $this->fetchTrackArtistsQuery->execute($track['id']);
                 $genres = $this->fetchTrackGenresQuery->execute($track['id']);
                 $sources = $this->fetchTrackSourcesQuery->execute($track['id']);
@@ -80,6 +92,8 @@ namespace Jukebox\Backend\EventHandlers\Push
                 ];
 
                 $this->dataPoolWriter->setTrack($track['id'], $data);
+            } catch (\Throwable $e) {
+                $this->getLogger()->critical($e);
             }
         }
     }

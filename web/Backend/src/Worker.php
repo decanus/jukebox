@@ -35,7 +35,7 @@ namespace Jukebox\Backend
             $this->eventHandlerLocator = $eventHandlerLocator;
         }
 
-        public function process($maxNumberOfEvents = 1000)
+        public function process($maxNumberOfEvents = 500)
         {
             $loopCount = 0;
             /**
@@ -55,7 +55,12 @@ namespace Jukebox\Backend
                         continue;
                     }
 
-                    $event = $this->eventQueueReader->getEvent();
+                    try {
+                        $event = $this->eventQueueReader->getEvent();
+                    } catch (\Throwable $e) {
+                        $this->shutdown();
+                        return;
+                    }
 
                     $handler = $this->eventHandlerLocator->locate($event);
                     

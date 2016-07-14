@@ -30,12 +30,7 @@ namespace Jukebox\Backend\Readers
 
         public function getEvent(): EventInterface
         {
-            $event = $this->redisBackend->fetchFromQueue($this->queueName);
-            if (!$event instanceof EventInterface) {
-                throw new \Exception('"' . $event . '" aus der RedisQueue ist kein Event mit dem EventInterface');
-            }
-
-            return $event;
+            return $this->redisBackend->fetchFromQueue($this->queueName);
         }
     }
 }

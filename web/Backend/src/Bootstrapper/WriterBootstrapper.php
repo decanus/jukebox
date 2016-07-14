@@ -5,10 +5,9 @@ namespace Jukebox\Backend\Bootstrapper
 
     use Jukebox\Backend\CLI\ParameterParser;
     use Jukebox\Backend\CLI\Request;
+    use Jukebox\Backend\ErrorHandlers\CLIErrorHandler;
     use Jukebox\Framework\Bootstrap\AbstractBootstrapper;
     use Jukebox\Framework\Configuration;
-    use Jukebox\Framework\ErrorHandlers\DevelopmentErrorHandler;
-    use Jukebox\Framework\ErrorHandlers\ProductionErrorHandler;
     use Jukebox\Framework\Factories\MasterFactory;
 
     class WriterBootstrapper extends AbstractBootstrapper
@@ -72,12 +71,7 @@ namespace Jukebox\Backend\Bootstrapper
 
         protected function registerErrorHandler()
         {
-            if ($this->isDevelopmentMode()) {
-                $errorHandler = new DevelopmentErrorHandler;
-            } else {
-                $errorHandler = new ProductionErrorHandler;
-            }
-
+            $errorHandler = new CliErrorHandler;
             $errorHandler->register();
         }
 

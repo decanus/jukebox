@@ -13,8 +13,8 @@
 
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@jukeboxninjaapp" />
-    <meta name="twitter:title" content="" />
-    <meta name="twitter:description" content="" />
+    <meta name="twitter:title" content="Jukebox Ninja" />
+    <meta name="twitter:description" content="Jukebox Ninja turns all your music sources into one amazing service." />
     <meta name="twitter:image" content="https://www.jukebox.ninja/images/favicon-152.png" />
 
     <title/>
@@ -71,8 +71,12 @@
             <player-title/>
             <player-scrobble-bar />
             <player-controls />
-            <player-volume />
-            <player-repeat-button class="player-action-button"/>
+
+            <div class="player-action-buttons">
+                <player-repeat-button class="button"/>
+                <player-volume-button class="button" />
+            </div>
+
         </tab-content>
 
         <tab-content tab-name="queue" tab-group="player" hidden="hidden">
@@ -83,9 +87,11 @@
     </aside>
 </div>
 
+<script type="application/javascript" id="models"/>
+<script type="application/javascript" id="version"/>
 <script type="application/javascript" src="/js/polyfills.js"></script>
 <script type="application/javascript" src="/js/views.js"></script>
-<script type="application/javascript" src="/js/jukebox.js"></script>
+<script type="application/javascript" src="/js/jukebox.js" async="async"></script>
 
 </body>
 </html>
