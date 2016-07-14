@@ -23,6 +23,7 @@ lint:
 	standard "js/**/*.js"
 
 deps:
+	npm prune
 	npm install
 
 build/js/jukebox.js: data/config.json $(JS_BUILDS)
