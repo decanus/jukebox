@@ -46,11 +46,11 @@ export class ModelRepository {
 
   /**
    *
-   * @param {string} query
+   * @param {ResultId} id
    * @returns {Promise<Result>}
    */
-  getResult (query) {
-    return this.get({ id: query, type: 'results' })
+  getResult (id) {
+    return this.get({ id, type: 'results' })
   }
 
   /**
@@ -73,7 +73,16 @@ export class ModelRepository {
 
   /**
    *
-   * @param {number} artistId
+   * @param {number} id
+   * @returns {Promise<ArtistImage>}
+   */
+  getArtistImage (id) {
+    return this.get({ id, type: 'artist-images' })
+  }
+
+  /**
+   *
+   * @param {ResultId} artistId
    */
   getArtistTracks (artistId) {
     return this.get({ id: artistId, type: 'artist-tracks' })
@@ -105,7 +114,7 @@ export class ModelRepository {
    */
   hold ({ type, id }) {
     const key = { type, id }
-
+    
     this._store.hold(key)
 
     return () => {

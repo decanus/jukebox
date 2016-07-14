@@ -5,7 +5,7 @@
 import { app } from '../../app'
 import { ScrobbleBar } from '../../app/elements'
 
-const player = app.getPlayer()
+const player = app.player
 
 export class PlayerVolume extends HTMLElement {
   createdCallback() {

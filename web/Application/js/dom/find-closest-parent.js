@@ -2,8 +2,6 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { matches } from './matches'
-
 /**
  *
  * @param {HTMLElement} element
@@ -17,7 +15,7 @@ export function findClosestParent (element, selector) {
     return null
   }
 
-  if (matches(parent, selector)) {
+  if (parent.matches(selector)) {
     return parent
   }
 

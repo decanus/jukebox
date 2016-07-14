@@ -33,31 +33,17 @@ namespace Jukebox\Backend\EventHandlers\Push
          */
         private $fetchTrackArtistsQuery;
 
-        /**
-         * @var FetchTrackGenresQuery
-         */
-        private $fetchTrackGenresQuery;
-
-        /**
-         * @var FetchTrackSourcesQuery
-         */
-        private $fetchTrackSourcesQuery;
-
         public function __construct(
             TracksToElasticsearchPushEvent $event,
             Client $client,
             FetchTracksQuery $fetchTracksQuery,
-            FetchTrackArtistsQuery $fetchTrackArtistsQuery,
-            FetchTrackGenresQuery $fetchTrackGenresQuery,
-            FetchTrackSourcesQuery $fetchTrackSourcesQuery
+            FetchTrackArtistsQuery $fetchTrackArtistsQuery
         )
         {
             $this->event = $event;
             $this->client = $client;
             $this->fetchTracksQuery = $fetchTracksQuery;
             $this->fetchTrackArtistsQuery = $fetchTrackArtistsQuery;
-            $this->fetchTrackGenresQuery = $fetchTrackGenresQuery;
-            $this->fetchTrackSourcesQuery = $fetchTrackSourcesQuery;
         }
 
         public function execute()
@@ -74,24 +60,12 @@ namespace Jukebox\Backend\EventHandlers\Push
                     ]
                 ];
 
-                $artists = $this->fetchTrackArtistsQuery->execute($track['id']);
-                $genres = $this->fetchTrackGenresQuery->execute($track['id']);
-                $sources = $this->fetchTrackSourcesQuery->execute($track['id']);
+                $artists = $this->fetchTrackArtistsQuery->execute($track['id'], true);
 
                 $params['body'][] = [
                     'title' => $track['title'],
-                    'duration' => $track['duration'],
-                    'isrc' => $track['isrc'],
-                    'is_live' => $track['is_live'],
-                    'is_lyric' => $track['is_lyric'],
-                    'is_music_video' => $track['is_music_video'],
-                    'is_audio' => $track['is_audio'],
-                    'is_explicit' => $track['is_explicit'],
-                    'permalink' => $track['permalink'],
                     'release_date' => $track['release_date'],
-                    'artists' => $artists,
-                    'genres' => $genres,
-                    'sources' => $sources
+                    'artists' => $artists
                 ];
 
                 if ($key % 1000 === 0) {
@@ -103,6 +77,19 @@ namespace Jukebox\Backend\EventHandlers\Push
             if (!empty($params['body'])) {
                 $this->client->bulk($params);
             }
+
+            $this->client->indices()->putSettings(
+                [
+                    'index' => (string) $this->event->getDataVersion(),
+                    'body' => [
+                        'settings' => [
+                            'refresh_interval' => '1s'
+                        ]
+                    ]
+                ]
+            );
+
+            $this->client->indices()->forceMerge(['index' => (string) $this->event->getDataVersion()]);
         }
     }
 }

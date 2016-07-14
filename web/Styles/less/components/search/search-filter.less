@@ -1,0 +1,39 @@
+.search-filter {
+  display: flex;
+  flex-direction: column;
+
+  > .filter {
+    color: @color-gray;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    margin-right: 38px;
+  }
+
+  > .filter.-active {
+    background-color: #fff;
+    position: relative;
+  }
+
+  > .filter.-active > .icon {
+    color: @brand-color;
+  }
+
+  > .filter.-active:after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: -38px;
+    height: 0;
+    width: 0;
+    border: 19px solid transparent;
+    border-left-color: #fff;
+  }
+
+  > .filter > .icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 16px;
+  }
+}

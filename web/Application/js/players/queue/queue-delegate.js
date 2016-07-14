@@ -41,6 +41,10 @@ export class QueueDelegate {
    * @param {Result} results
    */
   playTrack (track, results) {
+    if (this.playQueue) {
+      this.playQueue.tracks.cleanup()
+    }
+
     this.playQueue = PlayQueue.fromContext(track, results)
     this._current = this.playQueue
   }
@@ -108,7 +112,7 @@ export class QueueDelegate {
   }
   
   onStop () {
-    this._current = null
+    //this._current = null
   }
 
   /**
@@ -120,11 +124,24 @@ export class QueueDelegate {
   }
 
   /**
+   * 
+   * @returns {boolean}
+   */
+  isFirst () {
+    
+    if (this.playQueue.isFirst() && this._current === this.playQueue) {
+      return true
+    }
+    
+    return this._current === this.userQueue && !this.userQueue.isEmpty() && this.playQueue.isFirst()
+  }
+
+  /**
    *
    * @returns {boolean}
    */
   hasCurrentTrack () {
-    return this.currentTrack !== null
+    return this.currentTrack != null
   }
 
   /**

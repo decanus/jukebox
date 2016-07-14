@@ -58,6 +58,12 @@ namespace Jukebox\Backend\Locators
                     return $this->factory->createSoundcloudTracksImportEventHandler($event);
                 case 'SoundcloudArtistImport':
                     return $this->factory->createSoundcloudArtistImportEventHandler($event);
+                case 'ArtistsDataPoolPush':
+                    return $this->factory->createArtistsDataPoolPushEventHandler($event);
+                case 'InitialTrackDataPoolPush':
+                    return $this->factory->createInitialTrackDataPoolPushEventHandler($event);
+                case 'TrackDataPoolPush':
+                    return $this->factory->createTrackDataPoolPushEventHandler($event);
             }
         }
     }

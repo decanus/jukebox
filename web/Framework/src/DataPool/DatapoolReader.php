@@ -23,5 +23,25 @@ namespace Jukebox\Framework\DataPool
         {
             return $this->hget($this->getVersion(), $this->getKeyGenerator()->generateArtistIdFromPathKey($path));
         }
+
+        public function hasArtist(string $id): string
+        {
+            return $this->hhas($this->getVersion(), $this->getKeyGenerator()->generateArtistKey($id));
+        }
+
+        public function getArtist(string $id): array
+        {
+            return json_decode($this->hget($this->getVersion(), $this->getKeyGenerator()->generateArtistKey($id)), true);
+        }
+
+        public function hasTrack(string $id): string
+        {
+            return $this->hhas($this->getVersion(), $this->getKeyGenerator()->generateTrackKey($id));
+        }
+
+        public function getTrack(string $id): array
+        {
+            return json_decode($this->hget($this->getVersion(), $this->getKeyGenerator()->generateTrackKey($id)), true);
+        }
     }
 }

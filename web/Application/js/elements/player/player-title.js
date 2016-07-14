@@ -15,7 +15,7 @@ export class PlayerTitle extends HTMLElement {
     let $artist = createElement(this.ownerDocument, 'div', '')
     $artist.classList.add('artist')
 
-    app.getPlayer()
+    app.player
       .getTrack()
       .forEach((track) => {
         $title.innerText = track.title

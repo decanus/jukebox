@@ -5,7 +5,7 @@
 import { Emitter } from '../event/emitter'
 import { createObservable } from '../dom/events/create-observable'
 import { getInterval } from '../dom/time/get-interval'
-import { Track } from '../models/track'
+import { Observable } from '../event/observable'
 
 /**
  *
@@ -29,43 +29,61 @@ function loadYoutubeApi () {
   })
 }
 
-export class YoutubePlayer extends Emitter {
+export class YoutubePlayer {
   constructor () {
-    super()
+    /**
+     *
+     * @type {Emitter}
+     * @private
+     */
+    this._emitter = new Emitter()
 
     /**
      *
      * @type {Promise}
      * @private
      */
-    this._ready = loadYoutubeApi()
-      .then(() => {
-        return new Promise((resolve) => {
-          /**
-           *
-           * @type {YT.Player}
-           * @private
-           */
-          this._player = new YT.Player('youtube-player', {
-            height: '100%',
-            width: '100%',
-            events: {
-              onReady: resolve
-            },
-            playerVars: {
-              controls: 0,
-              rel: 0,
-              showinfo: 0,
-              modestbranding: 1,
-              disablekb: 0,
-              autoplay: 0,
-              autohide: 1,
-              iv_load_policy: 3,
-              playsinline: 1
-            }
-          })
-        })
+    this._ready = null
+
+    /**
+     *
+     * @type {boolean}
+     * @private
+     */
+    this._isReady = false
+  }
+
+  async _load () {
+    await loadYoutubeApi()
+
+    return new Promise((resolve) => {
+      /**
+       *
+       * @type {YT.Player}
+       * @private
+       */
+      this._player = new YT.Player('youtube-player', {
+        height: '100%',
+        width: '100%',
+        events: {
+          onReady: () => {
+            this._isReady = true
+            resolve()
+          }
+        },
+        playerVars: {
+          controls: 0,
+          rel: 0,
+          showinfo: 0,
+          modestbranding: 1,
+          disablekb: 0,
+          autoplay: 0,
+          autohide: 1,
+          iv_load_policy: 3,
+          playsinline: 1
+        }
       })
+    })
   }
 
   /**
@@ -73,8 +91,11 @@ export class YoutubePlayer extends Emitter {
    * @returns {Promise<YoutubePlayer>}
    */
   ready () {
-    return this._ready
-      .then(() => this)
+    if (!this._ready) {
+      this._ready = this._load()
+    }
+
+    return this._ready.then(() => this)
   }
 
   /**
@@ -90,7 +111,17 @@ export class YoutubePlayer extends Emitter {
    * @returns {Promise}
    */
   play () {
+    if (!this._isReady) {
+      return Promise.resolve()
+    }
+    
     let play = this.getPlay().once()
+
+    if (this._player.getPlayerState() === YT.PlayerState.BUFFERING) {
+      // we really don't want to wait for a play event
+      // because this is gonna block our whole ui if the video is buffering
+      this._emitter.emit('play')
+    }
 
     this._player.playVideo()
 
@@ -102,6 +133,10 @@ export class YoutubePlayer extends Emitter {
    * @returns {Promise}
    */
   pause () {
+    if (!this._isReady) {
+      return Promise.resolve()
+    }
+    
     const state = this._player.getPlayerState()
 
     if (state !== YT.PlayerState.PLAYING && state !== YT.PlayerState.BUFFERING) {
@@ -110,22 +145,32 @@ export class YoutubePlayer extends Emitter {
 
     let pause = this.getPause().once()
 
+    if (state === YT.PlayerState.BUFFERING) {
+      // we really don't want to wait for a pause event
+      // because this is gonna block our whole ui if the video is buffering
+      this._emitter.emit('pause')
+    }
+
     this._player.pauseVideo()
 
     return pause
   }
 
   /**
-   * 
+   *
    * @returns {Promise}
    */
-  stop() {
+  stop () {
+    if (!this._isReady) {
+      return Promise.resolve()
+    }
+    
     let stopped = this._getStateChange()
       .filter((e) => e.data !== YT.PlayerState.PLAYING)
       .once()
-    
+
     this._player.stopVideo()
-    
+
     return stopped
   }
 
@@ -143,8 +188,10 @@ export class YoutubePlayer extends Emitter {
    * @returns {Observable}
    */
   getPlay () {
-    return this._getStateChange()
+    const play = this._getStateChange()
       .filter((e) => e.data === YT.PlayerState.PLAYING)
+
+    return Observable.merge(play, this._emitter.toObservable('play'))
   }
 
   /**
@@ -152,8 +199,10 @@ export class YoutubePlayer extends Emitter {
    * @returns {Observable}
    */
   getPause () {
-    return this._getStateChange()
+    const pause = this._getStateChange()
       .filter((e) => e.data === YT.PlayerState.PAUSED)
+
+    return Observable.merge(pause, this._emitter.toObservable('pause'))
   }
 
   /**

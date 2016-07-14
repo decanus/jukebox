@@ -7,7 +7,7 @@ import { createElement } from '../../dom/create-element'
 import { PlayerState } from '../../players/player-state'
 import { InsertIcon } from '../../app/elements'
 
-const player = app.getPlayer()
+const player = app.player
 
 /**
  *
@@ -45,7 +45,7 @@ export class PlayerControls extends HTMLElement {
     $prev.addEventListener('click', () => player.prev())
     $prev.classList.add('-prev')
 
-    const $play = $controls.appendChild(createControlElement(this.ownerDocument, 'play'))
+    const $play = $controls.appendChild(createControlElement(this.ownerDocument, 'play-filled'))
     $play.classList.add('-playpause')
 
     const $playIcon = $play.querySelector('insert-icon')
@@ -73,7 +73,7 @@ export class PlayerControls extends HTMLElement {
         return
       }
 
-      $playIcon.iconName = 'play'
+      $playIcon.iconName = 'play-filled'
     })
   }
 }

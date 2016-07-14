@@ -71,6 +71,13 @@ namespace Jukebox\API\Factories
                 $this->getMasterFactory()->createFetchArtistQuery()
             );
         }
+        
+        public function createGetArtistImagesQueryHandler(): \Jukebox\API\Handlers\Get\ArtistImages\QueryHandler
+        {
+            return new \Jukebox\API\Handlers\Get\ArtistImages\QueryHandler(
+                $this->getMasterFactory()->createFetchArtistQuery()
+            );
+        }
 
         public function createGetArtistTracksQueryHandler(): \Jukebox\API\Handlers\Get\ArtistTracks\QueryHandler
         {
@@ -89,8 +96,7 @@ namespace Jukebox\API\Factories
         public function createAuthenticationCommandHandler(): \Jukebox\API\Handlers\Post\Authentication\CommandHandler
         {
             return new \Jukebox\API\Handlers\Post\Authentication\CommandHandler(
-                $this->getMasterFactory()->createAuthenticationCommand(),
-                $this->session->getSessionData()
+                $this->getMasterFactory()->createAuthenticationCommand()
             );
         }
 
@@ -112,6 +118,14 @@ namespace Jukebox\API\Factories
         {
             return new \Jukebox\API\Handlers\Get\ArtistWebProfiles\QueryHandler(
                 $this->getMasterFactory()->createPostgreDatabaseBackend()
+            );
+        }
+
+        public function createGetMeQueryHandler(): \Jukebox\API\Handlers\Get\Me\QueryHandler
+        {
+            return new \Jukebox\API\Handlers\Get\Me\QueryHandler(
+                $this->getMasterFactory()->createMongoDatabaseBackend(),
+                $this->session->getSessionData()
             );
         }
 

@@ -2,11 +2,13 @@
 
 namespace Jukebox\API\Handlers\Get\Search
 {
+
     use Jukebox\API\Backends\SearchBackend;
     use Jukebox\Framework\Handlers\QueryHandlerInterface;
     use Jukebox\Framework\Http\Request\RequestInterface;
     use Jukebox\Framework\Http\StatusCodes\BadRequest;
     use Jukebox\Framework\Models\AbstractModel;
+    use Jukebox\Framework\ValueObjects\Uri;
 
     class QueryHandler implements QueryHandlerInterface
     {
@@ -33,21 +35,15 @@ namespace Jukebox\API\Handlers\Get\Search
             }
 
             $params = [
+                'fields' => ['_type', '_id'],
                 'query' => [
                     'multi_match' => [
                         'query' => $request->getParameter('query'),
                         'fields' => [
-                            'name^50',
-                            'title^10',
-                            'title.snowball^2',
-                            'title.shingle^2',
-                            'title.ngram^2',
-                            'artists.name^2',
-                            'artists.name.ngrams^2',
-                            'name.snowball^2',
-                            'name.shingle^2',
-                            'name.ngram^5',
-                        ],
+                            'name.name^100',
+                            'artists.name.name^20',
+                            'title.title^10'
+                        ]
                     ]
                 ]
             ];
@@ -62,7 +58,24 @@ namespace Jukebox\API\Handlers\Get\Search
                 $page = $request->getParameter('page');
             }
 
-            $model->setData($this->searchBackend->search('tracks,artists', $params, $size, $page));
+            $model->setData(
+                $this->searchBackend->search($this->getType($request->getUri()), $params, $size, $page)
+            );
+        }
+
+        private function getType(Uri $uri): string
+        {
+            if (!$uri->hasParameter('type')) {
+                return 'tracks,artists';
+            }
+
+            switch ($uri->getParameter('type')) {
+                case 'tracks':
+                case 'artists':
+                    return $uri->getParameter('type');
+                default:
+                    return 'tracks,artists';
+            }
         }
     }
 }

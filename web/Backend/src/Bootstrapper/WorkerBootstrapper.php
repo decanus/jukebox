@@ -3,10 +3,9 @@
 namespace Jukebox\Backend\Bootstrapper
 {
 
+    use Jukebox\Backend\ErrorHandlers\CLIErrorHandler;
     use Jukebox\Framework\Bootstrap\AbstractBootstrapper;
     use Jukebox\Framework\Configuration;
-    use Jukebox\Framework\ErrorHandlers\DevelopmentErrorHandler;
-    use Jukebox\Framework\ErrorHandlers\ProductionErrorHandler;
     use Jukebox\Framework\Factories\MasterFactory;
 
     class WorkerBootstrapper extends AbstractBootstrapper
@@ -68,21 +67,8 @@ namespace Jukebox\Backend\Bootstrapper
 
         protected function registerErrorHandler()
         {
-            if ($this->isDevelopmentMode()) {
-                $errorHandler = new DevelopmentErrorHandler;
-            } else {
-                $errorHandler = new ProductionErrorHandler;
-            }
-
+            $errorHandler = new CLIErrorHandler;
             $errorHandler->register();
-        }
-
-        /**
-         * @return bool
-         */
-        private function isDevelopmentMode(): bool
-        {
-            return $this->getConfiguration()->isDevelopmentMode();
         }
 
         protected function buildRequest()

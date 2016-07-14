@@ -4,7 +4,7 @@
 
 import { YoutubePlayer } from './youtube-player'
 import { Emitter } from '../event/emitter'
-import { Observable } from '../observable'
+import { Observable } from '../event/observable'
 import { PlayerState } from './player-state'
 import { QueueDelegate } from './queue/queue-delegate'
 
@@ -150,6 +150,10 @@ export class PlayerDelegator {
   async next (automatic = false) {
     this._queue.next(automatic)
 
+    if (!this._queue.hasCurrentTrack()) {
+      return await this.stop()
+    }
+    
     await this._loadCurrentTrack()
 
     return await this.play()
@@ -160,7 +164,10 @@ export class PlayerDelegator {
    * @returns {Promise}
    */
   async prev () {
-    this._queue.prev()
+    
+    if (!this._queue.isFirst()) {
+      this._queue.prev()
+    }
 
     await this._loadCurrentTrack()
 

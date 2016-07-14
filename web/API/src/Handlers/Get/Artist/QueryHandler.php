@@ -3,7 +3,6 @@
 namespace Jukebox\API\Handlers\Get\Artist
 {
 
-    use Elasticsearch\Common\Exceptions\Missing404Exception;
     use Jukebox\API\Queries\FetchArtistQuery;
     use Jukebox\Framework\Handlers\QueryHandlerInterface;
     use Jukebox\Framework\Http\Request\RequestInterface;
@@ -26,7 +25,7 @@ namespace Jukebox\API\Handlers\Get\Artist
         {
             try {
                 $model->setData($this->fetchArtistQuery->execute($request->getUri()->getExplodedPath()[2]));
-            } catch (Missing404Exception $e) {
+            } catch (\Throwable $e) {
                 $model->setStatusCode(new NotFound);
             }
         }

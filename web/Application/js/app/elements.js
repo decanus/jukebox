@@ -16,12 +16,16 @@ import { PlayerScrobbleBar } from  '../elements/player/player-scrobble-bar'
 import { PlayerQueue } from  '../elements/player/player-queue'
 import { PlayerControls } from  '../elements/player/player-controls'
 import { PlayerQueueItem as _PlayerQueueItem} from  '../elements/player/player-queue-item'
-import { SearchField } from  '../elements/search-field'
-import { SearchPaginator } from  '../elements/search-paginator'
+import { SearchField } from  '../elements/search/search-field'
+import { SearchPaginator } from  '../elements/search/search-paginator'
 import { ListTrack } from  '../elements/list-track'
 import { InsertIcon as _InsertIcon } from  '../elements/insert-icon'
 import { TabLink } from  '../elements/tab/tab-link'
 import { TabContent } from  '../elements/tab/tab-content'
+import { SearchForm } from '../elements/search/search-form'
+import { DialogLink } from '../elements/dialog/dialog-link'
+import { DialogContent } from '../elements/dialog/dialog-content'
+import { PlayerVolumeButton } from '../elements/player/player-volume-button'
 
 /**
  * @type {Function}
@@ -56,6 +60,13 @@ document.registerElement('search-paginator', SearchPaginator)
 document.registerElement('list-track', ListTrack)
 document.registerElement('tab-link', TabLink)
 document.registerElement('tab-content', TabContent)
+document.registerElement('dialog-content', DialogContent)
+document.registerElement('player-volume-button', PlayerVolumeButton)
+
+document.registerElement('search-form', {
+  'extends': 'form',
+  prototype: SearchForm.prototype
+})
 
 document.registerElement('toggle-sidebar', {
   'extends': 'button',
@@ -65,6 +76,11 @@ document.registerElement('toggle-sidebar', {
 document.registerElement('jukebox-link', {
   'extends': 'a',
   prototype: JukeboxLink.prototype
+})
+
+document.registerElement('dialog-link', {
+  'extends': 'a',
+  prototype: DialogLink.prototype
 })
 
 document.registerElement('search-field', {

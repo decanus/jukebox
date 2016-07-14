@@ -90,5 +90,19 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createPostgreDatabaseBackend()
             );
         }
+        
+        public function createFetchTrackIdsQuery(): \Jukebox\Backend\Queries\FetchTrackIdsQuery
+        {
+            return new \Jukebox\Backend\Queries\FetchTrackIdsQuery(
+                $this->getMasterFactory()->createPostgreDatabaseBackend()
+            );
+        }
+
+        public function createFetchTrackByIdQuery(): \Jukebox\Backend\Queries\FetchTrackByIdQuery
+        {
+            return new \Jukebox\Backend\Queries\FetchTrackByIdQuery(
+                $this->getMasterFactory()->createPostgreDatabaseBackend()
+            );
+        }
     }
 }

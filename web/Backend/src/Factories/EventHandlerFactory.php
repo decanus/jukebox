@@ -77,9 +77,7 @@ namespace Jukebox\Backend\Factories
                 $event,
                 $this->getMasterFactory()->createElasticsearchClient(),
                 $this->getMasterFactory()->createFetchTracksQuery(),
-                $this->getMasterFactory()->createFetchTrackArtistsQuery(),
-                $this->getMasterFactory()->createFetchTrackGenresQuery(),
-                $this->getMasterFactory()->createFetchTrackSourcesQuery()
+                $this->getMasterFactory()->createFetchTrackArtistsQuery()
             );
         }
 
@@ -96,6 +94,14 @@ namespace Jukebox\Backend\Factories
             return new \Jukebox\Backend\EventHandlers\Push\TrackPathsPushEventHandler(
                 $this->getMasterFactory()->createFetchTrackPathsQuery(),
                 $this->getMasterFactory()->createDataPoolWriter($event->getDataVersion())
+            );
+        }
+
+        public function createArtistsDataPoolPushEventHandler(\Jukebox\Backend\Events\ArtistsDataPoolPushEvent $event): \Jukebox\Backend\EventHandlers\Push\ArtistsDataPoolPushEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\Push\ArtistsDataPoolPushEventHandler(
+                $this->getMasterFactory()->createDataPoolWriter($event->getDataVersion()),
+                $this->getMasterFactory()->createFetchArtistsQuery()
             );
         }
         
@@ -146,6 +152,27 @@ namespace Jukebox\Backend\Factories
                 $event,
                 $this->getMasterFactory()->createSoundcloudService(),
                 $this->getMasterFactory()->createInsertArtistCommand()
+            );
+        }
+
+        public function createInitialTrackDataPoolPushEventHandler(\Jukebox\Backend\Events\InitialTrackDataPoolPushEvent $event): \Jukebox\Backend\EventHandlers\Push\InitialTrackDataPoolPushEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\Push\InitialTrackDataPoolPushEventHandler(
+                $event,
+                $this->getMasterFactory()->createEventQueueWriter(),
+                $this->getMasterFactory()->createFetchTrackIdsQuery()
+            );
+        }
+
+        public function createTrackDataPoolPushEventHandler(\Jukebox\Backend\Events\TrackDataPoolPushEvent $event): \Jukebox\Backend\EventHandlers\Push\TrackDataPoolPushEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\Push\TrackDataPoolPushEventHandler(
+                $event,
+                $this->getMasterFactory()->createFetchTrackByIdQuery(),
+                $this->getMasterFactory()->createFetchTrackArtistsQuery(),
+                $this->getMasterFactory()->createFetchTrackGenresQuery(),
+                $this->getMasterFactory()->createFetchTrackSourcesQuery(),
+                $this->getMasterFactory()->createDataPoolWriter($event->getDataVersion())
             );
         }
     }

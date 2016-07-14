@@ -1,0 +1,27 @@
+.profile-layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  > .sidebar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+
+  > .content {
+    flex-grow: 1;
+  }
+
+  @media (min-width: 700px) {
+    flex-direction: row;
+
+    > .sidebar {
+      flex-direction: column;
+      width: 200px;
+      margin-right: 60px;
+      margin-bottom: 0;
+    }
+
+  }
+}

@@ -3,13 +3,13 @@
 namespace Jukebox\Framework\Backends
 {
 
+    use Jukebox\Framework\Logging\LoggerAware;
+    use Jukebox\Framework\Logging\LoggerAwareTrait;
     use MongoDB\Client;
     use MongoDB\Database;
     use MongoDB\InsertOneResult;
     use MongoDB\Operation\FindOneAndUpdate;
     use MongoDB\UpdateResult;
-    use Jukebox\Framework\Logging\LoggerAware;
-    use Jukebox\Framework\Logging\LoggerAwareTrait;
 
     class MongoDatabaseBackend implements LoggerAware
     {
@@ -61,10 +61,10 @@ namespace Jukebox\Framework\Backends
             }
         }
 
-        public function findOne(string $collectionName, array $query)
+        public function findOne(string $collectionName, array $query, array $options = [])
         {
             try {
-                return $this->getDatabase()->selectCollection($collectionName)->findOne($query);
+                return $this->getDatabase()->selectCollection($collectionName)->findOne($query, $options);
             } catch (\Throwable $e) {
                 $this->getLogger()->emergency($e);
                 throw $e;

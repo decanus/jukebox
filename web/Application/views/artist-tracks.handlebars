@@ -1,10 +1,10 @@
 {{#if tracks.results}}
 
     {{#tracks.results}}
-        <list-track track-id="{{id}}" result-id="{{@root.artistId}}" result-type="artist-tracks"></list-track>
+        <list-track track-id="{{id}}" result-id="{{@root.tracks.id}}" result-type="artist-tracks"></list-track>
     {{/tracks.results}}
 
-    {{#if isCompletelyLoaded}}
+    {{#if tracks.isCompletelyLoaded}}
     {{else}}
         <search-paginator result-id="{{artistId}}" result-type="artist-tracks">
             <div class="loading-animation"></div>

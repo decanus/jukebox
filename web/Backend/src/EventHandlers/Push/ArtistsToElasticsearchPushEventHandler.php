@@ -59,8 +59,6 @@ namespace Jukebox\Backend\EventHandlers\Push
 
                 $params['body'][] = [
                     'name' => $artist['name'],
-                    'permalink' => $artist['permalink'],
-                    'image' => $artist['image'],
                 ];
 
                 if ($key % 1000 === 0) {

@@ -4,15 +4,33 @@ namespace Jukebox\API\Mappers
 {
 
     use Jukebox\API\Search\SearchResult;
+    use Jukebox\Framework\DataPool\DataPoolReader;
 
     class SearchResultMapper
     {
+        /**
+         * @var DataPoolReader
+         */
+        private $dataPoolReader;
+
+        public function __construct(DataPoolReader $dataPoolReader)
+        {
+            $this->dataPoolReader = $dataPoolReader;
+        }
+
         public function map(SearchResult $searchResult): array
         {
             $response = [];
 
             if ($searchResult->found()) {
-                return $this->normalize($searchResult->getResponse());
+                $hit = $searchResult->getResponse();
+                if ($hit['_type'] === 'artists') {
+                    return $this->dataPoolReader->getArtist($hit['_id']);
+                }
+
+                if ($hit['_type'] === 'tracks') {
+                    return $this->dataPoolReader->getTrack($hit['_id']);
+                }
             }
 
 
@@ -22,7 +40,23 @@ namespace Jukebox\API\Mappers
 
             $result = [];
             foreach ($searchResult->getHits() as $hit) {
-                $result[] = $this->normalize($hit);
+                if ($hit['_type'] === 'artists') {
+                    try {
+                        $result[] = $this->dataPoolReader->getArtist($hit['_id']);
+                    } catch (\Throwable $e) {
+                        // @todo
+                    }
+                    continue;
+                }
+
+                if ($hit['_type'] === 'tracks') {
+                    try {
+                        $result[] = $this->dataPoolReader->getTrack($hit['_id']);
+                    } catch (\Exception $e) {
+
+                    }
+                }
+
             }
 
             if ($searchResult->hasPagination()) {
@@ -32,19 +66,6 @@ namespace Jukebox\API\Mappers
             $response['results'] = $result;
 
             return $response;
-        }
-
-        private function normalize(array $object)
-        {
-            $data = $object['_source'];
-            $data['id'] = (int) $object['_id'];
-            $data['type'] = $object['_type'];
-
-            if (isset($object['_score'])) {
-                $data['score'] = $object['_score'];
-            }
-
-            return $data;
         }
     }
 }
