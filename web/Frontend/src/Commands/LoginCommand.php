@@ -38,6 +38,7 @@ namespace Jukebox\Frontend\Commands
             if ($loginResponse->getResponseCode() === 500) {
                 throw new \Exception('Login Failed');
             }
+
             if ($loginResponse->getResponseCode() !== 200) {
                 throw new \InvalidArgumentException('Invalid login Credentials');
             }
