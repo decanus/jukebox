@@ -7,6 +7,7 @@ import { SearchView } from './search-view'
 import { ArtistView } from './artist-view'
 import { ArtistTracksView } from './artist-tracks-view'
 import { ArtistProfilesView } from './artist-profiles-view'
+import { LoginView } from './login-view'
 
 /**
  * @typedef {{ fetch: (function(): Promise<Page>), handle: (function(Page) ) }} View
@@ -17,7 +18,8 @@ const views = {
   'artist': ArtistView,
   'artist-tracks': ArtistTracksView,
   'artist-profiles': ArtistProfilesView,
-  'search': SearchView
+  'search': SearchView,
+  'login': LoginView
 }
 
 /**
