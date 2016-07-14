@@ -2,9 +2,9 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { app } from '../app'
-import { Page } from './page'
-import { ViewRepository } from './view-repository'
+import { app } from '../../app'
+import { Page } from '../page'
+import { ViewRepository } from '../view-repository'
 
 /**
  *

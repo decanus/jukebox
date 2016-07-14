@@ -1,29 +1,33 @@
-<h2>Log In</h2>
+<section class="page-content -centered">
+    <div class="container">
+        <h2>Log In</h2>
 
-<form is="ajax-form" action="/action/login" method="post" is="ajax-form">
+        <form is="ajax-form" action="/action/login" method="post" is="ajax-form">
 
-    <fieldset class="field-group">
-        <input-field class="-block -center">
-            <label for="email-field">
-                <insert-icon icon-name="person" class="icon">Email</insert-icon>
-            </label>
+            <fieldset class="field-group">
+                <input-field class="-block -center">
+                    <label for="email-field">
+                        <insert-icon icon-name="person" class="icon">Email</insert-icon>
+                    </label>
 
-            <input type="text" name="email" placeholder="Email" id="email-field">
-        </input-field>
+                    <input type="text" name="email" placeholder="Email" id="email-field">
+                </input-field>
 
-        <input-field class="-block -center">
-            <label for="username-field">
-                <insert-icon icon-name="key" class="icon">Password</insert-icon>
-            </label>
+                <input-field class="-block -center">
+                    <label for="username-field">
+                        <insert-icon icon-name="key" class="icon">Password</insert-icon>
+                    </label>
 
-            <input type="password" name="password" placeholder="Password" id="username-field">
-        </input-field>
+                    <input type="password" name="password" placeholder="Password" id="username-field">
+                </input-field>
 
-        <form-error class="form-error"></form-error>
-    </fieldset>
+                <form-error class="form-error"></form-error>
+            </fieldset>
 
-    <button type="submit" class="general-button">
-        Log In
-    </button>
+            <button type="submit" class="general-button">
+                Log In
+            </button>
 
-</form>
+        </form>
+    </div>
+</section>

@@ -5,6 +5,12 @@
 import { resolvePath } from '../app/apr'
 import { app } from '../app'
 
+const staticRoutes = {
+  '/': 'homepage',
+  '/error': 'error',
+  '/login': 'login'
+}
+
 /**
  * @typedef {{ name: string, data: * }} ResolvedRoute
  */
@@ -62,8 +68,24 @@ function resolveCached (route) {
 /**
  *
  * @param {Route} route
+ * @returns {ResolvedRoute|null}
+ */
+function resolveStatic (route) {
+  const path = route.path
+
+  if (!staticRoutes.hasOwnProperty(path)) {
+    return null
+  }
+
+  return { name: staticRoutes[path] }
+}
+
+/**
+ *
+ * @param {Route} route
  * @returns {ResolvedRoute}
  * @todo rename and move
+ * @todo generic resovers handling
  */
 export async function resolveView (route) {
   const cached = resolveCached(route)
@@ -72,16 +94,14 @@ export async function resolveView (route) {
     return cached
   }
 
-  // todo: better handling for static pages
+  const resolvedStatic = resolveStatic(route)
 
-  switch (route.path) {
-    case '/':
-      return { name: 'static', data: { title: 'Jukebox Ninja - Home', template: 'homepage' } }
-    case '/error':
-      return { name: 'static', data: { title: 'Jukebox Ninja - Error', template: 'error' } }
+  if (resolvedStatic) {
+    return resolvedStatic
   }
 
   if (route.pathParts[ 0 ] === 'search') {
+    // todo: should we do this here?
     return { name: 'search', data: {
       query: route.params.get('q') || '',
       includes: [route.params.get('type') || 'everything']

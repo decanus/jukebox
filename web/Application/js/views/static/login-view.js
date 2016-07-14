@@ -2,8 +2,8 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { Page } from './page'
-import { StaticView } from './static-view'
+import { Page } from '../page'
+import { StaticView } from '../static-view'
 
 /**
  *

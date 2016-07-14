@@ -4,10 +4,12 @@
 
 import { StaticView } from './static-view'
 import { SearchView } from './search-view'
-import { ArtistView } from './artist-view'
-import { ArtistTracksView } from './artist-tracks-view'
-import { ArtistProfilesView } from './artist-profiles-view'
-import { LoginView } from './login-view'
+import { ArtistView } from './artist/artist-view'
+import { ArtistTracksView } from './artist/artist-tracks-view'
+import { ArtistProfilesView } from './artist/artist-profiles-view'
+import { LoginView } from './static/login-view'
+import { HomepageView } from './static/homepage-view'
+import { ErrorView } from './static/error-view'
 
 /**
  * @typedef {{ fetch: (function(): Promise<Page>), handle: (function(Page) ) }} View
@@ -19,7 +21,9 @@ const views = {
   'artist-tracks': ArtistTracksView,
   'artist-profiles': ArtistProfilesView,
   'search': SearchView,
-  'login': LoginView
+  'login': LoginView,
+  'homepage': HomepageView,
+  'error': ErrorView
 }
 
 /**
