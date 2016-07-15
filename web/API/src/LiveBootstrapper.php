@@ -63,6 +63,7 @@ namespace Jukebox\API
             $router->addRouter($this->getFactory()->createSearchRouter());
             $router->addRouter($this->getFactory()->createTracksRouter());
             $router->addRouter($this->getFactory()->createMeRouter());
+            $router->addRouter($this->getFactory()->createBrowseRouter());
 
             return $router;
         }
