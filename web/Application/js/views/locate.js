@@ -10,6 +10,7 @@ import { ArtistProfilesView } from './artist/artist-profiles-view'
 import { LoginView } from './static/login-view'
 import { HomepageView } from './static/homepage-view'
 import { ErrorView } from './static/error-view'
+import { NotFoundView } from './static/not-found-view'
 
 /**
  * @typedef {{ fetch: (function(): Promise<Page>), handle: (function(Page) ) }} View
@@ -23,7 +24,8 @@ const views = {
   'search': SearchView,
   'login': LoginView,
   'homepage': HomepageView,
-  'error': ErrorView
+  'error': ErrorView,
+  'not-found': NotFoundView
 }
 
 /**

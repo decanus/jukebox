@@ -114,12 +114,5 @@ export async function resolveView (route) {
     return special
   }
 
-  return {
-    name: 'static',
-    data: {
-      title: 'Jukebox Ninja - Page Not Found',
-      template: '404',
-      data: { uri: route }
-    }
-  }
+  return { name: 'not-found', data: { uri: route } }
 }
