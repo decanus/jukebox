@@ -29,7 +29,7 @@ namespace Jukebox\Frontend\Routers
             }
 
             $uri = $request->getUri();
-
+            
             switch ($uri->getPath()) {
                 case '/action/login':
                     return $this->factory->createLoginRequestController(new ControllerParameterObject($uri));

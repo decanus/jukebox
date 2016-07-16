@@ -186,5 +186,19 @@ namespace Jukebox\Frontend\Factories
                 new JsonResponse
             );
         }
+
+        public function createRegistrationRequestController(ControllerParameterObject $parameterObject): PostController
+        {
+            return new PostController(
+                new AjaxModel($parameterObject->getUri()),
+                $this->getMasterFactory()->createPreHandler(),
+                $this->getMasterFactory()->createRegistrationCommandHandler(),
+                $this->getMasterFactory()->createQueryHandler(),
+                $this->getMasterFactory()->createAjaxTransformationHandler(),
+                $this->getMasterFactory()->createResponseHandler(),
+                $this->getMasterFactory()->createPostHandler(),
+                new JsonResponse
+            );
+        }
     }
 }

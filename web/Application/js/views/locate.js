@@ -8,6 +8,7 @@ import { ArtistView } from './artist/artist-view'
 import { ArtistTracksView } from './artist/artist-tracks-view'
 import { ArtistProfilesView } from './artist/artist-profiles-view'
 import { LoginView } from './static/login-view'
+import { RegisterView } from './static/register-view'
 import { HomepageView } from './static/homepage-view'
 import { ErrorView } from './static/error-view'
 import { NotFoundView } from './static/not-found-view'
@@ -23,6 +24,7 @@ const views = {
   'artist-profiles': ArtistProfilesView,
   'search': SearchView,
   'login': LoginView,
+  'register': RegisterView,
   'homepage': HomepageView,
   'error': ErrorView,
   'not-found': NotFoundView

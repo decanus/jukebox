@@ -196,6 +196,13 @@ namespace Jukebox\Frontend\Factories
                 $this->getMasterFactory()->createLoginCommand()
             );
         }
+        
+        public function createRegistrationCommandHandler(): \Jukebox\Frontend\Handlers\Post\Registration\CommandHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Post\Registration\CommandHandler(
+                $this->getMasterFactory()->createRegistrationCommand()
+            );
+        }
 
         /**
          * @return fDOMDocument

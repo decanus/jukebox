@@ -8,7 +8,8 @@ import { app } from '../app'
 const staticRoutes = {
   '/': 'homepage',
   '/error': 'error',
-  '/login': 'login'
+  '/login': 'login',
+  '/signup': 'register'
 }
 
 /**

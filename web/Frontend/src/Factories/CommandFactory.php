@@ -25,5 +25,12 @@ namespace Jukebox\Frontend\Factories
                 $this->session->getSessionData()
             );
         }
+
+        public function createRegistrationCommand(): \Jukebox\Frontend\Commands\RegistrationCommand
+        {
+            return new \Jukebox\Frontend\Commands\RegistrationCommand(
+                $this->getMasterFactory()->createJukeboxRestManager()
+            );
+        }
     }
 }
