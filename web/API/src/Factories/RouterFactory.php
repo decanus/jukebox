@@ -51,5 +51,12 @@ namespace Jukebox\API\Factories
             $router->addEndpointHandler(new \Jukebox\API\Endpoints\v1\Me\GetMeEndpoint($this->getMasterFactory()));
             return $router;
         }
+
+        public function createBrowseRouter(): \Jukebox\API\Routers\BrowseRouter
+        {
+            $router = new \Jukebox\API\Routers\BrowseRouter($this->getMasterFactory()->createAccessControl());
+            $router->addEndpointHandler(new \Jukebox\API\Endpoints\v1\Browse\GetNewReleasesEndpoint($this->getMasterFactory()));
+            return $router;
+        }
     }
 }

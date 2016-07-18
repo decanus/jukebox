@@ -3,6 +3,7 @@
  */
 
 import { AppMount } from '../elements/app/app-mount'
+import { AppSidebar } from '../elements/app/app-sidebar'
 import { AppView as _AppView } from '../elements/app/app-view'
 import { PlayerTitle } from '../elements/player/player-title'
 import { JukeboxLink } from '../elements/link/jukebox-link'
@@ -48,6 +49,7 @@ export const PlayerQueueItem = document.registerElement('player-queue-item', _Pl
 export const InsertIcon = document.registerElement('insert-icon', _InsertIcon)
 
 document.registerElement('app-mount', AppMount)
+document.registerElement('app-sidebar', AppSidebar)
 document.registerElement('player-title', PlayerTitle)
 document.registerElement('player-volume', PlayerVolume)
 document.registerElement('player-repeat-button', PlayerRepeatButton)

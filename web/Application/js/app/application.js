@@ -147,16 +147,13 @@ export class Application {
     return this._document.querySelector('main')
   }
 
-  showSidebar() {
-    this._getAppLayout().classList.add('-sidebar-visible')
-  }
-
-  hideSidebar() {
-    this._getAppLayout().classList.remove('-sidebar-visible')
-  }
-
-  toggleSidebar() {
-    this._getAppLayout().classList.toggle('-sidebar-visible')
+  /**
+   * 
+   * @returns {AppSidebar}
+   */
+  get $sidebar () {
+    //noinspection JSValidateTypes
+    return this._document.querySelector('app-sidebar')
   }
 
   /**
