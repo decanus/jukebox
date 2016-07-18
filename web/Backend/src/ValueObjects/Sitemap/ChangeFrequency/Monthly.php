@@ -1,6 +1,6 @@
 <?php
 
-namespace Jukebox\Backend\ValueObjects\ChangeFrequency
+namespace Jukebox\Backend\ValueObjects\Sitemap\ChangeFrequency
 {
     class Monthly implements ChangeFrequency
     {
