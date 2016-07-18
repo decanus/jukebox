@@ -3,6 +3,8 @@
 namespace Jukebox\Backend\Sitemap
 {
 
+    use Jukebox\Backend\ValueObjects\ChangeFrequency\ChangeFrequency;
+    use Jukebox\Framework\ValueObjects\Uri;
     use TheSeer\fDOM\fDOMDocument;
 
     class Sitemap
@@ -22,6 +24,13 @@ namespace Jukebox\Backend\Sitemap
             }
 
             $this->document = $document;
+        }
+
+        public function addUri(Uri $uri, ChangeFrequency $changeFrequency)
+        {
+            $url = $this->document->documentElement->appendElement('url');
+            $url->appendElement('loc', (string) $uri);
+            $url->appendElement('changefreq', (string) $changeFrequency);
         }
 
         public function getDom(): fDOMDocument
