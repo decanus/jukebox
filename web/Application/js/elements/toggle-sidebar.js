@@ -12,7 +12,7 @@ export class ToggleSidebar extends HTMLButtonElement {
     const $icon = this.querySelector('.audio-icon')
 
     this.addEventListener('click', () => {
-      app.toggleSidebar()
+      app.$sidebar.toggle()
     })
 
     const firstPlay = player
@@ -24,7 +24,7 @@ export class ToggleSidebar extends HTMLButtonElement {
 
     Promise.race([ firstPlay, queueChange ])
       .then(() => {
-        app.showSidebar()
+        app.$sidebar.show()
         this.hidden = false
       })
 
