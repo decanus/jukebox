@@ -8,6 +8,7 @@ LESS_FILES = $(shell find less -name "*.less")
 all: css/jukebox.css
 
 deps:
+	npm prune
 	npm install
 
 css/jukebox.css: $(LESS_FILES)
