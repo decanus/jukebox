@@ -10,7 +10,7 @@ export class AjaxForm extends HTMLFormElement {
     this.addEventListener('submit', async (event) => {
       event.preventDefault()
 
-      this._setError('')
+      this._$error.clear()
 
       const response = await fetch(this.action, {
         method: 'POST',
@@ -22,43 +22,19 @@ export class AjaxForm extends HTMLFormElement {
       const data = await response.json()
 
       if (data.error) {
-        this._setErrorCode(data.error)
+        this._$error.errorCode = data.error
         return
       }
-      
+
       findView(this).reloadView()
     })
   }
 
   /**
    *
-   * @param {string} code
-   * @private
+   * @returns {FormError}
    */
-  _setErrorCode (code) {
-    this._setError(errors[ code ])
-  }
-
-  /**
-   *
-   * @param {string} error
-   * @private
-   */
-  _setError (error) {
-    const $error = this.$error
-
-    if ($error == null) {
-      return
-    }
-
-    $error.textContent = error
-  }
-
-  /**
-   *
-   * @returns {Element}
-   */
-  get $error () {
+  get _$error () {
     return this.querySelector('form-error')
   }
 }

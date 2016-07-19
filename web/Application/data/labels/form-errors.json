@@ -1,4 +1,8 @@
 {
   "invalid_credentials": "Invalid email or password",
+  "invalid_email": "Invalid email",
+  "invalid_username": "Invalid username",
+  "invalid_password": "Invalid password",
+  "something_went_wrong": "There was an error trying to sign you up, please try again later.",
   "login_failed": "There was an error trying to sign you in, please try again later."
 }

@@ -30,6 +30,7 @@ import { DialogContent } from '../elements/dialog/dialog-content'
 import { InputField } from '../elements/input-field'
 import { PlayerVolumeButton } from '../elements/player/player-volume-button'
 import { AjaxForm } from '../elements/ajax-form'
+import { FormError } from '../elements/form-error'
 
 /**
  * @type {Function}
@@ -68,6 +69,7 @@ document.registerElement('tab-content', TabContent)
 document.registerElement('dialog-content', DialogContent)
 document.registerElement('input-field', InputField)
 document.registerElement('player-volume-button', PlayerVolumeButton)
+document.registerElement('form-error', FormError)
 
 document.registerElement('search-form', {
   'extends': 'form',
