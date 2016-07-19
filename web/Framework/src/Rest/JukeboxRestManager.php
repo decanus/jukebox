@@ -80,7 +80,7 @@ namespace Jukebox\Framework\Rest
         {
 
             return $this->curl->post(
-                $this->buildUri('/v1/authentication'),
+                $this->buildUri('/v1/register'),
                 ['key' => $this->key, 'email' => (string) $email, 'password' => (string) $password, 'username' => $username]
             );
         }
