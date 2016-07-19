@@ -26,11 +26,12 @@ import { TabLink } from  '../elements/tab/tab-link'
 import { TabContent } from  '../elements/tab/tab-content'
 import { SearchForm } from '../elements/search/search-form'
 import { DialogLink } from '../elements/dialog/dialog-link'
-import { DialogContent } from '../elements/dialog/dialog-content'
+import { DialogContent as _DialogContent } from '../elements/dialog/dialog-content'
 import { InputField } from '../elements/input-field'
 import { PlayerVolumeButton } from '../elements/player/player-volume-button'
 import { AjaxForm } from '../elements/ajax-form'
 import { FormError } from '../elements/form-error'
+import { DialogViewLink } from '../elements/dialog/dialog-view-link'
 
 /**
  * @type {Function}
@@ -52,6 +53,11 @@ export const PlayerQueueItem = document.registerElement('player-queue-item', _Pl
  */
 export const InsertIcon = document.registerElement('insert-icon', _InsertIcon)
 
+/**
+ * @type {Function}
+ */
+export const DialogContent = document.registerElement('dialog-content', _DialogContent)
+
 document.registerElement('app-mount', AppMount)
 document.registerElement('app-sidebar', AppSidebar)
 document.registerElement('player-title', PlayerTitle)
@@ -66,7 +72,6 @@ document.registerElement('search-paginator', SearchPaginator)
 document.registerElement('list-track', ListTrack)
 document.registerElement('tab-link', TabLink)
 document.registerElement('tab-content', TabContent)
-document.registerElement('dialog-content', DialogContent)
 document.registerElement('input-field', InputField)
 document.registerElement('player-volume-button', PlayerVolumeButton)
 document.registerElement('form-error', FormError)
@@ -89,6 +94,11 @@ document.registerElement('jukebox-link', {
 document.registerElement('dialog-link', {
   'extends': 'a',
   prototype: DialogLink.prototype
+})
+
+document.registerElement('dialog-view-link', {
+  'extends': 'a',
+  prototype: DialogViewLink.prototype
 })
 
 document.registerElement('search-field', {

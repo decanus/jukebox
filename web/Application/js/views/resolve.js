@@ -9,7 +9,7 @@ const staticRoutes = {
   '/': 'homepage',
   '/error': 'error',
   '/login': 'login',
-  '/signup': 'register'
+  '/register': 'register'
 }
 
 /**

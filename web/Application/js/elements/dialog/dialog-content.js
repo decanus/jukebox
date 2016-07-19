@@ -4,10 +4,31 @@
 
 import { createPromise } from '../../dom/events/create-promise'
 import { createObservable } from '../../dom/events/create-observable'
-
-const listener = new WeakMap()
+import { Detabinator } from '../../dom/detabinator'
 
 export class DialogContent extends HTMLElement {
+
+  createdCallback () {
+    this._onKeyUp = this._onKeyUp.bind(this)
+
+    /**
+     * 
+     * @type {Detabinator}
+     * @private
+     */
+    this._detabinator = new Detabinator(this)
+  }
+
+  /**
+   *
+   * @param {KeyboardEvent} event
+   * @private
+   */
+  _onKeyUp (event) {
+    if (event.key === 'Escape' || event.which === 27) {
+      this.close()
+    }
+  }
 
   attachedCallback () {
     const nodes = Array.from(this.childNodes)
@@ -24,19 +45,11 @@ export class DialogContent extends HTMLElement {
 
     backdrop.addEventListener('click', () => this.close())
 
-    const onKeyUp = (event) => {
-      if (event.key === 'Escape' || event.which === 27) {
-        this.close()
-      }
-    }
-
-    document.addEventListener('keyup', onKeyUp)
-    listener.set(this, onKeyUp)
+    document.addEventListener('keyup', this._onKeyUp)
   }
 
   detachedCallback () {
-    document.removeEventListener('keyup', listener.get(this))
-    listener.delete(this)
+    document.removeEventListener('keyup', this._onKeyUp)
   }
 
   close () {
@@ -46,19 +59,22 @@ export class DialogContent extends HTMLElement {
       .then(() => {
         this.classList.remove('__close')
         this.isOpen = false
+        this.dispatchEvent(new CustomEvent('close'))
       })
-    
+
     this.classList.add('__close')
   }
-  
+
   open () {
     this.isOpen = true
+    this.style.willChange = 'transform'
 
     createPromise(this, 'animationend')
       .then(() => {
         this.classList.remove('__open')
+        this.dispatchEvent(new CustomEvent('open'))
       })
-    
+
     this.classList.add('__open')
   }
 
@@ -80,5 +96,7 @@ export class DialogContent extends HTMLElement {
     } else {
       this.removeAttribute('open')
     }
+
+    this._detabinator.inert = !value
   }
 }
