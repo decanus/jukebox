@@ -31,13 +31,7 @@
                 <arg value="-j8"/>
                 <arg value="-B"/>
                 <arg value="-C"/>
-                <arg path="${basedir}/Styles"/>
-            </exec>
-            <exec executable="make">
-                <arg value="-j8"/>
-                <arg value="-B"/>
-                <arg value="-C"/>
-                <arg path="${basedir}/Application"/>
+                <arg path=".."/>
             </exec>
         </parallel>
     </target>
