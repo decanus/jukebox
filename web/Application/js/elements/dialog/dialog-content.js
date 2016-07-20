@@ -5,14 +5,16 @@
 import { createPromise } from '../../dom/events/create-promise'
 import { createObservable } from '../../dom/events/create-observable'
 import { Detabinator } from '../../dom/detabinator'
+import { Events } from '../../dom/events'
 
 export class DialogContent extends HTMLElement {
 
   createdCallback () {
     this._onKeyUp = this._onKeyUp.bind(this)
+    this._onViewExit = this._onViewExit.bind(this)
 
     /**
-     * 
+     *
      * @type {Detabinator}
      * @private
      */
@@ -46,10 +48,12 @@ export class DialogContent extends HTMLElement {
     backdrop.addEventListener('click', () => this.close())
 
     document.addEventListener('keyup', this._onKeyUp)
+    this.addEventListener(Events.VIEW_EXIT_EVENT, this._onViewExit)
   }
 
   detachedCallback () {
     document.removeEventListener('keyup', this._onKeyUp)
+    this.removeEventListener(Events.VIEW_EXIT_EVENT, this._onViewExit)
   }
 
   close () {
@@ -76,6 +80,16 @@ export class DialogContent extends HTMLElement {
       })
 
     this.classList.add('__open')
+  }
+
+  /**
+   *
+   * @param {Event} event
+   * @private
+   */
+  _onViewExit (event) {
+    event.stopPropagation()
+    this.close()
   }
 
   /**

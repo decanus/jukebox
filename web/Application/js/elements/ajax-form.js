@@ -2,8 +2,13 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import errors from '../../data/labels/form-errors.json'
-import { findView } from '../dom/find-view'
+/**
+ * @typedef {{ handle: (function(data: {})) }} FormHandler
+ */
+
+import { Events } from '../dom/events'
+import { Route } from '../value/route'
+import { locateHandler } from '../form/locate-handler'
 
 export class AjaxForm extends HTMLFormElement {
   attachedCallback () {
@@ -26,7 +31,13 @@ export class AjaxForm extends HTMLFormElement {
         return
       }
 
-      findView(this).reloadView()
+      Events.dispatchViewExit(this, new Route('/'))
+      
+      const handler = this._formHandler
+      
+      if (handler) {
+        handler.handle(data)
+      }
     })
   }
 
@@ -36,5 +47,18 @@ export class AjaxForm extends HTMLFormElement {
    */
   get _$error () {
     return this.querySelector('form-error')
+  }
+
+  /**
+   *
+   * @returns {FormHandler}
+   * @private
+   */
+  get _formHandler () {
+    const Handler = locateHandler(this.getAttribute('form-handler'))
+
+    if (Handler) {
+      return new Handler(this)
+    }
   }
 }

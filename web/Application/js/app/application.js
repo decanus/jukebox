@@ -31,7 +31,7 @@ export class Application {
    * @param {Document} document
    * @param {PlayerDelegator} player
    */
-  constructor(document, player) {
+  constructor (document, player) {
     /**
      *
      * @type {Document}
@@ -72,10 +72,17 @@ export class Application {
      * @private
      */
     this._modelRepository = createModelRepository(this._resolveCache)
+
+    /**
+     *
+     * @type {User}
+     * @private
+     */
+    this._user = null
   }
 
   /**
-   * 
+   *
    * @returns {PlayerDelegator}
    */
   get player () {
@@ -92,19 +99,44 @@ export class Application {
 
   /**
    *
+   * @returns {User}
+   */
+  get user () {
+    return this._user
+  }
+
+  /**
+   *
+   * @param {User} user
+   */
+  set user (user) {
+    this._user = user
+    this._emitter.emit('userUpdate')
+  }
+
+  /**
+   *
+   * @returns {Observable}
+   */
+  getUserUpdates () {
+    return this._emitter.toObservable('userUpdate')
+  }
+
+  /**
+   *
    * @returns {Observable<Route>}
    */
   getRouteObservable () {
     return this._emitter.toObservable('route')
   }
-  
+
   /**
    *
    * @param {Route} route
    * @param {boolean} replace
    * @param {boolean} silent
    */
-  setRoute(route, { replace = false, silent = false } = {}) {
+  setRoute (route, { replace = false, silent = false } = {}) {
     if (route.isSameValue(this._route)) {
       return
     }
@@ -132,7 +164,7 @@ export class Application {
   }
 
   /**
-   * 
+   *
    * @returns {ResolveCache}
    */
   get resolveCache () {
@@ -148,20 +180,11 @@ export class Application {
   }
 
   /**
-   * 
+   *
    * @returns {AppSidebar}
    */
   get $sidebar () {
     //noinspection JSValidateTypes
     return this._document.querySelector('app-sidebar')
-  }
-
-  /**
-   *
-   * @returns {Element}
-   * @private
-   */
-  _getAppLayout() {
-    return this._document.querySelector('.app-layout')
   }
 }

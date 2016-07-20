@@ -22,7 +22,7 @@ export class FormError extends HTMLElement {
   }
 
   clear () {
-    this.textContent = ''
+    this.errorCode = ''
   }
 
   createdCallback () {
