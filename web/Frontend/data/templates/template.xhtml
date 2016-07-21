@@ -8,14 +8,14 @@
     <link rel="icon" href="/images/favicon-152.png"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:700|Open+Sans:400,300,600,700"/>
     <link rel="stylesheet" href="/css/jukebox.css"/>
-    <meta name="google-site-verification" content="RGCsCh0ITXBmAdGw9s2bZLuF8vUBeQq2YhWRLk0rEMA" />
+    <meta name="google-site-verification" content="RGCsCh0ITXBmAdGw9s2bZLuF8vUBeQq2YhWRLk0rEMA"/>
     <meta name="description" content="Jukebox Ninja turns all your music sources into one amazing service."/>
 
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@jukeboxninjaapp" />
-    <meta name="twitter:title" content="Jukebox Ninja" />
-    <meta name="twitter:description" content="Jukebox Ninja turns all your music sources into one amazing service." />
-    <meta name="twitter:image" content="https://www.jukebox.ninja/images/favicon-152.png" />
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="@jukeboxninjaapp"/>
+    <meta name="twitter:title" content="Jukebox Ninja"/>
+    <meta name="twitter:description" content="Jukebox Ninja turns all your music sources into one amazing service."/>
+    <meta name="twitter:image" content="https://www.jukebox.ninja/images/favicon-152.png"/>
 
     <title/>
 </head>
@@ -24,24 +24,22 @@
 <div class="header" itemscope="" itemtype="http://schema.org/WebSite">
     <header class="app-header">
         <a href="/" is="jukebox-link" class="logo">
-            <img src="/images/logo.svg" alt="Jukebox Ninja" />
+            <img src="/images/logo.svg" alt="Jukebox Ninja"/>
         </a>
 
         <meta itemprop="url" content="https://www.jukebox.ninja/"/>
 
-        <form is="search-form" class="search" itemprop="potentialAction" itemscope="" itemtype="http://schema.org/SearchAction">
-            <meta itemprop="target" content="https://www.jukebox.ninja/search?q={q}" />
-            <input type="search" is="search-field" class="search-field" placeholder="Search for tracks, artists" name="q" itemprop="query-input" autocomplete="off"/>
+        <form is="search-form" class="search" itemprop="potentialAction" itemscope=""
+              itemtype="http://schema.org/SearchAction">
+            <meta itemprop="target" content="https://www.jukebox.ninja/search?q={q}"/>
+            <input type="search" is="search-field" class="search-field" placeholder="Search for tracks, artists"
+                   name="q" itemprop="query-input" autocomplete="off"/>
         </form>
 
         <div class="buttons">
-            <a view-name="register" href="/register" is="dialog-view-link">
-                Sign Up
-            </a>
-            &#160; / &#160;
-            <a view-name="login" href="/login" is="dialog-view-link">
-                Log In
-            </a>
+            <user-menu class="user-menu">
+
+            </user-menu>
 
             <button class="button toggle-sidebar-button" is="toggle-sidebar" hidden="hidden">
                 <div class="audio-icon -paused">
@@ -59,17 +57,17 @@
 
 <div class="columns">
     <main class="content">
-        <app-mount />
+        <app-mount/>
     </main>
 
     <app-sidebar class="sidebar">
 
         <nav class="player-tabs">
             <tab-link tab-name="player" tab-group="player" class="tab" active="active">
-                <insert-icon icon-name="close" class="icon" />
+                <insert-icon icon-name="close" class="icon"/>
             </tab-link>
             <tab-link tab-name="queue" tab-group="player" class="tab">
-                <insert-icon icon-name="queue" class="icon" />
+                <insert-icon icon-name="queue" class="icon"/>
             </tab-link>
         </nav>
 
@@ -79,19 +77,19 @@
             </div>
 
             <player-title/>
-            <player-scrobble-bar />
-            <player-controls />
+            <player-scrobble-bar/>
+            <player-controls/>
 
             <div class="player-action-buttons">
                 <player-repeat-button class="button"/>
-                <player-volume-button class="button" />
+                <player-volume-button class="button"/>
             </div>
 
         </tab-content>
 
         <tab-content tab-name="queue" tab-group="player" hidden="hidden">
             <div class="player-queue">
-                <player-queue class="inner" />
+                <player-queue class="inner"/>
             </div>
         </tab-content>
     </app-sidebar>

@@ -24,6 +24,6 @@ export class LoginFormHandler {
    * @param {{ email: string, username: string }} user
    */
   handle ({ user }) {
-    app.user = new User(user.email, user.username)
+    app.user = new User(user.username, user.email)
   }
 }

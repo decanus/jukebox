@@ -32,6 +32,7 @@ import { PlayerVolumeButton } from '../elements/player/player-volume-button'
 import { AjaxForm } from '../elements/ajax-form'
 import { FormError } from '../elements/form-error'
 import { DialogViewLink } from '../elements/dialog/dialog-view-link'
+import { UserMenu } from '../elements/user/user-menu'
 
 /**
  * @type {Function}
@@ -75,6 +76,7 @@ document.registerElement('tab-content', TabContent)
 document.registerElement('input-field', InputField)
 document.registerElement('player-volume-button', PlayerVolumeButton)
 document.registerElement('form-error', FormError)
+document.registerElement('user-menu', UserMenu)
 
 document.registerElement('search-form', {
   'extends': 'form',
