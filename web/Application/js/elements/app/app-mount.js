@@ -8,14 +8,16 @@ import { renderTemplate } from '../../template/render'
 import { app } from '../../app'
 import { sendException } from '../../app/analytics'
 import { AppView } from '../../app/elements'
+import { RenderingStatus } from '../../dom/rendering'
 
 export class AppMount extends HTMLElement {
-
   createdCallback () {
-    app.getRouteObservable()
-      .forEach((route) => this._handleRoute(route))
-
     this._handleRoute(app.route)
+
+    RenderingStatus.afterNextRender(() => {
+      app.getRouteObservable()
+        .forEach((route) => this._handleRoute(route))
+    })
   }
 
   /**

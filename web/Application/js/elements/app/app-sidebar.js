@@ -3,6 +3,7 @@
  */
 
 import { Detabinator } from '../../dom/detabinator'
+import { RenderingStatus } from '../../dom/rendering'
 
 export class AppSidebar extends HTMLElement {
   createdCallback () {
@@ -15,7 +16,9 @@ export class AppSidebar extends HTMLElement {
   }
 
   attachedCallback () {
-    this._updateInertState()
+    RenderingStatus.afterNextRender(() => {
+      this._updateInertState()
+    })
   }
 
   /**
