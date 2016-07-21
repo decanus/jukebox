@@ -16,7 +16,7 @@ import './app/elements'
 import './app/media-keys'
 
 window.addEventListener('popstate', () => {
-  app.setRoute(Route.fromLocation(window.location))
+  app.router.route = Route.fromLocation(window.location)
 })
 
 // todo: idk where to put this

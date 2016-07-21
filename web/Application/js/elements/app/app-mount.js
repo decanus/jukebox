@@ -11,24 +11,25 @@ import { AppView } from '../../app/elements'
 import { Events } from '../../dom/events'
 import { RenderingStatus } from '../../dom/rendering'
 
+const router = app.router
+
 export class AppMount extends HTMLElement {
   createdCallback () {
     this._onRoute = this._onRoute.bind(this)
     this._onViewExit = this._onViewExit.bind(this)
-    
-    this._onRoute(app.route)
   }
 
   attachedCallback () {
-    RenderingStatus.afterNextRender(() => {
-      app.getRouteObservable()
-        .forEach((route) => this._onRoute(route))
+    this._onRoute(router.route)
 
+    RenderingStatus.afterNextRender(() => {
+      router.onRouteChanged.addListener(this._onRoute)
       this.addEventListener(Events.VIEW_EXIT_EVENT, this._onViewExit)
     })
   }
 
   detachedCallback () {
+    router.onRouteChanged.removeListener(this._onRoute)
     this.removeEventListener(Events.VIEW_EXIT_EVENT, this._onViewExit)
   }
 
@@ -66,10 +67,11 @@ export class AppMount extends HTMLElement {
    * @private
    */
   _onViewExit (event) {
+    //noinspection JSUnresolvedVariable
     const route = event.detail.redirectRoute
 
     if (route != null) {
-      app.setRoute(route)
+      router.route = route
     }
 
     event.stopPropagation()

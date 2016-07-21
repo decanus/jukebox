@@ -3,15 +3,33 @@
  */
 
 import { app } from '../../app'
+import { RenderingStatus } from '../../dom/rendering'
+
+const router = app.router
 
 export class SearchField extends HTMLInputElement {
+  
   createdCallback () {
-    app.getRouteObservable()
-      .forEach((route) => this._updateValue(route))
-
-    this._updateValue(app.route)
+    this._updateValue = this._updateValue.bind(this)
+  }
+  
+  attachedCallback () {
+    this._updateValue(router.route)
+    
+    RenderingStatus.afterNextRender(() => {
+      router.onRouteChanged.addListener(this._updateValue)
+    })
+  }
+  
+  detachedCallback () {
+    router.onRouteChanged.removeListener(this._updateValue)
   }
 
+  /**
+   * 
+   * @param {Route} route
+   * @private
+   */
   _updateValue (route) {
     if (route.pathParts[ 0 ] !== 'search') {
       return
@@ -20,6 +38,7 @@ export class SearchField extends HTMLInputElement {
     const params = route.params
 
     if (params.has('q')) {
+      //noinspection JSUnresolvedVariable
       this.value = route.params.get('q')
     }
   }

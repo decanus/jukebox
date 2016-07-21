@@ -2,16 +2,14 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { Emitter } from './../event/emitter'
 import { Signal } from './../event/signal'
 import { updatePath } from './../dom/history'
 import { ModelStore } from './../model/model-store'
 import { ModelLoader } from './../model/model-loader'
 import { ModelRepository } from './../model/model-repository'
 import { ModelFetcher } from './../model/model-fetcher'
-import { Route } from './../value/route'
+import { Router } from './router'
 import { ResolveCache } from '../views/resolve-cache'
-import { trackPageView } from './analytics'
 
 /**
  *
@@ -42,9 +40,9 @@ export class Application {
 
     /**
      *
-     * @type {Route} route
+     * @type {Router} route
      */
-    this._route = new Route.fromLocation(window.location)
+    this._router = new Router()
 
     /**
      *
@@ -52,13 +50,6 @@ export class Application {
      * @private
      */
     this._player = player
-
-    /**
-     *
-     * @type {Emitter}
-     * @private
-     */
-    this._emitter = new Emitter()
 
     /**
      *
@@ -120,38 +111,13 @@ export class Application {
     this._user = user
     this.onUserChange.dispatch()
   }
-
-  /**
-   *
-   * @returns {Observable<Route>}
+    
+  /*
+   * 
+   * @returns {Router}
    */
-  getRouteObservable () {
-    return this._emitter.toObservable('route')
-  }
-
-  /**
-   *
-   * @param {Route} route
-   * @param {boolean} replace
-   * @param {boolean} silent
-   */
-  setRoute (route, { replace = false, silent = false } = {}) {
-    if (route.isSameValue(this._route)) {
-      return
-    }
-
-    this._route = route
-    this._emitter.emit('route', route)
-
-    if (!silent) {
-      updatePath(route, replace)
-    }
-
-    trackPageView(route)
-  }
-
-  reloadCurrentRoute () {
-    this._emitter.emit('route', this._route)
+  get router () {
+    return this._router
   }
 
   /**

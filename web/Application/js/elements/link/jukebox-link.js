@@ -4,6 +4,7 @@
 
 import { app } from '../../app'
 import { Route } from '../../value/route'
+import { RenderingStatus } from '../../dom/rendering'
 
 export class JukeboxLink extends HTMLAnchorElement {
   createdCallback () {
@@ -11,9 +12,11 @@ export class JukeboxLink extends HTMLAnchorElement {
   }
 
   attachedCallback () {
-    this.addEventListener('click', this._onClick)
+    RenderingStatus.afterNextRender(() => {
+      this.addEventListener('click', this._onClick)
+    })
   }
-  
+
   detachedCallback () {
     this.removeEventListener('click', this._onClick)
   }
@@ -29,6 +32,7 @@ export class JukeboxLink extends HTMLAnchorElement {
     }
 
     event.preventDefault()
-    app.setRoute(Route.fromLocation(this))
+
+    app.router.route = Route.fromLocation(this)
   }
 }
