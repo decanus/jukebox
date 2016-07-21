@@ -9,20 +9,23 @@ import { app } from '../../app'
 import { sendException } from '../../app/analytics'
 import { AppView } from '../../app/elements'
 import { Events } from '../../dom/events'
+import { RenderingStatus } from '../../dom/rendering'
 
 export class AppMount extends HTMLElement {
-
   createdCallback () {
     this._onRoute = this._onRoute.bind(this)
     this._onViewExit = this._onViewExit.bind(this)
-
-    app.getRouteObservable().forEach(this._onRoute)
-
+    
     this._onRoute(app.route)
   }
 
   attachedCallback () {
-    this.addEventListener(Events.VIEW_EXIT_EVENT, this._onViewExit)
+    RenderingStatus.afterNextRender(() => {
+      app.getRouteObservable()
+        .forEach((route) => this._onRoute(route))
+
+      this.addEventListener(Events.VIEW_EXIT_EVENT, this._onViewExit)
+    })
   }
 
   detachedCallback () {
