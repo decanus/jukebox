@@ -200,5 +200,19 @@ namespace Jukebox\Frontend\Factories
                 new JsonResponse
             );
         }
+
+        public function createGetMeController(ControllerParameterObject $parameterObject): PostController
+        {
+            return new PostController(
+                new AjaxModel($parameterObject->getUri()),
+                $this->getMasterFactory()->createPreHandler(),
+                $this->getMasterFactory()->createCommandHandler(),
+                $this->getMasterFactory()->createGetMeQueryHandler(),
+                $this->getMasterFactory()->createAjaxTransformationHandler(),
+                $this->getMasterFactory()->createResponseHandler(),
+                $this->getMasterFactory()->createPostHandler(),
+                new JsonResponse
+            );
+        }
     }
 }

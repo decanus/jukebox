@@ -204,6 +204,15 @@ namespace Jukebox\Frontend\Factories
             );
         }
 
+
+        public function createGetMeQueryHandler(): \Jukebox\Frontend\Handlers\Get\Me\QueryHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Get\Me\QueryHandler(
+                $this->session->getSessionData(),
+                $this->getMasterFactory()->createJukeboxRestManager()
+            );
+        }
+
         /**
          * @return fDOMDocument
          */
