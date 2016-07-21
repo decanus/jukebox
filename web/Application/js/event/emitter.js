@@ -10,6 +10,9 @@ import { Observable } from './observable'
  */
 const events = Symbol('events')
 
+/**
+ * @deprecated Use Signals instead
+ */
 export class Emitter {
   constructor () {
     /**
