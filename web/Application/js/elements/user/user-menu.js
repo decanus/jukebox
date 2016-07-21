@@ -22,8 +22,6 @@ export class UserMenu extends HTMLElement {
   }
 
   attachedCallback () {
-    this._onUserChange()
-
     RenderingStatus.afterNextRender(() => {
       app.onUserChange.addListener(this._onUserChange)
     })
