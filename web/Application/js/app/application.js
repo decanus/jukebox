@@ -3,6 +3,7 @@
  */
 
 import { Emitter } from './../event/emitter'
+import { Signal } from './../event/signal'
 import { updatePath } from './../dom/history'
 import { ModelStore } from './../model/model-store'
 import { ModelLoader } from './../model/model-loader'
@@ -79,6 +80,12 @@ export class Application {
      * @private
      */
     this._user = null
+
+    /**
+     *
+     * @type {Signal<void>}
+     */
+    this.onUserChange = new Signal()
   }
 
   /**
@@ -111,15 +118,7 @@ export class Application {
    */
   set user (user) {
     this._user = user
-    this._emitter.emit('userUpdate')
-  }
-
-  /**
-   *
-   * @returns {Observable}
-   */
-  getUserUpdates () {
-    return this._emitter.toObservable('userUpdate')
+    this.onUserChange.dispatch()
   }
 
   /**

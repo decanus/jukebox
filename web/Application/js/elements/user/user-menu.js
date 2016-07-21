@@ -5,8 +5,6 @@
 import { app } from '../../app'
 import { RenderingStatus } from '../../dom/rendering'
 
-window.RenderingStatus = RenderingStatus
-
 const SIGNIN_BUTTONS = `
 <a view-name="register" href="/register" is="dialog-view-link">
     Sign Up
@@ -27,8 +25,12 @@ export class UserMenu extends HTMLElement {
     this._onUserChange()
 
     RenderingStatus.afterNextRender(() => {
-      app.getUserUpdates().forEach(this._onUserChange)
+      app.onUserChange.addListener(this._onUserChange)
     })
+  }
+
+  detachedCallback () {
+    app.onUserChange.removeListener(this._onUserChange)
   }
 
   _onUserChange () {
