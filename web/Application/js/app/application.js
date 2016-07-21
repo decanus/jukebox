@@ -82,35 +82,6 @@ export class Application {
 
   /**
    *
-   * @returns {Route}
-   * @deprecated
-   */
-  get route () {
-    return this._router.route
-  }
-
-  /**
-   *
-   * @returns {Observable<Route>}
-   * @deprecated
-   */
-  getRouteObservable () {
-    return this._router.onRouteChanged.toObservable()
-  }
-  
-  /**
-   *
-   * @param {Route} route
-   * @param {boolean} replace
-   * @param {boolean} silent
-   * @deprecated
-   */
-  setRoute(route, { replace = false, silent = false } = {}) {
-    this._router.setRoute(route, { replace, silent })
-  }
-
-  /**
-   *
    * @returns {ModelRepository}
    */
   get modelRepository () {
