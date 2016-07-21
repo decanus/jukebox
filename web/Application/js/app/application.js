@@ -2,15 +2,12 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { Emitter } from './../event/emitter'
-import { updatePath } from './../dom/history'
 import { ModelStore } from './../model/model-store'
 import { ModelLoader } from './../model/model-loader'
 import { ModelRepository } from './../model/model-repository'
 import { ModelFetcher } from './../model/model-fetcher'
-import { Route } from './../value/route'
+import { Router } from './router'
 import { ResolveCache } from '../views/resolve-cache'
-import { trackPageView } from './analytics'
 
 /**
  *
@@ -41,9 +38,9 @@ export class Application {
 
     /**
      *
-     * @type {Route} route
+     * @type {Router} route
      */
-    this._route = new Route.fromLocation(window.location)
+    this._router = new Router()
 
     /**
      *
@@ -51,13 +48,6 @@ export class Application {
      * @private
      */
     this._player = player
-
-    /**
-     *
-     * @type {Emitter}
-     * @private
-     */
-    this._emitter = new Emitter()
 
     /**
      *
@@ -83,19 +73,29 @@ export class Application {
   }
 
   /**
+   * 
+   * @returns {Router}
+   */
+  get router () {
+    return this._router
+  }
+
+  /**
    *
    * @returns {Route}
+   * @deprecated
    */
   get route () {
-    return this._route
+    return this._router.route
   }
 
   /**
    *
    * @returns {Observable<Route>}
+   * @deprecated
    */
   getRouteObservable () {
-    return this._emitter.toObservable('route')
+    return this._router.onRouteChanged.toObservable()
   }
   
   /**
@@ -103,24 +103,10 @@ export class Application {
    * @param {Route} route
    * @param {boolean} replace
    * @param {boolean} silent
+   * @deprecated
    */
   setRoute(route, { replace = false, silent = false } = {}) {
-    if (route.isSameValue(this._route)) {
-      return
-    }
-
-    this._route = route
-    this._emitter.emit('route', route)
-
-    if (!silent) {
-      updatePath(route, replace)
-    }
-
-    trackPageView(route)
-  }
-
-  reloadCurrentRoute () {
-    this._emitter.emit('route', this._route)
+    this._router.setRoute(route, { replace, silent })
   }
 
   /**
@@ -154,14 +140,5 @@ export class Application {
   get $sidebar () {
     //noinspection JSValidateTypes
     return this._document.querySelector('app-sidebar')
-  }
-
-  /**
-   *
-   * @returns {Element}
-   * @private
-   */
-  _getAppLayout() {
-    return this._document.querySelector('.app-layout')
   }
 }
