@@ -23,7 +23,7 @@ export class Router {
   }
 
   /**
-   * 
+   *
    * @returns {Route}
    */
   get route () {
@@ -33,10 +33,18 @@ export class Router {
   /**
    *
    * @param {Route} route
+   */
+  set route (route) {
+    this.setRoute(route)
+  }
+
+  /**
+   *
+   * @param {Route} route
    * @param {boolean} replace
    * @param {boolean} silent
    */
-  setRoute(route, { replace = false, silent = false } = {}) {
+  setRoute (route, { replace = false, silent = false } = {}) {
     if (route.isSameValue(this._route)) {
       return
     }

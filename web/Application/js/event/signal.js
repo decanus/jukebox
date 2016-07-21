@@ -30,7 +30,7 @@ Signal.prototype.removeListener = function (callbackFn) {
     return
   }
 
-  this._listeners.remove(callbackFn)
+  this._listeners.delete(callbackFn)
 }
 
 /**

@@ -10,18 +10,27 @@ import { sendException } from '../../app/analytics'
 import { AppView } from '../../app/elements'
 import { RenderingStatus } from '../../dom/rendering'
 
+const router = app.router
+
 export class AppMount extends HTMLElement {
   createdCallback () {
-    this._handleRoute(app.route)
+    this._handleRoute = this._handleRoute.bind(this)
+  }
+
+  attachedCallback () {
+    this._handleRoute(router.route)
 
     RenderingStatus.afterNextRender(() => {
-      app.getRouteObservable()
-        .forEach((route) => this._handleRoute(route))
+      router.onRouteChanged.addListener(this._handleRoute)
     })
+  }
+  
+  detachedCallback () {
+    router.onRouteChanged.removeListener(this._handleRoute)
   }
 
   /**
-   * 
+   *
    * @param {Route} route
    * @private
    */
