@@ -39,6 +39,6 @@ export class UserMenu extends HTMLElement {
       return
     }
 
-    this.innerText = `Hi ${user.username}`
+    this.innerText = user.username
   }
 }
