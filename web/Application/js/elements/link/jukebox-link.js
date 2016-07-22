@@ -17,6 +17,10 @@ export class JukeboxLink extends HTMLAnchorElement {
     })
   }
 
+  detachedCallback () {
+    this.removeEventListener('click', this._onClick)
+  }
+
   /**
    *
    * @param {MouseEvent} event
@@ -24,7 +28,7 @@ export class JukeboxLink extends HTMLAnchorElement {
    */
   _onClick (event) {
     if (event.ctrlKey || event.metaKey) {
-      return
+      return true
     }
 
     event.preventDefault()

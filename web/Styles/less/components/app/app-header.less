@@ -6,12 +6,20 @@
   display: flex;
   align-items: center;
 
-  > .button {
-    padding: 1rem;
-    border-radius: 100%;
-    background-color: transparent;
-    transition: background-color .125s;
-    cursor: pointer;
+  > .buttons,
+  > .logo {
+    min-width: 200px;
+  }
+
+  > .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 0 -8px;
+  }
+
+  > .buttons > .button {
+    margin: 0 8px;
   }
 
   > .search {
@@ -20,14 +28,5 @@
     justify-content: center;
     align-items: center;
     padding: 0 1rem;
-  }
-
-  > .button:hover {
-    background-color: rgba(0, 0, 0, .05);
-  }
-
-  > .button:active,
-  > .button.-active {
-    background-color: rgba(0, 0, 0, .12);
   }
 }

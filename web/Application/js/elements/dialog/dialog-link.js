@@ -1,22 +1,37 @@
 /**
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
-  
-window.__$weak = new WeakSet()
 
 export class DialogLink extends HTMLAnchorElement {
+  createdCallback () {
+    this._onClick = this._onClick.bind(this)
+  }
 
   attachedCallback () {
-    this.addEventListener('click', (event) => {
-      event.preventDefault()
-      
-      // todo: enable ctrl-click to open in new tab
-      
-      /** @type {DialogContent} */
-      const $content = this.ownerDocument.querySelector(`dialog-content#${this.openDialog}`)
+    this.addEventListener('click', this._onClick)
+  }
 
-      $content.open()
-    })
+  detachedCallback () {
+    this.removeEventListener('click', this._onClick)
+  }
+
+  /**
+   *
+   * @param {MouseEvent} event
+   * @private
+   */
+  _onClick (event) {
+    if (event.ctrlKey || event.metaKey) {
+      return true
+    }
+
+    event.preventDefault()
+
+    //noinspection JSValidateTypes
+    /** @type {DialogContent} */
+    const $content = this.ownerDocument.querySelector(`dialog-content#${this.openDialog}`)
+
+    $content.open()
   }
 
   /**

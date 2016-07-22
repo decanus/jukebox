@@ -1,6 +1,7 @@
 <?php
 
-namespace Jukebox\API\Session
+
+namespace Jukebox\Framework\Session
 {
     interface SessionStoreInterface
     {
