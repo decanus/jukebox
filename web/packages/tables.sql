@@ -71,7 +71,8 @@ CREATE TABLE IF NOT EXISTS playlists (
   owner INT NOT NULL,
   name VARCHAR(255) NOT NULL,
   description VARCHAR(144) NULL DEFAULT NULL,
-  private BOOL DEFAULT FALSE
+  private BOOL DEFAULT FALSE,
+  FOREIGN KEY (owner) REFERENCES users(id)
 );
 
 CREATE TABLE IF NOT EXISTS playlist_tracks (
@@ -81,5 +82,14 @@ CREATE TABLE IF NOT EXISTS playlist_tracks (
   added_at DATETIME NOT NULL,
   added_by INT NOT NULL,
   FOREIGN KEY (track) REFERENCES tracks(id),
-  FOREIGN KEY (playlist) REFERENCES playlists(id)
-)
+  FOREIGN KEY (playlist) REFERENCES playlists(id),
+  FOREIGN KEY (added_by) REFERENCES users(id)
+);
+
+CREATE TABLE IF NOT EXISTS users (
+  id SERIAL PRIMARY KEY,
+  username VARCHAR(100) NOT NULL,
+  email VARCHAR(254) NOT NULL,
+  hash VARCHAR(64) NOT NULL,
+  salt VARCHAR(32) NOT NULL
+);

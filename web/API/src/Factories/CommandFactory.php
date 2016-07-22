@@ -21,7 +21,7 @@ namespace Jukebox\API\Factories
         public function createAuthenticationCommand(): \Jukebox\API\Commands\AuthenticationCommand
         {
             return new \Jukebox\API\Commands\AuthenticationCommand(
-                $this->getMasterFactory()->createMongoDatabaseBackend(),
+                $this->getMasterFactory()->createPostgreDatabaseBackend(),
                 $this->sessionData
             );
         }
@@ -29,7 +29,7 @@ namespace Jukebox\API\Factories
         public function createRegistrationCommand(): \Jukebox\API\Commands\RegistrationCommand
         {
             return new \Jukebox\API\Commands\RegistrationCommand(
-                $this->getMasterFactory()->createMongoDatabaseBackend()
+                $this->getMasterFactory()->createPostgreDatabaseBackend()
             );
         }
 

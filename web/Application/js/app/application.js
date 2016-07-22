@@ -2,15 +2,14 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { Emitter } from './../event/emitter'
+import { Signal } from './../event/signal'
 import { updatePath } from './../dom/history'
 import { ModelStore } from './../model/model-store'
 import { ModelLoader } from './../model/model-loader'
 import { ModelRepository } from './../model/model-repository'
 import { ModelFetcher } from './../model/model-fetcher'
-import { Route } from './../value/route'
+import { Router } from './router'
 import { ResolveCache } from '../views/resolve-cache'
-import { trackPageView } from './analytics'
 
 /**
  *
@@ -30,8 +29,9 @@ export class Application {
    *
    * @param {Document} document
    * @param {PlayerDelegator} player
+   * @param {Analytics} analytics
    */
-  constructor(document, player) {
+  constructor(document, player, analytics) {
     /**
      *
      * @type {Document}
@@ -41,24 +41,24 @@ export class Application {
 
     /**
      *
-     * @type {Route} route
-     */
-    this._route = new Route.fromLocation(window.location)
-
-    /**
-     *
      * @type {PlayerDelegator}
      * @private
      */
     this._player = player
 
     /**
-     *
-     * @type {Emitter}
+     * 
+     * @type {Analytics}
      * @private
      */
-    this._emitter = new Emitter()
-
+    this._analytics = analytics
+    
+    /**
+     *
+     * @type {Router} route
+     */
+    this._router = new Router(analytics)
+    
     /**
      *
      * @type {ResolveCache}
@@ -72,10 +72,23 @@ export class Application {
      * @private
      */
     this._modelRepository = createModelRepository(this._resolveCache)
+
+    /**
+     *
+     * @type {User}
+     * @private
+     */
+    this._user = null
+
+    /**
+     *
+     * @type {Signal<void>}
+     */
+    this.onUserChange = new Signal()
   }
 
   /**
-   * 
+   *
    * @returns {PlayerDelegator}
    */
   get player () {
@@ -92,35 +105,35 @@ export class Application {
 
   /**
    *
-   * @returns {Observable<Route>}
+   * @returns {User}
    */
-  getRouteObservable () {
-    return this._emitter.toObservable('route')
+  get user () {
+    return this._user
   }
-  
+
   /**
    *
-   * @param {Route} route
-   * @param {boolean} replace
-   * @param {boolean} silent
+   * @param {User} user
    */
-  setRoute(route, { replace = false, silent = false } = {}) {
-    if (route.isSameValue(this._route)) {
-      return
-    }
-
-    this._route = route
-    this._emitter.emit('route', route)
-
-    if (!silent) {
-      updatePath(route, replace)
-    }
-
-    trackPageView(route)
+  set user (user) {
+    this._user = user
+    this.onUserChange.dispatch()
+  }
+    
+  /*
+   * 
+   * @returns {Analytics}
+   */
+  get analytics () {
+    return this._analytics
   }
 
-  reloadCurrentRoute () {
-    this._emitter.emit('route', this._route)
+  /**
+   * 
+   * @returns {Router}
+   */
+  get router () {
+    return this._router
   }
 
   /**
@@ -132,7 +145,7 @@ export class Application {
   }
 
   /**
-   * 
+   *
    * @returns {ResolveCache}
    */
   get resolveCache () {
@@ -147,24 +160,12 @@ export class Application {
     return this._document.querySelector('main')
   }
 
-  showSidebar() {
-    this._getAppLayout().classList.add('-sidebar-visible')
-  }
-
-  hideSidebar() {
-    this._getAppLayout().classList.remove('-sidebar-visible')
-  }
-
-  toggleSidebar() {
-    this._getAppLayout().classList.toggle('-sidebar-visible')
-  }
-
   /**
    *
-   * @returns {Element}
-   * @private
+   * @returns {AppSidebar}
    */
-  _getAppLayout() {
-    return this._document.querySelector('.app-layout')
+  get $sidebar () {
+    //noinspection JSValidateTypes
+    return this._document.querySelector('app-sidebar')
   }
 }

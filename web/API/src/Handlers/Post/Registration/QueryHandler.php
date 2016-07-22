@@ -38,9 +38,10 @@ namespace Jukebox\API\Handlers\Post\Registration
                 $this->setError(new BadRequest, 'Invalid email');
                 return;
             }
+            
             $user = $this->fetchUserByEmailQuery->execute($email);
-            if ($user !== null) {
-                $this->setError(new BadRequest, 'User already exists with email');
+            if ($user !== false) {
+                $this->setError(new BadRequest, 'User exists with email');
                 return;
             }
         }

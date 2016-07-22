@@ -43,7 +43,8 @@ namespace Jukebox\API\Backends
                 $from = (($page - 1) * $size) + 1;
             }
             
-            return $this->searchResultMapper->map(new SearchResult(
+            return $this->searchResultMapper->map(
+                new SearchResult(
                     $this->client->search(['index' => $this->dataVersion, 'type' => $type, 'body' => $query, 'size' => $size, 'from' => $from]),
                     $size,
                     $page

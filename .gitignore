@@ -3,7 +3,7 @@ Vagrant/.vagrant
 Vagrant/provisioned
 *autoload.php
 cache.properties
-web/Styles/css/
+/web/Styles/build/
 web/Styles/node_modules/
 /web/Application/build/
 /web/Application/data/config.json

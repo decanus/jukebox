@@ -3,19 +3,19 @@
 namespace Jukebox\API\Queries
 {
 
-    use Jukebox\Framework\Backends\MongoDatabaseBackend;
+    use Jukebox\Framework\Backends\PostgreDatabaseBackend;
     use Jukebox\Framework\ValueObjects\Email;
 
     class FetchUserByEmailQuery
     {
         /**
-         * @var MongoDatabaseBackend
+         * @var PostgreDatabaseBackend
          */
-        private $mongoDatabaseBackend;
+        private $postgreDatabaseBackend;
 
-        public function __construct(MongoDatabaseBackend $mongoDatabaseBackend)
+        public function __construct(PostgreDatabaseBackend $postgreDatabaseBackend)
         {
-            $this->mongoDatabaseBackend = $mongoDatabaseBackend;
+            $this->postgreDatabaseBackend = $postgreDatabaseBackend;
         }
 
         /**
@@ -26,7 +26,7 @@ namespace Jukebox\API\Queries
          */
         public function execute(Email $email)
         {
-            return $this->mongoDatabaseBackend->findOne('users', ['email' => (string) $email]);
+            return $this->postgreDatabaseBackend->fetch('SELECT * FROM users WHERE email = :email', [':email' => (string) $email]);
         }
     }
 }

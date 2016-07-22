@@ -3,8 +3,8 @@
  */
 
 import { locateView } from '../../views/locate'
-import { sendException } from '../../app/analytics'
 import { renderTemplate } from '../../template/render'
+import { app } from  '../../app'
 
 /**
  *
@@ -57,7 +57,7 @@ export class AppView extends HTMLElement {
       render(this, page)
 
     } catch (error) {
-      sendException(error)
+      app.analytics.sendException(error)
 
       if (this.root) {
         this.innerHTML = ''
