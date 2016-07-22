@@ -204,12 +204,25 @@ namespace Jukebox\Frontend\Factories
             );
         }
 
-
         public function createGetMeQueryHandler(): \Jukebox\Frontend\Handlers\Get\Me\QueryHandler
         {
             return new \Jukebox\Frontend\Handlers\Get\Me\QueryHandler(
                 $this->session->getSessionData(),
                 $this->getMasterFactory()->createJukeboxRestManager()
+            );
+        }
+
+        public function createLogoutCommandHandler(): \Jukebox\Frontend\Handlers\Post\Logout\CommandHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Post\Logout\CommandHandler(
+               $this->getMasterFactory()->createDeleteSessionCommand()
+            );
+        }
+
+        public function createLogoutResponseHandler(): \Jukebox\Frontend\Handlers\Post\Logout\ResponseHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Post\Logout\ResponseHandler(
+                $this->session
             );
         }
 

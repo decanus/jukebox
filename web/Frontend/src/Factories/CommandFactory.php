@@ -5,6 +5,7 @@ namespace Jukebox\Frontend\Factories
 
     use Jukebox\Framework\Factories\AbstractFactory;
     use Jukebox\Frontend\Session\Session;
+    use Jukebox\Frontend\Session\SessionStore;
 
     class CommandFactory extends AbstractFactory
     {
@@ -23,6 +24,15 @@ namespace Jukebox\Frontend\Factories
             return new \Jukebox\Frontend\Commands\LoginCommand(
                 $this->getMasterFactory()->createJukeboxRestManager(),
                 $this->session->getSessionData()
+            );
+        }
+
+        public function createDeleteSessionCommand(): \Jukebox\Frontend\Commands\DeleteSessionCommand
+        {
+            return new \Jukebox\Frontend\Commands\DeleteSessionCommand(
+                new SessionStore(
+                    $this->getMasterFactory()->createRedisBackend()
+                )
             );
         }
 

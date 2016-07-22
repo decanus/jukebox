@@ -35,6 +35,8 @@ namespace Jukebox\Frontend\Routers
                     return $this->factory->createLoginRequestController(new ControllerParameterObject($uri));
                 case '/action/register':
                     return $this->factory->createRegistrationRequestController(new ControllerParameterObject($uri));
+                case '/action/logout':
+                    return $this->factory->createLogoutRequestController(new ControllerParameterObject($uri));
             }
 
             throw new \InvalidArgumentException('No route found');

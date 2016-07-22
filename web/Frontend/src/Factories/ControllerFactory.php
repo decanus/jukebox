@@ -214,5 +214,19 @@ namespace Jukebox\Frontend\Factories
                 new JsonResponse
             );
         }
+
+        public function createLogoutRequestController(ControllerParameterObject $parameterObject): PostController
+        {
+            return new PostController(
+                new AjaxModel($parameterObject->getUri()),
+                $this->getMasterFactory()->createPreHandler(),
+                $this->getMasterFactory()->createLogoutCommandHandler(),
+                $this->getMasterFactory()->createQueryHandler(),
+                $this->getMasterFactory()->createGenericPageTransformationHandler(),
+                $this->getMasterFactory()->createLogoutResponseHandler(),
+                $this->getMasterFactory()->createPostHandler(),
+                new JsonResponse
+            );
+        }
     }
 }
