@@ -29,11 +29,18 @@ namespace Jukebox\Frontend\Handlers\Get\Me
 
         public function execute(RequestInterface $request, AbstractModel $model)
         {
-            $accessToken = $this->sessionData->getAccessToken();
 
-            $model->setData(
-                $this->jukeboxRestManager->me($accessToken)->getDecodedJsonResponse()
-            );
+            try {
+                $accessToken = $this->sessionData->getAccessToken();
+
+                $model->setData(
+                    $this->jukeboxRestManager->me($accessToken)->getDecodedJsonResponse()
+                );
+            } catch (\Throwable $e) {
+                $model->setData(
+                    []
+                );
+            }
         }
     }
 }
