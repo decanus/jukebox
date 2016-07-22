@@ -4,6 +4,7 @@
 
 import { app } from '../../app'
 import { RenderingStatus } from '../../dom/rendering'
+import { createFragmentFromString } from '../../dom/fragment'
 
 const SIGNIN_BUTTONS = `
 <a view-name="register" href="/register" is="dialog-view-link">
@@ -15,6 +16,19 @@ const SIGNIN_BUTTONS = `
 </a>
 `
 
+const DROPDOWN = `
+<div class="dropdown">
+  <ul class="nav">
+    <li class="-border"></li>
+    <li>
+        <form action="/action/logout" method="post">
+            <button class="content-link" type="submit">Sign Out</button>
+        </form>
+    </li>
+  </ul>
+</div>
+`
+
 export class UserMenu extends HTMLElement {
 
   createdCallback () {
@@ -24,11 +38,21 @@ export class UserMenu extends HTMLElement {
   attachedCallback () {
     RenderingStatus.afterNextRender(() => {
       app.onUserChange.addListener(this._onUserChange)
+      this.addEventListener('click', this._onClick)
     })
   }
 
   detachedCallback () {
     app.onUserChange.removeListener(this._onUserChange)
+    this.removeListener('click', this._onClick)
+  }
+
+  _onClick () {
+    if (!app.user) {
+      return
+    }
+
+    this.classList.toggle('-open')
   }
 
   _onUserChange () {
@@ -39,6 +63,14 @@ export class UserMenu extends HTMLElement {
       return
     }
 
-    this.innerText = user.username
+    const $username = document.createElement('div')
+
+    $username.className = 'username content-link'
+    $username.textContent = `@${user.username}`
+
+    const $dropdown = createFragmentFromString(this.ownerDocument, DROPDOWN)
+
+    this.appendChild($username)
+    this.appendChild($dropdown)
   }
 }
