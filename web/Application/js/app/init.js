@@ -14,5 +14,9 @@ if (window.__$models) {
 
 fetchUser()
   .then((user) => {
-    app.user = new User(user.username, user.email)
+    if (user.length === 0) {
+      app.user = null
+    } else {
+      app.user = new User(user.username, user.email)
+    }
   })

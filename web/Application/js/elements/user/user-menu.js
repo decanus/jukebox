@@ -62,6 +62,8 @@ export class UserMenu extends HTMLElement {
       this.innerHTML = SIGNIN_BUTTONS
       return
     }
+    
+    this.innerHTML = ''
 
     const $username = document.createElement('div')
 
