@@ -68,7 +68,7 @@ namespace Jukebox\Frontend\Handlers\Post\Registration
                 return;
             }
 
-            $model->setData(['message' => 'success']);
+            $model->setData(['message' => 'registration_success']);
         }
     }
 }
