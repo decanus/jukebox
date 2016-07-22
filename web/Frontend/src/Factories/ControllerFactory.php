@@ -222,7 +222,7 @@ namespace Jukebox\Frontend\Factories
                 $this->getMasterFactory()->createPreHandler(),
                 $this->getMasterFactory()->createLogoutCommandHandler(),
                 $this->getMasterFactory()->createQueryHandler(),
-                $this->getMasterFactory()->createGenericPageTransformationHandler(),
+                $this->getMasterFactory()->createTransformationHandler(),
                 $this->getMasterFactory()->createLogoutResponseHandler(),
                 $this->getMasterFactory()->createPostHandler(),
                 new JsonResponse
