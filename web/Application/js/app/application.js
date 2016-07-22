@@ -27,8 +27,9 @@ export class Application {
    *
    * @param {Document} document
    * @param {PlayerDelegator} player
+   * @param {Analytics} analytics
    */
-  constructor(document, player) {
+  constructor(document, player, analytics) {
     /**
      *
      * @type {Document}
@@ -38,17 +39,24 @@ export class Application {
 
     /**
      *
-     * @type {Router} route
-     */
-    this._router = new Router()
-
-    /**
-     *
      * @type {PlayerDelegator}
      * @private
      */
     this._player = player
 
+    /**
+     * 
+     * @type {Analytics}
+     * @private
+     */
+    this._analytics = analytics
+    
+    /**
+     *
+     * @type {Router} route
+     */
+    this._router = new Router(analytics)
+    
     /**
      *
      * @type {ResolveCache}
@@ -70,6 +78,14 @@ export class Application {
    */
   get player () {
     return this._player
+  }
+
+  /**
+   * 
+   * @returns {Analytics}
+   */
+  get analytics () {
+    return this._analytics
   }
 
   /**

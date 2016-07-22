@@ -114,7 +114,7 @@ export class ModelRepository {
    */
   hold ({ type, id }) {
     const key = { type, id }
-    
+
     this._store.hold(key)
 
     return () => {
@@ -124,5 +124,9 @@ export class ModelRepository {
 
   cleanup () {
     this._store.cleanup()
+  }
+
+  registerCleanupInterval () {
+    setInterval(this.cleanup.bind(this), 180000)
   }
 }

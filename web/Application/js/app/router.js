@@ -4,11 +4,21 @@
 
 import { Route } from './../value/route'
 import { Signal } from './../event/signal'
-import { trackPageView } from './analytics'
 import { updatePath } from './../dom/history'
 
 export class Router {
-  constructor () {
+  /**
+   * 
+   * @param {Analytics} analytics
+   */
+  constructor (analytics) {
+    /**
+     * 
+     * @type {Analytics}
+     * @private
+     */
+    this._analytics = analytics
+    
     /**
      *
      * @type {Route} route
@@ -56,6 +66,12 @@ export class Router {
       updatePath(route, replace)
     }
 
-    trackPageView(route)
+    this._analytics.trackPageView(route)
+  }
+
+  registerPopstateListener () {
+    window.addEventListener('popstate', () => {
+      this.setRoute(Route.fromLocation(window.location))
+    })
   }
 }

@@ -2,8 +2,6 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import * as config from '../../data/config.json'
-
 /**
  *
  * @param {Error} error
@@ -25,49 +23,72 @@ function getErrorDescription(error) {
   return `${string}\n${stack}`
 }
 
-/**
- *
- * @param {Error} error
- */
-export function sendException (error) {
-  if (config['isDevelopmentMode']) {
-    console.error(getErrorDescription(error))
-    return
+export class Analytics {
+  /**
+   *
+   * @param {UniversalAnalytics.ga} ga
+   * @param {{ isDevelopmentMode: true }} config
+   */
+  constructor (ga, config) {
+    this._ga = ga
+    this._config = config
   }
 
-  ga('send', 'exception', {
-    exDescription: getErrorDescription(error),
-    exFatal: false
-  })
-}
+  /**
+   *
+   * @param {Error} error
+   */
+  sendException (error) {
+    if (this._config.isDevelopmentMode) {
+      console.error(getErrorDescription(error))
+      return
+    }
 
-/**
- *
- * @param {Route} route
- */
-export function trackPageView (route) {
-  if (config['isDevelopmentMode']) {
-    return
+    this._ga('send', 'exception', {
+      exDescription: getErrorDescription(error),
+      exFatal: false
+    })
   }
 
-  ga('set', 'page', route.toString())
-  ga('send', 'pageview')
-}
+  /**
+   *
+   * @param {Route} route
+   */
+  trackPageView (route) {
+    if (this._config.isDevelopmentMode) {
+      return
+    }
 
-/**
- *
- * @param {Track} track
- */
-export function sendPlayTrack (track) {
-  if (config['isDevelopmentMode']) {
-    return
+    this._ga('set', 'page', route.toString())
+    this._ga('send', 'pageview')
   }
-  
-  ga('send', {
-    hitType: 'event',
-    eventCategory: 'Track',
-    eventAction: 'play',
-    eventLabel: track.title,
-    eventValue: track.id
-  })
+
+  /**
+   *
+   * @param {Track} track
+   */
+  sendPlayTrack (track) {
+    console.log(track)
+    
+    if (this._config.isDevelopmentMode) {
+      return
+    }
+
+    this._ga('send', {
+      hitType: 'event',
+      eventCategory: 'Track',
+      eventAction: 'play',
+      eventLabel: track.title,
+      eventValue: track.id
+    })
+  }
+
+  /**
+   * 
+   * @param {PlayerDelegator} player
+   */
+  registerTrackListener (player) {
+    player.getTrack()
+      .forEach(this.sendPlayTrack.bind(this))
+  }
 }
