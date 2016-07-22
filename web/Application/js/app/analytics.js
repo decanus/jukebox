@@ -68,8 +68,6 @@ export class Analytics {
    * @param {Track} track
    */
   sendPlayTrack (track) {
-    console.log(track)
-    
     if (this._config.isDevelopmentMode) {
       return
     }
