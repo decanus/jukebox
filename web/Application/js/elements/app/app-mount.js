@@ -6,7 +6,6 @@ import { resolveView } from '../../views/resolve'
 import { renderTemplate } from '../../template/render'
 
 import { app } from '../../app'
-import { sendException } from '../../app/analytics'
 import { AppView } from '../../app/elements'
 import { Events } from '../../dom/events'
 import { RenderingStatus } from '../../dom/rendering'
@@ -54,7 +53,7 @@ export class AppMount extends HTMLElement {
       this.appendChild(view)
 
     } catch (error) {
-      sendException(error)
+      app.analytics.sendException(error)
 
       this.innerHTML = ''
       this.appendChild(renderTemplate('error', this.ownerDocument))
