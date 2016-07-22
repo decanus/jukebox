@@ -6,8 +6,7 @@
  * @typedef {{ handle: (function(data: {})) }} FormHandler
  */
 
-import { Events } from '../dom/events'
-import { Route } from '../value/route'
+
 import { locateHandler } from '../form/locate-handler'
 
 export class AjaxForm extends HTMLFormElement {
@@ -31,7 +30,9 @@ export class AjaxForm extends HTMLFormElement {
         return
       }
 
-      Events.dispatchViewExit(this, new Route('/'))
+      if (data.message) {
+        this._$error.errorCode = data.message
+      }
       
       const handler = this._formHandler
       
