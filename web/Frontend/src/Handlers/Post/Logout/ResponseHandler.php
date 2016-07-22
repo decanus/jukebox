@@ -22,7 +22,7 @@ namespace Jukebox\Frontend\Handlers\Post\Logout
             );
 
             $this->getResponse()->setCookie(
-                new Cookie('SID', null, '/', -1)
+                new Cookie('SID', '', '/', -1)
             );
         }
     }
