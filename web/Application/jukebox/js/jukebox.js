@@ -2,10 +2,6 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-// todo: include these as polyfills
-import '../node_modules/whatwg-fetch'
-import '../node_modules/regenerator-runtime/runtime'
-
 import { app } from './app'
 import * as config  from '../data/config.json'
 
