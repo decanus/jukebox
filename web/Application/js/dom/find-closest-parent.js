@@ -6,7 +6,7 @@
  *
  * @param {HTMLElement} element
  * @param {string} selector
- * @returns {Node}
+ * @returns {Node} 
  */
 export function findClosestParent (element, selector) {
   let parent = element.parentNode

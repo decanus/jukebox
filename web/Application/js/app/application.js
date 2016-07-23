@@ -2,6 +2,8 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
+import { Signal } from './../event/signal'
+import { updatePath } from './../dom/history'
 import { ModelStore } from './../model/model-store'
 import { ModelLoader } from './../model/model-loader'
 import { ModelRepository } from './../model/model-repository'
@@ -70,10 +72,23 @@ export class Application {
      * @private
      */
     this._modelRepository = createModelRepository(this._resolveCache)
+
+    /**
+     *
+     * @type {User}
+     * @private
+     */
+    this._user = null
+
+    /**
+     *
+     * @type {Signal<void>}
+     */
+    this.onUserChange = new Signal()
   }
 
   /**
-   * 
+   *
    * @returns {PlayerDelegator}
    */
   get player () {
@@ -81,6 +96,31 @@ export class Application {
   }
 
   /**
+   *
+   * @returns {Route}
+   */
+  get route () {
+    return this._route
+  }
+
+  /**
+   *
+   * @returns {User}
+   */
+  get user () {
+    return this._user
+  }
+
+  /**
+   *
+   * @param {User} user
+   */
+  set user (user) {
+    this._user = user
+    this.onUserChange.dispatch()
+  }
+    
+  /*
    * 
    * @returns {Analytics}
    */
@@ -105,7 +145,7 @@ export class Application {
   }
 
   /**
-   * 
+   *
    * @returns {ResolveCache}
    */
   get resolveCache () {
@@ -121,7 +161,7 @@ export class Application {
   }
 
   /**
-   * 
+   *
    * @returns {AppSidebar}
    */
   get $sidebar () {

@@ -1,0 +1,56 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+  color: @brand-color;
+  transition: color .125s;
+
+  &:hover {
+    color: lighten(@brand-color, 10);
+  }
+}
+
+:matches(p, h1, h2, h3):not(._last) {
+  margin-bottom: 32px;
+}
+
+b, strong {
+  font-weight: bold;
+}
+
+h1, .teaser-text {
+
+}
+
+h1 {
+  font-size: 3.125rem;
+  color: @brand-color;
+}
+
+h2, h3, h4 {
+  color: @color-gray;
+}
+
+h2 {
+  font-size: 1.8rem;
+}
+
+h3 {
+  font-size: 1.4rem;
+}
+
+small {
+  font-size: 14px;
+}
+
+.teaser-text {
+  color: @color-gray;
+  font-size: 1.5rem;
+}
+
+.gray-text {
+  color: @color-gray;
+}

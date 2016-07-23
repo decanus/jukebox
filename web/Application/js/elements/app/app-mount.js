@@ -7,25 +7,29 @@ import { renderTemplate } from '../../template/render'
 
 import { app } from '../../app'
 import { AppView } from '../../app/elements'
+import { Events } from '../../dom/events'
 import { RenderingStatus } from '../../dom/rendering'
 
 const router = app.router
 
 export class AppMount extends HTMLElement {
   createdCallback () {
-    this._handleRoute = this._handleRoute.bind(this)
+    this._onRoute = this._onRoute.bind(this)
+    this._onViewExit = this._onViewExit.bind(this)
   }
 
   attachedCallback () {
-    this._handleRoute(router.route)
+    this._onRoute(router.route)
 
     RenderingStatus.afterNextRender(() => {
-      router.onRouteChanged.addListener(this._handleRoute)
+      router.onRouteChanged.addListener(this._onRoute)
+      this.addEventListener(Events.VIEW_EXIT_EVENT, this._onViewExit)
     })
   }
-  
+
   detachedCallback () {
-    router.onRouteChanged.removeListener(this._handleRoute)
+    router.onRouteChanged.removeListener(this._onRoute)
+    this.removeEventListener(Events.VIEW_EXIT_EVENT, this._onViewExit)
   }
 
   /**
@@ -33,7 +37,7 @@ export class AppMount extends HTMLElement {
    * @param {Route} route
    * @private
    */
-  async _handleRoute (route) {
+  async _onRoute (route) {
     try {
 
       this.innerHTML = '<div class="loading-animation -center"></div>'
@@ -54,5 +58,21 @@ export class AppMount extends HTMLElement {
       this.innerHTML = ''
       this.appendChild(renderTemplate('error', this.ownerDocument))
     }
+  }
+
+  /**
+   *
+   * @param {Event} event
+   * @private
+   */
+  _onViewExit (event) {
+    //noinspection JSUnresolvedVariable
+    const route = event.detail.redirectRoute
+
+    if (route != null) {
+      router.route = route
+    }
+
+    event.stopPropagation()
   }
 }

@@ -7,6 +7,7 @@ namespace Jukebox\Frontend\Routers
     use Jukebox\Framework\Factories\MasterFactory;
     use Jukebox\Framework\Http\Request\PostRequest;
     use Jukebox\Framework\Http\Request\RequestInterface;
+    use Jukebox\Framework\ParamterObjects\ControllerParameterObject;
     use Jukebox\Framework\Routers\RouterInterface;
 
     class PostRequestRouter implements RouterInterface
@@ -24,16 +25,18 @@ namespace Jukebox\Frontend\Routers
         public function route(RequestInterface $request): ControllerInterface
         {
             if (!$request instanceof PostRequest) {
-                return;
+                throw new \InvalidArgumentException('No route found');
             }
 
             $uri = $request->getUri();
-
+            
             switch ($uri->getPath()) {
                 case '/action/login':
-                    // @todo
+                    return $this->factory->createLoginRequestController(new ControllerParameterObject($uri));
                 case '/action/register':
-                    // @todo
+                    return $this->factory->createRegistrationRequestController(new ControllerParameterObject($uri));
+                case '/action/logout':
+                    return $this->factory->createLogoutRequestController(new ControllerParameterObject($uri));
             }
 
             throw new \InvalidArgumentException('No route found');

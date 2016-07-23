@@ -9,6 +9,8 @@ BUNDLE := build/js/jukebox.js build/js/polyfills.js build/js/views.js
 POLYFILLS := $(wildcard polyfills/*.js)
 VIEWS := $(shell find views -name "*.handlebars")
 
+JSON_FILES := $(shell find data -name "*.json")
+
 JS_SOURCES := $(shell find ./js -name "*.js")
 JS_BUILDS := $(subst ./js/,./js-build/,$(JS_SOURCES))
 
@@ -26,7 +28,7 @@ deps:
 	npm prune
 	npm install
 
-build/js/jukebox.js: data/config.json $(JS_BUILDS)
+build/js/jukebox.js: $(JSON_FILES) $(JS_BUILDS)
 	@mkdir -p $(dir $@)
 ifeq ($(JUKEBOX_ENV),production)
 	browserify --dg=false --no-bundle-external -g [ uglifyify --no-sourcemap ] -p bundle-collapser/plugin js-build/jukebox.js | uglifyjs --screw-ie8 --mangle -o $@
@@ -51,7 +53,7 @@ build/js/polyfills.js: $(POLYFILLS)
 
 data/config.json:
 ifeq ($(JUKEBOX_ENV),production)
-	cd data && ln -sf prod.json config.json
+	cd data && ln -sf config.live.json config.json
 else
-	cd data && ln -sf dev.json config.json
+	cd data && ln -sf config.dev.json config.json
 endif

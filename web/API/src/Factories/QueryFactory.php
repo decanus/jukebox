@@ -31,7 +31,7 @@ namespace Jukebox\API\Factories
         public function createFetchUserByEmailQuery(): \Jukebox\API\Queries\FetchUserByEmailQuery
         {
             return new \Jukebox\API\Queries\FetchUserByEmailQuery(
-                $this->getMasterFactory()->createMongoDatabaseBackend()
+                $this->getMasterFactory()->createPostgreDatabaseBackend()
             );
         }
     }

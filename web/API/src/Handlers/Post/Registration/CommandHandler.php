@@ -14,6 +14,7 @@ namespace Jukebox\API\Handlers\Post\Registration
     use Jukebox\Framework\Models\AbstractModel;
     use Jukebox\Framework\ValueObjects\Email;
     use Jukebox\Framework\ValueObjects\Password;
+    use Jukebox\Framework\ValueObjects\Username;
 
     class CommandHandler implements CommandHandlerInterface
     {
@@ -29,7 +30,6 @@ namespace Jukebox\API\Handlers\Post\Registration
 
         public function __construct(RegistrationCommand $registrationCommand)
         {
-
             $this->registrationCommand = $registrationCommand;
         }
 
@@ -55,10 +55,18 @@ namespace Jukebox\API\Handlers\Post\Registration
                 return;
             }
 
+
+            try {
+                $username = new Username($request->getParameter('username'));
+            } catch (\Exception $e) {
+                $this->setError(new BadRequest, 'Invalid Username');
+                return;
+            }
+
             $salt = new Salt;
             $hash = new Hash((string) $password, $salt);
 
-            $this->registrationCommand->execute($email, $salt, $hash);
+            $this->registrationCommand->execute($email, $username, $salt, $hash);
 
             $model->setData(['message' => 'Created']);
             $model->setStatusCode(new Created);
