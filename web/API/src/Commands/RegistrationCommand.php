@@ -24,8 +24,8 @@ namespace Jukebox\API\Commands
 
             try {
                 $this->postgreDatabaseBackend->insert(
-                    'INSERT INTO users (username, email, provider) VALUES (:username, :email, "jukebox")',
-                    [':email' => (string) $email, ':username' => (string) $username]
+                    'INSERT INTO users (username, email, provider) VALUES (:username, :email, :provider)',
+                    [':email' => (string) $email, ':username' => (string) $username, ':provider' => 'jukebox']
                 );
 
                 $id = $this->postgreDatabaseBackend->lastInsertId('users_id_seq');
@@ -34,6 +34,8 @@ namespace Jukebox\API\Commands
                     'INSERT INTO user_credentials (account, salt, hash) VALUES (:account, :salt, :hash)',
                     [':account' => $id, ':salt' => (string) $salt, ':hash' => (string) $hash]
                 );
+
+                $this->postgreDatabaseBackend->commit();
 
             } catch (\Throwable $e) {
                 $this->postgreDatabaseBackend->rollBack();

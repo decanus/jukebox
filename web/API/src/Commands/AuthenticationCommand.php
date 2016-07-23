@@ -38,6 +38,7 @@ namespace Jukebox\API\Commands
         {
             $user = $this->postgreDatabaseBackend->fetch(
                 'SELECT users.email,
+                        users.username,
                         users.id,
                         user_credentials.account,
                         user_credentials.hash,
