@@ -8,7 +8,9 @@ namespace Jukebox\Framework\ValueObjects
 
         public function __construct(string $username)
         {
-            if (!ctype_alnum($username)) {
+            $verification =  str_replace('.', '', $username);
+
+            if (!ctype_alnum($verification)) {
                 throw new \InvalidArgumentException('"' . $username .'" is not a valid username');
             }
 
