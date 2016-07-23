@@ -43,7 +43,12 @@ sudo ln -s /var/www/packages/configs/dev/socket.jukebox.ninja.conf /etc/nginx/co
 sudo ln -s /var/www/packages/configs/dev/mirror.jukebox.ninja.conf /etc/nginx/conf.d/mirror.jukebox.ninja.conf
 sudo ln -s /var/www/packages/configs/dev/jukebox.ninja.conf /etc/nginx/conf.d/jukebox.ninja.conf
 
-systemctl enable /var/www/packages/services/dev/jn-mirror-socket.service
+yum upgrade -y systemctl
+
+ln -s  /var/www/packages/services/dev/jn-mirror-socket@.service /etc/systemd/system/jn-mirror-socket@.service
+ln -s  /var/www/packages/services/dev/jn-mirror-sockets.target /etc/systemd/system/jn-mirror-sockets.target
+
+systemctl enable jn-mirror-sockets.target
 
 rm /etc/php.ini
 sudo ln -s /vagrant/conf/php.ini /etc/php.ini

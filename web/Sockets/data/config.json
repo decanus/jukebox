@@ -1,4 +1,9 @@
 {
   "redisHost": "127.0.0.1",
-  "redisPort": "6379"
+  "redisPort": "6379",
+  "instances": [
+    8080,
+    8081,
+    8082
+  ]
 }

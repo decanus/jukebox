@@ -1,6 +1,5 @@
 [Unit]
-Description=Mirror Websocket
-After=jn-mirror-socket@0.service jn-mirror-socket@1.service jn-mirror-socket@2.service
+Description=Mirror Websockets
 Requires=jn-mirror-socket@0.service jn-mirror-socket@1.service jn-mirror-socket@2.service
 
 [Install]
