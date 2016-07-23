@@ -36,5 +36,10 @@ namespace Jukebox\Frontend\Factories
         {
             return new \Jukebox\Frontend\Routers\SearchPageRouter($this->getMasterFactory());
         }
+
+        public function createPostRequestRouter(): \Jukebox\Frontend\Routers\PostRequestRouter
+        {
+            return new \Jukebox\Frontend\Routers\PostRequestRouter($this->getMasterFactory());
+        }
     }
 }

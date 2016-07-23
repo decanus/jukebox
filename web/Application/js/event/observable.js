@@ -1,9 +1,9 @@
-import _Observable from 'zen-observable'
+import _Observable from '../../node_modules/zen-observable/index'
 
 export class Observable extends _Observable {
   /**
    *
-   * @returns {Observable<V>}
+   * @returns {Observable<T>}
    */
   distinct () {
     let lastDistinct
@@ -43,11 +43,11 @@ export class Observable extends _Observable {
   /**
    *
    * @param {number} limit
-   * @returns {Observable<V>}
+   * @returns {Observable<T>}
    */
   take (limit) {
     let taken = 0
-    let C = this.constructor.species
+    let C = this.constructor[Symbol.species]
 
     return new C((observer) => {
       let subscription = this.subscribe({
@@ -66,6 +66,28 @@ export class Observable extends _Observable {
       })
 
       return () => subscription.unsubscribe()
+    })
+  }
+
+  /**
+   *
+   * @returns {Promise<Array<T>>}
+   */
+  awaitAll () {
+    const values = []
+
+    return new Promise((resolve, reject) => {
+      let subscription = this.subscribe({
+        next: (value) => values.push(value),
+        error: (error) => {
+          subscription.unsubscribe()
+          reject(error)
+        },
+        complete: () => {
+          subscription.unsubscribe()
+          resolve(values)
+        }
+      })
     })
   }
 

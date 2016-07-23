@@ -4,84 +4,25 @@ namespace Jukebox\API\Session
 {
 
     use Jukebox\Framework\Http\Request\RequestInterface;
+    use Jukebox\Framework\Session\AbstractSession;
+    use Jukebox\Framework\Session\AbstractSessionData;
     use Jukebox\Framework\ValueObjects\AccessToken;
     use Jukebox\Framework\ValueObjects\RefreshToken;
 
-    class Session
+    class Session extends AbstractSession
     {
-        /**
-         * @var SessionData
-         */
-        private $data;
-
-        private $expireInSeconds = 864000; // 10 days
-
-        /**
-         * @var AccessToken
-         */
-        private $secureId;
-
-        /**
-         * @var SessionStoreInterface
-         */
-        private $sessionStore;
-
-        /**
-         * @var SessionDataFactory
-         */
-        private $sessionDataFactory;
-
-        public function __construct(
-            SessionStoreInterface $sessionStore,
-            SessionDataFactory $sessionDataFactory
-        )
+        public function load(RequestInterface $request): AbstractSessionData
         {
-            $this->sessionStore = $sessionStore;
-            $this->sessionDataFactory = $sessionDataFactory;
-        }
 
-        public function load(RequestInterface $request): SessionData
-        {
-            $this->secureId = null;
+            $this->setSessionData($this->loadSessionData());
 
-            if ($request->hasParameter('access_token')) {
-                $this->secureId = new AccessToken($request->getParameter('access_token'));
+            if ($this->getSessionData()->isEmpty()) {
+                $this->setSecureId(new AccessToken);
+                $this->getSessionData()->getMap()->setRefreshToken(new RefreshToken);
+                $this->getSessionData()->getMap()->setSessionId($this->getSecureId());
             }
 
-            $this->data = $this->loadSessionData();
-
-            if ($this->data->isEmpty()) {
-                $this->secureId = new AccessToken;
-                $this->data->getMap()->setSessionId($this->secureId);
-                $this->data->getMap()->setRefreshToken(new RefreshToken);
-            }
-
-            return $this->data;
-        }
-
-        public function getSessionData(): SessionData
-        {
-            return $this->data;
-        }
-
-        public function loadSessionData(): SessionData
-        {
-            return $this->sessionDataFactory->createSessionData($this->loadMap($this->secureId));
-        }
-
-        public function commit()
-        {
-            $this->sessionStore->save((string) $this->secureId, $this->data->getMap());
-            $this->sessionStore->expire((string) $this->secureId, $this->expireInSeconds);
-        }
-
-        private function loadMap($id)
-        {
-            if ($id === null) {
-                return new Map();
-            }
-
-            return $this->sessionStore->loadById($id);
+            return $this->getSessionData();
         }
     }
 }

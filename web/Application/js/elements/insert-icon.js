@@ -2,10 +2,18 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
+import { getAssetPath } from '../app/assets'
+
+/**
+ * @type {string}
+ */
+const icons = getAssetPath('/images/icons.svg')
+
 export class InsertIcon extends HTMLElement {
 
   createdCallback () {
-
+    this.innerHTML = ''
+    
     const svg = this.ownerDocument.createElementNS('http://www.w3.org/2000/svg', 'svg')
     const use = this.ownerDocument.createElementNS('http://www.w3.org/2000/svg', 'use')
 
@@ -22,7 +30,7 @@ export class InsertIcon extends HTMLElement {
   }
 
   updateDom () {
-    this._use.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `/images/icons.svg#${this.iconName}`)
+    this._use.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `${icons}#${this.iconName}`)
   }
 
   /**

@@ -8,7 +8,7 @@ export class Artist {
    * @param {number} id
    * @param {string} name
    * @param {string} permalink
-   * @param {string} image
+   * @param {ArtistImage} image
    */
   constructor ({ id, name, permalink, image }) {
     this.id = id
@@ -33,18 +33,5 @@ export class Artist {
    */
   get isArtist () {
     return true
-  }
-
-  /**
-   * 
-   * @returns {string}
-   */
-  get imageUrl () {
-
-    if (this.image == null) {
-      return '/images/artists/default.png'
-    }
-
-    return `/images/artists/${this.image}`
   }
 }

@@ -73,6 +73,15 @@ export class ModelRepository {
 
   /**
    *
+   * @param {number} id
+   * @returns {Promise<ArtistImage>}
+   */
+  getArtistImage (id) {
+    return this.get({ id, type: 'artist-images' })
+  }
+
+  /**
+   *
    * @param {ResultId} artistId
    */
   getArtistTracks (artistId) {
@@ -105,7 +114,7 @@ export class ModelRepository {
    */
   hold ({ type, id }) {
     const key = { type, id }
-    
+
     this._store.hold(key)
 
     return () => {
@@ -115,5 +124,9 @@ export class ModelRepository {
 
   cleanup () {
     this._store.cleanup()
+  }
+
+  registerCleanupInterval () {
+    setInterval(this.cleanup.bind(this), 180000)
   }
 }

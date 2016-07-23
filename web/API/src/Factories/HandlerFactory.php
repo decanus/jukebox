@@ -124,8 +124,15 @@ namespace Jukebox\API\Factories
         public function createGetMeQueryHandler(): \Jukebox\API\Handlers\Get\Me\QueryHandler
         {
             return new \Jukebox\API\Handlers\Get\Me\QueryHandler(
-                $this->getMasterFactory()->createMongoDatabaseBackend(),
+                $this->getMasterFactory()->createPostgreDatabaseBackend(),
                 $this->session->getSessionData()
+            );
+        }
+
+        public function createGetNewReleasesQueryHandler(): \Jukebox\API\Handlers\Browse\NewReleases\QueryHandler
+        {
+            return new \Jukebox\API\Handlers\Browse\NewReleases\QueryHandler(
+                $this->getMasterFactory()->createSearchBackend()
             );
         }
 

@@ -79,6 +79,18 @@ namespace Jukebox\Backend\EventHandlers\Push
                 foreach ($files as $file) {
                     $this->putMapping($file);
                 }
+
+                $this->client->indices()->putSettings(
+                    [
+                        'index' => $dataVersion,
+                        'body' => [
+                            'settings' => [
+                                'refresh_interval' => '-1'
+                            ]
+                        ]
+                    ]
+                );
+
             } catch (\Throwable $e) {
                 $this->getLogger()->emergency($e);
             }

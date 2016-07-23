@@ -11,6 +11,7 @@ namespace Jukebox\Frontend\Handlers
 
         public function execute(AbstractModel $model): string
         {
+            return '';
         }
     }
 }

@@ -27,6 +27,8 @@ export class ModelFetcher {
         return this.fetchArtistTracks(id)
       case 'artist-profiles':
         return this.fetchArtistProfiles(id)
+      case 'artist-images':
+        return this.fetchArtistImage(id)
       case 'artists':
         return this.fetchArtist(id)
       case 'tracks':
@@ -43,7 +45,7 @@ export class ModelFetcher {
    */
   async fetchResult (id) {
     // todo: add support for multiple includes
-    const result = await fetchSearch(id.query, 1, id.includes[0])
+    const result = await fetchSearch(id.query, 1, id.includes[ 0 ])
 
     if (Array.isArray(result)) {
       return { type: 'results', id, results: [], includes: [], pagination: { size: 20, page: 1, pages: 1 } }
@@ -81,6 +83,21 @@ export class ModelFetcher {
       type: 'artist-profiles',
       id: artistId,
       profiles
+    }
+  }
+
+  /**
+   *
+   * @param {number} artistId
+   * @returns {{ id: number, name: string }}
+   */
+  async fetchArtistImage (artistId) {
+    const artist = await this.fetchArtist(artistId)
+
+    return {
+      id: artistId,
+      type: 'artist-images',
+      name: artist[ 'image' ]
     }
   }
 

@@ -4,6 +4,7 @@ namespace Jukebox\Frontend\Factories
 {
 
     use Jukebox\Framework\Factories\AbstractFactory;
+    use Jukebox\Frontend\Session\Session;
     use TheSeer\fDOM\fDOMDocument;
 
     class HandlerFactory extends AbstractFactory
@@ -12,6 +13,16 @@ namespace Jukebox\Frontend\Factories
          * @var fDomDocument
          */
         private $template;
+
+        /**
+         * @var Session
+         */
+        private $session;
+
+        public function __construct(Session $session)
+        {
+            $this->session = $session;
+        }
 
         public function createGenericPageTransformationHandler(): \Jukebox\Frontend\Handlers\Get\GenericPageTransformationHandler
         {
@@ -30,7 +41,9 @@ namespace Jukebox\Frontend\Factories
 
         public function createPostHandler(): \Jukebox\Frontend\Handlers\PostHandler
         {
-            return new \Jukebox\Frontend\Handlers\PostHandler;
+            return new \Jukebox\Frontend\Handlers\PostHandler(
+                $this->session
+            );
         }
 
         public function createPreHandler(): \Jukebox\Frontend\Handlers\PreHandler
@@ -45,7 +58,9 @@ namespace Jukebox\Frontend\Factories
 
         public function createResponseHandler(): \Jukebox\Frontend\Handlers\ResponseHandler
         {
-            return new \Jukebox\Frontend\Handlers\ResponseHandler;
+            return new \Jukebox\Frontend\Handlers\ResponseHandler(
+                $this->session
+            );
         }
 
         public function createTransformationHandler(): \Jukebox\Frontend\Handlers\TransformationHandler
@@ -172,6 +187,42 @@ namespace Jukebox\Frontend\Factories
         {
             return new \Jukebox\Frontend\Handlers\Get\Ajax\Track\QueryHandler(
                 $this->getMasterFactory()->createJukeboxRestManager()
+            );
+        }
+        
+        public function createLoginCommandHandler(): \Jukebox\Frontend\Handlers\Post\Login\CommandHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Post\Login\CommandHandler(
+                $this->getMasterFactory()->createLoginCommand()
+            );
+        }
+        
+        public function createRegistrationCommandHandler(): \Jukebox\Frontend\Handlers\Post\Registration\CommandHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Post\Registration\CommandHandler(
+                $this->getMasterFactory()->createRegistrationCommand()
+            );
+        }
+
+        public function createGetMeQueryHandler(): \Jukebox\Frontend\Handlers\Get\Me\QueryHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Get\Me\QueryHandler(
+                $this->session->getSessionData(),
+                $this->getMasterFactory()->createJukeboxRestManager()
+            );
+        }
+
+        public function createLogoutCommandHandler(): \Jukebox\Frontend\Handlers\Post\Logout\CommandHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Post\Logout\CommandHandler(
+               $this->getMasterFactory()->createDeleteSessionCommand()
+            );
+        }
+
+        public function createLogoutResponseHandler(): \Jukebox\Frontend\Handlers\Post\Logout\ResponseHandler
+        {
+            return new \Jukebox\Frontend\Handlers\Post\Logout\ResponseHandler(
+                $this->session
             );
         }
 

@@ -1,6 +1,6 @@
 Summary: JukeboxServer
 Name: jukebox-server
-Version: 0.0.4
+Version: 0.0.7
 Release: jukebox.1
 Group: System Environment/Libraries
 License: Jukebox
@@ -8,7 +8,7 @@ Vendor: Jukebox
 Url: https://www.jukebox.ninja/
 
 Provides: jukebox-server-%{version}-%{release}
-Requires: nginx php-fpm redis python-setuptools mongodb-org postgresql-server postgresql-contrib
+Requires: nginx php-fpm python-setuptools
 
 %description
 System Configuration for Servers

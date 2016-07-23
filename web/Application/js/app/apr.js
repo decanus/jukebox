@@ -85,6 +85,15 @@ export function resolvePath (path) {
 }
 
 /**
+ * 
+ * @returns {Promise<{ username: string, email: string }>}
+ */
+export function fetchUser () {
+  return fetch('/apr/me', { credentials: 'same-origin' })
+    .then((resp) => resp.json())
+}
+
+/**
  *
  * @param {string} path
  * @param {Array<Array<string>>} queryParams
