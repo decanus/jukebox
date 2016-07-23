@@ -23,6 +23,11 @@
                 <arg path="${basedir}/Frontend/build.xml"/>
                 <arg value="phpab"/>
             </exec>
+            <exec executable="ant">
+                <arg value="-f"/>
+                <arg path="${basedir}/Mirror/build.xml"/>
+                <arg value="phpab"/>
+            </exec>
         </parallel>
     </target>
     <target name="make">
