@@ -1,4 +1,4 @@
-.PHONY: all jukebox
+.PHONY: all jukebox mirror
 
 all: jukebox mirror
 

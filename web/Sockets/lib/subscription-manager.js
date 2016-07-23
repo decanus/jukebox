@@ -96,8 +96,6 @@ module.exports = class SubscriptionManager {
    */
   broadcastRaw (mirrorId, message) {
     const clients = this._clients.get(mirrorId)
-
-    console.log(mirrorId, message, this)
     
     if (clients == null) {
       return

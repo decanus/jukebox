@@ -1,17 +1,9 @@
 /**
- * (c) 2016 Jukebox <www.jukebox.ninja>
- */
-
-'use strict'
-
-module.exports = Signal
-
-/**
  *
  * @template T
  * @constructor
  */
-function Signal () {
+export function Signal () {
 
 }
 
@@ -43,6 +35,6 @@ Signal.prototype.dispatch = function (value) {
   if (this._listeners == null) {
     return
   }
-  
+
   this._listeners.forEach((listener) => listener(value))
 }
