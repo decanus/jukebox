@@ -37,7 +37,15 @@ namespace Jukebox\API\Commands
         public function execute(Email $email, Password $password): Token
         {
             $user = $this->postgreDatabaseBackend->fetch(
-                'SELECT * FROM users WHERE email = :email',
+                'SELECT users.email,
+                        users.id,
+                        user_credentials.account,
+                        user_credentials.hash,
+                        user_credentials.salt 
+                  FROM users 
+                  JOIN user_credentials 
+                  ON users.id= user_credentials.account 
+                  WHERE users.email = :email',
                 [':email' => (string) $email]
             );
 
