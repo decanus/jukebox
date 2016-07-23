@@ -4,6 +4,7 @@ PATH  := $(PATH):node_modules/.bin
 COMMON_LESS_FILES = $(shell find less/common -name "*.less")
 
 .PHONY: all deps clean
+.SECONDEXPANSION:
 
 all: build/css/jukebox.css build/svg/icons.svg
 
@@ -14,7 +15,7 @@ deps:
 	npm prune
 	npm install
 
-build/css/%.css: less/%.less $(shell find less/$*) $(COMMON_LESS_FILES)
+build/css/%.css: less/%.less $$(shell find less/$$* -name "*.less") $(COMMON_LESS_FILES)
 	@mkdir -p $(@D)
 	lessc -clean-css $< | postcss -u autoprefixer -u postcss-selector-matches -o $@
 
