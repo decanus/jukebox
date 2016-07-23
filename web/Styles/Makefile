@@ -6,7 +6,7 @@ JUKEBOX_LESS_FILES = $(shell find less/jukebox -name "*.less")
 
 .PHONY: all deps clean
 
-all: build/css/jukebox.css build/svg/icons.svg
+all: build/css/jukebox.css build/css/mirror.css build/svg/icons.svg
 
 clean:
 	rm -rf build
