@@ -49,13 +49,13 @@ sudo ln -s /var/www/packages/configs/dev/socket.jukebox.ninja.conf /etc/nginx/co
 sudo ln -s /var/www/packages/configs/dev/mirror.jukebox.ninja.conf /etc/nginx/conf.d/mirror.jukebox.ninja.conf
 sudo ln -s /var/www/packages/configs/dev/jukebox.ninja.conf /etc/nginx/conf.d/jukebox.ninja.conf
 
-sudo systemctl enable /var/www/packages/services/dev/jn-mirror-socket.service
+systemctl enable /var/www/packages/services/dev/jn-mirror-socket.service
 
 rm /etc/php.ini
 sudo ln -s /vagrant/conf/php.ini /etc/php.ini
 
 curl --silent --location https://rpm.nodesource.com/setup_6.x | bash -
-yum -y install nodejs gcc-c++ make
+yum -y install nodejs
 
 touch /vagrant/provisioned
 
