@@ -2,10 +2,11 @@
 Description=Mirror Websocket
 After=redis.service
 Requires=redis.service
+Restart=always
 
 [Service]
 TimeoutStartSec=0
-ExecStart=/var/www/Sockets/bin/start.sh
+ExecStart=/usr/bin/node /var/www/Sockets/index.js --instance=%I
 
 [Install]
 WantedBy=multi-user.target
