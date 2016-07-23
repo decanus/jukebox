@@ -6,6 +6,8 @@ namespace Jukebox\Frontend\Handlers
     use Jukebox\Framework\Handlers\ResponseHandlerInterface;
     use Jukebox\Framework\Http\Response\ResponseInterface;
     use Jukebox\Framework\Models\AbstractModel;
+    use Jukebox\Frontend\DataObjects\Accounts\RegisteredAccount;
+    use Jukebox\Frontend\Session\Session;
 
     abstract class AbstractResponseHandler implements ResponseHandlerInterface
     {
@@ -18,28 +20,16 @@ namespace Jukebox\Frontend\Handlers
          * @var AbstractModel
          */
         private $model;
-//        /**
-//         * @var IsSessionStartedQuery
-//         */
-//        private $isSessionStartedQuery;
-//
-//        /**
-//         * @var FetchSessionCookieQuery
-//         */
-//        private $fetchSessionCookieQuery;
-//
-//        /**
-//         * @param IsSessionStartedQuery   $isSessionStartedQuery
-//         * @param FetchSessionCookieQuery $fetchSessionCookieQuery
-//         */
-//        public function __construct(
-//            IsSessionStartedQuery $isSessionStartedQuery,
-//            FetchSessionCookieQuery $fetchSessionCookieQuery
-//        )
-//        {
-//            $this->isSessionStartedQuery = $isSessionStartedQuery;
-//            $this->fetchSessionCookieQuery = $fetchSessionCookieQuery;
-//        }
+        /**
+         * @var Session
+         */
+        private $session;
+
+        public function __construct(Session $session)
+        {
+            $this->session = $session;
+        }
+
         /**
          * @param ResponseInterface $responseInterface
          * @param AbstractModel     $model
@@ -49,12 +39,15 @@ namespace Jukebox\Frontend\Handlers
             $this->response = $responseInterface;
             $this->model = $model;
             $this->doExecute();
+            
             if ($model->hasRedirect()) {
                 $responseInterface->setRedirect($model->getRedirect());
             }
-//            if (!$this->isSessionStartedQuery->execute()) {
-//                $this->getResponse()->setCookie($this->fetchSessionCookieQuery->execute());
-//            }
+
+            //@todo move to login response handler
+            if (!$this->session->isSessionStarted() && $this->session->getSessionData()->getAccount() instanceof RegisteredAccount) {
+                $this->getResponse()->setCookie($this->session->getCookie());
+            }
         }
         
         abstract protected function doExecute();
