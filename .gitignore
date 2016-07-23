@@ -12,3 +12,4 @@ web/CDN/artists/*.jpg
 web/CDN/artists/*.png
 **/node_modules/
 npm-debug.log
+**/.js-build/

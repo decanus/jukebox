@@ -14,7 +14,7 @@ JSON_FILES := $(shell find data -name "*.json")
 JS_SOURCES := $(shell find ./js -name "*.js")
 JS_BUILDS := $(subst ./js/,./js-build/,$(JS_SOURCES))
 
-.PHONY: all clean lint install-deps
+.PHONY: all clean lint deps
 
 all: $(BUNDLE)
 
