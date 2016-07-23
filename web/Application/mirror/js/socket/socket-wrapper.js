@@ -32,7 +32,7 @@ export class SocketWrapper {
   _onSocketClose () {
     this._open = false
 
-    console.info('connection lost, reconnecting in 5s...')
+    console.info('connection lost, reconnecting after short delay...')
 
     setTimeout(() => this.connect(), this._reconnectInterval)
   }
