@@ -2,7 +2,7 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { Route } from './../library/value/route'
+import { Uri } from './../library/value/uri'
 import { Signal } from './../event/signal'
 import { updatePath } from '../library/dom/history'
 
@@ -21,20 +21,20 @@ export class Router {
     
     /**
      *
-     * @type {Route} route
+     * @type {Uri} route
      */
-    this._route = new Route.fromLocation(window.location)
+    this._route = new Uri.fromLocation(window.location)
 
     /**
      *
-     * @type {Signal<Route>}
+     * @type {Signal<Uri>}
      */
     this.onRouteChanged = new Signal()
   }
 
   /**
    *
-   * @returns {Route}
+   * @returns {Uri}
    */
   get route () {
     return this._route
@@ -42,7 +42,7 @@ export class Router {
 
   /**
    *
-   * @param {Route} route
+   * @param {Uri} route
    */
   set route (route) {
     this.setRoute(route)
@@ -50,7 +50,7 @@ export class Router {
 
   /**
    *
-   * @param {Route} route
+   * @param {Uri} route
    * @param {boolean} replace
    * @param {boolean} silent
    */
@@ -71,7 +71,7 @@ export class Router {
 
   registerPopstateListener () {
     window.addEventListener('popstate', () => {
-      this.setRoute(Route.fromLocation(window.location))
+      this.setRoute(Uri.fromLocation(window.location))
     })
   }
 }

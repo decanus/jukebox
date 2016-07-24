@@ -4,7 +4,7 @@
 
 import { buildQuery, parseQuery } from '../url/query'
 
-export class Route {
+export class Uri {
   /**
    *
    * @param {string} path
@@ -43,19 +43,19 @@ export class Route {
 
   /**
    *
-   * @param {Route} other
+   * @param {Uri} other
    * @returns {boolean}
    */
   isSameValue(other) {
-    return this.toString() === other.toString() && other instanceof Route
+    return this.toString() === other.toString() && other instanceof Uri
   }
   
   /**
    *
    * @param {Location|HTMLAnchorElement} location
-   * @returns {Route}
+   * @returns {Uri}
    */
   static fromLocation (location) {
-    return new Route(location.pathname, parseQuery(location.search))
+    return new Uri(location.pathname, parseQuery(location.search))
   }
 }

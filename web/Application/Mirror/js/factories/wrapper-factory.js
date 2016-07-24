@@ -2,9 +2,10 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { SocketWrapper } from '../socket/socket-wrapper'
+import { SocketWrapper } from '../wrappers/socket-wrapper'
+import { LocationWrapper } from '../wrappers/location-wrapper'
 
-export class AppFactory {
+export class WrapperFactory {
   /**
    *
    * @param {MasterFactory} masterFactory
@@ -23,6 +24,21 @@ export class AppFactory {
      * @private
      */
     this._socket = null
+
+    /**
+     * 
+     * @type {LocationWrapper}
+     * @private
+     */
+    this._locationWrapper = null
+  }
+
+  /**
+   *
+   * @returns {Array<String>}
+   */
+  static get factoryMethods () {
+    return [ 'createSocketWrapper', 'createLocationWrapper' ]
   }
 
   /**
@@ -41,9 +57,14 @@ export class AppFactory {
 
   /**
    * 
-   * @returns {Array<String>}
+   * @returns {LocationWrapper}
    */
-  static get factoryMethods () {
-    return [ 'createSocketWrapper' ]
+  createLocationWrapper () {
+    if (this._router == null) {
+      this._locationWrapper = new LocationWrapper()
+      this._locationWrapper.registerPopstateListener()
+    }
+    
+    return this._locationWrapper
   }
 }

@@ -3,7 +3,7 @@
  */
 
 import { app } from '../../app'
-import { Route } from '../../library/value/route'
+import { Uri } from '../../library/value/uri'
 import { RenderingStatus } from '../../library/dom/rendering'
 
 const router = app.router
@@ -40,6 +40,6 @@ export class SearchForm extends HTMLFormElement {
       params.set('type', currentRoute.params.get('type'))
     }
 
-    router.route = new Route('/search', params)
+    router.route = new Uri('/search', params)
   }
 }
