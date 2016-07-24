@@ -2,20 +2,11 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { MasterFactory } from './factory/master-factory'
-import { AppFactory } from './factory/app-factory'
-import { ElementFactory } from './factory/element-factory'
-import { PingMessage } from './message/ping-message'
+import { buildFactory } from './bootstrap/factory'
+import { defineElements } from './bootstrap/elements'
+import { createSocketKeepAlive } from './bootstrap/socket'
 
-const factory = new MasterFactory({ isDevelopmentMode: true })
+const factory = buildFactory()
 
-factory.registerFactory(AppFactory)
-factory.registerFactory(ElementFactory)
-
-customElements.define('socket-debug', factory.createSocketDebugClass())
-
-const socket = factory.createSocketWrapper()
-
-// keep socket alive
-setInterval(() => socket.send(PingMessage()), 30000)
-
+defineElements(factory)
+createSocketKeepAlive(factory)
