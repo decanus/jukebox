@@ -2,21 +2,20 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import './app/elements'
-
-import { SocketWrapper } from './socket/socket-wrapper'
-import { SubscribeMessage } from './message/subscribe-message'
+import { MasterFactory } from './factory/master-factory'
+import { AppFactory } from './factory/app-factory'
+import { ElementFactory } from './factory/element-factory'
 import { PingMessage } from './message/ping-message'
 
-const socket = new SocketWrapper('ws://devsocket.jukebox.ninja/mirror')
+const factory = new MasterFactory({ isDevelopmentMode: true })
 
-socket.connect()
+factory.registerFactory(AppFactory)
+factory.registerFactory(ElementFactory)
 
-socket.onMessage.addListener((msg) => {
-  console.log(msg)
-})
+customElements.define('socket-debug', factory.createSocketDebugClass())
 
-socket.send(SubscribeMessage('1'))
+const socket = factory.createSocketWrapper()
 
 // keep socket alive
 setInterval(() => socket.send(PingMessage()), 30000)
+
