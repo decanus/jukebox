@@ -66,12 +66,13 @@ namespace Jukebox\Backend\Bootstrapper
             if ($this->configuration === null) {
                 $this->configuration =  new Configuration(__DIR__ . '/../../config/system.ini');
             }
+
             return $this->configuration;
         }
 
         protected function registerErrorHandler()
         {
-            $errorHandler = new CliErrorHandler;
+            $errorHandler = new CLIErrorHandler;
             $errorHandler->register();
         }
 
