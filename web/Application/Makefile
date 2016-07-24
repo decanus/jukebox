@@ -2,12 +2,12 @@
 
 all:
 	@$(MAKE) -C Jukebox
-	@$(MAKE) -C mirror
+	@$(MAKE) -C Mirror
 
 clean:
 	@$(MAKE) clean -C Jukebox
-	@$(MAKE) clean -C mirror
+	@$(MAKE) clean -C Mirror
 
 deps:
 	@$(MAKE) deps -C Jukebox
-	@$(MAKE) deps -C mirror
+	@$(MAKE) deps -C Mirror
