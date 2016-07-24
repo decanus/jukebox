@@ -27,6 +27,8 @@ server.on('connection', (_client) => {
   client.send({ action: 'info', instance: instance })
 
   client.onMessage.addListener((message) => {
+    console.log(message)
+    
     if (message.action === 'subscribe') {
       subscriptionManager.subscribe(client, message.mirrorId)
     }

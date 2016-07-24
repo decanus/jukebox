@@ -6,6 +6,7 @@ import './app/elements'
 
 import { SocketWrapper } from './socket/socket-wrapper'
 import { SubscribeMessage } from './message/subscribe-message'
+import { PingMessage } from './message/ping-message'
 
 const socket = new SocketWrapper('ws://devsocket.jukebox.ninja/mirror')
 
@@ -16,3 +17,6 @@ socket.onMessage.addListener((msg) => {
 })
 
 socket.send(SubscribeMessage('1'))
+
+// keep socket alive
+setInterval(() => socket.send(PingMessage()), 30000)
