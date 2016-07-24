@@ -4,7 +4,7 @@
 
 import { Route } from './../library/value/route'
 import { Signal } from './../event/signal'
-import { updatePath } from './../dom/history'
+import { updatePath } from '../library/dom/history'
 
 export class Router {
   /**

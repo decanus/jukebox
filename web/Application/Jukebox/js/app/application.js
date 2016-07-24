@@ -3,8 +3,7 @@
  */
 
 import { Signal } from './../event/signal'
-import { updatePath } from './../dom/history'
-import { ModelStore } from './../model/model-store'
+import { ModelStore } from '../model/model-store'
 import { ModelLoader } from './../model/model-loader'
 import { ModelRepository } from './../model/model-repository'
 import { ModelFetcher } from './../model/model-fetcher'
