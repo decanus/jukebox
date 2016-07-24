@@ -19,7 +19,7 @@ JS_BUILDS := $(subst ./js/,./js-build/,$(JS_SOURCES))
 all: $(BUNDLE)
 
 clean:
-	rm -rf build/ js-build/ $(BUNDLE)
+	rm -rf build/ .cache/ $(BUNDLE)
 
 lint:
 	standard "js/**/*.js"
@@ -28,17 +28,14 @@ deps:
 	npm prune
 	npm install
 
-build/js/jukebox.js: $(JSON_FILES) $(JS_BUILDS)
+build/js/jukebox.js: $(JSON_FILES) $(JS_SOURCES)
 	@mkdir -p $(dir $@)
 ifeq ($(JUKEBOX_ENV),production)
-	browserify --dg=false --no-bundle-external -g [ uglifyify --no-sourcemap ] -p bundle-collapser/plugin js-build/jukebox.js | uglifyjs --screw-ie8 --mangle -o $@
+	browserify js/jukebox.js -t [ babelify --babelrc=false --extends $(abspath .babelrc) ] --no-builtins --no-bf --igv= --no-bundle-external --dg=false -g [ uglifyify --no-sourcemap ] -p bundle-collapser/plugin js/jukebox.js | uglifyjs --screw-ie8 --mangle -o $@
 else
-	browserify --dg=false --no-bundle-external js-build/jukebox.js > $@
+	@mkdir -p .cache
+	browserifyinc --cachefile .cache/browserify-cache.json js/jukebox.js -t [ babelify --babelrc=false --extends $(abspath .babelrc) ] --no-builtins --no-bf --igv= --no-bundle-external --dg=false > $@
 endif
-
-js-build/%: js/%
-	@mkdir -p $(dir $@)
-	babel $< > $@
 
 build/js/views.js: $(VIEWS)
 ifeq ($(JUKEBOX_ENV),production)
@@ -57,3 +54,6 @@ ifeq ($(JUKEBOX_ENV),production)
 else
 	cd $(abspath data) && ln -sf config.dev.json config.json
 endif
+
+node_modules/jn-web-library:
+	cd $(abspath node_modules) && ln -sf ../../Library/lib $(notdir $@)

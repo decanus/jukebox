@@ -29,7 +29,7 @@ export function parseQuery (query) {
     .map((str) => str.split('='))
     .map((pair) => [
       decodeValue(pair[ 0 ]),
-      decodeValue(pair[ 1 ] || null )
+      decodeValue(pair[ 1 ] || null)
     ])
 
   return new Map(pairs)

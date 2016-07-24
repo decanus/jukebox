@@ -6,7 +6,7 @@ import { app } from '../app'
 import { Page } from './page'
 import { ViewRepository } from './view-repository'
 import { ResultId } from '../value/result-id'
-import { encodeValue } from '../url/value'
+import { encodeValue } from '../library/url/value'
 
 /**
  *

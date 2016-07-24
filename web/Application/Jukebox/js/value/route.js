@@ -2,7 +2,7 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { buildQuery, parseQuery } from '../url/query'
+import { buildQuery, parseQuery } from '../library/url/query'
 
 export class Route {
   /**
