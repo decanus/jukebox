@@ -9,7 +9,7 @@ import { AppMount } from '../elements/app-mount'
 export class ElementFactory {
   /**
    *
-   * @param {MasterFactory|AppFactory|LocatorFactory} masterFactory
+   * @param {MasterFactory|WrapperFactory|LocatorFactory} masterFactory
    */
   constructor (masterFactory) {
     this._masterFactory = masterFactory
@@ -32,7 +32,7 @@ export class ElementFactory {
    * @returns {AppMount}
    */
   createSocketDebugClass () {
-    return this._wrapElementClass(SocketDebug, (name) => [
+    return this._wrapElementClass(SocketDebug, () => [
       this._masterFactory.createSocketWrapper()
     ])
   }
@@ -42,7 +42,7 @@ export class ElementFactory {
    * @returns {AppMount}
    */
   createAppViewClass () {
-    return this._wrapElementClass(AppView, (name) => [
+    return this._wrapElementClass(AppView, () => [
       this._masterFactory.createViewLocator()
     ])
   }
@@ -52,7 +52,9 @@ export class ElementFactory {
    * @returns {AppMount}
    */
   createAppMountClass () {
-    return this._wrapElementClass(AppMount)
+    return this._wrapElementClass(AppMount, () => [
+      this._masterFactory.createLocationWrapper()
+    ])
   }
 
   /**

@@ -3,7 +3,7 @@
  */
 
 import { app } from '../../app'
-import { Route } from '../../library/value/route'
+import { Uri } from '../../library/value/uri'
 import { RenderingStatus } from '../../library/dom/rendering'
 
 export class JukeboxLink extends HTMLAnchorElement {
@@ -33,6 +33,6 @@ export class JukeboxLink extends HTMLAnchorElement {
 
     event.preventDefault()
 
-    app.router.route = Route.fromLocation(this)
+    app.router.route = Uri.fromLocation(this)
   }
 }

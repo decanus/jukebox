@@ -27,7 +27,7 @@ export class SearchField extends HTMLInputElement {
 
   /**
    * 
-   * @param {Route} route
+   * @param {Uri} route
    * @private
    */
   _updateValue (route) {

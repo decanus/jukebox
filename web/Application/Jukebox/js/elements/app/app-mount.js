@@ -34,7 +34,7 @@ export class AppMount extends HTMLElement {
 
   /**
    *
-   * @param {Route} route
+   * @param {Uri} route
    * @private
    */
   async _onRoute (route) {

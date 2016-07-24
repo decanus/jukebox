@@ -52,7 +52,7 @@ function getSpecialView (model) {
 
 /**
  *
- * @param {Route} route
+ * @param {Uri} route
  * @returns {ResolvedRoute|null}
  */
 function resolveCached (route) {
@@ -68,7 +68,7 @@ function resolveCached (route) {
 
 /**
  *
- * @param {Route} route
+ * @param {Uri} route
  * @returns {ResolvedRoute|null}
  */
 function resolveStatic (route) {
@@ -83,7 +83,7 @@ function resolveStatic (route) {
 
 /**
  *
- * @param {Route} route
+ * @param {Uri} route
  * @returns {ResolvedRoute}
  * @todo rename and move
  * @todo generic resovers handling

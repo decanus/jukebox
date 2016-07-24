@@ -96,7 +96,7 @@ export class Application {
 
   /**
    *
-   * @returns {Route}
+   * @returns {Uri}
    */
   get route () {
     return this._route
