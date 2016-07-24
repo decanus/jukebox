@@ -5,6 +5,8 @@ namespace Jukebox\Mirror
 
     use Jukebox\Framework\Bootstrap\AbstractBootstrapper;
     use Jukebox\Framework\Configuration;
+    use Jukebox\Framework\ErrorHandlers\DevelopmentErrorHandler;
+    use Jukebox\Framework\ErrorHandlers\ProductionErrorHandler;
     use Jukebox\Framework\Factories\MasterFactory;
     use Jukebox\Framework\Routers\Router;
 
@@ -24,6 +26,9 @@ namespace Jukebox\Mirror
         {
             $factory = new MasterFactory($this->getConfiguration());
             $factory->addFactory(new \Jukebox\Mirror\Factories\RouterFactory);
+            $factory->addFactory(new \Jukebox\Mirror\Factories\ControllerFactory);
+            $factory->addFactory(new \Jukebox\Mirror\Factories\HandlerFactory);
+            $factory->addFactory(new \Jukebox\Framework\Factories\BackendFactory);
             return $factory;
         }
 
@@ -37,7 +42,7 @@ namespace Jukebox\Mirror
         protected function getConfiguration(): Configuration
         {
             if ($this->configuration === null) {
-                $this->configuration =  new Configuration(__DIR__ . '/../../config/system.ini');
+                $this->configuration =  new Configuration(__DIR__ . '/../config/system.ini');
             }
 
             return $this->configuration;
@@ -45,7 +50,18 @@ namespace Jukebox\Mirror
 
         protected function registerErrorHandler()
         {
-            // TODO: Implement registerErrorHandler() method.
+            if ($this->isDevelopmentMode()) {
+                $errorHandler = new DevelopmentErrorHandler;
+            } else {
+                $errorHandler = new ProductionErrorHandler;
+            }
+
+            $errorHandler->register();
+        }
+
+        private function isDevelopmentMode(): bool
+        {
+            return $this->getConfiguration()->isDevelopmentMode();
         }
     }
 }
