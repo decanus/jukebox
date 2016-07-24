@@ -5,7 +5,7 @@
 import { app } from '../../app'
 import { User } from '../../value/user'
 import { Events } from '../../dom/events'
-import { Route } from '../../value/route'
+import { Route } from '../../library/value/route'
 
 export class LoginFormHandler {
   /**

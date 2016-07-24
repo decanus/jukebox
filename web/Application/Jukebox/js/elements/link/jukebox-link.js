@@ -3,7 +3,7 @@
  */
 
 import { app } from '../../app'
-import { Route } from '../../value/route'
+import { Route } from '../../library/value/route'
 import { RenderingStatus } from '../../dom/rendering'
 
 export class JukeboxLink extends HTMLAnchorElement {
