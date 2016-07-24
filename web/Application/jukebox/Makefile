@@ -5,7 +5,7 @@
 SHELL := /bin/bash
 PATH  := ./node_modules/.bin:$(PATH)
 
-BUNDLE := build/js/jukebox.js build/js/polyfills.js build/js/views.js
+BUNDLE := data/config.json build/js/jukebox.js build/js/polyfills.js build/js/views.js
 POLYFILLS := $(wildcard polyfills/*.js)
 VIEWS := $(shell find views -name "*.handlebars")
 
@@ -53,7 +53,7 @@ build/js/polyfills.js: $(POLYFILLS)
 
 data/config.json:
 ifeq ($(JUKEBOX_ENV),production)
-	cd data && ln -sf config.live.json config.json
+	cd $(abspath data) && ln -sf config.live.json config.json
 else
-	cd data && ln -sf config.dev.json config.json
+	cd $(abspath data) && ln -sf config.dev.json config.json
 endif
