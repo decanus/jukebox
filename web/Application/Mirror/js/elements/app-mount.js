@@ -8,7 +8,7 @@ export class AppMount extends HTMLElement {
   }
 
   connectedCallback () {
-    
+    this.appendChild(<app-view view-name="home" />)
   }
 
   disconnectedCallback () {

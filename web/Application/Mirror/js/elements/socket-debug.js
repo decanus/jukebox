@@ -28,9 +28,6 @@ export class SocketDebug extends HTMLElement {
    * @private
    */
   _onMessage (message) {
-    const pre = document.createElement('pre')
-    pre.innerText = JSON.stringify(message, null, 4)
-    
-    this.appendChild(pre)
+    this.appendChild(<pre>{JSON.stringify(message, null, 4)}</pre>)
   }
 }
