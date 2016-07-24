@@ -1,13 +1,13 @@
-.PHONY: all jukebox mirror
+.PHONY: all deps clean
 
-all: jukebox mirror
-
-jukebox:
-	@$(MAKE) -C jukebox
-
-mirror:
+all:
+	@$(MAKE) -C Jukebox
 	@$(MAKE) -C mirror
 
+clean:
+	@$(MAKE) clean -C Jukebox
+	@$(MAKE) clean -C mirror
+
 deps:
-	@$(MAKE) deps -C jukebox
+	@$(MAKE) deps -C Jukebox
 	@$(MAKE) deps -C mirror
