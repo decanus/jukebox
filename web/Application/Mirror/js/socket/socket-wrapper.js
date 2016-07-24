@@ -2,7 +2,7 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { Signal } from '../event/signal'
+import { Signal } from '../library/event/signal'
 
 export class SocketWrapper {
   /**
