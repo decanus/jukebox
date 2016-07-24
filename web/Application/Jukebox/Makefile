@@ -54,6 +54,3 @@ ifeq ($(JUKEBOX_ENV),production)
 else
 	cd $(abspath data) && ln -sf config.dev.json config.json
 endif
-
-node_modules/jn-web-library:
-	cd $(abspath node_modules) && ln -sf ../../Library/lib $(notdir $@)
