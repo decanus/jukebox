@@ -2,6 +2,8 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
+import './app/elements'
+
 import { SocketWrapper } from './socket/socket-wrapper'
 import { SubscribeMessage } from './message/subscribe-message'
 
