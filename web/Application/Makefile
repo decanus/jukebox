@@ -1,9 +1,10 @@
-.PHONY: all jukebox
+.PHONY: all deps clean
 
-all: jukebox
+all:
+	@$(MAKE) -C Jukebox
 
-jukebox:
-	@$(MAKE) -C jukebox
+clean:
+	@$(MAKE) clean -C Jukebox
 
 deps:
-	@$(MAKE) deps -C jukebox
+	@$(MAKE) deps -C Jukebox

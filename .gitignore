@@ -4,9 +4,9 @@ Vagrant/provisioned
 *autoload.php
 cache.properties
 /web/Styles/build/
-/web/Application/jukebox/build/
-/web/Application/jukebox/data/config.json
-/web/Application/jukebox/js-build/
+/web/Application/Jukebox/build/
+/web/Application/Jukebox/data/config.json
+/web/Application/Jukebox/js-build/
 web/CDN/artists/*.jpeg
 web/CDN/artists/*.jpg
 web/CDN/artists/*.png
