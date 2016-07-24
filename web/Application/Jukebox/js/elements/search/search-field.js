@@ -3,7 +3,7 @@
  */
 
 import { app } from '../../app'
-import { RenderingStatus } from '../../dom/rendering'
+import { RenderingStatus } from '../../library/dom/rendering'
 
 const router = app.router
 

@@ -3,7 +3,7 @@
  */
 
 import { locateView } from '../../views/locate'
-import { renderTemplate } from '../../template/render'
+import { renderTemplate } from '../../library/template/render'
 import { app } from  '../../app'
 
 /**

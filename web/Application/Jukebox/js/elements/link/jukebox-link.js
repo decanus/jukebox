@@ -4,7 +4,7 @@
 
 import { app } from '../../app'
 import { Route } from '../../library/value/route'
-import { RenderingStatus } from '../../dom/rendering'
+import { RenderingStatus } from '../../library/dom/rendering'
 
 export class JukeboxLink extends HTMLAnchorElement {
   createdCallback () {

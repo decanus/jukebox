@@ -3,58 +3,16 @@
  */
 
 import { Observable } from './observable'
+import { Signal as _Signal } from '../library/event/signal'
 
-/**
- *
- * @template T
- * @constructor
- */
-export function Signal () {
+export class Signal extends _Signal {
+  toObservable () {
+    return new Observable((observer) => {
+      let onValue = (value) => observer.next(value)
 
-}
+      this.addListener(onValue)
 
-/**
- *
- * @param {(function(value: T))} callbackFn
- */
-Signal.prototype.addListener = function (callbackFn) {
-  if (this._listeners == null) {
-    this._listeners = new Set()
+      return () => this.removeListener(onValue)
+    })
   }
-
-  this._listeners.add(callbackFn)
-}
-
-Signal.prototype.removeListener = function (callbackFn) {
-  if (this._listeners == null) {
-    return
-  }
-
-  this._listeners.delete(callbackFn)
-}
-
-/**
- *
- * @param {T} [value]
- */
-Signal.prototype.dispatch = function (value) {
-  if (this._listeners == null) {
-    return
-  }
-  
-  this._listeners.forEach((listener) => listener(value))
-}
-
-/**
- *
- * @returns {Observable<T>}
- */
-Signal.prototype.toObservable = function () {
-  return new Observable((observer) => {
-    let onValue = (value) => observer.next(value)
-
-    this.addListener(onValue)
-
-    return () => this.removeListener(onValue)
-  })
 }

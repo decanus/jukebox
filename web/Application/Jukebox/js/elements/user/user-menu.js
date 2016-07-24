@@ -3,8 +3,8 @@
  */
 
 import { app } from '../../app'
-import { RenderingStatus } from '../../dom/rendering'
-import { createFragmentFromString } from '../../dom/fragment'
+import { RenderingStatus } from '../../library/dom/rendering'
+import { createFragmentFromString } from '../../library/dom/fragment'
 
 const SIGNIN_BUTTONS = `
 <a view-name="register" href="/register" is="dialog-view-link">

@@ -6,7 +6,7 @@ import { app } from '../../app'
 import { fetchResults } from '../../app/apr'
 import { findView } from '../../dom/find-view'
 import { ResultId } from '../../value/result-id'
-import { isElementInViewport } from '../../dom/viewport'
+import { isElementInViewport } from '../../library/dom/viewport'
 
 const state = new WeakMap()
 const listener = new WeakMap()

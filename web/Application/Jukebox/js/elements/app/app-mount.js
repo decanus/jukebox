@@ -3,12 +3,12 @@
  */
 
 import { resolveView } from '../../views/resolve'
-import { renderTemplate } from '../../template/render'
+import { renderTemplate } from '../../library/template/render'
 
 import { app } from '../../app'
 import { AppView } from '../../app/elements'
 import { Events } from '../../dom/events'
-import { RenderingStatus } from '../../dom/rendering'
+import { RenderingStatus } from '../../library/dom/rendering'
 
 const router = app.router
 

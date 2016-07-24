@@ -4,7 +4,7 @@
 
 import { createPromise } from '../../dom/events/create-promise'
 import { createObservable } from '../../dom/events/create-observable'
-import { Detabinator } from '../../dom/detabinator'
+import { Detabinator } from '../../library/dom/detabinator'
 import { Events } from '../../dom/events'
 
 export class DialogContent extends HTMLElement {

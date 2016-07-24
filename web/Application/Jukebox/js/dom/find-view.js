@@ -2,7 +2,7 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { findClosestParent } from './find-closest-parent'
+import { findClosestParent } from '../library/dom/find-closest-parent'
 
 /**
  *

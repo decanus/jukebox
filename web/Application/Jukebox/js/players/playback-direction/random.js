@@ -2,7 +2,7 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { shuffleArray } from '../../std/array'
+import { shuffleArray } from '../../library/std/array'
 
 export class Random {
   constructor () {

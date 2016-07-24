@@ -2,8 +2,8 @@
  * (c) 2016 Jukebox <www.jukebox.ninja>
  */
 
-import { Detabinator } from '../../dom/detabinator'
-import { RenderingStatus } from '../../dom/rendering'
+import { Detabinator } from '../../library/dom/detabinator'
+import { RenderingStatus } from '../../library/dom/rendering'
 
 export class AppSidebar extends HTMLElement {
   createdCallback () {

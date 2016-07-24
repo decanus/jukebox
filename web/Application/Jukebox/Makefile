@@ -11,6 +11,7 @@ VIEWS := $(shell find views -name "*.handlebars")
 
 JSON_FILES := $(shell find data -name "*.json")
 
+JS_LIBRARY := $(shell find ../Library/lib -name "*.js")
 JS_SOURCES := $(shell find ./js -name "*.js")
 JS_BUILDS := $(subst ./js/,./js-build/,$(JS_SOURCES))
 
@@ -25,13 +26,13 @@ deps:
 	npm prune
 	npm install
 
-build/js/jukebox.js: $(JSON_FILES) $(JS_SOURCES)
+build/js/jukebox.js: $(JSON_FILES) $(JS_SOURCES) $(JS_LIBRARY)
 	@mkdir -p $(dir $@)
 ifeq ($(JUKEBOX_ENV),production)
 	browserify js/jukebox.js -t [ babelify --babelrc=false --extends $(abspath .babelrc) ] --no-builtins --no-bf --igv= --no-bundle-external --dg=false -g [ uglifyify --no-sourcemap ] -p bundle-collapser/plugin js/jukebox.js | uglifyjs --screw-ie8 --mangle -o $@
 else
 	@mkdir -p .cache
-	browserifyinc --cachefile .cache/browserify-cache.json js/jukebox.js -t [ babelify --babelrc=false --extends $(abspath .babelrc) ] --no-builtins --no-bf --igv= --no-bundle-external --dg=false > $@
+	browserifyinc --cachefile .cache/browserify-cache.json js/jukebox.js -t [ babelify --babelrc=false --extends $(abspath .babelrc) ] --no-builtins --no-bf --igv= --no-bundle-external --dg=false -o $@
 endif
 
 build/js/views.js: $(VIEWS)

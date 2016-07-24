@@ -3,7 +3,7 @@
  */
 
 import { app } from '../app'
-import { renderTemplate } from '../template/render'
+import { renderTemplate } from '../library/template/render'
 
 const subscription = new WeakMap()
 
