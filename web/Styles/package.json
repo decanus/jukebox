@@ -1,4 +1,12 @@
 {
+  "name": "jukebox-application",
+  "version": "0.0.1",
+  "private": true,
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/decanus/jukebox.git"
+  },
   "devDependencies": {
     "autoprefixer": "^6.3.6",
     "less": "^2.7.1",

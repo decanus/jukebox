@@ -4,11 +4,12 @@ Vagrant/provisioned
 *autoload.php
 cache.properties
 /web/Styles/build/
-web/Styles/node_modules/
-/web/Application/build/
-/web/Application/data/config.json
-/web/Application/node_modules/
-/web/Application/js-build/
+/web/Application/Jukebox/build/
+/web/Application/Jukebox/data/config.json
+/web/Application/Jukebox/js-build/
 web/CDN/artists/*.jpeg
 web/CDN/artists/*.jpg
 web/CDN/artists/*.png
+**/node_modules/
+npm-debug.log
+**/.cache/
