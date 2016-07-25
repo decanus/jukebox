@@ -19,7 +19,7 @@ namespace Jukebox\API\Commands
             $this->databaseBackend = $postgreDatabaseBackend;
         }
 
-        public function execute(Playlist $playlist)
+        public function execute(Playlist $playlist): string
         {
             $this->databaseBackend->insert(
                 'INSERT INTO playlists (owner, name, description, private) VALUES (:owner, :name, :description, :private)',
@@ -32,7 +32,7 @@ namespace Jukebox\API\Commands
             );
 
             // @todo return
-            return true;
+            return $this->databaseBackend->lastInsertId('playlists_id_seq');
         }
     }
 }

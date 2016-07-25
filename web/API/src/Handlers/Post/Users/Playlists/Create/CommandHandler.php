@@ -56,7 +56,7 @@ namespace Jukebox\API\Handlers\Post\Users\Playlists\Create
             );
 
             // @todo return playlist object
-            $model->setData(['id' => (string) $return->getInsertedId()]);
+            $model->setData(['id' => (string) $return]);
             $model->setStatusCode(new Created);
         }
     }
