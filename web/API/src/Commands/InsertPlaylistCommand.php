@@ -30,6 +30,9 @@ namespace Jukebox\API\Commands
                     ':private' => (string) new PostgresBool(false)
                 ]
             );
+
+            // @todo return
+            return true;
         }
     }
 }
