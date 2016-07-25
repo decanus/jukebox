@@ -44,10 +44,7 @@ namespace Jukebox\API\Handlers\Get\Users\Playlist
                 return;
             }
 
-            $playlist = $playlist->getArrayCopy();
             $playlist['owner'] = $user;
-            $playlist['id'] = (string) $playlist['_id'];
-            unset($playlist['_id']);
 
             $model->setData($playlist);
         }
