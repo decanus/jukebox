@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS users (
   username VARCHAR(100) NOT NULL,
   email VARCHAR(254) NOT NULL,
   provider VARCHAR(8) NOT NULL,
-  CHECK (provider IN ('facebook', 'jukebox'))
+  CHECK (provider IN ('jukebox'))
 );
 
 CREATE TABLE IF NOT EXISTS user_credentials (
