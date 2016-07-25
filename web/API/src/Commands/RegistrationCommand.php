@@ -20,15 +20,26 @@ namespace Jukebox\API\Commands
 
         public function execute(Email $email, Username $username, Salt $salt, Hash $hash)
         {
-            $this->postgreDatabaseBackend->insert(
-                'INSERT INTO users (username, email, hash, salt) VALUES (:username, :email, :hash, :salt)',
-                [
-                    ':email' => (string) $email,
-                    ':username' => (string) $username,
-                    ':salt' => (string) $salt,
-                    ':hash' => (string) $hash
-                ]
-            );
+            $this->postgreDatabaseBackend->beginTransaction();
+
+            try {
+                $this->postgreDatabaseBackend->insert(
+                    'INSERT INTO users (username, email, provider) VALUES (:username, :email, :provider)',
+                    [':email' => (string) $email, ':username' => (string) $username, ':provider' => 'jukebox']
+                );
+
+                $id = $this->postgreDatabaseBackend->lastInsertId('users_id_seq');
+
+                $this->postgreDatabaseBackend->insert(
+                    'INSERT INTO user_credentials (account, salt, hash) VALUES (:account, :salt, :hash)',
+                    [':account' => $id, ':salt' => (string) $salt, ':hash' => (string) $hash]
+                );
+
+                $this->postgreDatabaseBackend->commit();
+
+            } catch (\Throwable $e) {
+                $this->postgreDatabaseBackend->rollBack();
+            }
         }
     }
 }

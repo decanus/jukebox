@@ -70,6 +70,14 @@ CREATE TABLE IF NOT EXISTS users (
   id SERIAL PRIMARY KEY,
   username VARCHAR(100) NOT NULL,
   email VARCHAR(254) NOT NULL,
+  provider VARCHAR(8) NOT NULL,
+  CHECK (provider IN ('jukebox'))
+);
+
+CREATE TABLE IF NOT EXISTS user_credentials (
+  id SERIAL PRIMARY KEY,
+  account INT NOT NULL,
   hash VARCHAR(64) NOT NULL,
-  salt VARCHAR(32) NOT NULL
+  salt VARCHAR(32) NOT NULL,
+  FOREIGN KEY (account) REFERENCES users(id)
 );
