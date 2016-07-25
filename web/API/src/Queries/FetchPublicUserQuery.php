@@ -3,39 +3,23 @@
 namespace Jukebox\API\Queries
 {
 
-    use Jukebox\Framework\Backends\MongoDatabaseBackend;
-    use MongoDB\BSON\ObjectID;
+    use Jukebox\Framework\Backends\PostgreDatabaseBackend;
 
     class FetchPublicUserQuery
     {
         /**
-         * @var MongoDatabaseBackend
+         * @var PostgreDatabaseBackend
          */
-        private $mongoDatabaseBackend;
+        private $postgreDatabaseBackend;
 
-        public function __construct(MongoDatabaseBackend $mongoDatabaseBackend)
+        public function __construct(PostgreDatabaseBackend $postgreDatabaseBackend)
         {
-            $this->mongoDatabaseBackend = $mongoDatabaseBackend;
+            $this->postgreDatabaseBackend = $postgreDatabaseBackend;
         }
 
         public function execute(string $userId): array
         {
-            // @todo public should only have username
-            $user = (array) $this->mongoDatabaseBackend->findOne(
-                'users',
-                ['_id' => new ObjectID($userId)],
-                ['projection' => ['email' => 1]]
-            );
-
-            if ($user === null) {
-                throw new \InvalidArgumentException('User "' . $userId . '" not found');
-            }
-
-            $id = $user['_id'];
-            unset($user['_id']);
-            $user['id'] = (string) $id;
-
-            return $user;
+            return $this->postgreDatabaseBackend->fetch('SELECT username FROM users WHERE id = :id', ['id' => $userId]);
         }
     }
 }
