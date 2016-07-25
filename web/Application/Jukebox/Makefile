@@ -8,6 +8,7 @@ PATH  := ./node_modules/.bin:$(PATH)
 BUNDLE := data/config.json build/js/jukebox.js build/js/polyfills.js build/js/views.js
 POLYFILLS := $(wildcard polyfills/*.js)
 VIEWS := $(shell find views -name "*.handlebars")
+ROLLUP_CONFIG := .rollup.config.js
 
 JSON_FILES := $(shell find data -name "*.json")
 
@@ -27,13 +28,8 @@ deps:
 	npm install
 
 build/js/jukebox.js: $(JSON_FILES) $(JS_SOURCES) $(JS_LIBRARY)
-	@mkdir -p $(dir $@)
-ifeq ($(JUKEBOX_ENV),production)
-	browserify js/jukebox.js -t [ babelify --babelrc=false --extends $(abspath .babelrc) ] --no-builtins --no-bf --igv= --no-bundle-external --dg=false -g [ uglifyify --no-sourcemap ] -p bundle-collapser/plugin js/jukebox.js | uglifyjs --screw-ie8 --mangle -o $@
-else
-	@mkdir -p .cache
-	browserifyinc --cachefile .cache/browserify-cache.json js/jukebox.js -t [ babelify --babelrc=false --extends $(abspath .babelrc) ] --no-builtins --no-bf --igv= --no-bundle-external --dg=false -o $@
-endif
+	@rm -f $@.map
+	rollup -c $(ROLLUP_CONFIG) -o $@ js/jukebox.js
 
 build/js/views.js: $(VIEWS)
 ifeq ($(JUKEBOX_ENV),production)

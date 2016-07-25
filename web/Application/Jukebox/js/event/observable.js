@@ -1,4 +1,4 @@
-import _Observable from '../../node_modules/zen-observable/index'
+import { Observable as _Observable } from '../../node_modules/zen-observable/src/Observable'
 
 export class Observable extends _Observable {
   /**
