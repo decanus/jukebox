@@ -52,6 +52,15 @@ namespace Jukebox\API\Factories
             return $router;
         }
 
+        public function createUsersRouter(): \Jukebox\API\Routers\UsersRouter
+        {
+            $router = new \Jukebox\API\Routers\UsersRouter($this->getMasterFactory()->createAccessControl());
+            $router->addEndpointHandler(new \Jukebox\API\Endpoints\v1\Users\Playlists\CreatePlaylistEndpoint($this->getMasterFactory()));
+            $router->addEndpointHandler(new \Jukebox\API\Endpoints\v1\Users\Playlists\GetUserPlaylistEndpoint($this->getMasterFactory()));
+            $router->addEndpointHandler(new \Jukebox\API\Endpoints\v1\Users\Playlists\GetUserPlaylistsEndpoint($this->getMasterFactory()));
+            return $router;
+        }
+
         public function createBrowseRouter(): \Jukebox\API\Routers\BrowseRouter
         {
             $router = new \Jukebox\API\Routers\BrowseRouter($this->getMasterFactory()->createAccessControl());

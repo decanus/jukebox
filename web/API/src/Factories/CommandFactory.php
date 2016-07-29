@@ -32,5 +32,12 @@ namespace Jukebox\API\Factories
                 $this->getMasterFactory()->createPostgreDatabaseBackend()
             );
         }
+
+        public function createInsertPlaylistCommand(): \Jukebox\API\Commands\InsertPlaylistCommand
+        {
+            return new \Jukebox\API\Commands\InsertPlaylistCommand(
+                $this->getMasterFactory()->createMongoDatabaseBackend()
+            );
+        }
     }
 }

@@ -34,5 +34,26 @@ namespace Jukebox\API\Factories
                 $this->getMasterFactory()->createPostgreDatabaseBackend()
             );
         }
+
+        public function createFetchUserPlaylistsQuery(): \Jukebox\API\Queries\FetchUserPlaylistsQuery
+        {
+            return new \Jukebox\API\Queries\FetchUserPlaylistsQuery(
+                $this->getMasterFactory()->createMongoDatabaseBackend()
+            );
+        }
+
+        public function createFetchPublicUserQuery(): \Jukebox\API\Queries\FetchPublicUserQuery
+        {
+            return new \Jukebox\API\Queries\FetchPublicUserQuery(
+                $this->getMasterFactory()->createMongoDatabaseBackend()
+            );
+        }
+
+        public function createFetchUserPlaylistQuery(): \Jukebox\API\Queries\FetchUserPlaylistQuery
+        {
+            return new \Jukebox\API\Queries\FetchUserPlaylistQuery(
+                $this->getMasterFactory()->createMongoDatabaseBackend()
+            );
+        }
     }
 }

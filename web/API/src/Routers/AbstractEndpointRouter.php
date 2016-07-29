@@ -46,7 +46,7 @@ namespace Jukebox\API\Routers
                 }
 
                 if (!$this->accessControl->hasPermissions($request, $endpoint)) {
-                    throw new Forbidden;
+                    throw new Forbidden('Forbidden');
                 }
 
                 return $endpoint->handle($request);

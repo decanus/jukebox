@@ -165,6 +165,48 @@ namespace Jukebox\API\Factories
             );
         }
 
+        public function createCreatePlaylistController(ControllerParameterObject $parameterObject): PostController
+        {
+            return new PostController(
+                new \Jukebox\API\Models\APIModel($parameterObject->getUri()),
+                $this->getMasterFactory()->createPreHandler(),
+                $this->getMasterFactory()->createCreatePlaylistCommandHandler(),
+                $this->getMasterFactory()->createQueryHandler(),
+                $this->getMasterFactory()->createTransformationHandler(),
+                $this->getMasterFactory()->createResponseHandler(),
+                $this->getMasterFactory()->createPostHandler(),
+                new JsonResponse
+            );
+        }
+
+        public function createGetUserPlaylistsController(ControllerParameterObject $parameterObject): GetController
+        {
+            return new GetController(
+                new \Jukebox\API\Models\APIModel($parameterObject->getUri()),
+                $this->getMasterFactory()->createPreHandler(),
+                $this->getMasterFactory()->createCommandHandler(),
+                $this->getMasterFactory()->createGetUserPlaylistsQueryHandler(),
+                $this->getMasterFactory()->createTransformationHandler(),
+                $this->getMasterFactory()->createResponseHandler(),
+                $this->getMasterFactory()->createPostHandler(),
+                new JsonResponse
+            );
+        }
+
+        public function createGetUserPlaylistController(ControllerParameterObject $parameterObject): GetController
+        {
+            return new GetController(
+                new \Jukebox\API\Models\APIModel($parameterObject->getUri()),
+                $this->getMasterFactory()->createPreHandler(),
+                $this->getMasterFactory()->createCommandHandler(),
+                $this->getMasterFactory()->createGetUserPlaylistQueryHandler(),
+                $this->getMasterFactory()->createTransformationHandler(),
+                $this->getMasterFactory()->createResponseHandler(),
+                $this->getMasterFactory()->createPostHandler(),
+                new JsonResponse
+            );
+        }
+
         public function createGetNewReleasesController(ControllerParameterObject $parameterObject): GetController
         {
             return new GetController(

@@ -129,6 +129,30 @@ namespace Jukebox\API\Factories
             );
         }
 
+        public function createCreatePlaylistCommandHandler(): \Jukebox\API\Handlers\Post\Users\Playlists\Create\CommandHandler
+        {
+            return new \Jukebox\API\Handlers\Post\Users\Playlists\Create\CommandHandler(
+                $this->getMasterFactory()->createInsertPlaylistCommand(),
+                $this->session->getSessionData()
+            );
+        }
+
+        public function createGetUserPlaylistsQueryHandler(): \Jukebox\API\Handlers\Get\Users\Playlists\QueryHandler
+        {
+            return new \Jukebox\API\Handlers\Get\Users\Playlists\QueryHandler(
+                $this->getMasterFactory()->createFetchUserPlaylistsQuery(),
+                $this->getMasterFactory()->createFetchPublicUserQuery()
+            );
+        }
+
+        public function createGetUserPlaylistQueryHandler(): \Jukebox\API\Handlers\Get\Users\Playlist\QueryHandler
+        {
+            return new \Jukebox\API\Handlers\Get\Users\Playlist\QueryHandler(
+                $this->getMasterFactory()->createFetchUserPlaylistQuery(),
+                $this->getMasterFactory()->createFetchPublicUserQuery()
+            );
+        }
+
         public function createGetNewReleasesQueryHandler(): \Jukebox\API\Handlers\Browse\NewReleases\QueryHandler
         {
             return new \Jukebox\API\Handlers\Browse\NewReleases\QueryHandler(
