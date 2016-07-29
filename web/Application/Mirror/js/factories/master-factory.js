@@ -6,6 +6,11 @@
  * @typedef {{ isDevelopmentMode: boolean }} Configuration
  */
 
+/**
+ * @typedef {Function} ChildFactory
+ * @property {Array<String>} factoryMethods
+ */
+
 export class MasterFactory {
   /**
    *
@@ -18,17 +23,15 @@ export class MasterFactory {
 
   /**
    *
-   * @param {Function} Factory
+   * @param {ChildFactory} Factory
    */
   registerFactory (Factory) {
     const factory = new Factory(this)
 
-    //noinspection JSUnresolvedVariable
     Factory.factoryMethods
       .forEach((method) => {
-        //noinspection JSUnresolvedVariable
-        Object.defineProperty(this, method, {
-          value: Factory.prototype[ method ].bind(factory)
+        Reflect.defineProperty(this, method, {
+          value: factory[ method ].bind(factory)
         })
       })
   }
