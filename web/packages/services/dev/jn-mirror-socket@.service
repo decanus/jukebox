@@ -1,0 +1,13 @@
+[Unit]
+Description=Mirror Websocket
+After=redis.service
+Requires=redis.service
+StopWhenUnneeded=1
+
+[Service]
+Restart=always
+TimeoutStartSec=0
+ExecStart=/usr/bin/node /var/www/Sockets/index.js --instance=%I
+
+[Install]
+WantedBy=jn-mirror-socket.target

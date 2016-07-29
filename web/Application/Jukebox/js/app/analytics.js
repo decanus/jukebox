@@ -52,7 +52,7 @@ export class Analytics {
 
   /**
    *
-   * @param {Route} route
+   * @param {Uri} route
    */
   trackPageView (route) {
     if (this._config.isDevelopmentMode) {

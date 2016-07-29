@@ -11,7 +11,7 @@ export const Events = {
   /**
    *
    * @param {EventTarget} target
-   * @param {Route} redirectRoute
+   * @param {Uri} redirectRoute
    */
   dispatchViewExit (target, redirectRoute) {
     const detail = { redirectRoute }

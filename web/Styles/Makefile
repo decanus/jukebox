@@ -6,7 +6,7 @@ COMMON_LESS_FILES = $(shell find less/common -name "*.less")
 .PHONY: all deps clean
 .SECONDEXPANSION:
 
-all: build/css/jukebox.css build/svg/icons.svg
+all: build/css/jukebox.css build/css/mirror.css build/svg/icons.svg
 
 clean:
 	rm -rf build

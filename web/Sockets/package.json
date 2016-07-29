@@ -1,0 +1,19 @@
+{
+  "name": "jn-sockets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "sh bin/start.sh",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ruben Schmidmeister",
+  "license": "ISC",
+  "dependencies": {
+    "redis": "^2.6.2",
+    "ws": "^1.1.1"
+  },
+  "devDependencies": {
+    "standard": "^7.1.2"
+  }
+}

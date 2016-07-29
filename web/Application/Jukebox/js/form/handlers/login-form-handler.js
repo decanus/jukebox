@@ -5,7 +5,7 @@
 import { app } from '../../app'
 import { User } from '../../value/user'
 import { Events } from '../../dom/events'
-import { Route } from '../../library/value/route'
+import { Uri } from '../../library/value/uri'
 
 export class LoginFormHandler {
   /**
@@ -28,6 +28,6 @@ export class LoginFormHandler {
   handle ({ user }) {
     app.user = new User(user.username, user.email)
 
-    Events.dispatchViewExit(this._form, new Route('/'))
+    Events.dispatchViewExit(this._form, new Uri('/'))
   }
 }
