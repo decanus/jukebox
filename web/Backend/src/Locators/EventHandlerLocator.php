@@ -54,6 +54,10 @@ namespace Jukebox\Backend\Locators
                     return $this->factory->createElasticsearchIndexDeleteEventHandler($event);
                 case 'OldDataVersionDelete':
                     return $this->factory->createOldDataVersionDeleteEventHandler($event);
+                case 'SoundcloudTracksImport':
+                    return $this->factory->createSoundcloudTracksImportEventHandler($event);
+                case 'SoundcloudArtistImport':
+                    return $this->factory->createSoundcloudArtistImportEventHandler($event);
                 case 'ArtistsDataPoolPush':
                     return $this->factory->createArtistsDataPoolPushEventHandler($event);
                 case 'InitialTrackDataPoolPush':

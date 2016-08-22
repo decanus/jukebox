@@ -6,7 +6,7 @@ namespace Jukebox\Backend\Commands
     {
         public function execute(string $name)
         {
-            $this->getDatabaseBackend()->insert('INSERT INTO genres (name) VALUES (:name)', [
+            $this->getDatabaseBackend()->execute('INSERT INTO genres (name) VALUES (:name)', [
                 'name' => $name
             ]);
         }

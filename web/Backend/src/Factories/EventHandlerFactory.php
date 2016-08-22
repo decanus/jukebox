@@ -136,6 +136,24 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createRedisBackend()
             );
         }
+        
+        public function createSoundcloudTracksImportEventHandler(\Jukebox\Backend\Events\SoundcloudTracksImportEvent $event): \Jukebox\Backend\EventHandlers\Import\SoundcloudTracksImportEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\Import\SoundcloudTracksImportEventHandler(
+                $event,
+                $this->getMasterFactory()->createSoundcloudService(),
+                $this->getMasterFactory()->createJukeboxRestManager()
+            );
+        }
+
+        public function createSoundcloudArtistImportEventHandler(\Jukebox\Backend\Events\SoundcloudArtistImportEvent $event): \Jukebox\Backend\EventHandlers\Import\SoundcloudArtistImportEventHandler
+        {
+            return new \Jukebox\Backend\EventHandlers\Import\SoundcloudArtistImportEventHandler(
+                $event,
+                $this->getMasterFactory()->createSoundcloudService(),
+                $this->getMasterFactory()->createInsertArtistCommand()
+            );
+        }
 
         public function createInitialTrackDataPoolPushEventHandler(\Jukebox\Backend\Events\InitialTrackDataPoolPushEvent $event): \Jukebox\Backend\EventHandlers\Push\InitialTrackDataPoolPushEventHandler
         {

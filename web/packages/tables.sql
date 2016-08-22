@@ -10,15 +10,18 @@ CREATE TABLE IF NOT EXISTS tracks (
   is_music_video BOOL NOT NULL DEFAULT FALSE,
   is_explicit BOOL NOT NULL DEFAULT FALSE,
   permalink VARCHAR(255) NOT NULL,
-  release_date DATE NOT NULL
+  release_date DATE NOT NULL,
+  UNIQUE (permalink)
 );
 
 CREATE TABLE IF NOT EXISTS artists (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   vevo_id VARCHAR(255) NULL DEFAULT NULL,
+  soundcloud_id VARCHAR(255) NULL DEFAULT NULL,
   permalink VARCHAR(255) NOT NULL,
-  image VARCHAR(255) NULL DEFAULT NULL
+  image VARCHAR(255) NULL DEFAULT NULL,
+  UNIQUE (permalink)
 );
 
 CREATE TABLE IF NOT EXISTS track_artists (

@@ -3,9 +3,7 @@
 namespace Jukebox\Backend\EventHandlers\Import
 {
 
-    use Imagick;
     use Jukebox\Backend\Commands\InsertArtistCommand;
-    use Jukebox\Backend\EventHandlers\EventHandlerInterface;
     use Jukebox\Backend\Events\VevoArtistImportEvent;
     use Jukebox\Backend\Queries\FetchArtistByVevoIdQuery;
     use Jukebox\Backend\Services\Vevo;
@@ -18,7 +16,7 @@ namespace Jukebox\Backend\EventHandlers\Import
     use Jukebox\Framework\ValueObjects\WebProfiles\OfficialWebsite;
     use Jukebox\Framework\ValueObjects\WebProfiles\Twitter;
 
-    class VevoArtistImportEventHandler implements EventHandlerInterface, LoggerAware
+    class VevoArtistImportEventHandler extends AbstractArtistImportEventHandler implements LoggerAware
     {
         /**
          * @trait
@@ -79,6 +77,7 @@ namespace Jukebox\Backend\EventHandlers\Import
                 }
 
                 $artist = $response->getDecodedJsonResponse();
+
                 $webProfiles = $this->handleWebProfiles($artist['links'], $artist['buyLinks']);
 
                 try {
@@ -166,35 +165,5 @@ namespace Jukebox\Backend\EventHandlers\Import
             return $profiles;
         }
 
-        private function downloadImage(string $uri): string
-        {
-            $handle = fopen($uri, 'rb');
-            $image = new Imagick;
-            $image->readImageFile($handle);
-
-            $width = $image->getImageWidth();
-            $height = $image->getImageHeight();
-
-            $maxSize = 200;
-
-            if ($height > $width) {
-                $scalingFactor = $maxSize / $width;
-                $newWidth = $maxSize;
-                $newHeight = $height * $scalingFactor;
-            } else {
-                $scalingFactor = $maxSize / $height;
-                $newHeight = $maxSize;
-                $newWidth = $width * $scalingFactor;
-            }
-
-            $splitUri = explode('/', $uri);
-            $sliced  = array_slice($splitUri, -1);
-            $filename = array_pop($sliced);
-            $image->resizeImage($newWidth, $newHeight, Imagick::FILTER_LANCZOS, 1);
-            $image->writeImage('/var/www/CDN/artists/' . $filename);
-            $image->clear();
-
-            return $filename;
-        }
     }
 }

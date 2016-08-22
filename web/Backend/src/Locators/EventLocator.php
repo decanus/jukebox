@@ -25,7 +25,7 @@ namespace Jukebox\Backend\Locators
                     return new \Jukebox\Backend\Events\VevoArtistVideosImportEvent($request->getParam('artist'));
                 case 'InitialVevoArtistsVideosImport':
                     return new \Jukebox\Backend\Events\InitialVevoArtistsVideosImportEvent;
-                case 'ElasticsearchIndexPushEvent':
+                case 'ElasticsearchIndexPush':
                     return new \Jukebox\Backend\Events\ElasticsearchIndexPushEvent($request->getDataVersion());
                 case 'ArtistsToElasticsearchPush':
                     return new \Jukebox\Backend\Events\ArtistsToElasticsearchPushEvent($request->getDataVersion());
@@ -41,6 +41,10 @@ namespace Jukebox\Backend\Locators
                     return new \Jukebox\Backend\Events\ArtistPathsPushEvent($request->getDataVersion());
                 case 'OldDataVersionDelete':
                     return new \Jukebox\Backend\Events\OldDataVersionDeleteEvent($request->getDataVersion());
+                case 'SoundcloudTracksImport':
+                    return new \Jukebox\Backend\Events\SoundcloudTracksImportEvent($request->getParam('soundcloudId'));
+                case 'SoundcloudArtistImport':
+                    return new \Jukebox\Backend\Events\SoundcloudArtistImportEvent($request->getParam('soundcloudId'));
                 case 'ArtistsDataPoolPush':
                     return new \Jukebox\Backend\Events\ArtistsDataPoolPushEvent($request->getDataVersion());
                 case 'InitialTrackDataPoolPush':

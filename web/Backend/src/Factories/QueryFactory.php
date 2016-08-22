@@ -84,6 +84,13 @@ namespace Jukebox\Backend\Factories
             );
         }
 
+        public function createFetchArtistByIdQuery(): \Jukebox\Backend\Queries\FetchArtistByIdQuery
+        {
+            return new \Jukebox\Backend\Queries\FetchArtistByIdQuery(
+                $this->getMasterFactory()->createPostgreDatabaseBackend()
+            );
+        }
+        
         public function createFetchTrackIdsQuery(): \Jukebox\Backend\Queries\FetchTrackIdsQuery
         {
             return new \Jukebox\Backend\Queries\FetchTrackIdsQuery(

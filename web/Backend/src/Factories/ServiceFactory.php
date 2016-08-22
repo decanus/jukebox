@@ -17,5 +17,14 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createRedisBackend()
             );
         }
+        public function createSoundcloudService()
+        {
+            return new \Jukebox\Backend\Services\Soundcloud(
+                new Uri($this->getMasterFactory()->getConfiguration()->get('soundcloudApiUri')),
+                $this->getMasterFactory()->createCurl(),
+                $this->getMasterFactory()->createRollingCurl(),
+                $this->getMasterFactory()->getConfiguration()->get('soundcloudClientId')
+            );
+        }
     }
 }

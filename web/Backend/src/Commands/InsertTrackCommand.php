@@ -15,7 +15,6 @@ namespace Jukebox\Backend\Commands
         public function execute(Track $track, array $sources = [], array $genres = [], array $artists = []): bool
         {
             try {
-
                 $database = $this->getDatabaseBackend();
 
                 // @todo: possible fix?
@@ -24,7 +23,7 @@ namespace Jukebox\Backend\Commands
                 }
 
                 $database->beginTransaction();
-                $result = $database->insert(
+                $result = $database->execute(
                     'INSERT INTO tracks (duration, title, vevo_id, isrc, is_live, is_lyric, is_audio, is_music_video, is_explicit, permalink, release_date) VALUES (:duration, :title, :vevo_id, :isrc, :is_live, :is_lyric, :is_audio, :is_music_video, :is_explicit, :permalink, :release_date)',
                     [
                         ':duration' => $track->getDuration(),
@@ -49,7 +48,7 @@ namespace Jukebox\Backend\Commands
 
                 foreach ($sources as $source) {
                     try {
-                        $database->insert(
+                        $database->execute(
                             'INSERT INTO track_sources (track, duration, source, source_data) VALUES(:track, :duration, :source, :source_data)',
                             [':track' => $trackId, ':duration' => $source['duration'], ':source' => (string) $source['source'], ':source_data' => $source['sourceData']]
                         );
@@ -65,7 +64,7 @@ namespace Jukebox\Backend\Commands
                         continue;
                     }
 
-                    $database->insert(
+                    $database->execute(
                         'INSERT INTO track_genres (track, genre) VALUES(:track, :id)',
                         [':track' => $trackId, ':id' => $genre['id']]
                     );
@@ -77,7 +76,7 @@ namespace Jukebox\Backend\Commands
                         continue;
                     }
 
-                    $database->insert(
+                    $database->execute(
                         'INSERT INTO track_artists (artist, track, role) VALUES (:artist, :track, :role)',
                         [':artist' => $artistId['id'], ':track' => $trackId, ':role' => (string) $artist['role']]
                     );

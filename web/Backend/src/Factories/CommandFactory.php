@@ -20,28 +20,14 @@ namespace Jukebox\Backend\Factories
                 $this->getMasterFactory()->createPostgreDatabaseBackend()
             );
         }
+
+        public function createUpdateArtistSoundcloudIdCommand(): \Jukebox\Backend\Commands\UpdateArtistSoundcloudIdCommand
+        {
+            return new \Jukebox\Backend\Commands\UpdateArtistSoundcloudIdCommand(
+                $this->getMasterFactory()->createPostgreDatabaseBackend()
+            );
+        }
         
-        public function createInsertTrackArtistCommand()
-        {
-            return new \Jukebox\Backend\Commands\InsertTrackArtistCommand(
-                $this->getMasterFactory()->createPostgreDatabaseBackend()
-            );
-        }
-
-        public function createInsertTrackGenreCommand()
-        {
-            return new \Jukebox\Backend\Commands\InsertTrackGenreCommand(
-                $this->getMasterFactory()->createPostgreDatabaseBackend()
-            );
-        }
-
-        public function createInsertTrackSourceCommand()
-        {
-            return new \Jukebox\Backend\Commands\InsertTrackSourceCommand(
-                $this->getMasterFactory()->createPostgreDatabaseBackend()
-            );
-        }
-
         public function createInsertTrackCommand(): \Jukebox\Backend\Commands\InsertTrackCommand
         {
             return new \Jukebox\Backend\Commands\InsertTrackCommand(
